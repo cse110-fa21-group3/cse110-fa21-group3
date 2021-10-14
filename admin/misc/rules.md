@@ -13,7 +13,7 @@ Team Name:
 | Nathan | n3lee@ucsd.edu | 408-709-6435 |
 | Parsia | phedayat@ucsd.edu | 630-460-1617 |
 | Presley | prcheng@gmail.com | 510-610-5248 |
-| Sik | sysun@ucsd.edu | 626-438-3302 |
+| Sik Yin| sysun@ucsd.edu | 626-438-3302 |
 | Xiande | 
 | Yanjun | yahuang@ucsd.edu | 858-405-2660 |
 | Zhenyi | z2chen@ucsd.edu | 650-209-2750 |
