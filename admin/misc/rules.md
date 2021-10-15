@@ -14,7 +14,7 @@ Team Name:
 | Parsia | phedayat@ucsd.edu | 630-460-1617 |
 | Presley | prcheng@gmail.com | 510-610-5248 |
 | Sik Yin| sysun@ucsd.edu | 626-438-3302 |
-| Xiande | 
+| Xiande | x2zeng@ucsd.edu | 619-657-5819 |
 | Yanjun | yahuang@ucsd.edu | 858-405-2660 |
 | Zhenyi | z2chen@ucsd.edu | 650-209-2750 |
 Team member info:
