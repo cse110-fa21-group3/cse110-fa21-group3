@@ -27,7 +27,7 @@
    * Enjoy sports like badminton, basketball, cycling...
    * Loves going to the beach and hiking
    * Casual Gamer
-   * Github: https://github.com/presley-cheng
+   * [Personal Github](https://github.com/presley-cheng)
  * Sik Sun
  * Xiande Zeng
  * Yanjun Huang
