@@ -30,6 +30,11 @@
    * [Personal Github](https://github.com/presley-cheng)
  * Sik Sun
  * Xiande Zeng
+   * CE Major
+   * From Guangzhou, China
+   * Enjoys snowboarding, tennis, and Netflix
+   * Currently a member of SEDS UCSD
+   * [Personal Github](https://github.com/martintsangxd)
  * Yanjun Huang
  * Zhenyi Chen
  * Parsia Hedayat
