@@ -10,6 +10,11 @@
 
 ## Roster
  * Anthony Villalba
+   * Computer Engineering 
+   * From San Diego
+   * Loves working on cars, playing video games, and playing all sports
+   * Can leg press twice their body weight 
+   * [Personal Github](https://github.com/ToniV12)
  * Nathan Lee
    * Math-CS major
    * From San Jose, CA
