@@ -28,7 +28,11 @@
    * Loves going to the beach and hiking
    * Casual Gamer
    * [Personal Github](https://github.com/presley-cheng)
- * Sik Sun
+ * Sik Yin Sun
+   * CS Major
+   * From Hong Kong
+   * Loves to play video games, watch movies and play badminton
+   * [Personal Github](https://github.com/SikYinSun)
  * Xiande Zeng
    * CE Major
    * From Guangzhou, China
