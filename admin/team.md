@@ -48,7 +48,7 @@
    * Bioinformatics Major
    * From Beijing, China
    * Loves cooking and running
-   * [Personal Github] (https://github.com/Simon-Huang1)
+   * [Personal Github](https://github.com/Simon-Huang1)
  * Zhenyi Chen
  * Parsia Hedayat
  * Jared Levy
