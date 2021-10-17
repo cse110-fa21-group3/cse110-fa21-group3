@@ -50,6 +50,11 @@
    * Loves cooking and running
    * [Personal Github](https://github.com/Simon-Huang1)
  * Zhenyi Chen
+   * Math-CS Major double major in Cognitive Science in Neural Computation and Machine Learning
+   * From Shenzhen, China
+   * Loves watching movies, sports, photography and cats
+   * Interested in the interaction of computers and brains
+   * [Personal Github](https://github.com/JennyNo007)
  * Parsia Hedayat
  * Jared Levy
    * CS major
