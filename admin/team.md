@@ -22,6 +22,12 @@
    * Is quadrilingual and hopes to becomes fluent in more languages too!
    * [Personal Github](https://github.com/ayushiatsharma)
  * Presley Cheng
+   * CS Major
+   * From the bay area
+   * Enjoy sports like badminton, basketball, cycling...
+   * Loves going to the beach and hiking
+   * Casual Gamer
+   * Github: https://github.com/presley-cheng
  * Sik Sun
  * Xiande Zeng
  * Yanjun Huang
