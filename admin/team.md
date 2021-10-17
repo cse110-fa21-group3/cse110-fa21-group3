@@ -44,4 +44,8 @@
    * Met Adam Sandler in Hawaii
    * Enjoy lobster divinf
  * Lailah Gonzalez
+   * CS major
+   * From Chula Vista
+   * I've been indoor skydiving
+   * [Personal Github](https://github.com/l4gonzal)
  * Yunxiao Xu
