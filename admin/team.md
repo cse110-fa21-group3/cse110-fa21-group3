@@ -11,6 +11,11 @@
 ## Roster
  * Anthony Villalba
  * Nathan Lee
+   * Math-CS major
+   * From San Jose, CA
+   * Loves to play video games like Valorant and Apex Legends
+   * Rick Rolled the professor with Lab 1
+   * [Personal Github](https://github.com/NathanielLee896)
  * Ayushi Sharma
  * Presley Cheng
  * Sik Sun
