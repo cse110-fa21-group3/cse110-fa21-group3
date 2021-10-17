@@ -17,6 +17,10 @@
    * Rick Rolled the professor with Lab 1
    * [Personal Github](https://github.com/NathanielLee896)
  * Ayushi Sharma
+   * CS major
+   * From Orange County, CA
+   * Is quadrilingual and hopes to becomes fluent in more languages too!
+   * [Personal Github](https://github.com/ayushiatsharma)
  * Presley Cheng
  * Sik Sun
  * Xiande Zeng
