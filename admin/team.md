@@ -24,5 +24,9 @@
  * Zhenyi Chen
  * Parsia Hedayat
  * Jared Levy
+   * CS major
+   * From Los Gatos
+   * Met Adam Sandler in Hawaii
+   * Enjoy lobster divinf
  * Lailah Gonzalez
  * Yunxiao Xu
