@@ -88,4 +88,11 @@
 # Cool Ideas:
 - Spotify: favoriting, discover now, discover today etc
 - food tinder: give recipes that people can swipe right or left
-- 
+
+# APIs
+- will most likely be the best friend
+- any APIs we use are at our own risk
+- same with dependencies
+- TAs do not help with API issues
+- no debuggin issues with API (TAs will help with general issues and possibly databases) 
+- APIs : Spoonacular, TheMealDB, FoodDataCentral, CalorieNinjas
