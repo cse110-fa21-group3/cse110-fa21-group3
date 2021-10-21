@@ -4,6 +4,7 @@
 - Sik
 - Yanjun
 - Lailah
+- Ayushi
 
 ## Agenda
 - Review the TA Meeting notes
