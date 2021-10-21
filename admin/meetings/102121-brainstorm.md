@@ -9,6 +9,7 @@
 - Nathan
 - Anthony
 - Presley
+- Martin
 
 ## Agenda
 - Review the TA Meeting notes
