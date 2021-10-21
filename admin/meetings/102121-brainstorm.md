@@ -5,6 +5,10 @@
 - Yanjun
 - Lailah
 - Ayushi
+- Jared
+- Nathan
+- Anthony
+- Presley
 
 ## Agenda
 - Review the TA Meeting notes
