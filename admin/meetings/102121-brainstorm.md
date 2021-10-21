@@ -1,11 +1,11 @@
-#Brainstorm Meeting Notes
+# Brainstorm Meeting Notes
 
-##Attendance:
+## Attendance:
 - Sik
 - Yanjun
 - Lailah
 
-##Agenda
+## Agenda
 - Review the TA Meeting notes
 - Define our target user
   - Create user personas
