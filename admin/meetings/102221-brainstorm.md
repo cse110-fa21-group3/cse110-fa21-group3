@@ -11,6 +11,4 @@
 
 ## Agenda
 - Review the materials sent out by TA
-- Design team 
-- Finish up with the work on the miro board 
-- 
+- Came up with several user stories together
