@@ -8,6 +8,7 @@
 - Xiande (Martin) 
 - Parsia 
 - Jared 
+- Anthony
 
 ## Agenda
 - Review the materials sent out by TA
