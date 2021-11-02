@@ -8,6 +8,7 @@
 Front-end:
 - Look at wireframes and flush out barebone HTML templates to structure site pages
 - Get at least two structures done by the end of this week(prioritize create recipe and recipe page)
+
 Back-end:
 - Get familiar with APIs and data formats
 - Write code that calls and extracts things from the APIs
