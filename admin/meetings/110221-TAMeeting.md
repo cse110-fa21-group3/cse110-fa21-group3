@@ -4,6 +4,8 @@
 - Include a list of no go's (Ex. users cannot share recipes)
 - Confirm with the design team the final structure and style of the wireframe
 - Assign features/roles to each team
+- Understand lab6 and lab7 as they will be important to the project
+- Communication is key
 
 Front-end:
 - Look at wireframes and flush out barebone HTML templates to structure site pages
@@ -13,7 +15,3 @@ Back-end:
 - Get familiar with APIs and data formats
 - Write code that calls and extracts things from the APIs
 - Get familiar with the JSON formats we will work with
-
-
-- Understand lab6 and lab7 as they will be important to the project
-- Communication is key
