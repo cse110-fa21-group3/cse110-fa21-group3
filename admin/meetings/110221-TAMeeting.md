@@ -14,5 +14,6 @@ Back-end:
 - Write code that calls and extracts things from the APIs
 - Get familiar with the JSON formats we will work with
 
+
 - Understand lab6 and lab7 as they will be important to the project
 - Communication is key
