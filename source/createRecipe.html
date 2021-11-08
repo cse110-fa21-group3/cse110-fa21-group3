@@ -22,13 +22,88 @@
                 accept="image/png, image/jpeg" />
             <label for="recipeName">Name:</label>
             <input type="text" id="recipeName" name="recipeName" />
-            <label for="recipeTime">Time:</label>
-            <input type="number" id="recipeTime" name="recipeTime" />
-            <label for="recipeServe">Serves:</label>
-            <input type="number" id="recipeServe" name="recipeServe" />
+            <div id="timeContainer">
+                <label for="recipeTime">Time:</label>
+                <input type="number" id="recipeTime" name="recipeTime" />
+                <p>mins</p>
+            </div>
+            <div id="serveContainer">
+                <label for="recipeServe">Serves:</label>
+                <input type="number" id="recipeServe" name="recipeServe" />
+                <p>people</p>
+            </div>
             <label for="recipeDesc">Description:</label>
             <textarea name="recipeDesc" id="recipeDesc" cols="30"
                 rows="10"></textarea>
+            <fieldset id="recipeTags">
+                <!-- current id are temporary -->
+                <label for="tag1">Healthy</label>
+                <input type="radio" name="tag1" id="tag1">
+                <label for="tag2">Japanese</label>
+                <input type="radio" name="tag2" id="tag2">
+                <label for="tag3">Asian</label>
+                <input type="radio" name="tag3" id="tag3">
+                <label for="tag4">Desserts</label>
+                <input type="radio" name="tag4" id="tag4">
+                <label for="tag5">Burgers</label>
+                <input type="radio" name="tag5" id="tag5">
+                <label for="tag6">Seafood</label>
+                <input type="radio" name="tag6" id="tag6">
+                <label for="tag7">Fast Food</label>
+                <input type="radio" name="tag7" id="tag7">
+                <label for="tag8">Chicken</label>
+                <input type="radio" name="tag8" id="tag8">
+            </fieldset>
+            <fieldset id="recipeIngredients">
+                <!-- current id are temporary -->
+                <fieldset class="ingredientContainer">
+                    <label>Quantity:
+                        <input type="text" class="ingQuantity" />
+                    </label>
+                    <label>Ingredient 1:
+                        <input type="text" class="ingName" />
+                    </label>
+                    <button type="button" class="removeBtn">[Cross]</button>
+                </fieldset>
+                <fieldset class="ingredientContainer">
+                    <label>Quantity:
+                        <input type="text" class="ingQuantity" />
+                    </label>
+                    <label>Ingredient 2:
+                        <input type="text" class="ingName" />
+                    </label>
+                    <button type="button" class="removeBtn">[Cross]</button>
+                </fieldset>
+                <fieldset class="ingredientContainer">
+                    <label>Quantity:
+                        <input type="text" class="ingQuantity" />
+                    </label>
+                    <label>Ingredient 3:
+                        <input type="text" class="ingName" />
+                    </label>
+                    <button type="button" class="removeBtn">[Cross]</button>
+                </fieldset>
+                <button type="button" id="addBtn">[Plus]</button>
+            </fieldset>
+            <fieldset id="recipeSteps">
+                <fieldset class="stepsContainer">
+                    <label>Step 1:
+                        <input type="text" />
+                        <button type="button" class="removeBtn">[Cross]</button>
+                    </label>
+                    <label>Step 1:
+                        <input type="text" />
+                        <button type="button" class="removeBtn">[Cross]</button>
+                    </label>
+                    <label>Step 1:
+                        <input type="text" />
+                        <button type="button" class="removeBtn">[Cross]</button>
+                    </label>
+                    <button type="addBtn">[plus]</button>
+                </fieldset>
+            </fieldset>
+            <button type="button" id="createBtn">Create</button>
+            <button type="button" id="cancelBtn">Cancel</button>
         </form>
     </main>
     <footer></footer>
