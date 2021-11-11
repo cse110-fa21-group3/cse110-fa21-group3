@@ -20,6 +20,7 @@
             <label for="recipeImg">Upload file:</label>
             <input type="file" id="recipeImg" name="recipeImg"
                 accept="image/png, image/jpeg" />
+            <img id="imgContainer" src="#" alt="Attached Recipe Image">
             <label for="recipeName">Name:</label>
             <input type="text" id="recipeName" name="recipeName" />
             <div id="timeContainer">
@@ -108,6 +109,22 @@
     </main>
     <footer></footer>
     <script>
+        window.addEventListener('DOMContentLoaded', init);
+
+        function init() {
+            document.getElementById('recipeImg').addEventListener('change', previewImg);
+        }
+
+        function previewImg(e) {
+            let imgInput = document.getElementById('recipeImg');
+            let fileReader = new FileReader();
+
+            fileReader.addEventListener('load', (e) => {
+                document.getElementById('imgContainer').src = e.target.result;
+            });
+
+            fileReader.readAsDataURL(imgInput.files[0]);
+        }
     </script>
 </body>
 
