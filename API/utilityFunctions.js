@@ -14,7 +14,7 @@ const options = {
 
 async function searchRecipes(query, intolerances, maxTime) {
   // First we get the Url for the spoonacular api to access the api recipes
- let requiredUrl = API_ENDPOINT +  "/recipes/complexSearch?apiKey=" + API_KEY +
+ let reqUrl = API_ENDPOINT +  "/recipes/complexSearch?apiKey=" + API_KEY +
         "&query=" + query + "&instructionsRequired=true&number=5&addRecipeNutrition=true";
   // we then get and store the intolerances available in the spoonacular api into a string
   var intolerancesStr = "";
@@ -24,6 +24,8 @@ async function searchRecipes(query, intolerances, maxTime) {
         console.log(intolerancesStr);
         reqUrl += "&intolerances="+intolerancesStr;
    }
+    
+   reqUrl += "&maxReadyTime=" + maxTime;
   
   
 
