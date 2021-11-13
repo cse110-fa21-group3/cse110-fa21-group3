@@ -138,7 +138,7 @@ async function getRecipeCard(id) {
 /**
  * This function query the API and get a fixed amount of recipes  
  * with offset in the query.
- * @param {umber} maxTime - The maximum of the recipes' prep time.
+ * @param {number} maxTime - The maximum of the recipes' prep time.
  * @param {number} recipeNumber - The number of recipes to get.
  * @param {number} offset - The number of results to skip.
  * @returns {Promise} 
@@ -210,7 +210,7 @@ async function getRecipes(maxTime, recipe_count, offset){
 /**
  * This function query the API multiple times using getRecipes(maxTime, recipe_count, offset)
  * to get a recipe dump
- * @param {number} totalRecipeNumber - The total number of recipes to get from API.
+ * @param {number} recipe_total - The total number of recipes to get from API.
  * 
  */ 
 async function getRecipesByAmount(recipe_total) {
