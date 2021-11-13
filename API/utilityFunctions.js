@@ -1,5 +1,5 @@
 // API Key and endpoint
-const API_KEY = "dd940d71e5a44cb0bdb5233f74199807";
+const API_KEY = "2476d65f388749eb9561ad4b9ad777ca";
 const API_ENDPOINT = "https://api.spoonacular.com";
 let Json_data = new Object;
 
@@ -135,15 +135,18 @@ async function getRecipeCard(id) {
    });
 }
 
-async function getRecipes(maxTime, offset){
-   let reqUrl = API_ENDPOINT+
-        "/recipes/complexSearch?apiKey=" +
-        API_KEY +
-        "&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true" + 
-        "&instructionsRequired=true&number=100&offset=" + offset;
+/**
+ * This function query the API and get a fixed amount of recipes  
+ * with offset in the query.
+ * @param {umber} maxTime - The maximum of the recipes' prep time.
+ * @param {number} recipeNumber - The number of recipes to get.
+ * @param {number} offset - The number of results to skip.
+ * @returns {Promise} 
+ */ 
+async function getRecipes(maxTime, recipe_count, offset){
+   let reqUrl = `${API_ENDPOINT}/recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true&number=${recipe_count}&offset=${offset}&readyReadyTime=${maxTime}`;
 
    console.log(reqUrl);
-   reqUrl += "&readyReadyTime=" + maxTime;
 
    return new Promise((resolve, reject) => {
         fetch(reqUrl, options)
@@ -151,50 +154,47 @@ async function getRecipes(maxTime, offset){
             .then(res => {
                 //console.log(res["results"]);
                 res["results"].forEach(r => {
-                    
-                    let foodId = r["id"];
-                    //console.log(foodId);
-                    let mealPrep = r["readyInMinutes"];
-                    //console.log(mealPrep);
-                    let foodTitle = r["title"];
-                    //console.log(foodTitle);
+                
+                    let id = r["id"];
+                    let readyInMinutes = r["readyInMinutes"];
+                    let title = r["title"];
                     let foodImage = r["image"];
-                    //console.log(foodImage);
-                    
+
+                    // populating ingredient list
                     let ingredients = [];
                     r["missedIngredients"].forEach(ingre => {
                         ingredients.push(ingre.original);
                     })
-                    //console.log(ingredients);
-                    let steps = [];
-                    r["analyzedInstructions"][0].steps.forEach(recipeStep => {
-                        steps.push(recipeStep);
-                    })
 
-                    let nutritionInfo = [];
+                    // populating nutrition list
+                    let nutrition = [];
                     for (let nutr_index = 0; nutr_index < 9; nutr_index++) {
                         let nutr_title = r["nutrition"]["nutrients"][nutr_index].title;
                         let nutr_amount = r["nutrition"]["nutrients"][nutr_index].amount;
                         let nutr_unit = r["nutrition"]["nutrients"][nutr_index].unit;
-                        nutritionInfo.push(nutr_title + ": " + nutr_amount + " " + nutr_unit);
+                        nutrition.push(nutr_title + ": " + nutr_amount + " " + nutr_unit);
                     }
-                    //console.log(nutritionInfo);
 
+                    // TODO: Optimize the steps array, now it has ingredients inside,
+                    //       which we don't need 
+                    let steps = [];
+                    r["analyzedInstructions"][0].steps.forEach(recipeStep => {
+                        steps.push(recipeStep);
+                    })
+                    //console.log(steps);
+
+                    // Create a JSON Object to store the data 
+                    // in the format we specified
                     let recipeObject = {
                         "id" : foodId,
                         "ingredients" : ingredients,
                         "steps" : steps,
-                        "title" : foodTitle,
-                        "readyInMinutes" : mealPrep,
+                        "title" : title,
+                        "readyInMinutes" : readyInMinutes,
                         "image" : foodImage,
-                        "nutritionInfo" : nutritionInfo
+                        "nutrition" : nutrition
                     }
 
-                    //console.log(steps);
-                    let recipeTag = document.createElement("pre");
-                    recipeTag.innerHTML = JSON.stringify(r, null, 2);
-                    document.getElementById("disp").appendChild(recipeTag);
-                    document.getElementById("disp").appendChild(document.createElement("hr"));
                     localStorage.setItem(r.id, JSON.stringify(recipeObject));
                     console.log(JSON.parse(localStorage.getItem(r.id)));
                 });
@@ -207,10 +207,27 @@ async function getRecipes(maxTime, offset){
    });
 }
 
+/**
+ * This function query the API multiple times using getRecipes(maxTime, recipe_count, offset)
+ * to get a recipe dump
+ * @param {number} totalRecipeNumber - The total number of recipes to get from API.
+ * 
+ */ 
+async function getRecipesByAmount(recipe_total) {
+    let offset = 0;
+    let repeat_times = Math.round(recipe_total / 100);
+    let remain_number = recipe_total % 100;
 
-async function getAllRecipes() {
-    var offset = 100;
-    for(var i = 0; i < 5; i++) {
-        getRecipes(60, i * offset);
+    // repeat getting 100 recipes at a time
+    // Because that's tha max amount the API returns per call
+    for(let i = 0; i < repeat_times; i++) {
+        //getRecipes(60, offset, recipeNumber);
+        offset += 100
+    }
+
+    // getting the remaining amount (< 100 recips)
+    if (remain_number > 0) { 
+        //getRecipes(60, offset, recipeNumber);
+        offset += remain_number;
     }
 }
