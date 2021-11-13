@@ -1,5 +1,5 @@
 // API Key and endpoint
-const API_KEY = "d521803115da40baae0a51bf87c54e9a";
+const API_KEY = "dd940d71e5a44cb0bdb5233f74199807";
 const API_ENDPOINT = "https://api.spoonacular.com";
 let Json_data = new Object;
 
@@ -133,4 +133,84 @@ async function getRecipeCard(id) {
                 reject(false);
             });
    });
+}
+
+async function getRecipes(maxTime, offset){
+   let reqUrl = API_ENDPOINT+
+        "/recipes/complexSearch?apiKey=" +
+        API_KEY +
+        "&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true" + 
+        "&instructionsRequired=true&number=100&offset=" + offset;
+
+   console.log(reqUrl);
+   reqUrl += "&readyReadyTime=" + maxTime;
+
+   return new Promise((resolve, reject) => {
+        fetch(reqUrl, options)
+            .then(res => res.json())
+            .then(res => {
+                //console.log(res["results"]);
+                res["results"].forEach(r => {
+                    
+                    let foodId = r["id"];
+                    //console.log(foodId);
+                    let mealPrep = r["readyInMinutes"];
+                    //console.log(mealPrep);
+                    let foodTitle = r["title"];
+                    //console.log(foodTitle);
+                    let foodImage = r["image"];
+                    //console.log(foodImage);
+                    
+                    let ingredients = [];
+                    r["missedIngredients"].forEach(ingre => {
+                        ingredients.push(ingre.original);
+                    })
+                    //console.log(ingredients);
+                    let steps = [];
+                    r["analyzedInstructions"][0].steps.forEach(recipeStep => {
+                        steps.push(recipeStep);
+                    })
+
+                    let nutritionInfo = [];
+                    for (let nutr_index = 0; nutr_index < 9; nutr_index++) {
+                        let nutr_title = r["nutrition"]["nutrients"][nutr_index].title;
+                        let nutr_amount = r["nutrition"]["nutrients"][nutr_index].amount;
+                        let nutr_unit = r["nutrition"]["nutrients"][nutr_index].unit;
+                        nutritionInfo.push(nutr_title + ": " + nutr_amount + " " + nutr_unit);
+                    }
+                    //console.log(nutritionInfo);
+
+                    let recipeObject = {
+                        "id" : foodId,
+                        "ingredients" : ingredients,
+                        "steps" : steps,
+                        "title" : foodTitle,
+                        "readyInMinutes" : mealPrep,
+                        "image" : foodImage,
+                        "nutritionInfo" : nutritionInfo
+                    }
+
+                    //console.log(steps);
+                    let recipeTag = document.createElement("pre");
+                    recipeTag.innerHTML = JSON.stringify(r, null, 2);
+                    document.getElementById("disp").appendChild(recipeTag);
+                    document.getElementById("disp").appendChild(document.createElement("hr"));
+                    localStorage.setItem(r.id, JSON.stringify(recipeObject));
+                    console.log(JSON.parse(localStorage.getItem(r.id)));
+                });
+                resolve(true);
+            })
+            .catch(error => {
+                console.log(error);
+                reject(false);
+            });
+   });
+}
+
+
+async function getAllRecipes() {
+    var offset = 100;
+    for(var i = 0; i < 5; i++) {
+        getRecipes(60, i * offset);
+    }
 }
