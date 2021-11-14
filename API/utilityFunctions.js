@@ -179,14 +179,14 @@ async function getRecipes(maxTime, recipe_count, offset){
                     //       which we don't need 
                     let steps = [];
                     r["analyzedInstructions"][0].steps.forEach(recipeStep => {
-                        steps.push(recipeStep);
+                        steps.push(recipeStep["step"]);
                     })
                     //console.log(steps);
 
                     // Create a JSON Object to store the data 
                     // in the format we specified
                     let recipeObject = {
-                        "id" : foodId,
+                        "id" : id,
                         "ingredients" : ingredients,
                         "steps" : steps,
                         "title" : title,
@@ -194,6 +194,8 @@ async function getRecipes(maxTime, recipe_count, offset){
                         "image" : foodImage,
                         "nutrition" : nutrition
                     }
+
+                    console.log(JSON.stringify(recipeObject));
 
                     localStorage.setItem(r.id, JSON.stringify(recipeObject));
                     console.log(JSON.parse(localStorage.getItem(r.id)));
@@ -221,13 +223,13 @@ async function getRecipesByAmount(recipe_total) {
     // repeat getting 100 recipes at a time
     // Because that's tha max amount the API returns per call
     for(let i = 0; i < repeat_times; i++) {
-        //getRecipes(60, offset, recipeNumber);
+        getRecipes(60, 100, offset);
         offset += 100
     }
 
     // getting the remaining amount (< 100 recips)
     if (remain_number > 0) { 
-        //getRecipes(60, offset, recipeNumber);
+        getRecipes(60, remain_number, offset);
         offset += remain_number;
     }
 }
