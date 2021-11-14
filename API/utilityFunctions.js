@@ -144,7 +144,7 @@ async function getRecipeCard(id) {
  * @returns {Promise} 
  */ 
 async function getRecipes(maxTime, recipe_count, offset){
-   let reqUrl = `${API_ENDPOINT}/recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true&number=${recipe_count}&offset=${offset}&readyReadyTime=${maxTime}`;
+   let reqUrl = `${API_ENDPOINT}/recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true&number=${recipe_count}&offset=${offset}&readyReadyTime=${maxTime}&sort="meta-score"`;
 
    console.log(reqUrl);
 
@@ -152,7 +152,7 @@ async function getRecipes(maxTime, recipe_count, offset){
         fetch(reqUrl, options)
             .then(res => res.json())
             .then(res => {
-                //console.log(res["results"]);
+                console.log(res["results"]);
                 res["results"].forEach(r => {
                 
                     let id = r["id"];
@@ -194,9 +194,6 @@ async function getRecipes(maxTime, recipe_count, offset){
                         "image" : foodImage,
                         "nutrition" : nutrition
                     }
-
-                    console.log(JSON.stringify(recipeObject));
-
                     localStorage.setItem(r.id, JSON.stringify(recipeObject));
                     console.log(JSON.parse(localStorage.getItem(r.id)));
                 });
