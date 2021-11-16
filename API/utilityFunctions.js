@@ -1,5 +1,5 @@
 // API Key and endpoint
-const API_KEY = "2476d65f388749eb9561ad4b9ad777ca";
+const API_KEY = "d521803115da40baae0a51bf87c54e9a";
 const API_ENDPOINT = "https://api.spoonacular.com";
 let Json_data = new Object;
 
@@ -220,7 +220,7 @@ async function getRecipesByAmount(recipe_total) {
     // repeat getting 100 recipes at a time
     // Because that's tha max amount the API returns per call
     for(let i = 0; i < repeat_times; i++) {
-        getRecipes(60, 100, offset);
+        getRecipes(60, 5, offset);
         offset += 100
     }
 
