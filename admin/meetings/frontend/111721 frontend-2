@@ -13,3 +13,5 @@
 - for elements that backend will access should have unique id's 
 - backend will let us know if they need more id's to access data sections
 - updated the header with the correct logo and add to favorites icon
+- backed out bootstrap and prefer to use vanilla CSS
+- use validator as first test to check html
