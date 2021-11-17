@@ -5,8 +5,6 @@
 * Date: 11/14/21
 
 ## Context and Problem Statement
-
-## Context and Problem Statement
 - Our group was having trouble deciding on the method of storage we would like to use for the recipe book. 
 - We considered two options: local storage or a database such as Google Cloud.
 
