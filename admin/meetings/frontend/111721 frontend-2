@@ -1,0 +1,15 @@
+# Attendance:
+- Anthony
+- lailah
+- jared
+- presley
+- parsiah
+- zhenyi
+- sik sun
+
+## decisions:
+- stick to class names for element sections
+- class names are specific to the section so unique for each section
+- for elements that backend will access should have unique id's 
+- backend will let us know if they need more id's to access data sections
+- updated the header with the correct logo and add to favorites icon
