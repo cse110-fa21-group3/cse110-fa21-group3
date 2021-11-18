@@ -1,6 +1,6 @@
 // API Key and endpoint
-const API_KEY = "d521803115da40baae0a51bf87c54e9a";
-const API_ENDPOINT = "https://api.spoonacular.com";
+const API_KEY = "6c38415312msh8fd80bab0f17271p1dcefajsn83892f0c646f";
+const API_ENDPOINT = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com";
 let Json_data = new Object;
 let allowedIntolerances = 'dairy, egg, gluten, grain, peanut, seafood, sesame, shellfish, soy, sulfite, tree nut, wheat';
 let intolerances = [];
@@ -11,7 +11,8 @@ const options = {
     "method": "GET",
     "mode": "cors",
     "headers": {
-        "Content-Type": "text/plain"       
+        "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+        "x-rapidapi-key": "6c38415312msh8fd80bab0f17271p1dcefajsn83892f0c646f"
     } 
 }
 
@@ -23,10 +24,11 @@ function init() {
 }
 
 async function setUserPreferences() {
-    var inputIntol = window.prompt("Please enter any dietary restrictions such as dairy, gluten, peanuts, etc seperated by commas: ");
+    var inputIntol = window.prompt("Please enter any dietary restrictions such as dairy, gluten, peanut, etc seperated by commas: ");
     inputIntol = inputIntol.toLowerCase();
+    inputIntol = inputIntol.replace(/\s/g, '');
     var intolArray = [];
-    intolArray = inputIntol.split(',');
+    intolArray = inputIntol.split(",");
     for(let stringIntol of intolArray) {
         if(allowedIntolerances.includes(stringIntol)) {
             intolerances.push(stringIntol);
@@ -41,7 +43,7 @@ async function setUserPreferences() {
     else {
         maxTime = inputTime;
     }
-    getRecipesByAmount(5);
+    //getRecipesByAmount(5);
     console.log(maxTime, intolerances);
 }
 
@@ -70,7 +72,7 @@ async function getRecipesIntoLocal(intolerances, maxTime, recipe_count, offset){
         fetch(reqUrl, options)
             .then(res => res.json())
             .then(res => {
-                //console.log(res["results"]);
+                console.log(res["results"]);
                 res["results"].forEach(r => {
                     createRecipeObject(r);
                 });
@@ -98,7 +100,7 @@ async function createRecipeObject(r) {
     let ingredientSearch = "";
     r["missedIngredients"].forEach(ingre => {
         ingredients.push(ingre.original);
-        ingredientSearch += ingre.originalName + " ";
+        ingredientSearch += ingre.name + " ";
     })
 
     // populating nutrition list
