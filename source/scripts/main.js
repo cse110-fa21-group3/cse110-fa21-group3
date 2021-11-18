@@ -1,3 +1,7 @@
+/**
+ * Homepage JS file
+ */
+
 import { Router } from "./router.js";
 
 window.addEventListener("DOMContentLoaded", init);
@@ -11,7 +15,7 @@ const router = new Router(() => {
  * Function that runs when the page loads
  */
 function init(){
-    populateLS();
+    populateLS(); // TESTING ONLY
     createRecipeCards(3);
 }
 
