@@ -130,8 +130,7 @@ async function createRecipeObject(r) {
         "steps" : steps,
         "nutrition" : nutrition
     }
-    localStorage.setItem(r.id, JSON.stringify(recipeObject));
-    console.log(JSON.parse(localStorage.getItem(r.id)));
+    setLocalStorageItem(r.id, recipeObject);
 }
 
 /**
@@ -192,4 +191,14 @@ async function searchRecipesLocally(query) {
    console.log(recipeList);
    // return a populated array of recipes relating to the query
    return recipeList;
+}
+
+/**
+ * This function adds the passed in recipe JSON object into local storage
+ * @param {number} id - id for the local storage item
+ * @param {Object} recipeObject - a JSON recipe object
+ */ 
+async function setLocalStorageItem(id, recipeObject) {
+    localStorage.setItem(id, JSON.stringify(recipeObject));
+    console.log(JSON.parse(localStorage.getItem(id)));
 }
