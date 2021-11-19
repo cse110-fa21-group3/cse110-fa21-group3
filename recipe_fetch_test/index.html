@@ -4,10 +4,40 @@
 </head>
 <body>
     <!-- searchRecipes('pasta', ['dairy', 'gluten']) -->
-    <button style="display:inline" type="button" id="submitBtn" onclick="setUserPreferences()">Input Preferences</button>
-    <button style="display:inline" type="button" id="submitBtn" onclick="searchRecipesLocally('smoothie')">Recipe Search</button>
-    <button style="display:inline" type="button" id="submitBtn" onclick="getRecipesByAmount(5)">Recipe Dump</button>
-
+    <button style="display:inline" type="button" id="loadBtn" onclick="init()">Load User Data</button>
+    <button style="display:inline" type="button" id="searchBtn" onclick="searchLocalRecipes('SALAD')">Recipe Search</button>
+    <button style="display:inline" type="button" id="dumpBtn" onclick="populateRecipes(5)">Recipe Dump</button>
+    <button style="display:inline" type="button" id="getLocalRecipesBtn">Get Local Recipes</button>
+    <script>
+        let get_btn = document.getElementById("getLocalRecipesBtn");
+        get_btn.addEventListener('click', function() {
+            console.log("Local Recipes: ", getLocalStorageRecipes());
+        })
+    </script>
+    <div>
+        <input type="text" id="intolerance_textbox" style="margin-top:30px">
+        <br>
+        <button id="intolerance_btn">Set Intolerances</button>
+        <script>
+            let intolerance_btn = document.getElementById("intolerance_btn");
+            let intolerance_textbox = document.getElementById("intolerance_textbox");
+            intolerance_btn.addEventListener('click', function (){
+                setIntolerances(intolerance_textbox.value);
+            })
+        </script>
+    </div>
+    <div>
+        <input type="text" id="maxTime_textbox" style="margin-top:30px">
+        <br>
+        <button id="maxTime_btn">Set Max Time</button>
+        <script>
+            let maxTime_btn = document.getElementById("maxTime_btn");
+            let maxTime_textbox = document.getElementById("maxTime_textbox");
+            maxTime_btn.addEventListener('click', function (){
+                setMaxTime(maxTime_textbox.value);
+            })
+        </script>
+    </div>
     <p id="disp"></p>
     <script type="text/javascript" src="/API/utilityFunctions.js"></script>
 </body>

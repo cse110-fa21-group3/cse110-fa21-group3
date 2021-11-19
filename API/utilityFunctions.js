@@ -1,10 +1,7 @@
 // API Key and endpoint
 const API_KEY = "6c38415312msh8fd80bab0f17271p1dcefajsn83892f0c646f";
 const API_ENDPOINT = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com";
-let Json_data = new Object;
-let allowedIntolerances = 'dairy, egg, gluten, grain, peanut, seafood, sesame, shellfish, soy, sulfite, tree nut, wheat';
-let intolerances = [];
-let maxTime = 60;
+
 // These are typically the options we need to perform a request
 const options = {
     "credentials": "omit",
@@ -16,49 +13,171 @@ const options = {
     } 
 }
 
+const DEFAULT_MAX_TIME = 60;
+// list of intolerances filter offered by the Spoonacular API
+const allowedIntolerances = ["dairy", "egg", "gluten", "grain", "peanut", "seafood", "sesame", "shellfish", "soy", "sulfite", "tree nut", "wheat"];
+// list of user Intolerances
+let intolerances = [];
+// max for recipes prep time
+let maxTime = DEFAULT_MAX_TIME;
+
+
+// just a tesing function
 function init() {
-    var localKeys = Object.keys(localStorage);
-    if (!localKeys.length) {
-        this.getRecipesByAmount(5);
-    }
+    loadUserData();
+    console.log(intolerances);
+    console.log(maxTime);
 }
 
-async function setUserPreferences() {
-    var inputIntol = window.prompt("Please enter any dietary restrictions such as dairy, gluten, peanut, etc seperated by commas: ");
-    inputIntol = inputIntol.toLowerCase();
-    inputIntol = inputIntol.replace(/\s/g, '');
-    var intolArray = [];
-    intolArray = inputIntol.split(",");
-    for(let stringIntol of intolArray) {
-        if(allowedIntolerances.includes(stringIntol)) {
-            intolerances.push(stringIntol);
+/**
+ * This function updates the intolerances of the user which is used when 
+ * fetching recipes from the API
+ * @param {string} inputIntol - A string of the intolerances.
+ */
+function setIntolerances(inputIntol) {
+    if (inputIntol == '') {
+        updateUserData("intolerances", []);
+        return;
+    }
+
+    // format the intolerance string by pattern matching
+    let inputArray = inputIntol.toLowerCase().replace(/\s/g, '').split(",");
+    let intols = [];
+    for(let intol of inputArray) {
+
+        // if the entries matches any of the item in the allowedIntolerances
+        // array, then add it to userData.
+        if(allowedIntolerances.includes(intol)) {
+            intols.push(intol);
         }
     }
 
-    var inputTime = window.prompt("Enter the max amount of time you want to spend cooking: ");
-    if(inputTime <= 0) {
-        console.log("That time you entered is not possible so we decided to default you to 1 hour.")
+    // Update the userData in localStorage
+    updateUserData("intolerances", intols);
+}
+
+/**
+ * This function updates the maxTime of the recipes which is used when fetching
+ * from the API
+ * @param {string} time - A string containing the maxTime.
+ */
+function setMaxTime(time) {
+    if (time == ''){
+        updateUserData("maxTime", DEFAULT_MAX_TIME);
         return;
     }
-    else {
-        maxTime = inputTime;
-    }
-    //getRecipesByAmount(5);
-    console.log(maxTime, intolerances);
+    maxTime = parseInt(time);
+
+    // Update the userData in localStorage
+    updateUserData("maxTime", maxTime);
 }
+
+/**
+ * This function loads the userData stored in localStorage and
+ * sets the `intolerances` variable and the `maxTime` variable
+ */ 
+function loadUserData() {
+    let data = localStorage.getItem("userData");
+    if (data) {
+        data = JSON.parse(data);
+    }else {
+        intolerances = [];
+        maxTime = DEFAULT_MAX_TIME;
+        return;
+    }
+
+    intolerances = data["intolerances"] ? data["intolerances"] : [];
+    maxTime = data["maxTime"] ? data["maxTime"] : DEFAULT_MAX_TIME;
+}
+
+/**
+ * This function updates the userData stored in localStorage using
+ * the Key-Value pair passed in.
+ * @param {string} key - The key of the user data being stored.
+ * @param {any} value - The data being stored.
+ */ 
+function updateUserData(key, value) {
+    let data = localStorage.getItem("userData");
+    if (data) {
+        data = JSON.parse(data);
+    }else {
+        data = {};
+    }
+    data[key] = value;
+    localStorage.setItem("userData", JSON.stringify(data));
+    console.log(JSON.parse(localStorage.getItem("userData")));
+}
+
+/**
+ * This function query the API multiple times with the fetchRecipes(...) function
+ * to get a recipe dump
+ * @param {number} total_count - The total number of recipes to get from API.
+ */ 
+ async function populateRecipes(total_count) {
+    let offset = 0;
+    // get recipes by 100s
+    let repeat_times = Math.round(total_count / 100);
+    // get marginal recipes
+    let remain_number = total_count % 100;
+
+    // repeat getting 100 recipes at a time
+    // Because that's tha max amount the API returns per call
+    for(let i = 0; i < repeat_times; i++) {
+        fetchRecipes(100, offset);
+        offset += 100;
+    }
+
+    // getting the remaining amount (< 100 recips)
+    if (remain_number > 0) { 
+        fetchRecipes(remain_number, offset);
+        offset += remain_number;
+    }
+}
+
+/**
+ * This function search through the local storage linearly and returns a list of recipes that
+ * matches the word in the query
+ * @param {string} query - the query used to search the local storage
+ * @returns {JSON|Array} - the list of matched recipes
+ */ 
+ async function searchLocalRecipes(query) { 
+    let recipeList = [];
+    query = query.toLowerCase();
+    let localRecipes = getLocalStorageRecipes();
+ 
+    if (!localRecipes) {
+        console.log(recipeList);
+        return recipeList;
+    }
+ 
+    // iterate through all recipes and check the title and ingredients for the query
+    for(let recipe of localRecipes) {
+        let recipeTitle = recipe.title.toLowerCase();
+        let recipeIngredients = recipe.ingredientSearch.toLowerCase();
+        // if the query is in the recipes then add it to an array
+        if(recipeTitle.includes(query)) {
+             recipeList.push(recipe);
+        }else if (recipeIngredients.includes(query)) {
+             recipeList.push(recipe);
+        }
+    }
+    console.log(recipeList);
+    // return a populated array of recipes relating to the query
+    return recipeList;
+ }
 
 /**
  * This function query the API and get a fixed amount of recipes  
  * with offset in the query.
- * @param {number} maxTime - The maximum of the recipes' prep time.
- * @param {number} recipeNumber - The number of recipes to get.
+ * @param {number} recipe_count - The number of recipes to get.
  * @param {number} offset - The number of results to skip.
  * @returns {Promise} 
  */ 
-async function getRecipesIntoLocal(intolerances, maxTime, recipe_count, offset){
-   let reqUrl = `${API_ENDPOINT}/recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true&number=${recipe_count}&offset=${offset}&readyReadyTime=${maxTime}&sort="meta-score"`;
+async function fetchRecipes(recipe_count, offset){
+    loadUserData();
+    let reqUrl = `${API_ENDPOINT}/recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true&number=${recipe_count}&offset=${offset}&readyReadyTime=${maxTime}`;
 
-   var intolerancesStr = "";
+    var intolerancesStr = "";
    if(intolerances.length > 0){
         intolerances.forEach(i => intolerancesStr += `,${i}`);
         intolerancesStr = intolerancesStr.slice(1, intolerancesStr.length);
@@ -136,63 +255,27 @@ async function createRecipeObject(r) {
 }
 
 /**
- * This function query the API multiple times using getRecipes(maxTime, recipe_count, offset)
- * to get a recipe dump
- * @param {number} recipe_total - The total number of recipes to get from API.
- * 
+ * This function get all recipes stored inside the localStorage and return
+ * them in a list
+ * @returns {JSON|Array} - an array of recipes JSON Objects in the localStorage.
  */ 
-async function getRecipesByAmount(recipe_total) {
-    let offset = 0;
-    let repeat_times = Math.round(recipe_total / 100);
-    let remain_number = recipe_total % 100;
-
-    // repeat getting 100 recipes at a time
-    // Because that's tha max amount the API returns per call
-    for(let i = 0; i < repeat_times; i++) {
-        getRecipesIntoLocal(intolerances, maxTime, 5, offset);
-        offset += 100
-    }
-
-    // getting the remaining amount (< 100 recips)
-    if (remain_number > 0) { 
-        getRecipesIntoLocal(intolerances, maxTime, remain_number, offset);
-        offset += remain_number;
-    }
-}
-
-/**
- * This function search through the local storage linearly and returns a list of recipes that
- * matches the word in the query
- * @param {string} query - the query used to search the local storage
- * @returns {JSON|Array} - the list of matched recipes
- */ 
-async function searchRecipesLocally(query) {
+function getLocalStorageRecipes() {
     //get the keys of all recipes in local storage
-   var localKeys = Object.keys(localStorage);
+    var localKeys = Object.keys(localStorage);
 
-   // check to see if local storage is empty, if so then populate local storage
-    if (!localKeys.length) {
-        this.getRecipesByAmount(5);
+    let recipeList = [];
+
+    // check to see if local storage is empty, if so then populate local storage
+    if (!localKeys) {
+        return recipeList;
     }
 
-   query = query.toLowerCase();
-   let recipeList = [];
-   // iterate through all recipes and check the title and ingredients for the query
-   for(let recipeId of localKeys) {
-       let recipe = JSON.parse(localStorage.getItem(recipeId));
-       let recipeTitle = recipe.title.toLowerCase();
-       let recipeIngredients = recipe.ingredientSearch.toLowerCase();
-       recipeIngredients = recipeIngredients.toLowerCase();
-       // if the query is in the recipes then add it to an array
-       if(recipeTitle.includes(query)) {
-            recipeList.push(recipe);
-       }else if (recipeIngredients.includes(query)) {
-            recipeList.push(recipe);
-       }
-   }
-   console.log(recipeList);
-   // return a populated array of recipes relating to the query
-   return recipeList;
+    for(let key of localKeys) {
+        if (key != "userData") {
+            recipeList.push(JSON.parse(localStorage.getItem(key)));
+        }
+    }
+    return recipeList;
 }
 
 /**
@@ -202,5 +285,4 @@ async function searchRecipesLocally(query) {
  */ 
 async function setLocalStorageItem(id, recipeObject) {
     localStorage.setItem(id, JSON.stringify(recipeObject));
-    console.log(JSON.parse(localStorage.getItem(id)));
 }
