@@ -1,0 +1,60 @@
+body {
+    background-color: #fafafa;
+}
+#web_logo{
+    margin: 1em;
+}
+#profile_logo {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-right: 1em;
+    margin-left: 80em
+}
+div.logo {
+    background-color: white;
+}
+#recipe_img {
+    float: right;
+    margin-top: 1em;
+    margin-right: 5cm;
+
+    width: 468px;
+    height: 346.5px;
+}
+
+.middle_color {
+    padding-right: 50px;
+    padding-left: 50px;
+    background-size: 20%;
+    background: darkgrey;
+} 
+
+div.recipe_info {
+    color: rgb(10, 10, 10);
+    display: inline-block;
+    font-size: 20px;
+    margin-left: 1cm !important; 
+}
+
+.Ingredient {
+    margin-top:  3cm;
+}
+
+#ingre > h2 {
+    background-color: white;
+}
+
+ol.steps {
+    list-style-type: none;
+    counter-reset: elementcounter;
+    padding-left: 20px;
+  }
+  
+  ol.steps > li:before {
+    content: "Step " counter(elementcounter) ": ";
+    counter-increment: elementcounter;
+  }
+
+  #step_section {
+      background-color: white;
+  }
