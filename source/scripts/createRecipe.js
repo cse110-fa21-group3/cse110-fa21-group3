@@ -94,7 +94,8 @@ removeNutrition.addEventListener("click", e => {
 createRecipe.addEventListener("click", e => {
     e.preventDefault();
     let formRes = {
-        "id": "ugr",
+        "id": "ucr",
+        "image": "../../admin/branding/logo3.jpg",
         "readyInMinutes": 0,
         "title": "",
         "ingredients": [],
@@ -107,7 +108,8 @@ createRecipe.addEventListener("click", e => {
 
     formKeys.forEach(key => {
         let res = formObj.getAll(key);
-        if(res.length > 1){
+        console.log(res);
+        if(key == "steps" || key == "nutrition" || key == "ingredients"){
             formRes[key] = formObj.getAll(key);
         }else{
             formRes[key] = res[0];
@@ -115,5 +117,6 @@ createRecipe.addEventListener("click", e => {
     });
 
    util.setLocalStorageItem(formRes["id"], formRes);
+    // util.addFavoriteRecipe(formRes["id"]);
    console.log(formRes);
 });
