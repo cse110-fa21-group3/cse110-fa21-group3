@@ -139,8 +139,6 @@ export function addFavoriteRecipe(id) {
     
     // change favorite property in the recipe object
     let recipe = JSON.parse(localStorage.getItem((id)));
-    console.log(id);
-    console.log(recipe);
     recipe['favorite'] = true;
     localStorage.setItem(id, JSON.stringify(recipe));
 }
