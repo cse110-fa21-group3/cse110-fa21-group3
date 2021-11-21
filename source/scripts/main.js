@@ -21,8 +21,13 @@ createRecipeButton.addEventListener('click', e => {
  * Function that runs when the page loads
  */
 function init(){
-    util.fetchRecipes(10, 0);
-    createRecipeCards(10);
+    if(util.getLocalStorageRecipes().length == 0){
+        let intols = prompt("Enter your intolerances");
+        util.setIntolerances(intols);
+    }
+    util.fetchRecipes(util.DEFAULT_RECIPE_NUMBER, 0).then(() => {
+        createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
+    });
 }
 
 /**
@@ -31,32 +36,34 @@ function init(){
  * @param {number} N The number of recipes to display
  */
 function createRecipeCards(N){ 
-    let recipes = {}; // dict of recipes to display on-screen
+    let recipes = util.getLocalStorageRecipes();
     
-    // add in N recipes to recipes dict display
-    // Add until we either reach N or run out of recipes
-    let i = 0;
-    while(i < N && localStorage.key(i) != null){
-        let key = localStorage.key(i);
-        let recipe = localStorage.getItem(key);
-        recipes[key] = recipe.slice(0, recipe.length);
-        i++;
-    }
-
     // Get the recipe cards' section element
     let recipeCardsSection = document.getElementById("recipeCards");
 
-    // Create recipe cards and add page function to router
-    Object.keys(recipes).forEach(key => {
+    recipes.forEach(recipe => {
         const recipeCard = document.createElement("recipe-card");
-        recipeCard.data = JSON.parse(recipes[key]);
+        recipeCard.data = recipe;
+        let key = recipe["id"];
         router.addPage(key, () => {
             // Goto this recipe page with recipe id as hash
             window.location.href = "/source/recipePage.html#"+key;
         });
-        bindRC(recipeCard, key); // Bind navigation to recipe card
+        bindRC(recipeCard, key);
         recipeCardsSection.appendChild(recipeCard);
     });
+
+    // // Create recipe cards and add page function to router
+    // Object.keys(recipes).forEach(key => {
+    //     const recipeCard = document.createElement("recipe-card");
+    //     recipeCard.data = JSON.parse(recipes[key]);
+    //     router.addPage(key, () => {
+    //         // Goto this recipe page with recipe id as hash
+    //         window.location.href = "/source/recipePage.html#"+key;
+    //     });
+    //     bindRC(recipeCard, key); // Bind navigation to recipe card
+    //     recipeCardsSection.appendChild(recipeCard);
+    // });
 }
 
 /**

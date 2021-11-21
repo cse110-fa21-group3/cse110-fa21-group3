@@ -1,5 +1,8 @@
+import * as util from "./API/utilityFunctions.js";
+
 const id = window.location.hash.slice(1);
-console.log(id);
+
+window.addEventListener("DOMContentLoaded", init);
 
 function init(){
     let eTitle = document.getElementById("recipe-title"); // done
@@ -40,5 +43,25 @@ function init(){
         const factItem = document.createElement("li");
         factItem.innerText = fact;
         eNutrition.appendChild(factItem);
+    });
+
+    let favoriteBtn = document.getElementById("favorite");
+    let favArr = util.getFavoriteRecipes();
+    if(favArr && favArr.includes(id)){
+        favoriteBtn.innerText = "Unfavorite";
+    }else{
+        favoriteBtn.innerText = "Favorite";
+    }
+    
+    favoriteBtn.addEventListener("click", e => {
+        // Ideally, button class would change so we could just check that?
+        favArr = util.getFavoriteRecipes();
+        if(favArr && favArr.includes(id)){
+            util.removeFavoriteRecipe(id);
+            favoriteBtn.innerText = "Favorite";
+        }else{
+            util.addFavoriteRecipe(id);
+            favoriteBtn.innerText = "Unfavorite";
+        }
     });
 }

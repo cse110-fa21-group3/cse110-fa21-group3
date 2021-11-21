@@ -94,7 +94,7 @@ removeNutrition.addEventListener("click", e => {
 createRecipe.addEventListener("click", e => {
     e.preventDefault();
     let formRes = {
-        "id": "ucr",
+        "id": "ucr_",
         "image": "../../admin/branding/logo3.jpg",
         "favorite": true,
         "readyInMinutes": 0,
@@ -117,7 +117,10 @@ createRecipe.addEventListener("click", e => {
         }
     });
 
-   util.setLocalStorageItem(formRes["id"], formRes);
+
+    formRes["id"] += formRes["title"].replaceAll(" ", "");
+    util.setLocalStorageItem(formRes["id"], formRes);
+    util.addFavoriteRecipes(formRes["id"]);
     // util.addFavoriteRecipe(formRes["id"]);
-   console.log(formRes);
+    console.log(formRes);
 });

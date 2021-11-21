@@ -13,7 +13,7 @@ const options = {
     } 
 }
 
-const DEFAULT_RECIPE_NUMBER = 5;
+export const DEFAULT_RECIPE_NUMBER = 5;
 const DEFAULT_MAX_TIME = 60;
 // list of intolerances filter offered by the Spoonacular API
 const allowedIntolerances = [
@@ -48,14 +48,17 @@ function init() {
  * fetching recipes from the API
  * @param {string} inputIntol - A string of the intolerances.
  */
-function setIntolerances(inputIntol) {
+export function setIntolerances(inputIntol) {
     if (inputIntol == '') {
         updateUserData("intolerances", []);
         return;
     }
 
     // format the intolerance string by pattern matching
+    console.log(inputIntol);
+    // Expected format: in1, in2, in3, ...
     let inputArray = inputIntol.toLowerCase().replace(/\s/g, '').split(",");
+    console.log(inputArray);
     let intols = [];
     for(let intol of inputArray) {
 
@@ -104,7 +107,7 @@ function loadUserData() {
     maxTime = data["maxTime"] ? data["maxTime"] : DEFAULT_MAX_TIME;
 }
 
-function getFavoriteRecipes() {
+export function getFavoriteRecipes() {
     let userData = JSON.parse(localStorage.getItem("userData"));
     let favoriteRecipes = [];
     try {
@@ -114,10 +117,12 @@ function getFavoriteRecipes() {
     return favoriteRecipes;
 }
 
-function addFavoriteRecipes(id) {
+export function addFavoriteRecipe(id) {
     // get the favorites array and add the favorited recipe to the array
     var favArr = getFavoriteRecipes();
-    favArr.push(`${id}`);
+    if(!favArr.includes(id)){
+        favArr.push(`${id}`);
+    }
     updateUserData("favorites", favArr);
     
     // change favorite property in the recipe object
@@ -126,7 +131,7 @@ function addFavoriteRecipes(id) {
     localStorage.setItem(`${id}`, JSON.stringify(recipe));
 }
 
-function removeFavoriteRecipe(id) {
+export function removeFavoriteRecipe(id) {
     let favArr = getFavoriteRecipes();
     let removed = [];
 
@@ -150,7 +155,7 @@ function removeFavoriteRecipe(id) {
  * @param {string} key - The key of the user data being stored.
  * @param {any} value - The data being stored.
  */ 
-function updateUserData(key, value) {
+export function updateUserData(key, value) {
     let data = localStorage.getItem("userData");
     if (data) {
         data = JSON.parse(data);
@@ -337,7 +342,7 @@ async function createRecipeObject(r) {
  * them in a list
  * @returns {JSON|Array} - an array of recipes JSON Objects in the localStorage.
  */ 
-function getLocalStorageRecipes() {
+export function getLocalStorageRecipes() {
     //get the keys of all recipes in local storage
     var localKeys = Object.keys(localStorage);
 
