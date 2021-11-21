@@ -11,15 +11,14 @@ class RecipeCard extends HTMLElement{
         this.json = data;
 
         const recipeCard = document.createElement("article");
+        const recipeImage = document.createElement("img");
         const recipeTitle = document.createElement("p");
-        // const recipeImage = document.createElement("img");
-
+        
+        recipeImage.setAttribute("src", data["image"]);
         recipeTitle.innerText = data["title"];
+        
+        recipeCard.appendChild(recipeImage);
         recipeCard.appendChild(recipeTitle);
-
-        // recipeImage.setAttribute("src", data["imageUrl"]);
-        // recipeCard.appendChild(recipeImage)
-    
         this.shadowRoot.append(recipeCard);
     }
 

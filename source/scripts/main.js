@@ -3,6 +3,7 @@
  */
 
 import { Router } from "./router.js";
+import * as util from "./API/utilityFunctions.js";
 
 window.addEventListener("DOMContentLoaded", init);
 
@@ -11,24 +12,17 @@ const router = new Router(() => {
     window.location.href = "/";
 });
 
+let createRecipeButton = document.getElementById("create-recipe");
+createRecipeButton.addEventListener('click', e => {
+    window.location.href = "/source/createRecipe.html";
+});
+
 /**
  * Function that runs when the page loads
  */
 function init(){
-    populateLS(); // TESTING ONLY
-    createRecipeCards(3);
-}
-
-/**
- * TESTING ONLY
- * 
- * Adds a small amount of data to the localstorage
- */
-function populateLS(){
-    localStorage.clear();
-    localStorage.setItem("00000", '{"title":"Cheesecake", "time": "30 MIN"}');
-    localStorage.setItem("00001", '{"title":"Philly Cheesesteak", "time": "50 MIN"}');
-    localStorage.setItem("00002", '{"title":"Chicken Alfredo", "time": "3 HOURS 2 MIN"}');
+    util.fetchRecipes(10, 0);
+    createRecipeCards(10);
 }
 
 /**

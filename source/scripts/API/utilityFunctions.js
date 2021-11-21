@@ -15,7 +15,20 @@ const options = {
 
 const DEFAULT_MAX_TIME = 60;
 // list of intolerances filter offered by the Spoonacular API
-const allowedIntolerances = ["dairy", "egg", "gluten", "grain", "peanut", "seafood", "sesame", "shellfish", "soy", "sulfite", "tree nut", "wheat"];
+const allowedIntolerances = [
+    "dairy", 
+    "egg", 
+    "gluten", 
+    "grain", 
+    "peanut", 
+    "seafood", 
+    "sesame", 
+    "shellfish", 
+    "soy", 
+    "sulfite", 
+    "tree nut", 
+    "wheat"
+];
 // list of user Intolerances
 let intolerances = [];
 // max for recipes prep time
@@ -113,7 +126,7 @@ function updateUserData(key, value) {
  * to get a recipe dump
  * @param {number} total_count - The total number of recipes to get from API.
  */ 
- async function populateRecipes(total_count) {
+export async function populateRecipes(total_count) {
     let offset = 0;
     // get recipes by 100s
     let repeat_times = Math.round(total_count / 100);
@@ -140,7 +153,7 @@ function updateUserData(key, value) {
  * @param {string} query - the query used to search the local storage
  * @returns {JSON|Array} - the list of matched recipes
  */ 
- async function searchLocalRecipes(query) { 
+export async function searchLocalRecipes(query) { 
     let recipeList = [];
     query = query.toLowerCase();
     let localRecipes = getLocalStorageRecipes();
@@ -167,23 +180,23 @@ function updateUserData(key, value) {
  }
 
 /**
- * This function query the API and get a fixed amount of recipes  
+ * This function queries the API and gets a fixed amount of recipes  
  * with offset in the query.
  * @param {number} recipe_count - The number of recipes to get.
  * @param {number} offset - The number of results to skip.
  * @returns {Promise} 
  */ 
-async function fetchRecipes(recipe_count, offset){
+export async function fetchRecipes(recipe_count, offset){
     loadUserData();
     let reqUrl = `${API_ENDPOINT}/recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true&number=${recipe_count}&offset=${offset}&readyReadyTime=${maxTime}`;
 
     var intolerancesStr = "";
-   if(intolerances.length > 0){
+    if(intolerances.length > 0){
         intolerances.forEach(i => intolerancesStr += `,${i}`);
         intolerancesStr = intolerancesStr.slice(1, intolerancesStr.length);
         console.log(intolerancesStr);
         reqUrl += "&intolerances="+intolerancesStr;
-   }
+    }
 
    console.log(reqUrl);
 
@@ -283,6 +296,6 @@ function getLocalStorageRecipes() {
  * @param {number} id - id for the local storage item
  * @param {Object} recipeObject - a JSON recipe object
  */ 
-async function setLocalStorageItem(id, recipeObject) {
+export async function setLocalStorageItem(id, recipeObject) {
     localStorage.setItem(id, JSON.stringify(recipeObject));
 }

@@ -16,29 +16,29 @@
         </nav>
     </header>
     <main>
-        <form action="#">
+        <form id="recipeForm" action="#">
             <label for="recipeImg">Upload file:</label>
-            <input type="file" id="recipeImg" name="recipeImg"
+            <input type="file" id="recipeImg" name="image"
                 accept="image/png, image/jpeg" />
             <img id="imgContainer" src="#" alt="Attached Recipe Image">
             <label for="recipeName">Name:</label>
-            <input type="text" id="recipeName" name="recipeName" />
+            <input type="text" id="recipeName" name="title"  />
             <div id="timeContainer">
                 <label for="recipeTime">Time:</label>
-                <input type="number" id="recipeTime" name="recipeTime" />
+                <input type="number" id="recipeTime" name="readyInMinutes"  />
                 <p>mins</p>
             </div>
-            <div id="serveContainer">
+            <!-- <div id="serveContainer">
                 <label for="recipeServe">Serves:</label>
                 <input type="number" id="recipeServe" name="recipeServe" />
                 <p>people</p>
-            </div>
-            <label for="recipeDesc">Description:</label>
+            </div> -->
+            <!-- <label for="recipeDesc">Description:</label>
             <textarea name="recipeDesc" id="recipeDesc" cols="30"
-                rows="10"></textarea>
-            <fieldset id="recipeTags">
+                rows="10"></textarea> -->
+            <!-- <fieldset id="recipeTags"> -->
                 <!-- current id are temporary -->
-                <label for="tag1">Healthy</label>
+                <!-- <label for="tag1">Healthy</label>
                 <input type="radio" name="tag1" id="tag1">
                 <label for="tag2">Japanese</label>
                 <input type="radio" name="tag2" id="tag2">
@@ -54,19 +54,18 @@
                 <input type="radio" name="tag7" id="tag7">
                 <label for="tag8">Chicken</label>
                 <input type="radio" name="tag8" id="tag8">
-            </fieldset>
+            </fieldset> -->
             <fieldset id="recipeIngredients">
                 <!-- current id are temporary -->
                 <fieldset class="ingredientContainer">
-                    <label>Quantity:
+                    <label>Ingredient:
+                        <input type="text" name="ingredients" class="ingName" />
+                    </label>
+                    <!-- <label>Quantity:
                         <input type="text" class="ingQuantity" />
-                    </label>
-                    <label>Ingredient 1:
-                        <input type="text" class="ingName" />
-                    </label>
-                    <button type="button" class="removeBtn">[Cross]</button>
+                    </label> -->
                 </fieldset>
-                <fieldset class="ingredientContainer">
+                <!-- <fieldset class="ingredientContainer">
                     <label>Quantity:
                         <input type="text" class="ingQuantity" />
                     </label>
@@ -82,26 +81,36 @@
                     <label>Ingredient 3:
                         <input type="text" class="ingName" />
                     </label>
-                    <button type="button" class="removeBtn">[Cross]</button>
+                    <button type="button" class="removeBtn">[Cross]</button> -->
+                <button type="button" id="addIng">[Plus]</button>
+                <button type="button" style="display: none;" type="button" id="removeIng" class="removeBtn">[Cross]</button>
                 </fieldset>
-                <button type="button" id="addBtn">[Plus]</button>
             </fieldset>
             <fieldset id="recipeSteps">
                 <fieldset class="stepsContainer">
-                    <label>Step 1:
+                    <label>Step:
+                        <input type="text" name="steps"  />
+                    </label>
+                    <!-- <label>Step 1:
                         <input type="text" />
                         <button type="button" class="removeBtn">[Cross]</button>
                     </label>
                     <label>Step 1:
                         <input type="text" />
                         <button type="button" class="removeBtn">[Cross]</button>
-                    </label>
-                    <label>Step 1:
-                        <input type="text" />
-                        <button type="button" class="removeBtn">[Cross]</button>
-                    </label>
-                    <button type="addBtn">[plus]</button>
+                    </label> -->
                 </fieldset>
+                <button type="button" id="addStep">[Plus]</button>
+                <button type="button" style="display: none;" type="button" id="removeStep" class="removeBtn">[Cross]</button>
+            </fieldset>
+            <fieldset id="recipeNutrition">
+                <fieldset class="nutritionContainer">
+                    <label>Nutriton:
+                        <input type="text" name="nutrition">
+                    </label>
+                </fieldset>
+                <button type="button" id="addNutrition">[Plus]</button>
+                <button type="button" style="display: none;" id="removeNutrition">[Cross]</button>
             </fieldset>
             <button type="button" id="createBtn">Create</button>
             <button type="button" id="cancelBtn">Cancel</button>
@@ -126,6 +135,7 @@
             fileReader.readAsDataURL(imgInput.files[0]);
         }
     </script>
+    <script type="module" src="./scripts/createRecipe.js"></script>
 </body>
 
 </html>
