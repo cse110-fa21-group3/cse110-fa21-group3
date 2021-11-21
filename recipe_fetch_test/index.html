@@ -5,7 +5,7 @@
 <body>
     <!-- searchRecipes('pasta', ['dairy', 'gluten']) -->
     <button style="display:inline" type="button" id="loadBtn" onclick="init()">Load User Data</button>
-    <button style="display:inline" type="button" id="searchBtn" onclick="searchLocalRecipes('SALAD')">Recipe Search</button>
+    <button style="display:inline" type="button" id="searchBtn" onclick="searchLocalRecipes('         avocado pasta')">Recipe Search</button>
     <button style="display:inline" type="button" id="dumpBtn" onclick="populateRecipes(5)">Recipe Dump</button>
     <button style="display:inline" type="button" id="getLocalRecipesBtn">Get Local Recipes</button>
     <script>
@@ -35,6 +35,23 @@
             let maxTime_textbox = document.getElementById("maxTime_textbox");
             maxTime_btn.addEventListener('click', function (){
                 setMaxTime(maxTime_textbox.value);
+            })
+        </script>
+    </div>
+    <div>
+        <input type="text" id="favorite_textbox" style="margin-top:30px">
+        <br>
+        <button id="add_btn">Add Favorite</button>
+        <button id="remove_btn">Remove Favorite</button>
+        <script>
+            let add_btn = document.getElementById("add_btn");
+            let remove_btn = document.getElementById("remove_btn");
+            let favorite_textbox = document.getElementById("favorite_textbox");
+            add_btn.addEventListener('click', function (){
+                addFavoriteRecipes(favorite_textbox.value);
+            })
+            remove_btn.addEventListener('click', function (){
+                removeFavoriteRecipe(favorite_textbox.value);
             })
         </script>
     </div>
