@@ -1,3 +1,5 @@
+import { Router } from "../router.js";
+
 // API Key and endpoint
 const API_KEY = "6c38415312msh8fd80bab0f17271p1dcefajsn83892f0c646f";
 const API_ENDPOINT = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com";
@@ -10,8 +12,13 @@ const options = {
     "headers": {
         "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
         "x-rapidapi-key": "6c38415312msh8fd80bab0f17271p1dcefajsn83892f0c646f"
-    } 
+    }
 }
+
+// Create a new Router for handling pages
+export var router = new Router(() => {
+    window.location.href = "/source/homepage.html";
+});
 
 export const DEFAULT_RECIPE_NUMBER = 5;
 const DEFAULT_MAX_TIME = 60;
@@ -119,16 +126,23 @@ export function getFavoriteRecipes() {
 
 export function addFavoriteRecipe(id) {
     // get the favorites array and add the favorited recipe to the array
-    var favArr = getFavoriteRecipes();
-    if(!favArr.includes(id)){
-        favArr.push(`${id}`);
+    let favArr = getFavoriteRecipes();
+    if(favArr){
+        if(!favArr.includes(id)){
+            favArr.push(id);
+        }
+    }else{
+        favArr = [id];
     }
+    console.log(favArr);
     updateUserData("favorites", favArr);
     
     // change favorite property in the recipe object
-    let recipe = JSON.parse(localStorage.getItem((`${id}`)));
+    let recipe = JSON.parse(localStorage.getItem((id)));
+    console.log(id);
+    console.log(recipe);
     recipe['favorite'] = true;
-    localStorage.setItem(`${id}`, JSON.stringify(recipe));
+    localStorage.setItem(id, JSON.stringify(recipe));
 }
 
 export function removeFavoriteRecipe(id) {
@@ -162,6 +176,7 @@ export function updateUserData(key, value) {
     }else {
         data = {};
     }
+
     data[key] = value;
     localStorage.setItem("userData", JSON.stringify(data));
     console.log(JSON.parse(localStorage.getItem("userData")));
@@ -203,7 +218,7 @@ export async function searchLocalRecipes(query) {
     let recipeList = [];
     query = query.toLowerCase();
     let localRecipes = getLocalStorageRecipes();
- 
+    console.log(localRecipes);
     if (!localRecipes) {
         populateRecipes(DEFAULT_RECIPE_NUMBER);
         localRecipes = getLocalStorageRecipes();
@@ -289,7 +304,7 @@ export async function fetchRecipes(recipe_count, offset){
 /**
  * This function takes in what is fetched and from those parameters finds what we need for the recipe and sorts it into an object
  */
-async function createRecipeObject(r) {
+export async function createRecipeObject(r) {
     let id = r["id"];
     let readyInMinutes = r["readyInMinutes"];
     let title = r["title"];

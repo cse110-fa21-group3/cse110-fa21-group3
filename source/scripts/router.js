@@ -3,12 +3,11 @@ export class Router{
         this["home"] = homePage;
     }
 
-    addPage(pageKey, pageFunc){
-        this[pageKey] = pageFunc;
-    }
-
     navigate(key){
-        let func = this[key];
-        func();
+        if(key == "home"){
+            this["home"]();
+        }else{
+            window.location.href = "/source/recipePage.html#"+key;
+        }
     }
 }

@@ -2,15 +2,9 @@
  * Homepage JS file
  */
 
-import { Router } from "./router.js";
 import * as util from "./API/utilityFunctions.js";
 
 window.addEventListener("DOMContentLoaded", init);
-
-// Create a new Router for handling pages
-const router = new Router(() => {
-    window.location.href = "/";
-});
 
 let createRecipeButton = document.getElementById("create-recipe");
 createRecipeButton.addEventListener('click', e => {
@@ -23,7 +17,9 @@ createRecipeButton.addEventListener('click', e => {
 function init(){
     if(util.getLocalStorageRecipes().length == 0){
         let intols = prompt("Enter your intolerances");
-        util.setIntolerances(intols);
+        if(intols){
+            util.setIntolerances(intols);
+        }
     }
     util.fetchRecipes(util.DEFAULT_RECIPE_NUMBER, 0).then(() => {
         createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
@@ -60,10 +56,6 @@ export function createRecipeCards(N){
         const recipeCard = document.createElement("recipe-card");
         recipeCard.data = recipe;
         let key = recipe["id"];
-        router.addPage(key, () => {
-            // Goto this recipe page with recipe id as hash
-            window.location.href = "/source/recipePage.html#"+key;
-        });
         bindRC(recipeCard, key);
         recipeCardsSection.appendChild(recipeCard);
     });
@@ -77,6 +69,6 @@ export function createRecipeCards(N){
  */
 function bindRC(recipeCard, key){
     recipeCard.addEventListener("click", e => {
-        router.navigate(key);
+        util.router.navigate(key);
     });
 }

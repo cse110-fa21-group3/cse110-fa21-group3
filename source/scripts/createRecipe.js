@@ -95,11 +95,12 @@ createRecipe.addEventListener("click", e => {
     e.preventDefault();
     let formRes = {
         "id": "ucr_",
-        "image": "../../admin/branding/logo3.jpg",
+        "image": "../../admin/branding/logo3_231x231.jpg",
         "favorite": true,
         "readyInMinutes": 0,
         "title": "",
         "ingredients": [],
+        "ingredientSearch": "",
         "steps": [],
         "nutrition": []
     };
@@ -117,10 +118,11 @@ createRecipe.addEventListener("click", e => {
         }
     });
 
-
+    formRes["ingredients"].forEach(ing => {
+        formRes["ingredientSearch"] += ing;
+    });
     formRes["id"] += formRes["title"].replaceAll(" ", "");
     util.setLocalStorageItem(formRes["id"], formRes);
-    util.addFavoriteRecipes(formRes["id"]);
-    // util.addFavoriteRecipe(formRes["id"]);
-    console.log(formRes);
+    util.addFavoriteRecipe(formRes["id"]);
+    window.location.href = "/source/homepage.html";
 });

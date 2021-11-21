@@ -1,3 +1,5 @@
+import { router } from "./API/utilityFunctions.js";
+
 window.addEventListener("DOMContentLoaded", () => {
     let results = localStorage.getItem("latestSearch");
     if(results){
@@ -9,8 +11,12 @@ window.addEventListener("DOMContentLoaded", () => {
             console.log(recipeData);
             recipeCard.data = recipeData;
             recipeCardsSection.appendChild(recipeCard);
+            recipeCard.addEventListener("click", e => {
+                router.navigate(id);
+            });
         });
     }else{
-        console.log("No search results in local storage");
+        alert("No search results in local storage");
+        router.navigate("home");
     }
 });
