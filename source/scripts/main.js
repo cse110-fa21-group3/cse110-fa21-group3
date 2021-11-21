@@ -28,16 +28,31 @@ function init(){
     util.fetchRecipes(util.DEFAULT_RECIPE_NUMBER, 0).then(() => {
         createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
     });
+
+    let searchBtn = document.getElementById("search");
+    searchBtn.addEventListener("click", e => {
+        let searchQuery = document.getElementById("searchQuery").value;
+        util.searchLocalRecipes(searchQuery).then(arr => {
+            let res = [];
+            arr.forEach(recipe => {
+                res.push(recipe["id"]);
+            });
+            console.log(res);
+            localStorage.setItem("latestSearch", res);
+            window.location.href = "/source/searchpage.html";
+        });
+    });
 }
 
 /**
  * Create recipe cards for an arbitrary amount of recipes
  * 
  * @param {number} N The number of recipes to display
+ * @param {boolean} search If you're creating recipe cards from a search query
+ * 
  */
-function createRecipeCards(N){ 
+export function createRecipeCards(N){ 
     let recipes = util.getLocalStorageRecipes();
-    
     // Get the recipe cards' section element
     let recipeCardsSection = document.getElementById("recipeCards");
 
@@ -52,18 +67,6 @@ function createRecipeCards(N){
         bindRC(recipeCard, key);
         recipeCardsSection.appendChild(recipeCard);
     });
-
-    // // Create recipe cards and add page function to router
-    // Object.keys(recipes).forEach(key => {
-    //     const recipeCard = document.createElement("recipe-card");
-    //     recipeCard.data = JSON.parse(recipes[key]);
-    //     router.addPage(key, () => {
-    //         // Goto this recipe page with recipe id as hash
-    //         window.location.href = "/source/recipePage.html#"+key;
-    //     });
-    //     bindRC(recipeCard, key); // Bind navigation to recipe card
-    //     recipeCardsSection.appendChild(recipeCard);
-    // });
 }
 
 /**

@@ -354,7 +354,7 @@ export function getLocalStorageRecipes() {
     }
 
     for(let key of localKeys) {
-        if (key != "userData") {
+        if (key != "userData" && key != "latestSearch") {
             recipeList.push(JSON.parse(localStorage.getItem(key)));
         }
     }
