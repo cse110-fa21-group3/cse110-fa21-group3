@@ -13,6 +13,7 @@ const options = {
     } 
 }
 
+const DEFAULT_RECIPE_NUMBER = 5;
 const DEFAULT_MAX_TIME = 60;
 // list of intolerances filter offered by the Spoonacular API
 const allowedIntolerances = [
@@ -103,6 +104,46 @@ function loadUserData() {
     maxTime = data["maxTime"] ? data["maxTime"] : DEFAULT_MAX_TIME;
 }
 
+function getFavoriteRecipes() {
+    let userData = JSON.parse(localStorage.getItem("userData"));
+    let favoriteRecipes = [];
+    try {
+        favoriteRecipes = userData["favorites"];
+    } catch(err) {
+    }
+    return favoriteRecipes;
+}
+
+function addFavoriteRecipes(id) {
+    // get the favorites array and add the favorited recipe to the array
+    var favArr = getFavoriteRecipes();
+    favArr.push(`${id}`);
+    updateUserData("favorites", favArr);
+    
+    // change favorite property in the recipe object
+    let recipe = JSON.parse(localStorage.getItem((`${id}`)));
+    recipe['favorite'] = true;
+    localStorage.setItem(`${id}`, JSON.stringify(recipe));
+}
+
+function removeFavoriteRecipe(id) {
+    let favArr = getFavoriteRecipes();
+    let removed = [];
+
+    // change favorite property in the recipe object
+    let recipe = JSON.parse(localStorage.getItem((`${id}`)));
+    recipe['favorite'] = false;
+    localStorage.setItem(`${id}`, JSON.stringify(recipe));
+    
+    console.log(favArr);
+    for (let recipeID of favArr) {
+        if(recipeID != id) {
+            removed.push(recipeID);
+        }
+    }
+    updateUserData("favorites", removed);
+}
+
 /**
  * This function updates the userData stored in localStorage using
  * the Key-Value pair passed in.
@@ -159,25 +200,47 @@ export async function searchLocalRecipes(query) {
     let localRecipes = getLocalStorageRecipes();
  
     if (!localRecipes) {
-        console.log(recipeList);
-        return recipeList;
+        populateRecipes(DEFAULT_RECIPE_NUMBER);
+        localRecipes = getLocalStorageRecipes();
     }
- 
+    
+    var endQuery = [];
+    // if query includes commas 
+    if(query.includes(',')) {
+        //replace commas by space
+        query = query.replace(/,/g, ' ');
+        
+    }
+    // if there are spaces 
+    let queryTemp = query.split(' ');
+    for(let queryWord of queryTemp) {
+        if(queryWord != '') {
+            endQuery.push(queryWord);
+        }
+    }
+    
     // iterate through all recipes and check the title and ingredients for the query
     for(let recipe of localRecipes) {
         let recipeTitle = recipe.title.toLowerCase();
         let recipeIngredients = recipe.ingredientSearch.toLowerCase();
         // if the query is in the recipes then add it to an array
-        if(recipeTitle.includes(query)) {
-             recipeList.push(recipe);
-        }else if (recipeIngredients.includes(query)) {
-             recipeList.push(recipe);
+        for(let queryElement of endQuery) {
+            if(recipeTitle.includes(queryElement)) {
+                recipeList.push(recipe);
+                break;
+            }
+            else if (recipeIngredients.includes(queryElement)) {
+                recipeList.push(recipe);
+                break;
+            }
         }
+    
     }
     console.log(recipeList);
     // return a populated array of recipes relating to the query
     return recipeList;
  }
+
 
 /**
  * This function queries the API and gets a fixed amount of recipes  
@@ -204,7 +267,7 @@ export async function fetchRecipes(recipe_count, offset){
         fetch(reqUrl, options)
             .then(res => res.json())
             .then(res => {
-                console.log(res["results"]);
+                //console.log(res["results"]);
                 res["results"].forEach(r => {
                     createRecipeObject(r);
                 });
@@ -226,6 +289,7 @@ async function createRecipeObject(r) {
     let readyInMinutes = r["readyInMinutes"];
     let title = r["title"];
     let foodImage = r["image"];
+    let favorite = false;
 
     // populating ingredient list
     let ingredients = [];
@@ -262,7 +326,8 @@ async function createRecipeObject(r) {
         "ingredientSearch" : ingredientSearch,
         "ingredients" : ingredients,
         "steps" : steps,
-        "nutrition" : nutrition
+        "nutrition" : nutrition,
+        "favorite" : favorite
     }
     setLocalStorageItem(r.id, recipeObject);
 }
