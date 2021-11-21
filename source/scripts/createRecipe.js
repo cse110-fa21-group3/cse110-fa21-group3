@@ -96,6 +96,7 @@ createRecipe.addEventListener("click", e => {
     let formRes = {
         "id": "ucr",
         "image": "../../admin/branding/logo3.jpg",
+        "favorite": true,
         "readyInMinutes": 0,
         "title": "",
         "ingredients": [],
