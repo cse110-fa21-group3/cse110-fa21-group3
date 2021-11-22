@@ -2,17 +2,17 @@
 <html lang="en">
 
 <head>
+    <link href="styles.css" rel="stylesheet" type="text/css"/>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Group 3 Create Recipe</title>
 </head>
-
+<div class="container">
 <body>
     <header>
         <nav>
-            <a href="#">[Logo Here]</a>
-            <!-- <a href="#">[Favorite Page Icon Here]</a> -->
+            <a href="homepage.html"><img id="web_logo" src="logo3_231x231.jpg" alt="Logo" width="80" height="80"></a>
         </nav>
     </header>
     <main>
@@ -82,8 +82,8 @@
                         <input type="text" class="ingName" />
                     </label>
                     <button type="button" class="removeBtn">[Cross]</button> -->
-                <button type="button" id="addIng">[Plus]</button>
-                <button type="button" style="display: none;" type="button" id="removeIng" class="removeBtn">[Cross]</button>
+                <button type="button" id="addIng"><img src="plus.png" style='width: 30px;'></button>
+                <button type="button" style="display: none;" type="button" id="removeIng" class="removeBtn"><img src="cross.png" style="width: 30px;"></button>
                 </fieldset>
             </fieldset>
             <fieldset id="recipeSteps">
@@ -100,8 +100,8 @@
                         <button type="button" class="removeBtn">[Cross]</button>
                     </label> -->
                 </fieldset>
-                <button type="button" id="addStep">[Plus]</button>
-                <button type="button" style="display: none;" type="button" id="removeStep" class="removeBtn">[Cross]</button>
+                <button type="button" id="addStep"><img src="plus.png" style='width: 30px;'></button>
+                <button type="button" style="display: none;" type="button" id="removeStep" class="removeBtn"><img src="cross.png" style="width: 30px;"></button>
             </fieldset>
             <fieldset id="recipeNutrition">
                 <fieldset class="nutritionContainer">
@@ -109,13 +109,14 @@
                         <input type="text" name="nutrition">
                     </label>
                 </fieldset>
-                <button type="button" id="addNutrition">[Plus]</button>
-                <button type="button" style="display: none;" id="removeNutrition">[Cross]</button>
+                <button type="button" id="addNutrition"><img src="plus.png" style='width: 30px;'></button>
+                <button type="button" style="display: none;" id="removeNutrition"><img src="cross.png" style="width: 30px;"></button>
             </fieldset>
             <button type="button" id="createBtn">Create</button>
             <button type="button" id="cancelBtn">Cancel</button>
         </form>
     </main>
+</div>
     <footer></footer>
     <!-- <script>
         window.addEventListener('DOMContentLoaded', init);
