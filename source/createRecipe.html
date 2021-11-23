@@ -2,41 +2,48 @@
 <html lang="en">
 
 <head>
+    <link href="createStyles.css" rel="stylesheet" type="text/css" />
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Group 3 Create Recipe</title>
 </head>
+<div class="container">
 
-<body>
-    <header>
-        <nav>
-            <a href="#">[Logo Here]</a>
-            <!-- <a href="#">[Favorite Page Icon Here]</a> -->
-        </nav>
-    </header>
-    <main>
-        <form id="recipeForm" action="#">
-            <!-- <label for="recipeImg">Upload file:</label>
+    <body>
+        <header>
+            <nav>
+                <a href="homepage.html"><img id="web_logo"
+                        src="logo3_231x231.jpg" alt="Logo" width="80"
+                        height="80"></a>
+                <a href="#" id="favContainer"><img
+                        src="./icons8-favorite-folder-50.png"
+                        alt="Favorite Icon"></a>
+            </nav>
+        </header>
+        <main>
+            <form id="recipeForm" action="#">
+                <!-- <label for="recipeImg">Upload file:</label>
             <input type="file" id="recipeImg" name="image"
                 accept="image/png, image/jpeg" /> -->
-            <!-- <img id="imgContainer" src="#" alt="Attached Recipe Image"> -->
-            <label for="recipeName">Name:</label>
-            <input type="text" id="recipeName" name="title"  />
-            <div id="timeContainer">
-                <label for="recipeTime">Time:</label>
-                <input type="number" id="recipeTime" name="readyInMinutes"  />
-                <p>mins</p>
-            </div>
-            <!-- <div id="serveContainer">
+                <!-- <img id="imgContainer" src="#" alt="Attached Recipe Image"> -->
+                <label for="recipeName">Name:</label>
+                <input type="text" id="recipeName" name="title" />
+                <div id="timeContainer">
+                    <label for="recipeTime">Time:</label>
+                    <input type="number" id="recipeTime"
+                        name="readyInMinutes" />
+                    <p>mins</p>
+                </div>
+                <!-- <div id="serveContainer">
                 <label for="recipeServe">Serves:</label>
                 <input type="number" id="recipeServe" name="recipeServe" />
                 <p>people</p>
             </div> -->
-            <!-- <label for="recipeDesc">Description:</label>
+                <!-- <label for="recipeDesc">Description:</label>
             <textarea name="recipeDesc" id="recipeDesc" cols="30"
                 rows="10"></textarea> -->
-            <!-- <fieldset id="recipeTags"> -->
+                <!-- <fieldset id="recipeTags"> -->
                 <!-- current id are temporary -->
                 <!-- <label for="tag1">Healthy</label>
                 <input type="radio" name="tag1" id="tag1">
@@ -55,17 +62,18 @@
                 <label for="tag8">Chicken</label>
                 <input type="radio" name="tag8" id="tag8">
             </fieldset> -->
-            <fieldset id="recipeIngredients">
-                <!-- current id are temporary -->
-                <fieldset class="ingredientContainer">
-                    <label>Ingredient:
-                        <input type="text" name="ingredients" class="ingName" />
-                    </label>
-                    <!-- <label>Quantity:
+                <fieldset id="recipeIngredients">
+                    <!-- current id are temporary -->
+                    <fieldset class="ingredientContainer">
+                        <label>Ingredient:
+                            <input type="text" name="ingredients"
+                                class="ingName" />
+                        </label>
+                        <!-- <label>Quantity:
                         <input type="text" class="ingQuantity" />
                     </label> -->
-                </fieldset>
-                <!-- <fieldset class="ingredientContainer">
+                    </fieldset>
+                    <!-- <fieldset class="ingredientContainer">
                     <label>Quantity:
                         <input type="text" class="ingQuantity" />
                     </label>
@@ -82,16 +90,20 @@
                         <input type="text" class="ingName" />
                     </label>
                     <button type="button" class="removeBtn">[Cross]</button> -->
-                <button type="button" id="addIng">[Plus]</button>
-                <button type="button" style="display: none;" type="button" id="removeIng" class="removeBtn">[Cross]</button>
+                    <button type="button" id="addIng" class="addBtn"><img
+                            src="./icons8-plus-+.svg"
+                            style='width: 30px;'></button>
+                    <button type="button" style="display: none;" id="removeIng"
+                        class="removeBtn"><img src="./icons8-delete.svg"
+                            style="width: 30px;"></button>
                 </fieldset>
-            </fieldset>
-            <fieldset id="recipeSteps">
-                <fieldset class="stepsContainer">
-                    <label>Step:
-                        <input type="text" name="steps"  />
-                    </label>
-                    <!-- <label>Step 1:
+                </fieldset>
+                <fieldset id="recipeSteps">
+                    <fieldset class="stepsContainer">
+                        <label>Step:
+                            <input type="text" name="steps" />
+                        </label>
+                        <!-- <label>Step 1:
                         <input type="text" />
                         <button type="button" class="removeBtn">[Cross]</button>
                     </label>
@@ -99,25 +111,37 @@
                         <input type="text" />
                         <button type="button" class="removeBtn">[Cross]</button>
                     </label> -->
+                    </fieldset>
+                    <button type="button" id="addStep" class="addBtn"><img
+                            src="./icons8-plus-+.svg"
+                            style='width: 30px;'></button>
+                    <button type="button" style="display: none;" id="removeStep"
+                        class="removeBtn"><img src="./icons8-delete.svg"
+                            style="width: 30px;"></button>
                 </fieldset>
-                <button type="button" id="addStep">[Plus]</button>
-                <button type="button" style="display: none;" type="button" id="removeStep" class="removeBtn">[Cross]</button>
-            </fieldset>
-            <fieldset id="recipeNutrition">
-                <fieldset class="nutritionContainer">
-                    <label>Nutriton:
-                        <input type="text" name="nutrition">
-                    </label>
+                <fieldset id="recipeNutrition">
+                    <fieldset class="nutritionContainer">
+                        <label>Nutriton:
+                            <input type="text" name="nutrition">
+                        </label>
+                    </fieldset>
+                    <button type="button" id="addNutrition" class="addBtn"><img
+                            src="./icons8-plus-+.svg"
+                            style='width: 30px;'></button>
+                    <button type="button" style="display: none;"
+                        id="removeNutrition" class="removeBtn"><img
+                            src="./icons8-delete.svg"
+                            style="width: 30px;"></button>
                 </fieldset>
-                <button type="button" id="addNutrition">[Plus]</button>
-                <button type="button" style="display: none;" id="removeNutrition">[Cross]</button>
-            </fieldset>
-            <button type="button" id="createBtn">Create</button>
-            <button type="button" id="cancelBtn">Cancel</button>
-        </form>
-    </main>
-    <footer></footer>
-    <!-- <script>
+                <div id="btns">
+                    <button type="button" id="cancelBtn">Cancel</button>
+                    <button type="button" id="createBtn">Create</button>
+                </div>
+            </form>
+        </main>
+</div>
+<footer></footer>
+<!-- <script>
         window.addEventListener('DOMContentLoaded', init);
 
         function init() {
@@ -135,7 +159,7 @@
             fileReader.readAsDataURL(imgInput.files[0]);
         }
     </script> -->
-    <script type="module" src="./scripts/createRecipe.js"></script>
+<script type="module" src="./scripts/createRecipe.js"></script>
 </body>
 
 </html>
