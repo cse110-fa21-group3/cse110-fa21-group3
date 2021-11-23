@@ -1,23 +1,62 @@
+/*using rem for unit */
+* {
+    font-family: 'Libre Baskerville', serif;
+}
+
+
 body {
     background-color: #fafafa;
 }
+
+hr {
+    border: 0;
+    height: 5px;
+    background-image: linear-gradient(to right, #ccc, #FF4747, #ccc);
+}
+
+
 #web_logo{
-    margin: 1em;
+    margin: 1rem;
 }
 #profile_logo {
-    margin-top: 1em;
-    margin-bottom: 1em;
-    margin-right: 1em;
-    margin-left: 80em
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
-div.logo {
-    background-color: white;
-}
-#recipe_img {
-    float: right;
-    margin-top: 1em;
-    margin-right: 5cm;
 
+div.nav_bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+}
+
+#profile_container {
+    /*display: inline-block;
+    border: 0.1rem solid;
+    border-radius: 20px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    margin-left: 48rem;
+    border-color: red;
+    background-color: red;*/
+    display:flex;
+    justify-content: space-between;
+    background-color: blue;
+    align-items: center;
+}
+
+.recipe_info {
+    margin: 2rem;
+}
+
+.recipe_info > p {
+    /*color: #D1D1D1;*/
+    color:grey;
+}
+
+#recipe-img {
+    float: right;
+    margin-right: 1rem;
     width: 468px;
     height: 346.5px;
 }
@@ -26,7 +65,7 @@ div.logo {
     padding-right: 50px;
     padding-left: 50px;
     background-size: 20%;
-    background: darkgrey;
+    background: #FFFFFF;
 } 
 
 div.recipe_info {
@@ -40,21 +79,34 @@ div.recipe_info {
     margin-top:  3cm;
 }
 
-#ingre > h2 {
-    background-color: white;
+ol.ingreds  {
+    font-size: 1.25rem;
+    line-height: 2rem;
 }
 
+label > input[type="checkbox"]:checked + * {
+    border-color: red;
+  }
+
 ol.steps {
+    font-size: 1.25rem;
     list-style-type: none;
+    line-height: 2rem;
     counter-reset: elementcounter;
-    padding-left: 20px;
+    padding-left: 3rem;
   }
   
   ol.steps > li:before {
-    content: "Step " counter(elementcounter) ": ";
+    content: "- Step " counter(elementcounter) ": ";
     counter-increment: elementcounter;
   }
 
-  #step_section {
-      background-color: white;
+  ul.nutrition {
+      font-size: 1.25rem;
+      line-height: 2rem;
+      padding-left: 3rem;
   }
+  
+  /*#step_section {
+      background-color: white;
+  }*/
