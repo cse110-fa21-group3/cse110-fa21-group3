@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+:root {
+    --black: #353535;
+    --light-gray: #F2F2F2;
+    --dark-gray: #D1D1D1;
+    --red: #FF4747;
+    --light-red: #FFDADA;
+    --white: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Libre Baskerville', serif;
+}
+
+/* General Element Styling */
+img {
+    width: 100%;
+}
+
+label {
+    font-weight: bold;
+}
+
+input {
+    margin: 0 0.5rem 0 0.5rem;
+    border: 1px solid var(--dark-gray);
+    padding: 0.2rem 0.2rem;
+}
+
+body {
+    background-color: var(--light-gray) ;
+}
+
+fieldset {
+    border: none;
+}
+
+/* Navbar Styling */
+nav {
+    background-color: var(--black);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
+
+#favContainer {
+    background-color: var(--red);
+    border-radius: 10%;
+    padding: 0.2rem 0.5rem;
+}
+
+/* Form Styling */
+#recipeForm {
+    padding: 3rem 3rem;
+}
+
+#timeContainer {
+    display: flex;
+    align-items: center;
+}
+
+#recipeName, #timeContainer, #recipeIngredients, 
+#recipeSteps, #recipeNutrition {
+    margin-bottom: 2rem;
+}
+
+#btns {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#createBtn, #cancelBtn {
+    border: none;
+    color: var(--white);
+    border-radius: 5%;
+    padding: 0.8rem 1rem;
+}
+
+#createBtn {
+    background-color: var(--red);
+    margin-left: 1rem;
+}
+
+#createBtn:hover, #cancelBtn:hover {
+    filter: brightness(0.7);
+    cursor: pointer;
+}
+
+#cancelBtn {
+    background-color: var(--black);
+}
+
+.addBtn {
+    border: 1px solid var(--dark-gray);
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-top: 0.5rem;
+    padding: 0.5rem 0.5rem;
+}
+
+.addBtn:hover {
+    box-shadow: 0px 0px 5px grey;
+    cursor: pointer;
+}
+
+.removeBtn {
+    border: none;
+    background-color: transparent;
+    padding: 0.5rem 0.5rem;
+}
+
+.removeBtn:hover {
+    cursor: pointer;
+}
+
+
+
+
+
+
+

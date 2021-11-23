@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <link href="styles.css" rel="stylesheet" type="text/css" />
+    <link href="createStyles.css" rel="stylesheet" type="text/css" />
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +16,9 @@
                 <a href="homepage.html"><img id="web_logo"
                         src="logo3_231x231.jpg" alt="Logo" width="80"
                         height="80"></a>
+                <a href="#" id="favContainer"><img
+                        src="./icons8-favorite-folder-50.png"
+                        alt="Favorite Icon"></a>
             </nav>
         </header>
         <main>
@@ -87,10 +90,11 @@
                         <input type="text" class="ingName" />
                     </label>
                     <button type="button" class="removeBtn">[Cross]</button> -->
-                    <button type="button" id="addIng"><img src="plus.png"
+                    <button type="button" id="addIng" class="addBtn"><img
+                            src="./icons8-plus-+.svg"
                             style='width: 30px;'></button>
-                    <button type="button" style="display: none;" type="button"
-                        id="removeIng" class="removeBtn"><img src="cross.png"
+                    <button type="button" style="display: none;" id="removeIng"
+                        class="removeBtn"><img src="./icons8-delete.svg"
                             style="width: 30px;"></button>
                 </fieldset>
                 </fieldset>
@@ -108,10 +112,11 @@
                         <button type="button" class="removeBtn">[Cross]</button>
                     </label> -->
                     </fieldset>
-                    <button type="button" id="addStep"><img src="plus.png"
+                    <button type="button" id="addStep" class="addBtn"><img
+                            src="./icons8-plus-+.svg"
                             style='width: 30px;'></button>
-                    <button type="button" style="display: none;" type="button"
-                        id="removeStep" class="removeBtn"><img src="cross.png"
+                    <button type="button" style="display: none;" id="removeStep"
+                        class="removeBtn"><img src="./icons8-delete.svg"
                             style="width: 30px;"></button>
                 </fieldset>
                 <fieldset id="recipeNutrition">
@@ -120,14 +125,18 @@
                             <input type="text" name="nutrition">
                         </label>
                     </fieldset>
-                    <button type="button" id="addNutrition"><img src="plus.png"
+                    <button type="button" id="addNutrition" class="addBtn"><img
+                            src="./icons8-plus-+.svg"
                             style='width: 30px;'></button>
                     <button type="button" style="display: none;"
-                        id="removeNutrition"><img src="cross.png"
+                        id="removeNutrition" class="removeBtn"><img
+                            src="./icons8-delete.svg"
                             style="width: 30px;"></button>
                 </fieldset>
-                <button type="button" id="createBtn">Create</button>
-                <button type="button" id="cancelBtn">Cancel</button>
+                <div id="btns">
+                    <button type="button" id="cancelBtn">Cancel</button>
+                    <button type="button" id="createBtn">Create</button>
+                </div>
             </form>
         </main>
 </div>
