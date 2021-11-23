@@ -1,0 +1,103 @@
+/* page setting */
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+:root {
+    --black: #353535;
+    --light-gray: #F2F2F2;
+    --dark-gray: #D1D1D1;
+    --red: #FF4747;
+    --light-red: #FFDADA;
+    --white: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Libre Baskerville', serif;
+}
+
+body {
+    background-color: var(--light-gray) ;
+}
+
+/* line under sub-title(h2) */
+hr {
+    border: 0;
+    height: 5px;
+    background-image: linear-gradient(to right, var(--light-gray), var(--red), var(--light-gray));
+}
+
+/* nav bar*/
+nav {
+    background-color: var(--black);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
+
+#favContainer {
+    background-color: var(--red);
+    border-radius: 10%;
+    padding: 0.2rem 0.5rem;
+}
+
+/* recipe information */
+.recipe_info {
+    margin: 2rem;
+}
+
+.recipe_info > p {
+    /*color: #D1D1D1;*/
+    color:var(--dark-gray);
+}
+
+#recipe-img {
+    float: right;
+    margin-right: 50rem;
+    width: 468px;
+    height: 346.5px;
+}
+
+
+div.recipe_info {
+    color: var(--black);
+    display: inline-block;
+    font-size: 20px;
+    margin-left: 1cm !important; 
+}
+
+/* ingredient */
+#recipe-ingredients-list  {
+    font-size: 1.25rem;
+    line-height: 2rem;
+    padding-left: 3rem;
+}
+
+/*label > input[type="checkbox"]:checked + * {
+    border-color: red;
+  }*/
+
+  /* cooking steps */
+ #recipe-steps-list {
+    font-size: 1.25rem;
+    list-style-type: none;
+    line-height: 2rem;
+    counter-reset: elementcounter;
+    padding-left: 3rem;
+  }
+  
+  ol > li:before {
+    content: "- Step " counter(elementcounter) ": ";
+    counter-increment: elementcounter;
+  }
+
+  /* list of nutrition */
+  #recipe-nutrition-list {
+      padding-left: 5rem;
+  }
+  ul > li{
+      font-size: 1.25rem;
+      line-height: 2rem;
+  }
+  
