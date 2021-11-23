@@ -47,21 +47,19 @@ nav {
     margin: 2rem;
 }
 
-.recipe_info > p {
+.recipe_info > section {
     /*color: #D1D1D1;*/
-    color:var(--dark-gray);
+    color:var(--red);
 }
 
 #recipe-img {
     float: right;
-    margin-right: 50rem;
     width: 468px;
     height: 346.5px;
+    margin-left: 15rem;
 }
 
-
 div.recipe_info {
-    color: var(--black);
     display: inline-block;
     font-size: 20px;
     margin-left: 1cm !important; 
