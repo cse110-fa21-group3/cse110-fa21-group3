@@ -72,8 +72,18 @@ nav {
 }
 
 #recipeName, #timeContainer, #recipeIngredients, 
-#recipeSteps, #recipeNutrition {
+#recipeSteps, #recipeNutrition, #descContainer {
     margin-bottom: 2rem;
+}
+
+#descContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#descContainer label {
+    margin-bottom: 0.5rem ;
 }
 
 #btns {
