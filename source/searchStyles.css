@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
+:root {
+    --black: #353535;
+    --light-gray: #F2F2F2;
+    --dark-gray: #D1D1D1;
+    --red: #FF4747;
+    --light-red: #FFDADA;
+    --white: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Libre Baskerville', serif;
+}
+
+/* General Element Styling */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+body {
+    background-color: var(--light-gray) ;
+}
+
+/* Navbar Styling */
+nav {
+    background-color: var(--black);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
+
+#web_logo {
+    border-radius: 10%;
+}
+
+#favContainer {
+    background-color: var(--red);
+    border-radius: 10%;
+    padding: 0.2rem 0.5rem;
+}
+
+#favContainer:hover {
+    filter: brightness(0.7);
+}
+
+/* Recipe Card Styling */
+#recipeCards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(auto, 20rem));
+    justify-content: center;
+    gap: 3rem;
+    /* TODO: set min max gap */
+    padding: 5rem 5rem;
+}
+
+@media screen and (min-width: 90em) {
+    #recipeCards {
+        grid-template-columns: repeat(4, minmax(auto, 20rem));
+        gap: 5rem;
+    }
+}
