@@ -126,3 +126,7 @@ createRecipe.addEventListener("click", e => {
     util.addFavoriteRecipe(formRes["id"]);
     window.location.href = "/source/homepage.html";
 });
+
+cancelBtn.addEventListener('click', e => {
+    window.location.href = "/source/homepage.html";
+});
