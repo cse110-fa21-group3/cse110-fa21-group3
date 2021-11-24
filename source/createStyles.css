@@ -47,10 +47,18 @@ nav {
     padding: 0.5rem 1rem;
 }
 
+#web_logo {
+    border-radius: 10%;
+}
+
 #favContainer {
     background-color: var(--red);
     border-radius: 10%;
     padding: 0.2rem 0.5rem;
+}
+
+#favContainer:hover {
+    filter: brightness(0.7);
 }
 
 /* Form Styling */
@@ -118,6 +126,13 @@ nav {
 
 .removeBtn:hover {
     cursor: pointer;
+}
+
+@media screen and (min-width: 90em) {
+    #recipeForm {
+        max-width: 80rem;
+        margin: 0 auto;
+    }
 }
 
 
