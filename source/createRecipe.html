@@ -40,30 +40,12 @@
                 <input type="number" id="recipeServe" name="recipeServe" />
                 <p>people</p>
             </div> -->
-                <!-- <label for="recipeDesc">Description:</label>
-            <textarea name="recipeDesc" id="recipeDesc" cols="30"
-                rows="10"></textarea> -->
-                <!-- <fieldset id="recipeTags"> -->
-                <!-- current id are temporary -->
-                <!-- <label for="tag1">Healthy</label>
-                <input type="radio" name="tag1" id="tag1">
-                <label for="tag2">Japanese</label>
-                <input type="radio" name="tag2" id="tag2">
-                <label for="tag3">Asian</label>
-                <input type="radio" name="tag3" id="tag3">
-                <label for="tag4">Desserts</label>
-                <input type="radio" name="tag4" id="tag4">
-                <label for="tag5">Burgers</label>
-                <input type="radio" name="tag5" id="tag5">
-                <label for="tag6">Seafood</label>
-                <input type="radio" name="tag6" id="tag6">
-                <label for="tag7">Fast Food</label>
-                <input type="radio" name="tag7" id="tag7">
-                <label for="tag8">Chicken</label>
-                <input type="radio" name="tag8" id="tag8">
-            </fieldset> -->
-                <fieldset id="recipeIngredients">
-                    <!-- current id are temporary -->
+                <div id="descContainer">
+                    <label for="recipeDesc">Description:</label>
+                    <textarea name="recipeDesc" id="recipeDesc" cols="60"
+                        rows="10"></textarea>
+                </div>
+                <div id="recipeIngredients">
                     <fieldset class="ingredientContainer">
                         <label>Ingredient:
                             <input type="text" name="ingredients"
@@ -73,44 +55,19 @@
                         <input type="text" class="ingQuantity" />
                     </label> -->
                     </fieldset>
-                    <!-- <fieldset class="ingredientContainer">
-                    <label>Quantity:
-                        <input type="text" class="ingQuantity" />
-                    </label>
-                    <label>Ingredient 2:
-                        <input type="text" class="ingName" />
-                    </label>
-                    <button type="button" class="removeBtn">[Cross]</button>
-                </fieldset>
-                <fieldset class="ingredientContainer">
-                    <label>Quantity:
-                        <input type="text" class="ingQuantity" />
-                    </label>
-                    <label>Ingredient 3:
-                        <input type="text" class="ingName" />
-                    </label>
-                    <button type="button" class="removeBtn">[Cross]</button> -->
-                    <button type="button" id="addIng" class="addBtn"><img
-                            src="./icons8-plus-+.svg"
-                            style='width: 30px;'></button>
+                    <button type="button" id="addIng" class="addBtn">
+                        <img src="./icons8-plus-+.svg" style='width: 30px;'>
+                    </button>
                     <button type="button" style="display: none;" id="removeIng"
-                        class="removeBtn"><img src="./icons8-delete.svg"
-                            style="width: 30px;"></button>
-                </fieldset>
-                </fieldset>
-                <fieldset id="recipeSteps">
+                        class="removeBtn">
+                        <img src="./icons8-delete.svg" style="width: 30px;">
+                    </button>
+                </div>
+                <div id="recipeSteps">
                     <fieldset class="stepsContainer">
                         <label>Step:
                             <input type="text" name="steps" />
                         </label>
-                        <!-- <label>Step 1:
-                        <input type="text" />
-                        <button type="button" class="removeBtn">[Cross]</button>
-                    </label>
-                    <label>Step 1:
-                        <input type="text" />
-                        <button type="button" class="removeBtn">[Cross]</button>
-                    </label> -->
                     </fieldset>
                     <button type="button" id="addStep" class="addBtn"><img
                             src="./icons8-plus-+.svg"
@@ -118,8 +75,8 @@
                     <button type="button" style="display: none;" id="removeStep"
                         class="removeBtn"><img src="./icons8-delete.svg"
                             style="width: 30px;"></button>
-                </fieldset>
-                <fieldset id="recipeNutrition">
+                </div>
+                <div id="recipeNutrition">
                     <fieldset class="nutritionContainer">
                         <label>Nutriton:
                             <input type="text" name="nutrition">
@@ -132,7 +89,7 @@
                         id="removeNutrition" class="removeBtn"><img
                             src="./icons8-delete.svg"
                             style="width: 30px;"></button>
-                </fieldset>
+                </div>
                 <div id="btns">
                     <button type="button" id="cancelBtn">Cancel</button>
                     <button type="button" id="createBtn">Create</button>
@@ -141,24 +98,6 @@
         </main>
 </div>
 <footer></footer>
-<!-- <script>
-        window.addEventListener('DOMContentLoaded', init);
-
-        function init() {
-            document.getElementById('recipeImg').addEventListener('change', previewImg);
-        }
-
-        function previewImg(e) {
-            let imgInput = document.getElementById('recipeImg');
-            let fileReader = new FileReader();
-
-            fileReader.addEventListener('load', (e) => {
-                document.getElementById('imgContainer').src = e.target.result;
-            });
-
-            fileReader.readAsDataURL(imgInput.files[0]);
-        }
-    </script> -->
 <script type="module" src="./scripts/createRecipe.js"></script>
 </body>
 
