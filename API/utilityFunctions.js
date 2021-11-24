@@ -21,9 +21,13 @@ const allowedIntolerances = ["dairy", "egg", "gluten", "grain", "peanut", "seafo
 let intolerances = [];
 // max for recipes prep time
 let maxTime = DEFAULT_MAX_TIME;
+// user data variables
+const USER_DATA = 'userData';
 
 
-// just a tesing function
+/**
+ * Just a testing function for the start up
+ */
 function init() {
     loadUserData();
     console.log(intolerances);
@@ -78,7 +82,7 @@ function setMaxTime(time) {
  * sets the `intolerances` variable and the `maxTime` variable
  */ 
 function loadUserData() {
-    let data = localStorage.getItem("userData");
+    let data = localStorage.getItem(USER_DATA);
     if (data) {
         data = JSON.parse(data);
     }else {
@@ -91,16 +95,23 @@ function loadUserData() {
     maxTime = data["maxTime"] ? data["maxTime"] : DEFAULT_MAX_TIME;
 }
 
+/**
+ * Method to get the current favorited recipes
+ * @returns the favorited recipes
+ */
 function getFavoriteRecipes() {
-    let userData = JSON.parse(localStorage.getItem("userData"));
-    let favoriteRecipes = [];
-    try {
-        favoriteRecipes = userData["favorites"];
-    } catch(err) {
-    }
+    let userData = JSON.parse(localStorage.getItem(USER_DATA));
+    let favoriteRecipes = userData["favorites"];
+    if (!favoriteRecipes) {
+        favoriteRecipes = [];
+    } 
     return favoriteRecipes;
 }
 
+/**
+ * Adds a recipe id to the favorites list in the userData item in the local storage
+ * @param {string} id - the id of the recipe being added
+ */
 function addFavoriteRecipes(id) {
     // get the favorites array and add the favorited recipe to the array
     var favArr = getFavoriteRecipes();
@@ -113,6 +124,10 @@ function addFavoriteRecipes(id) {
     localStorage.setItem(`${id}`, JSON.stringify(recipe));
 }
 
+/**
+ * Method to remove the favorite status on a recipe
+ * @param {string} id the id for the recipe
+ */
 function removeFavoriteRecipe(id) {
     let favArr = getFavoriteRecipes();
     let removed = [];
@@ -135,7 +150,7 @@ function removeFavoriteRecipe(id) {
  * Function to remove the user recipe
  * @param {string} id the user created recipe id
  */
-function removeUserRecipe(id) {
+function removeRecipe(id) {
     localStorage.removeItem(id);
 }
 
@@ -147,15 +162,15 @@ function removeUserRecipe(id) {
  * @param {any} value - The data being stored.
  */ 
 function updateUserData(key, value) {
-    let data = localStorage.getItem("userData");
+    let data = localStorage.getItem(USER_DATA);
     if (data) {
         data = JSON.parse(data);
     }else {
         data = {};
     }
     data[key] = value;
-    localStorage.setItem("userData", JSON.stringify(data));
-    console.log(JSON.parse(localStorage.getItem("userData")));
+    localStorage.setItem(USER_DATA, JSON.stringify(data));
+    console.log(JSON.parse(localStorage.getItem(USER_DATA)));
 }
 
 /**
@@ -273,6 +288,11 @@ async function fetchRecipes(recipe_count, offset){
    });
 }
 
+
+/**
+ * Gets the summary of a specific recipe with its id
+ * @param {string} id - id of the recipe to be removed.
+ */
 async function fetchSummary(id) {
     let reqUrl = `${API_ENDPOINT}/recipes/${id}/summary`;
     return new Promise((resolve, reject) => {
@@ -290,6 +310,7 @@ async function fetchSummary(id) {
 
 /**
  * This function takes in what is fetched and from those parameters finds what we need for the recipe and sorts it into an object
+ * @param {JSON} r - recipe json Object
  */
 async function createRecipeObject(r) {
     let id = r["id"];
@@ -361,7 +382,7 @@ function getLocalStorageRecipes() {
     }
 
     for(let key of localKeys) {
-        if (key != "userData") {
+        if (key != USER_DATA) {
             recipeList.push(JSON.parse(localStorage.getItem(key)));
         }
     }
