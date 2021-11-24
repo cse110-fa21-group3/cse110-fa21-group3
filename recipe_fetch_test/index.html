@@ -55,6 +55,19 @@
             })
         </script>
     </div>
+
+    <div>
+        <input type="text" id="delete_textbox" style="margin-top:30px">
+        <br>
+        <button id="delete_btn">Delete Recipe</button>
+        <script>
+            let delete_btn = document.getElementById("delete_btn");
+            let delete_textbox = document.getElementById("delete_textbox");
+            delete_btn.addEventListener('click', function (){
+                removeUserRecipe(delete_textbox.value);
+            })
+        </script>
+    </div>
     <p id="disp"></p>
     <script type="text/javascript" src="/API/utilityFunctions.js"></script>
 </body>

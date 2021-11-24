@@ -132,6 +132,15 @@ function removeFavoriteRecipe(id) {
 }
 
 /**
+ * Function to remove the user recipe
+ * @param {string} id the user created recipe id
+ */
+function removeUserRecipe(id) {
+    localStorage.removeItem(id);
+}
+
+
+/**
  * This function updates the userData stored in localStorage using
  * the Key-Value pair passed in.
  * @param {string} key - The key of the user data being stored.
@@ -223,7 +232,6 @@ function updateUserData(key, value) {
         }
     
     }
-    console.log(recipeList);
     // return a populated array of recipes relating to the query
     return recipeList;
  }
@@ -248,8 +256,6 @@ async function fetchRecipes(recipe_count, offset){
         reqUrl += "&intolerances="+intolerancesStr;
    }
 
-   console.log(reqUrl);
-
    return new Promise((resolve, reject) => {
         fetch(reqUrl, options)
             .then(res => res.json())
@@ -267,6 +273,20 @@ async function fetchRecipes(recipe_count, offset){
    });
 }
 
+async function fetchSummary(id) {
+    let reqUrl = `${API_ENDPOINT}/recipes/${id}/summary`;
+    return new Promise((resolve, reject) => {
+        fetch(reqUrl, options)
+            .then(res => res.json())
+            .then(res => {
+                resolve(res['summary']);
+            })
+            .catch(error => {
+                console.log(error);
+                reject(false);
+            });
+   });
+}
 
 /**
  * This function takes in what is fetched and from those parameters finds what we need for the recipe and sorts it into an object
@@ -277,6 +297,9 @@ async function createRecipeObject(r) {
     let title = r["title"];
     let foodImage = r["image"];
     let favorite = false;
+
+    let summary = await fetchSummary(id);
+    let size = r["servings"];
 
     // populating ingredient list
     let ingredients = [];
@@ -301,7 +324,7 @@ async function createRecipeObject(r) {
     r["analyzedInstructions"][0].steps.forEach(recipeStep => {
         steps.push(recipeStep["step"]);
     })
-    //console.log(steps);
+    
 
     // Create a JSON Object to store the data 
     // in the format we specified
@@ -314,7 +337,9 @@ async function createRecipeObject(r) {
         "ingredients" : ingredients,
         "steps" : steps,
         "nutrition" : nutrition,
-        "favorite" : favorite
+        "favorite" : favorite,
+        "summary" : summary,
+        "servingSize" : size
     }
     setLocalStorageItem(r.id, recipeObject);
 }
