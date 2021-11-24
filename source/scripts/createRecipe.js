@@ -9,6 +9,7 @@ let removeStep = document.getElementById("removeStep");
 let removeNutrition = document.getElementById("removeNutrition");
 
 let createRecipe = document.getElementById("createBtn");
+let cancelBtn = document.getElementById("cancelBtn");
 
 addIng.addEventListener("click", e => {
     let elementContainer = document.getElementById("recipeIngredients");
