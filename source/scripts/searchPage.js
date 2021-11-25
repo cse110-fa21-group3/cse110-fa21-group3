@@ -9,7 +9,7 @@ window.addEventListener("DOMContentLoaded", () => {
         if (results["matchedCount"] === 0) {
             return;
         }
-        queryDisplay.innerText = "Showing results for: " + results["query"];
+        queryDisplay.innerText = "Showing results for: " + '"' + results["query"] + '"';
         matchedCountText.innerText = results["matchedCount"] + " results found";
         results = results["data"];
         results.forEach(id => {
