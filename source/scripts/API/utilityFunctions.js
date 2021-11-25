@@ -140,6 +140,17 @@ export function getFavoriteRecipes() {
  * @param {string} id - the id of the recipe being added
  */
 export function addFavoriteRecipe(id) {
+    // change favorite property in the recipe object
+    let recipeItem = localStorage.getItem((`${id}`))
+    let recipe;
+    if (recipeItem) {
+        recipe = JSON.parse(recipeItem);
+        recipe['favorite'] = true;
+        localStorage.setItem(id, JSON.stringify(recipe));
+    }else {
+        return;
+    }
+
     // get the favorites array and add the favorited recipe to the array
     let favArr = getFavoriteRecipes();
     if(favArr){
@@ -149,13 +160,7 @@ export function addFavoriteRecipe(id) {
     }else{
         favArr = [id];
     }
-    console.log(favArr);
     updateUserData("favorites", favArr);
-    
-    // change favorite property in the recipe object
-    let recipe = JSON.parse(localStorage.getItem((id)));
-    recipe['favorite'] = true;
-    localStorage.setItem(id, JSON.stringify(recipe));
 }
 
 /**
@@ -167,11 +172,15 @@ export function removeFavoriteRecipe(id) {
     let removed = [];
 
     // change favorite property in the recipe object
-    let recipe = JSON.parse(localStorage.getItem((`${id}`)));
-    recipe['favorite'] = false;
-    localStorage.setItem(`${id}`, JSON.stringify(recipe));
-    
-    console.log(favArr);
+    let recipeItem = localStorage.getItem((`${id}`))
+    if (recipeItem) {
+        let recipe = JSON.parse(recipeItem);
+        recipe['favorite'] = false;
+        localStorage.setItem(`${id}`, JSON.stringify(recipe));
+    }else {
+        return;
+    }
+
     for (let recipeID of favArr) {
         if(recipeID != id) {
             removed.push(recipeID);
