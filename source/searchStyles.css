@@ -15,6 +15,16 @@
     font-family: 'Libre Baskerville', serif;
 }
 
+#textContainer {
+    margin-left: 20px;
+    margin-top: 2em;
+    padding: 0;
+}
+
+h2,p {
+    margin: 0;
+}
+
 /* General Element Styling */
 img {
     max-width: 100%;
