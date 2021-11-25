@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="createStyles.css" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group 3 Create Recipe</title>
+</head>
+<div class="container">
+
+    <body>
+        <header>
+            <nav>
+                <a href="homepage.html"><img id="web_logo"
+                        src="logo3_231x231.jpg" alt="Logo" width="80"
+                        height="80"></a>
+                <a href="#" id="favContainer"><img
+                        src="./icons8-favorite-folder-50.png"
+                        alt="Favorite Icon"></a>
+            </nav>
+        </header>
+        <main>
+            <form id="recipeForm" action="#">
+                <!-- <label for="recipeImg">Upload file:</label>
+            <input type="file" id="recipeImg" name="image"
+                accept="image/png, image/jpeg" /> -->
+                <!-- <img id="imgContainer" src="#" alt="Attached Recipe Image"> -->
+                <label for="recipeName">Name:</label>
+                <input type="text" id="recipeName" name="title" />
+                <div id="timeContainer">
+                    <label for="recipeTime">Time:</label>
+                    <input type="number" id="recipeTime"
+                        name="readyInMinutes" />
+                    <p>mins</p>
+                </div>
+                <!-- <div id="serveContainer">
+                <label for="recipeServe">Serves:</label>
+                <input type="number" id="recipeServe" name="recipeServe" />
+                <p>people</p>
+            </div> -->
+                <div id="descContainer">
+                    <label for="recipeDesc">Description:</label>
+                    <textarea name="recipeDesc" id="recipeDesc" cols="60"
+                        rows="10"></textarea>
+                </div>
+                <div id="recipeIngredients">
+                    <fieldset class="ingredientContainer">
+                        <label>Ingredient:
+                            <input type="text" name="ingredients"
+                                class="ingName" />
+                        </label>
+                        <!-- <label>Quantity:
+                        <input type="text" class="ingQuantity" />
+                    </label> -->
+                    </fieldset>
+                    <button type="button" id="addIng" class="addBtn">
+                        <img src="./icons8-plus-+.svg" style='width: 30px;'>
+                    </button>
+                    <button type="button" style="display: none;" id="removeIng"
+                        class="removeBtn">
+                        <img src="./icons8-delete.svg" style="width: 30px;">
+                    </button>
+                </div>
+                <div id="recipeSteps">
+                    <fieldset class="stepsContainer">
+                        <label>Step:
+                            <input type="text" name="steps" />
+                        </label>
+                    </fieldset>
+                    <button type="button" id="addStep" class="addBtn"><img
+                            src="./icons8-plus-+.svg"
+                            style='width: 30px;'></button>
+                    <button type="button" style="display: none;" id="removeStep"
+                        class="removeBtn"><img src="./icons8-delete.svg"
+                            style="width: 30px;"></button>
+                </div>
+                <div id="recipeNutrition">
+                    <fieldset class="nutritionContainer">
+                        <label>Nutriton:
+                            <input type="text" name="nutrition">
+                        </label>
+                    </fieldset>
+                    <button type="button" id="addNutrition" class="addBtn"><img
+                            src="./icons8-plus-+.svg"
+                            style='width: 30px;'></button>
+                    <button type="button" style="display: none;"
+                        id="removeNutrition" class="removeBtn"><img
+                            src="./icons8-delete.svg"
+                            style="width: 30px;"></button>
+                </div>
+                <div id="btns">
+                    <button type="button" id="cancelBtn">Cancel</button>
+                    <button type="button" id="createBtn">Create</button>
+                </div>
+            </form>
+        </main>
+</div>
+<footer></footer>
+<script type="module" src="./scripts/createRecipe.js"></script>
+</body>
+
+</html>
