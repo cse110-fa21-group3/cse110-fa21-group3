@@ -124,7 +124,11 @@ function loadUserData() {
  */
 export function getFavoriteRecipes() {
     let userData = JSON.parse(localStorage.getItem(USER_DATA));
-    let favoriteRecipes = userData["favorites"];
+    let favoriteRecipes;
+    if (userData) {
+        favoriteRecipes = userData["favorites"];
+    }
+
     if (!favoriteRecipes) {
         favoriteRecipes = [];
     } 
@@ -135,7 +139,7 @@ export function getFavoriteRecipes() {
  * Adds a recipe id to the favorites list in the userData item in the local storage
  * @param {string} id - the id of the recipe being added
  */
-export function addFavoriteRecipes(id) {
+export function addFavoriteRecipe(id) {
     // get the favorites array and add the favorited recipe to the array
     let favArr = getFavoriteRecipes();
     if(favArr){
