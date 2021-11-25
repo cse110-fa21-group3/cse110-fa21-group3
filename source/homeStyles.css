@@ -32,6 +32,9 @@ nav {
     flex-flow: row  wrap;
     align-items: flex-start;
     justify-content: space-between;
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-top: 50px;
 }
 
 #favContainer {
@@ -41,13 +44,41 @@ nav {
 }
 
 #searchQuery {
-    margin: 5px;
     width: 90%;
+    height: 3em;
+    max-width: 600px;
+    border-radius: 0px;
+    border-width: 1px;
+    border-color: var(--dark-gray);
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    text-indent: 1em;
+}
+
+*:focus {
+    outline-color: var(--light-red);
+}
+
+#search {
+    height: 3em;
+    width: 3em;
+    padding: 10px;
+    background-color: var(--red);
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+}
+
+#searchContainer {
+    display: flex;
+    justify-content: center;
 }
 
 h1 {
-    margin: 5px;
-    font-size: 2cm;
+    margin-top: 50px;
+    margin-bottom: 60px;
+    font-size: 1.5cm;
     text-align: center;
 }
 
