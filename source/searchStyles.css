@@ -16,13 +16,21 @@
 }
 
 #textContainer {
-    margin-left: 20px;
+    margin:20px;
     margin-top: 2em;
     padding: 0;
 }
 
-h2,p {
-    margin: 0;
+hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 0;
+    height: 5px;
+    background-image: linear-gradient(to right, #ccc, #FF4747, #ccc);
+}
+
+#matchedCountText {
+    color: gray
 }
 
 /* General Element Styling */

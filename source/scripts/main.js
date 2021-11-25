@@ -34,7 +34,12 @@ function init(){
                 res.push(recipe["id"]);
             });
             console.log(res);
-            localStorage.setItem("latestSearch", res);
+            let searchObj = {
+                "data": res,
+                "query": searchQuery,
+                "matchedCount": arr.length
+            }
+            localStorage.setItem("latestSearch", JSON.stringify(searchObj));
             window.location.href = "/source/searchpage.html";
         });
     });
