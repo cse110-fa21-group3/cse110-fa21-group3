@@ -42,27 +42,63 @@ nav {
     padding: 0.2rem 0.5rem;
 }
 
+/* favourite button*/
+#title_button_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1rem;
+}
+
+#favorite {
+    margin-top: 1rem;
+    margin-right: 2rem;
+}
+
+#favorite::before {
+    font-size: 8em;
+    color: var(--black);
+    content: '♥';
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+
+#favorite::after {
+    font-size: 8em;
+    color: var(--red);
+    content: '♥';
+    position: absolute;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.2s;
+}
+
+#favorite.liked::after {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
 /* recipe information */
 .recipe_info {
-    margin: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .recipe_info > section {
-    /*color: #D1D1D1;*/
+    font-size: 20px;
     color:var(--red);
+    margin-left: 1.5cm; 
+    margin-bottom: 15rem;
 }
 
+.recipe_info > section > p{
+    margin: 1rem;
+}
 #recipe-img {
     float: right;
     width: 468px;
     height: 346.5px;
-    margin-left: 15rem;
-}
-
-div.recipe_info {
-    display: inline-block;
-    font-size: 20px;
-    margin-left: 1cm !important; 
+    margin-top: 2rem;
+    margin-right: 2rem;
 }
 
 /* ingredient */
