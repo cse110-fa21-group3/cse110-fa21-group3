@@ -12,7 +12,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Libre Baskerville', serif;
 }
 
 body {
@@ -29,12 +28,31 @@ nav {
 
 #recipeCards {
     display: flex;
-    flex-flow: row  wrap;
+    flex-flow: row;
     align-items: flex-start;
     justify-content: space-between;
     margin-left: 2em;
     margin-right: 2em;
-    margin-top: 50px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    min-height: min-content;
+    overflow-x: auto ;
+    background-color: var(--dark-gray);
+    border-style: solid;
+    border-radius: 10px;
+    border-color: var(--black);
+}
+
+#recipeCards::-webkit-scrollbar {    
+    display: none;
+}
+
+recipe-card{
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 20px;
+    text-align: center;
+    justify-content: space-around;
 }
 
 #favContainer {
@@ -64,10 +82,34 @@ nav {
 #search {
     height: 3em;
     width: 3em;
-    padding: 10px;
+    padding-top: 3px;
     background-color: var(--red);
     border-top-right-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
+    border: 1px;
+}
+
+#search:hover {
+    box-shadow: 0px 0px 5px grey;
+    cursor: pointer;
+}
+
+#search:active{
+    transform: translateX(2px);
+}
+
+#web_logo:hover{
+    box-shadow: 0px 0px 5px grey;
+    cursor: pointer;
+}
+
+#favContainer:hover{
+    box-shadow: 0px 0px 5px grey;
+    cursor: pointer;
+}
+
+#favContainer:active{
+    background-color: var(--black);
 }
 
 #searchContainer {
@@ -76,10 +118,37 @@ nav {
 }
 
 h1 {
-    margin-top: 50px;
-    margin-bottom: 60px;
+    margin-top: 20px;
+    margin-bottom: 10px;
     font-size: 1.5cm;
     text-align: center;
+}
+
+#createBtn{
+    border-style: solid;
+    float: right;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: var(--light-gray);
+    border:1px solid var(--black);    
+    height:50px;
+    border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+    width:50px;
+}
+
+#createBtn:hover{
+    box-shadow: 0px 0px 5px grey;
+    cursor: pointer;
+}
+
+#createBtn:active{
+    background-color: var(--black);
+}
+
+h1, input recipe-card{
+    font-family: 'Libre Baskerville', serif;
 }
 
 @media screen and (min-width: 90em) {
