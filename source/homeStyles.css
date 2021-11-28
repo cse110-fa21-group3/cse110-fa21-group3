@@ -103,6 +103,13 @@ recipe-card:hover{
     transform: translateX(2px);
 }
 
+#web_logo{
+    border-radius: 10%;
+    width: 66px;
+    height: 60.4px;
+    
+}
+
 #web_logo:hover{
     box-shadow: 0px 0px 5px grey;
     cursor: pointer;
