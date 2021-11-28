@@ -1,20 +1,4 @@
 /* page setting */
-@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
-:root {
-    --black: #353535;
-    --light-gray: #F2F2F2;
-    --dark-gray: #D1D1D1;
-    --red: #FF4747;
-    --light-red: #FFDADA;
-    --white: #FFFFFF;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Libre Baskerville', serif;
-}
 
 body {
     background-color: var(--light-gray) ;
@@ -27,20 +11,6 @@ hr {
     background-image: linear-gradient(to right, var(--light-gray), var(--red), var(--light-gray));
 }
 
-/* nav bar*/
-nav {
-    background-color: var(--black);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1rem;
-}
-
-#favContainer {
-    background-color: var(--red);
-    border-radius: 10%;
-    padding: 0.2rem 0.5rem;
-}
 
 /* favourite button*/
 #title_button_container {
