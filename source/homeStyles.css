@@ -52,7 +52,12 @@ recipe-card{
     margin-left: 5px;
     margin-top: 20px;
     text-align: center;
+    transition: transform .2s;
     justify-content: space-around;
+}
+
+recipe-card:hover{
+    transform: scale(1.5);
 }
 
 #favContainer {
@@ -124,7 +129,7 @@ h1 {
     text-align: center;
 }
 
-#createBtn{
+#create-recipe{
     border-style: solid;
     float: right;
     margin-right: 10px;
@@ -138,12 +143,12 @@ h1 {
     width:50px;
 }
 
-#createBtn:hover{
+#create-recipe:hover{
     box-shadow: 0px 0px 5px grey;
     cursor: pointer;
 }
 
-#createBtn:active{
+#create-recipe:active{
     background-color: var(--black);
 }
 
