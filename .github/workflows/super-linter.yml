@@ -36,7 +36,7 @@ jobs:
           # Source directory to build documentation from
           source_dir: ./source/scripts
           # Output folder for the generated documentation
-          output_dir: ./
+          output_dir: ./out
           # Recurse into subdirectories when scanning for source files
           recurse: true
           # The path to a JSDoc configuration file
@@ -48,5 +48,5 @@ jobs:
           # The relative location of the template files within the template package
           #template_dir: # optional
           # The path to a Markdown file to be used as a the front page
-          front_page: doc.md
+          front_page: ./out/doc.md
 
