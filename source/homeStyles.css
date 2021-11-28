@@ -88,10 +88,11 @@ recipe-card:hover{
     height: 3em;
     width: 3em;
     padding-top: 3px;
+    object-fit: contain;
     background-color: var(--red);
     border-top-right-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
-    border: 1px;
+    border: solid;
 }
 
 #search:hover {
@@ -105,9 +106,6 @@ recipe-card:hover{
 
 #web_logo{
     border-radius: 10%;
-    width: 66px;
-    height: 60.4px;
-    
 }
 
 #web_logo:hover{
@@ -159,7 +157,7 @@ h1 {
     background-color: var(--black);
 }
 
-h1, input recipe-card{
+h1, input, recipe-card, #search{
     font-family: 'Libre Baskerville', serif;
 }
 
