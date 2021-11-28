@@ -10,6 +10,11 @@ class RecipeCard extends HTMLElement{
         if(!data) return;
         this.json = data;
 
+        // Recipe card css
+        // TODO: create style tag
+        // TODO: apply style via style.innerHTML
+        // TODO: append element to shadowRoot
+
         const recipeCard = document.createElement("article");
         const recipeImage = document.createElement("img");
         const recipeTitle = document.createElement("p");
