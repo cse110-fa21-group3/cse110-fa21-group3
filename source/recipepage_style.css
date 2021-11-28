@@ -91,7 +91,7 @@ nav {
 }
 
 .recipe_info > section > p{
-    margin: 1rem;
+    margin: 2rem;
 }
 #recipe-img {
     float: right;
@@ -104,7 +104,7 @@ nav {
 /* ingredient */
 #recipe-ingredients-list  {
     font-size: 1.25rem;
-    line-height: 2rem;
+    line-height: 3rem;
     padding-left: 3rem;
 }
 
@@ -116,7 +116,7 @@ nav {
  #recipe-steps-list {
     font-size: 1.25rem;
     list-style-type: none;
-    line-height: 2rem;
+    line-height: 3rem;
     counter-reset: elementcounter;
     padding-left: 3rem;
   }
@@ -132,6 +132,6 @@ nav {
   }
   ul > li{
       font-size: 1.25rem;
-      line-height: 2rem;
+      line-height: 3rem;
   }
   
