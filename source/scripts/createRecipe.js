@@ -100,6 +100,7 @@ createRecipe.addEventListener("click", e => {
         "favorite": true,
         "readyInMinutes": 0,
         "title": "",
+        "summary": "",
         "ingredients": [],
         "ingredientSearch": "",
         "steps": [],
@@ -111,9 +112,10 @@ createRecipe.addEventListener("click", e => {
 
     formKeys.forEach(key => {
         let res = formObj.getAll(key);
-        console.log(res);
-        if(key == "steps" || key == "nutrition" || key == "ingredients"){
+        if(key == "steps" || key === "nutrition" || key == "ingredients"){
             formRes[key] = formObj.getAll(key);
+        }else if(key === "recipeDesc"){
+            formRes['summary'] = formObj.get('recipeDesc');
         }else{
             formRes[key] = res[0];
         }
