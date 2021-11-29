@@ -34,7 +34,7 @@ body {
 #recipeCards::-webkit-scrollbar {    
   display: none;
 }
-
+ 
 recipe-card{
   margin-right: 5px;
   margin-left: 5px;
