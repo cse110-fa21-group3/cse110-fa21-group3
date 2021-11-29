@@ -1,0 +1,135 @@
+/* page setting */
+
+body {
+  background-color: var(--light-gray);
+}
+
+/* line under sub-title(h2) */
+hr {
+  border: 0;
+  height: 5px;
+  background-image: linear-gradient(to right, var(--light-gray), var(--red), var(--light-gray));
+}
+
+h2 {
+  margin-left: 2rem;
+}
+
+/* search bar */
+#search-container {
+  display: flex;
+  width: 50%;
+}
+
+#search-bar {
+  width: 100%;
+  border: none;
+  text-indent: 1rem;
+  border-top-left-radius: 0.5em;
+  border-bottom-left-radius: 0.5em;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#search-icon {
+  object-fit: contain;
+  background-color: var(--red);
+  border-top-right-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+  padding: 0.5rem;
+}
+
+/* favourite button */
+#title-button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+#favorite {
+  margin-top: 2rem;
+  margin-right: 3rem;
+}
+
+#favorite::before {
+  font-size: 6em;
+  color: var(--black);
+  content: "♥";
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+#favorite::after {
+  font-size: 6em;
+  color: var(--red);
+  content: "♥";
+  position: absolute;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.2s;
+}
+
+#favorite.liked::after {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* recipe information */
+.recipe-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recipe-info > section {
+  font-size: 20px;
+  color: var(--red);
+  margin-left: 1.5cm;
+  margin-bottom: 15rem;
+}
+
+.recipe-info > section > p {
+  margin: 2rem;
+}
+
+#recipe-img {
+  float: right;
+  width: 468px;
+  height: 346.5px;
+  margin-top: 2rem;
+  margin-right: 12rem;
+}
+
+/* ingredient */
+#recipe-ingredients-list {
+  font-size: 1.25rem;
+  line-height: 3rem;
+  padding-left: 3rem;
+}
+
+/* label > input[type="checkbox"]:checked + * {
+    border-color: red;
+} */
+
+/* cooking steps */
+#recipe-steps-list {
+  font-size: 1.25rem;
+  list-style-type: none;
+  line-height: 3rem;
+  counter-reset: elementcounter;
+  padding-left: 3rem;
+}
+
+ol > li::before {
+  content: "- Step " counter(elementcounter) ": ";
+  counter-increment: elementcounter;
+}
+
+/* list of nutrition */
+#recipe-nutrition-list {
+  padding-left: 5rem;
+}
+
+ul > li {
+  font-size: 1.25rem;
+  line-height: 3rem;
+}

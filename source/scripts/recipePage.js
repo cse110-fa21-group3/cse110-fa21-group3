@@ -45,6 +45,7 @@ function init(){
         eNutrition.appendChild(factItem);
     });
 
+
     let favoriteBtn = document.getElementById("favorite");
     let favArr = util.getFavoriteRecipes();
     if(favArr && favArr.includes(id)){
@@ -65,3 +66,8 @@ function init(){
         }
     });
 }
+
+// changing the color
+document.querySelector('#favorite').addEventListener('click', (e) => {
+    e.currentTarget.classList.toggle('liked');
+  });
