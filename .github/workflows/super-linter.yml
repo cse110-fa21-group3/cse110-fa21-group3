@@ -36,7 +36,7 @@ jobs:
           # Output folder for the generated documentation
           output_dir: ./out
           # Recurse into subdirectories when scanning for source files
-          recurse: true
+          #recurse: true
           
       - name: Run Jest
       # You may pin to the exact commit or the version.
