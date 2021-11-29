@@ -34,7 +34,7 @@ jobs:
         uses: andstor/jsdoc-action@v1.2.0
         with:
           # Source directory to build documentation from
-          source_dir: ./source/scripts
+          source_dir: ./source/scripts/API
           # Output folder for the generated documentation
           output_dir: ./out
           # Recurse into subdirectories when scanning for source files
@@ -48,5 +48,5 @@ jobs:
           # The relative location of the template files within the template package
           #template_dir: # optional
           # The path to a Markdown file to be used as a the front page
-          #front_page: ./out/doc.md
+          front_page: ./out/doc.md
 
