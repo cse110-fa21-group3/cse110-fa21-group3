@@ -136,6 +136,24 @@ export function getFavoriteRecipes() {
 }
 
 /**
+ * Method to get the current deleted recipes
+ * @returns the deleted recipes
+ */
+ export function getDeletedRecipes() {
+    let userData = JSON.parse(localStorage.getItem(USER_DATA));
+
+    let deletedRecipes;
+    if (userData) {
+        deletedRecipes = userData["deletedRecipes"];
+    }
+
+    if (!deletedRecipes) {
+        deletedRecipes = [];
+    } 
+    return deletedRecipes;
+}
+
+/**
  * Adds a recipe id to the favorites list in the userData item in the local storage
  * @param {string} id - the id of the recipe being added
  */
@@ -193,7 +211,7 @@ export function removeFavoriteRecipe(id) {
  * Function to remove the user recipe
  * @param {string} id the user created recipe id
  */
-function removeRecipe(id) {
+export function removeRecipe(id) {
     localStorage.removeItem(id);
 }
 
@@ -306,7 +324,7 @@ export async function searchLocalRecipes(query) {
 export async function fetchRecipes(recipe_count, offset){
     loadUserData();
     let reqUrl = `${API_ENDPOINT}/recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true&number=${recipe_count}&offset=${offset}&readyReadyTime=${maxTime}`;
-
+    let deletedRecipes = getDeletedRecipes()
     var intolerancesStr = "";
     if(intolerances.length > 0){
         intolerances.forEach(i => intolerancesStr += `,${i}`);
@@ -319,14 +337,17 @@ export async function fetchRecipes(recipe_count, offset){
         fetch(reqUrl, options)
             .then(res => res.json())
             .then(res => {
-                //console.log(res["results"]);
                 res["results"].forEach(r => {
-                    createRecipeObject(r);
+                    if (deletedRecipes.includes(r["id"])) { 
+                        removeRecipe((r["id"]).toString())
+                    }
+                    else { 
+                        createRecipeObject(r);
+                    } 
                 });
                 resolve(true);
             })
             .catch(error => {
-                console.log(error);
                 reject(false);
             });
    });
