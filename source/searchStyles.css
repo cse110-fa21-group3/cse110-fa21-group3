@@ -38,8 +38,6 @@ body {
 }
 
 #search-icon {
-    height: 3rem;
-    width: 3rem;
     object-fit: contain;
     background-color: var(--red);
     border-top-right-radius: 0.5em;
