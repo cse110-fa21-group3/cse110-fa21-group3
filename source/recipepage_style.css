@@ -17,7 +17,7 @@ hr {
   width: 50%;
 }
 
-#searchBar {
+#search-bar {
   width: 100%;
   border: none;
   text-indent: 1rem;
@@ -78,7 +78,7 @@ hr {
 
 .recipe-info > section {
   font-size: 20px;
-  color:var(--red);
+  color: var(--red);
   margin-left: 1.5cm;
   margin-bottom: 15rem;
 }
@@ -106,7 +106,7 @@ hr {
     border-color: red;
 } */
 
-  /* cooking steps */
+/* cooking steps */
 #recipe-steps-list {
   font-size: 1.25rem;
   list-style-type: none;
@@ -114,8 +114,8 @@ hr {
   counter-reset: elementcounter;
   padding-left: 3rem;
 }
-  
-ol > li:before {
+
+ol > li::before {
   content: "- Step " counter(elementcounter) ": ";
   counter-increment: elementcounter;
 }
@@ -129,4 +129,3 @@ ul > li {
   font-size: 1.25rem;
   line-height: 3rem;
 }
-  
