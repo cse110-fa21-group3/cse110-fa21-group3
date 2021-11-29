@@ -20,12 +20,12 @@ hr {
 }
 
 #favorite {
-  margin-top: 1rem;
-  margin-right: 2rem;
+  margin-top: 2rem;
+  margin-right: 3rem;
 }
 
 #favorite::before {
-  font-size: 8em;
+  font-size: 6em;
   color: var(--black);
   content: "♥";
   position: absolute;
@@ -33,7 +33,7 @@ hr {
 }
 
 #favorite::after {
-  font-size: 8em;
+  font-size: 6em;
   color: var(--red);
   content: "♥";
   position: absolute;
@@ -55,7 +55,7 @@ hr {
 .recipe-info > section {
   font-size: 20px;
   color:var(--red);
-  margin-left: 1.5cm; 
+  margin-left: 1.5cm;
   margin-bottom: 15rem;
 }
 
