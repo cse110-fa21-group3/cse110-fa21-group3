@@ -11,6 +11,10 @@ hr {
   background-image: linear-gradient(to right, var(--light-gray), var(--red), var(--light-gray));
 }
 
+h2 {
+  margin-left: 2rem;
+}
+
 /* search bar */
 #search-container {
   display: flex;
