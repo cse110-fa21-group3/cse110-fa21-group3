@@ -25,7 +25,7 @@ function init(){
     eTime.innerText = data["readyInMinutes"];
  
     // eServes.innerText = data["serves"];
-    eDescription.innerText = data["summary"];
+    eDescription.innerHTML = data["summary"];
     
     data["ingredients"].forEach(ing => {
         const ingItem = document.createElement("li");

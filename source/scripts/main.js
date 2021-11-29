@@ -44,11 +44,6 @@ function init(){
             window.location.href = "/source/searchpage.html";
         });
     });
-
-    // let favoriteButton = document.getElementById('favorites');
-    // favoriteButton.addEventListener('click', e => {
-    //     window.location.href = "/source/searchpage.html#favorites"
-    // });
 }
 
 /**
