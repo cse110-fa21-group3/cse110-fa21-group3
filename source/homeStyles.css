@@ -16,30 +16,22 @@ body {
 #recipeCards {
   display: flex;
   flex-flow: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-left: 2em;
-  margin-right: 2em;
-  margin-top: 20px;
-  margin-bottom: 50px;
+  margin: 20px 2rem 50px 2rem;
   min-height: min-content;
   overflow-x: auto;
   background-color: var(--dark-gray);
-  border-style: solid;
+  border: 1px solid var(--black);
   border-radius: 10px;
-  border-color: var(--black);
   overflow-y: hidden;
+  padding: 1rem 0.5rem;
+  gap: 0.2rem;
 }
 
 #recipeCards::-webkit-scrollbar {    
   display: none;
 }
-
+ 
 recipe-card{
-  margin-right: 5px;
-  margin-left: 5px;
-  margin-top: 20px;
-  text-align: center;
   transition: transform .2s;
   justify-content: space-around;
 }
@@ -58,9 +50,7 @@ recipe-card:hover{
   width: 90%;
   height: 3em;
   max-width: 600px;
-  border-radius: 0px;
-  border-width: 1px;
-  border-color: var(--dark-gray);
+  border: 1px solid var(--dark-gray);
   border-top-left-radius: 0.5em;
   border-bottom-left-radius: 0.5em;
   border-top-right-radius: 0;
@@ -73,14 +63,11 @@ recipe-card:hover{
 }
 
 #search {
-  height: 3em;
-  width: 3em;
-  padding-top: 3px;
   object-fit: contain;
   background-color: var(--red);
   border-top-right-radius: 0.5em;
   border-bottom-right-radius: 0.5em;
-  border: solid;
+  padding: 0.5rem 0.5rem;
 }
 
 #search:hover {

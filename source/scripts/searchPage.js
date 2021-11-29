@@ -1,9 +1,29 @@
-import { router } from "./API/utilityFunctions.js";
+import { router, searchLocalRecipes } from "./API/utilityFunctions.js";
 
 window.addEventListener("DOMContentLoaded", () => {
     document.getElementById('favContainer').addEventListener('click', e => {
         window.location.href = "/source/searchpage.html#favorites";
         window.location.reload();
+    });
+
+    let searchBtn = document.getElementById("search-icon");
+    searchBtn.addEventListener("click", e => {
+        e.preventDefault();
+        let searchQuery = document.getElementById("searchBar").value;
+        searchLocalRecipes(searchQuery).then(arr => {
+            let res = [];
+            arr.forEach(recipe => {
+                res.push(recipe["id"]);
+            });
+            console.log(res);
+            let searchObj = {
+                "data": res,
+                "query": searchQuery,
+                "matchedCount": arr.length
+            }
+            localStorage.setItem("latestSearch", JSON.stringify(searchObj));
+            window.location.href = "/source/searchpage.html";
+        });
     });
 
     let results = localStorage.getItem("latestSearch");
