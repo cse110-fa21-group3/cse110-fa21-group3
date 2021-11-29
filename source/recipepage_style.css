@@ -11,6 +11,30 @@ hr {
   background-image: linear-gradient(to right, var(--light-gray), var(--red), var(--light-gray));
 }
 
+/* search bar */
+#search-container {
+  display: flex;
+  width: 50%;
+}
+
+#searchBar {
+  width: 100%;
+  border: none;
+  text-indent: 1rem;
+  border-top-left-radius: 0.5em;
+  border-bottom-left-radius: 0.5em;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#search-icon {
+  object-fit: contain;
+  background-color: var(--red);
+  border-top-right-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+  padding: 0.5rem 0.5rem;
+}
+
 /* favourite button */
 #title-button-container {
   display: flex;
