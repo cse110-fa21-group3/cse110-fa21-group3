@@ -41,9 +41,13 @@ const allowedIntolerances = [
 let intolerances = [];
 // max for recipes prep time
 let maxTime = DEFAULT_MAX_TIME;
+// user data variables
+const USER_DATA = 'userData';
 
 
-// just a tesing function
+/**
+ * Just a testing function for the start up
+ */
 function init() {
     loadUserData();
     console.log(intolerances);
@@ -101,7 +105,7 @@ function setMaxTime(time) {
  * sets the `intolerances` variable and the `maxTime` variable
  */ 
 function loadUserData() {
-    let data = localStorage.getItem("userData");
+    let data = localStorage.getItem(USER_DATA);
     if (data) {
         data = JSON.parse(data);
     }else {
@@ -114,17 +118,39 @@ function loadUserData() {
     maxTime = data["maxTime"] ? data["maxTime"] : DEFAULT_MAX_TIME;
 }
 
+/**
+ * Method to get the current favorited recipes
+ * @returns the favorited recipes
+ */
 export function getFavoriteRecipes() {
-    let userData = JSON.parse(localStorage.getItem("userData"));
-    let favoriteRecipes = [];
-    try {
+    let userData = JSON.parse(localStorage.getItem(USER_DATA));
+    let favoriteRecipes;
+    if (userData) {
         favoriteRecipes = userData["favorites"];
-    } catch(err) {
     }
+
+    if (!favoriteRecipes) {
+        favoriteRecipes = [];
+    } 
     return favoriteRecipes;
 }
 
+/**
+ * Adds a recipe id to the favorites list in the userData item in the local storage
+ * @param {string} id - the id of the recipe being added
+ */
 export function addFavoriteRecipe(id) {
+    // change favorite property in the recipe object
+    let recipeItem = localStorage.getItem((`${id}`))
+    let recipe;
+    if (recipeItem) {
+        recipe = JSON.parse(recipeItem);
+        recipe['favorite'] = true;
+        localStorage.setItem(id, JSON.stringify(recipe));
+    }else {
+        return;
+    }
+
     // get the favorites array and add the favorited recipe to the array
     let favArr = getFavoriteRecipes();
     if(favArr){
@@ -134,25 +160,27 @@ export function addFavoriteRecipe(id) {
     }else{
         favArr = [id];
     }
-    console.log(favArr);
     updateUserData("favorites", favArr);
-    
-    // change favorite property in the recipe object
-    let recipe = JSON.parse(localStorage.getItem((id)));
-    recipe['favorite'] = true;
-    localStorage.setItem(id, JSON.stringify(recipe));
 }
 
+/**
+ * Method to remove the favorite status on a recipe
+ * @param {string} id the id for the recipe
+ */
 export function removeFavoriteRecipe(id) {
     let favArr = getFavoriteRecipes();
     let removed = [];
 
     // change favorite property in the recipe object
-    let recipe = JSON.parse(localStorage.getItem((`${id}`)));
-    recipe['favorite'] = false;
-    localStorage.setItem(`${id}`, JSON.stringify(recipe));
-    
-    console.log(favArr);
+    let recipeItem = localStorage.getItem((`${id}`))
+    if (recipeItem) {
+        let recipe = JSON.parse(recipeItem);
+        recipe['favorite'] = false;
+        localStorage.setItem(`${id}`, JSON.stringify(recipe));
+    }else {
+        return;
+    }
+
     for (let recipeID of favArr) {
         if(recipeID != id) {
             removed.push(recipeID);
@@ -162,13 +190,22 @@ export function removeFavoriteRecipe(id) {
 }
 
 /**
+ * Function to remove the user recipe
+ * @param {string} id the user created recipe id
+ */
+function removeRecipe(id) {
+    localStorage.removeItem(id);
+}
+
+
+/**
  * This function updates the userData stored in localStorage using
  * the Key-Value pair passed in.
  * @param {string} key - The key of the user data being stored.
  * @param {any} value - The data being stored.
  */ 
 export function updateUserData(key, value) {
-    let data = localStorage.getItem("userData");
+    let data = localStorage.getItem(USER_DATA);
     if (data) {
         data = JSON.parse(data);
     }else {
@@ -176,8 +213,8 @@ export function updateUserData(key, value) {
     }
 
     data[key] = value;
-    localStorage.setItem("userData", JSON.stringify(data));
-    console.log(JSON.parse(localStorage.getItem("userData")));
+    localStorage.setItem(USER_DATA, JSON.stringify(data));
+    console.log(JSON.parse(localStorage.getItem(USER_DATA)));
 }
 
 /**
@@ -254,7 +291,6 @@ export async function searchLocalRecipes(query) {
         }
     
     }
-    console.log(recipeList);
     // return a populated array of recipes relating to the query
     return recipeList;
  }
@@ -279,8 +315,6 @@ export async function fetchRecipes(recipe_count, offset){
         reqUrl += "&intolerances="+intolerancesStr;
     }
 
-   console.log(reqUrl);
-
    return new Promise((resolve, reject) => {
         fetch(reqUrl, options)
             .then(res => res.json())
@@ -300,7 +334,27 @@ export async function fetchRecipes(recipe_count, offset){
 
 
 /**
+ * Gets the summary of a specific recipe with its id
+ * @param {string} id - id of the recipe to be removed.
+ */
+async function fetchSummary(id) {
+    let reqUrl = `${API_ENDPOINT}/recipes/${id}/summary`;
+    return new Promise((resolve, reject) => {
+        fetch(reqUrl, options)
+            .then(res => res.json())
+            .then(res => {
+                resolve(res['summary']);
+            })
+            .catch(error => {
+                console.log(error);
+                reject(false);
+            });
+   });
+}
+
+/**
  * This function takes in what is fetched and from those parameters finds what we need for the recipe and sorts it into an object
+ * @param {JSON} r - recipe json Object
  */
 export async function createRecipeObject(r) {
     let id = r["id"];
@@ -308,6 +362,9 @@ export async function createRecipeObject(r) {
     let title = r["title"];
     let foodImage = r["image"];
     let favorite = false;
+
+    let summary = await fetchSummary(id);
+    let size = r["servings"];
 
     // populating ingredient list
     let ingredients = [];
@@ -332,7 +389,7 @@ export async function createRecipeObject(r) {
     r["analyzedInstructions"][0].steps.forEach(recipeStep => {
         steps.push(recipeStep["step"]);
     })
-    //console.log(steps);
+    
 
     // Create a JSON Object to store the data 
     // in the format we specified
@@ -345,7 +402,9 @@ export async function createRecipeObject(r) {
         "ingredients" : ingredients,
         "steps" : steps,
         "nutrition" : nutrition,
-        "favorite" : favorite
+        "favorite" : favorite,
+        "summary" : summary,
+        "servingSize" : size
     }
     setLocalStorageItem(r.id, recipeObject);
 }
@@ -367,7 +426,7 @@ export function getLocalStorageRecipes() {
     }
 
     for(let key of localKeys) {
-        if (key != "userData" && key != "latestSearch") {
+        if (key != USER_DATA && key != "latestSearch") {
             recipeList.push(JSON.parse(localStorage.getItem(key)));
         }
     }

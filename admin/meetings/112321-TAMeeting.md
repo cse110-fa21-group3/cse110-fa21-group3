@@ -19,17 +19,17 @@
 - CI/CD also needs work
 - Expected to expereince productivity dip in thanksgiving week
   - FIGURE OUT A WAY TO GET THINGS DONE BEFORE TOO LATE
-- **Becareful merging, don’t want to mess up functionality, need someone who knows both front end and back end to do that. **
+- **Becareful merging, don’t want to mess up functionality, need someone who knows both frontend and backend to do that.**
 
 
 ## TODO (Ordered By Priority)
 - **Need to work on DELETE recipes**
 - At least have 2 **add-on features**. (Timer? Filtering? **User Preferences (first time, and calibrate)** IS REALLY GOOD ADD-ON)
   - Need another brainstorm meeting, and Figure out features we want to add.
-- - **CSS Styling and Refactoring**
-- Need to add `:hover` and `:active` styling 
+- **CSS Styling and Refactoring**
+- Need to add `:hover` and `:active` styling
 - CI/CD Pipeline
-- MAJOR TOPIC IN NEXT 2 weeks: 
+- MAJOR TOPIC IN NEXT 2 weeks:
   - Testing and refinement (**UNIT TESTING by next week**)
   - Allocate people to start testing. MAKE SURE to starting testing as soon as returning from thanksgiving
 - Need to discuss whether to have update recipe?
@@ -46,7 +46,7 @@
 - **MAKE SURE NOT TO LOG ANYTHING TO THE CONSOLE in the final product!!!!!!!!!!!!!!**
 
 
-## Other Notes:
+## Other Notes
 - Sanat advised against major changes in the layout of the pages (meaning changes in HTML, NOT CSS)
 - favorting and unfavoriting counts as update in CRUD
 - Lab Grading:
