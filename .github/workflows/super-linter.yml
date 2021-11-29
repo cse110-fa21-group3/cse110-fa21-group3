@@ -31,10 +31,10 @@ jobs:
       - name: JSDoc Action
   # You may pin to the exact commit or the version.
   # uses: andstor/jsdoc-action@2fb2b536605bdebace2b92abb0601155d5ddc688
-        uses: andstor/jsdoc-action@v1.2.0
+        uses: andstor/jsdoc-action@v1
         with:
           # Source directory to build documentation from
-          source_dir: ./source/scripts/API
+          source_dir: ./source/scripts
           # Output folder for the generated documentation
           output_dir: ./out
           # Recurse into subdirectories when scanning for source files
