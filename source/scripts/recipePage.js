@@ -25,7 +25,7 @@ function init(){
     eTime.innerText = data["readyInMinutes"];
  
     // eServes.innerText = data["serves"];
-    // eDescription.innerText = data["description"];
+    eDescription.innerText = data["summary"];
     
     data["ingredients"].forEach(ing => {
         const ingItem = document.createElement("li");
@@ -55,7 +55,6 @@ function init(){
     }
     
     favoriteBtn.addEventListener("click", e => {
-        // Ideally, button class would change so we could just check that?
         favArr = util.getFavoriteRecipes();
         if(favArr && favArr.includes(id)){
             util.removeFavoriteRecipe(id);

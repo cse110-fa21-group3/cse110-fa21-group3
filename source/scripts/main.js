@@ -27,6 +27,7 @@ function init(){
 
     let searchBtn = document.getElementById("search");
     searchBtn.addEventListener("click", e => {
+        e.preventDefault();
         let searchQuery = document.getElementById("searchQuery").value;
         util.searchLocalRecipes(searchQuery).then(arr => {
             let res = [];
@@ -43,6 +44,11 @@ function init(){
             window.location.href = "/source/searchpage.html";
         });
     });
+
+    // let favoriteButton = document.getElementById('favorites');
+    // favoriteButton.addEventListener('click', e => {
+    //     window.location.href = "/source/searchpage.html#favorites"
+    // });
 }
 
 /**
