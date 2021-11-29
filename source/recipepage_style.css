@@ -91,7 +91,7 @@ h2 {
   margin: 2rem;
 }
 
-#recipe-img {
+#recipe-image {
   float: right;
   width: 468px;
   height: 346.5px;
@@ -103,7 +103,7 @@ h2 {
 #recipe-ingredients-list {
   font-size: 1.25rem;
   line-height: 3rem;
-  padding-left: 3rem;
+  padding-left: 5rem;
 }
 
 /* label > input[type="checkbox"]:checked + * {
