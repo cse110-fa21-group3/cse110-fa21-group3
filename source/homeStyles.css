@@ -7,17 +7,14 @@
     --light-red: #FFDADA;
     --white: #FFFFFF;
 }
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
     background-color: var(--light-gray);
 }
-
 nav {
     background-color: var(--black);
     display: flex;
@@ -25,7 +22,6 @@ nav {
     align-items: center;
     padding: 0.5rem 1rem;
 }
-
 #recipeCards {
     display: flex;
     flex-flow: row;
@@ -41,12 +37,11 @@ nav {
     border-style: solid;
     border-radius: 10px;
     border-color: var(--black);
+    overflow-y: hidden;
 }
-
 #recipeCards::-webkit-scrollbar {    
     display: none;
 }
-
 recipe-card{
     margin-right: 5px;
     margin-left: 5px;
@@ -55,17 +50,14 @@ recipe-card{
     transition: transform .2s;
     justify-content: space-around;
 }
-
 recipe-card:hover{
-    transform: scale(1.5);
+    transform: scale(1.1);
 }
-
 #favContainer {
     background-color: var(--red);
     border-radius: 10%;
     padding: 0.2rem 0.5rem;
 }
-
 #searchQuery {
     width: 90%;
     height: 3em;
@@ -79,11 +71,9 @@ recipe-card:hover{
     border-bottom-right-radius: 0;
     text-indent: 1em;
 }
-
 *:focus {
     outline-color: var(--light-red);
 }
-
 #search {
     height: 3em;
     width: 3em;
@@ -94,46 +84,37 @@ recipe-card:hover{
     border-bottom-right-radius: 0.5em;
     border: solid;
 }
-
 #search:hover {
     box-shadow: 0px 0px 5px grey;
     cursor: pointer;
 }
-
 #search:active{
     transform: translateX(2px);
 }
-
 #web_logo{
     border-radius: 10%;
 }
-
 #web_logo:hover{
     box-shadow: 0px 0px 5px grey;
     cursor: pointer;
 }
-
 #favContainer:hover{
     box-shadow: 0px 0px 5px grey;
     cursor: pointer;
 }
-
 #favContainer:active{
     background-color: var(--black);
 }
-
 #searchContainer {
     display: flex;
     justify-content: center;
 }
-
 h1 {
     margin-top: 20px;
     margin-bottom: 10px;
     font-size: 1.5cm;
     text-align: center;
 }
-
 #create-recipe{
     border-style: solid;
     float: right;
@@ -147,20 +128,16 @@ h1 {
     -webkit-border-radius:50%;
     width:50px;
 }
-
 #create-recipe:hover{
     box-shadow: 0px 0px 5px grey;
     cursor: pointer;
 }
-
 #create-recipe:active{
     background-color: var(--black);
 }
-
 h1, input, recipe-card, #search{
     font-family: 'Libre Baskerville', serif;
 }
-
 @media screen and (min-width: 90em) {
     #recipeForm {
         max-width: 80rem;
