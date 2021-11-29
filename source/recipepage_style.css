@@ -32,7 +32,7 @@ hr {
   background-color: var(--red);
   border-top-right-radius: 0.5em;
   border-bottom-right-radius: 0.5em;
-  padding: 0.5rem 0.5rem;
+  padding: 0.5rem;
 }
 
 /* favourite button */
@@ -120,7 +120,7 @@ ol > li::before {
   counter-increment: elementcounter;
 }
 
-  /* list of nutrition */
+/* list of nutrition */
 #recipe-nutrition-list {
   padding-left: 5rem;
 }
