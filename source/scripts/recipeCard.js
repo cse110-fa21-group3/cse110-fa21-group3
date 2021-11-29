@@ -11,9 +11,16 @@ class RecipeCard extends HTMLElement{
         this.json = data;
 
         // Recipe card css
-        // TODO: create style tag
-        // TODO: apply style via style.innerHTML
-        // TODO: append element to shadowRoot
+        const style = document.createElement('style');
+        style.innerHTML = `
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ------------> TODO: start here (attaching style to shadowRoot is done)
+        `;
 
         const recipeCard = document.createElement("article");
         const recipeImage = document.createElement("img");
@@ -24,7 +31,7 @@ class RecipeCard extends HTMLElement{
         
         recipeCard.appendChild(recipeImage);
         recipeCard.appendChild(recipeTitle);
-        this.shadowRoot.append(recipeCard);
+        this.shadowRoot.append(style, recipeCard);
     }
 
     get data(){
