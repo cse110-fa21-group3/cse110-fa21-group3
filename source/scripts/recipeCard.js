@@ -19,7 +19,37 @@ class RecipeCard extends HTMLElement{
             box-sizing: border-box;
         }
 
-        ------------> TODO: start here (attaching style to shadowRoot is done)
+        article {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid black;
+            border-radius: 8px;
+            padding: 1rem 1rem;
+            background-color: white;
+            transition: all 0.2s ease;
+            height: 100%;
+        }
+
+        article:hover {
+            box-shadow: 0px 0px 10px grey;
+        }
+
+        article:active {
+            box-shadow: 0 0;
+        }
+
+        article > img {
+            border-radius: 8px;
+            object-fit: cover;
+            max-width: 100%;
+            height: auto;
+        }
+
+        article > p {
+            justify-self: initial;
+            margin-top: 1rem;
+            line-height: 1.5rem;
+        }
         `;
 
         const recipeCard = document.createElement("article");

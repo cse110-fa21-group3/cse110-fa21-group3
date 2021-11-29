@@ -17,13 +17,34 @@ hr {
 }
 
 /* General Element Styling */
-img {
-    max-width: 100%;
-    height: auto;
-}
-
 body {
     background-color: var(--light-gray) ;
+}
+
+/* search bar */
+#search-container {
+    display: flex;
+    width: 50%;
+}
+
+#searchBar {
+    width: 100%;
+    border: none;
+    text-indent: 1rem;
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#search-icon {
+    height: 3rem;
+    width: 3rem;
+    object-fit: contain;
+    background-color: var(--red);
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    padding: 0.5rem 0.5rem;
 }
 
 /* Recipe Card Styling */
@@ -32,7 +53,6 @@ body {
     grid-template-columns: repeat(3, minmax(auto, 20rem));
     justify-content: center;
     gap: 3rem;
-    /* TODO: set min max gap */
     padding: 5rem 5rem;
 }
 
