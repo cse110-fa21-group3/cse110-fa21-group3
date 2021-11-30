@@ -79,8 +79,6 @@ function init(){
 
 }
 
-}
-
 // changing the color
 document.querySelector('#favorite').addEventListener('click', (e) => {
     e.currentTarget.classList.toggle('liked');
