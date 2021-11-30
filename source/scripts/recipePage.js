@@ -64,6 +64,21 @@ function init(){
             //favoriteBtn.innerText = "Unfavorite";
         }
     });
+
+    let deleteBtn = document.getElementById("delete");
+    let deletedRecipes = util.getDeletedRecipes();
+    deleteBtn.addEventListener("click", e => {
+        util.removeRecipe(id);
+
+        deletedRecipes = util.getDeletedRecipes();
+        deletedRecipes.push(parseInt(id))
+        util.updateUserData("deletedRecipes", deletedRecipes);
+
+        window.location.href = "/source/homepage.html";
+    });
+
+}
+
 }
 
 // changing the color
