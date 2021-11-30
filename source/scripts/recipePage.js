@@ -60,7 +60,7 @@ function init(){
         if(favArr && favArr.includes(id)){
             util.removeFavoriteRecipe(id);
             //favoriteBtn.innerText = "Favorite";
-        }else{
+        } else{
             util.addFavoriteRecipe(id);
             //favoriteBtn.innerText = "Unfavorite";
         }
