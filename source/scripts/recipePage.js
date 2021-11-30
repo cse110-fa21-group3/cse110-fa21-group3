@@ -69,4 +69,8 @@ function init(){
 // changing the color
 document.querySelector('#favorite').addEventListener('click', (e) => {
     e.currentTarget.classList.toggle('liked');
-  });
+});
+
+document.getElementById("editRecipe").addEventListener('click', e => {
+    window.location.href = "/source/createRecipe.html#"+id;
+});
