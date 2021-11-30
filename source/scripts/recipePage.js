@@ -4,6 +4,9 @@ const id = window.location.hash.slice(1);
 
 window.addEventListener("DOMContentLoaded", init);
 
+/**
+ * The Initialization of the recipe page and the elements inside the recipe
+ */
 function init(){
     let eTitle = document.getElementById("recipe-title"); // done
     let eImage = document.getElementById("recipe-image"); // done
