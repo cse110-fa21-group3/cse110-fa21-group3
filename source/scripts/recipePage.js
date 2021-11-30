@@ -25,7 +25,7 @@ function init(){
     eTime.innerText = data["readyInMinutes"];
  
     // eServes.innerText = data["serves"];
-    // eDescription.innerText = data["description"];
+    eDescription.innerHTML = data["summary"];
     
     data["ingredients"].forEach(ing => {
         const ingItem = document.createElement("li");
@@ -45,23 +45,23 @@ function init(){
         eNutrition.appendChild(factItem);
     });
 
+
     let favoriteBtn = document.getElementById("favorite");
     let favArr = util.getFavoriteRecipes();
     if(favArr && favArr.includes(id)){
-        favoriteBtn.innerText = "Unfavorite";
+        //favoriteBtn.innerText = "Unfavorite";
     }else{
-        favoriteBtn.innerText = "Favorite";
+        //favoriteBtn.innerText = "Favorite";
     }
     
     favoriteBtn.addEventListener("click", e => {
-        // Ideally, button class would change so we could just check that?
         favArr = util.getFavoriteRecipes();
         if(favArr && favArr.includes(id)){
             util.removeFavoriteRecipe(id);
-            favoriteBtn.innerText = "Favorite";
+            //favoriteBtn.innerText = "Favorite";
         }else{
             util.addFavoriteRecipe(id);
-            favoriteBtn.innerText = "Unfavorite";
+            //favoriteBtn.innerText = "Unfavorite";
         }
     });
 
@@ -78,3 +78,10 @@ function init(){
     });
 
 }
+
+}
+
+// changing the color
+document.querySelector('#favorite').addEventListener('click', (e) => {
+    e.currentTarget.classList.toggle('liked');
+  });

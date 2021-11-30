@@ -9,6 +9,7 @@ let removeStep = document.getElementById("removeStep");
 let removeNutrition = document.getElementById("removeNutrition");
 
 let createRecipe = document.getElementById("createBtn");
+let cancelBtn = document.getElementById("cancelBtn");
 
 addIng.addEventListener("click", e => {
     let elementContainer = document.getElementById("recipeIngredients");
@@ -99,6 +100,7 @@ createRecipe.addEventListener("click", e => {
         "favorite": true,
         "readyInMinutes": 0,
         "title": "",
+        "summary": "",
         "ingredients": [],
         "ingredientSearch": "",
         "steps": [],
@@ -110,9 +112,10 @@ createRecipe.addEventListener("click", e => {
 
     formKeys.forEach(key => {
         let res = formObj.getAll(key);
-        console.log(res);
-        if(key == "steps" || key == "nutrition" || key == "ingredients"){
+        if(key == "steps" || key === "nutrition" || key == "ingredients"){
             formRes[key] = formObj.getAll(key);
+        }else if(key === "recipeDesc"){
+            formRes['summary'] = formObj.get('recipeDesc');
         }else{
             formRes[key] = res[0];
         }
@@ -124,5 +127,9 @@ createRecipe.addEventListener("click", e => {
     formRes["id"] += formRes["title"].replaceAll(" ", "");
     util.setLocalStorageItem(formRes["id"], formRes);
     util.addFavoriteRecipe(formRes["id"]);
+    window.location.href = "/source/homepage.html";
+});
+
+cancelBtn.addEventListener('click', e => {
     window.location.href = "/source/homepage.html";
 });

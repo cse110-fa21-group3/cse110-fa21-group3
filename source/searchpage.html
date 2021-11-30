@@ -8,6 +8,7 @@
     <title>Group 3 Search Page</title>
     <link rel="icon" href="team3 logo.jpg" />
     <link rel="stylesheet" href="searchStyles.css">
+    <link href="common.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -15,16 +16,21 @@
         <nav>
             <a href="homepage.html"><img id="web_logo" src="logo3_231x231.jpg"
                     alt="Logo" width="80" height="80"></a>
-            <a href="#" id="favContainer"><img
+            <div id=search-container>
+                <input type="search" id="searchBar" placeholder="What do you have in mind?"/>
+                <input type = "image" id="search-icon" alt = "no image" src="icons-search.svg"/>
+            </div>
+            <input type="image" id="favContainer"
                     src="./icons8-favorite-folder-50.png"
-                    alt="Favorite Icon"></a>
+                    alt="Favorite Icon" />
         </nav>
     </header>
     <main>
-        <div id = "textContainer">
-            <h2 id ="queryDisplay">Showing Results for: "#placeholder"</h2>
-            <hr/>
-            <p id ="matchedCountText">#number results</p>
+
+        <div id="textContainer">
+            <h2 id="queryDisplay">Showing Results for: "#placeholder"</h2>
+            <hr />
+            <p id="matchedCountText">#number results</p>
         </div>
         <section id="recipeCards">
         </section>

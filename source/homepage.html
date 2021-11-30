@@ -1,49 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head> 
-        <link href="homeStyles.css" rel="stylesheet" type="text/css" />
-        <title>Home Page</title>
-        <meta name="author" content="Sik Yin Sun and Zhenyi Chen">
-        <link rel="icon" href="team3 logo.jpg"/>
 
-        <script src="scripts/RecipeCard.js" type="module"></script>
-        <script src="scripts/Router.js" type="module"></script>
-        <script src="scripts/main.js" type="module"></script>
-    </head>
-    <body>
-        <header>
-            <nav>
-                <a href="homepage.html"><img id="web_logo"
-                        src="logo3_231x231.jpg" alt="Logo" width="80"
-                        height="80"></a>
-                <a href="#" id="favContainer"><img
-                        src="./icons8-favorite-folder-50.png"
-                        alt="Favorite Icon"></a>
-            </nav>
-        </header>
-    <main>
-        <section>
-            <div>
-                <h1>Welcome to Recipe</h1>
-                <br>
-                <div id="searchContainer">
-                    <input type="text" id="searchQuery" placeholder="What do you have in mind?"/>
-                    <input type="image" id="search" value="Search recipes" src="icons-search.svg"/>
-                </div>
-            </div>
-        </section><br>
+<head>
+  <link href="homeStyles.css" rel="stylesheet" type="text/css" />
+  <link href="common.css" rel="stylesheet" type="text/css" />
+  <title>Home Page</title>
+  <meta name="author"
+    content="Sik Yin Sun, Zhenyi Chen, Jared Levy, Anthony Villalba">
+  <link rel="icon" href="team3-logo.jpg" />
+  <meta charset="UTF-8" />
+  <script src="scripts/RecipeCard.js" type="module"></script>
+  <script src="scripts/Router.js" type="module"></script>
+  <script src="scripts/main.js" type="module"></script>
+</head>
 
-        <section id="recipeCards">
-        </section>
-        
-    <!--
+<body>
+  <header>
+    <nav>
+      <a href="homepage.html"><img id="web_logo" src="logo3_231x231.jpg"
+          alt="Logo" width="80" height="80"></a>
+      <a href="/source/searchpage.html#favorites" id="favContainer"><img
+          src="./icons8-favorite-folder-50.png" alt="Favorite Icon"></a>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <div>
+        <h1>Welcome To Your Next Meal!</h1>
+        <br>
+        <form id="searchContainer">
+          <input type="search" id="searchQuery"
+            placeholder="What do you have in mind?" />
+          <input type="image" id="search" alt="no image"
+            src="icons-search.svg" />
+        </form>
+      </div>
+    </section>
+    <br>
+    <section id="recipeCards">
+    </section>
     <footer>
-        <p>Notetaker: Sik Yin Sun<br>
-        <a href="mailto:sysun@uscd.edu">sysun@ucsd.edu</a>
-        </p>
+      <span>
+        <button id="create-recipe">
+          <img src="icons8-plus-+.svg" alt="Create Recipe ">
+        </button>
+      </span>
     </footer>
-    -->
-    </main>
-    </body>
-</html> 
+  </main>
+</body>
 
+</html>
