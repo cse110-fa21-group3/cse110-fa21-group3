@@ -37,7 +37,7 @@ jobs:
           output_dir: ./out
           template: minami
           # Recurse into subdirectories when scanning for source files
-          #recurse: true
+          recurse: true
           
 #       - name: Run Jest
 #       # You may pin to the exact commit or the version.
