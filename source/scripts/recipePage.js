@@ -50,7 +50,7 @@ function init(){
     let favArr = util.getFavoriteRecipes();
     if(favArr && favArr.includes(id)){
         //favoriteBtn.innerText = "Unfavorite";
-    }else{
+    } else{
         //favoriteBtn.innerText = "Favorite";
     }
     
