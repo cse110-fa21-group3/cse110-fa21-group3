@@ -82,7 +82,7 @@ h2 {
 
 .recipe-info > section {
   font-size: 20px;
-  color: var(--red);
+  color: var(--dark-gray);
   margin-left: 1.5cm;
   margin-bottom: 15rem;
 }

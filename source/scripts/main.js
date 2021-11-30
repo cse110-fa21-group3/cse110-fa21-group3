@@ -27,6 +27,7 @@ function init(){
 
     let searchBtn = document.getElementById("search");
     searchBtn.addEventListener("click", e => {
+        e.preventDefault();
         let searchQuery = document.getElementById("searchQuery").value;
         util.searchLocalRecipes(searchQuery).then(arr => {
             let res = [];
