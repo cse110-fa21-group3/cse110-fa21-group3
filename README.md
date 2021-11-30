@@ -1,5 +1,5 @@
 # cse110-fa21-group3
-[![Maintainability](https://api.codeclimate.com/v1/badges/17334651f5f930bb684f/maintainability)](https://codeclimate.com/github/cse110-fa21-group3/cse110-fa21-group3/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/17334651f5f930bb684f/maintainability)](https://codeclimate.com/github/cse110-fa21-group3/cse110-fa21-group3/maintainability)<br>
 Main repository for Group 3 of CSE 110 Falll 2021. 
 
 [Meet the team!](https://github.com/cse110-fa21-group3/cse110-fa21-group3/blob/main/admin/team.md)
