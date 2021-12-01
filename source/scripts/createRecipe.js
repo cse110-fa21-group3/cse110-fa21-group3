@@ -4,98 +4,115 @@ let addIng = document.getElementById("addIng");
 let addStep = document.getElementById("addStep");
 let addNutrition = document.getElementById("addNutrition");
 
-let removeIng = document.getElementById("removeIng");
-let removeStep = document.getElementById("removeStep");
-let removeNutrition = document.getElementById("removeNutrition");
-
 let createRecipe = document.getElementById("createBtn");
 let cancelBtn = document.getElementById("cancelBtn");
 
+window.addEventListener("DOMContentLoaded", e => {
+    if(window.location.hash){
+        let id = window.location.hash.slice(1);
+        let recipeData = JSON.parse(localStorage.getItem(id));
+        populateRecipeForm(recipeData);
+        createRecipe.value = "Update";
+    }
+});
+
 addIng.addEventListener("click", e => {
-    let elementContainer = document.getElementById("recipeIngredients");
-    let newElement = document.createElement("fieldset");
+    let elementContainer = document.querySelectorAll(".ingredientContainer");
+    let elementContainerLength = elementContainer.length;
+    let fieldSet = document.createElement("fieldset");
     let fieldSetLabel = document.createElement("label");
     let fieldInput = document.createElement("input");
+    let deleteBtn = document.createElement("button");
+    
+    deleteBtn.type = "button";
+    deleteBtn.classList.add("removeBtn");
+    let removeIcon = document.createElement("img");
+    removeIcon.src = "./icons8-delete.svg";
+    removeIcon.style.width = "30px";
+    deleteBtn.appendChild(removeIcon);
+    deleteBtn.addEventListener('click', removeItem);
 
     fieldSetLabel.innerText = "Ingredient: ";
-    fieldInput.name = "ingredients";
-    newElement.appendChild(fieldSetLabel);
-    newElement.appendChild(fieldInput);
-    elementContainer.appendChild(newElement);
 
-    if(removeIng.style.display == "none"){
-        removeIng.style.display = "block";
-    }
+    fieldInput.name = "ingredients";
+    fieldInput.classList.add("ingName");
+
+    fieldSet.classList.add("ingredientContainer");
+    fieldSet.appendChild(fieldSetLabel);
+    fieldSet.appendChild(fieldInput);
+    fieldSet.appendChild(deleteBtn);
+
+    elementContainer[elementContainerLength-1].after(fieldSet);
 });
 
 addStep.addEventListener("click", e => {
-    let elementContainer = document.getElementById("recipeSteps");
-    let newElement = document.createElement("fieldset");
+    let elementContainer = document.querySelectorAll(".stepsContainer");
+    let elementContainerLength = elementContainer.length;
+    let fieldSet = document.createElement("fieldset");
     let fieldSetLabel = document.createElement("label");
     let fieldInput = document.createElement("input");
+    let deleteBtn = document.createElement("button");
+    
+    deleteBtn.type = "button";
+    deleteBtn.classList.add("removeBtn");
+    let removeIcon = document.createElement("img");
+    removeIcon.src = "./icons8-delete.svg";
+    removeIcon.style.width = "30px";
+    deleteBtn.appendChild(removeIcon);
+    deleteBtn.addEventListener('click', removeItem);
 
     fieldSetLabel.innerText = "Step: ";
+    
     fieldInput.name = "steps";
-    newElement.appendChild(fieldSetLabel);
-    newElement.appendChild(fieldInput);
-    elementContainer.appendChild(newElement);
-
-    if(removeStep.style.display == "none"){
-        removeStep.style.display = "block";
-    }
+    fieldInput.classList.add("stepName");
+    
+    fieldSet.classList.add("stepsContainer");
+    fieldSet.appendChild(fieldSetLabel);
+    fieldSet.appendChild(fieldInput);
+    fieldSet.appendChild(deleteBtn);
+    
+    elementContainer[elementContainerLength-1].after(fieldSet); 
 });
 
 addNutrition.addEventListener("click", e => {
-    let elementContainer = document.getElementById("recipeNutrition");
-    let newElement = document.createElement("fieldset");
+    let elementContainer = document.querySelectorAll(".nutritionContainer");
+    let elementContainerLength = elementContainer.length;
+    let fieldSet = document.createElement("fieldset");
     let fieldSetLabel = document.createElement("label");
     let fieldInput = document.createElement("input");
+    let deleteBtn = document.createElement("button");
+    
+    deleteBtn.type = "button";
+    deleteBtn.classList.add("removeBtn");
+    let removeIcon = document.createElement("img");
+    removeIcon.src = "./icons8-delete.svg";
+    removeIcon.style.width = "30px";
+    deleteBtn.appendChild(removeIcon);
+    deleteBtn.addEventListener('click', removeItem);
 
     fieldSetLabel.innerText = "Nutrition: ";
+    
     fieldInput.name = "nutrition";
-    newElement.appendChild(fieldSetLabel);
-    newElement.appendChild(fieldInput);
-    elementContainer.appendChild(newElement);
-
-    if(removeNutrition.style.display == "none"){
-        removeNutrition.style.display = "block";
-    }
+    fieldInput.classList.add("nutrName");
+    
+    fieldSet.classList.add("nutritionContainer");
+    fieldSet.appendChild(fieldSetLabel);
+    fieldSet.appendChild(fieldInput);
+    fieldSet.appendChild(deleteBtn);
+    
+    elementContainer[elementContainerLength-1].after(fieldSet);
 });
 
-removeIng.addEventListener("click", e => {
-    let elementContainer = document.getElementById("recipeIngredients");
-    let lastChild = elementContainer.lastChild;
-    elementContainer.removeChild(lastChild);
-
-    if(elementContainer.children.length == 3){
-        removeIng.style.display = "none";
-    }
-});
-
-removeStep.addEventListener("click", e => {
-    let elementContainer = document.getElementById("recipeSteps");
-    let lastChild = elementContainer.lastChild;
-    elementContainer.removeChild(lastChild);
-
-    if(elementContainer.children.length == 3){
-        removeStep.style.display = "none";
-    }
-});
-
-removeNutrition.addEventListener("click", e => {
-    let elementContainer = document.getElementById("recipeNutrition");
-    let lastChild = elementContainer.lastChild;
-    elementContainer.removeChild(lastChild);
-
-    if(elementContainer.children.length == 3){
-        removeNutrition.style.display = "none";
-    }
-});
+function removeItem(e){
+    let parentContainer = e.path[3];
+    let fieldSet = e.path[2];
+    parentContainer.removeChild(fieldSet);
+}
 
 createRecipe.addEventListener("click", e => {
     e.preventDefault();
     let formRes = {
-        "id": "ucr_",
+        "id": "",
         "image": "../../admin/branding/logo3_231x231.jpg",
         "favorite": true,
         "readyInMinutes": 0,
@@ -109,13 +126,33 @@ createRecipe.addEventListener("click", e => {
     let formData = document.getElementById("recipeForm");
     let formObj = new FormData(formData);
     let formKeys = Array.from(formObj.keys());
+    let hash = window.location.hash;
+
+    if(hash){
+        let currRecipe = JSON.parse(localStorage.getItem(hash.slice(1)));
+        if(hash.slice(1,4) === "ucr"){
+            let title = formObj.get("title");
+            if(title !== currRecipe.title){
+                localStorage.removeItem(hash.slice(1));
+            }
+            formRes["id"] = "ucr_" + title.replaceAll(" ", "");
+        }else{
+            formRes["id"] = currRecipe.id;
+            formRes["image"] = currRecipe.image;
+            formRes["favorite"] = false;
+        }
+    }else{
+        let title = formObj.get("title");
+        formRes["id"] = "ucr_" + title.replaceAll(" ", "");
+        util.addFavoriteRecipe(formRes["id"]);
+    }
 
     formKeys.forEach(key => {
         let res = formObj.getAll(key);
         if(key == "steps" || key === "nutrition" || key == "ingredients"){
             formRes[key] = formObj.getAll(key);
         }else if(key === "recipeDesc"){
-            formRes['summary'] = formObj.get('recipeDesc');
+            formRes['summary'] = res[0];
         }else{
             formRes[key] = res[0];
         }
@@ -124,12 +161,47 @@ createRecipe.addEventListener("click", e => {
     formRes["ingredients"].forEach(ing => {
         formRes["ingredientSearch"] += ing;
     });
-    formRes["id"] += formRes["title"].replaceAll(" ", "");
+    
     util.setLocalStorageItem(formRes["id"], formRes);
-    util.addFavoriteRecipe(formRes["id"]);
     window.location.href = "/source/homepage.html";
 });
 
 cancelBtn.addEventListener('click', e => {
     window.location.href = "/source/homepage.html";
 });
+
+function populateRecipeForm(recipeData){
+    document.getElementById("recipeName").value = recipeData.title;
+    document.getElementById("recipeTime").value = recipeData.readyInMinutes;
+    document.getElementById("recipeDesc").value = recipeData.summary;
+    
+    // Ingredients fill-in
+    let numIng = recipeData.ingredients.length;
+    for(let i = 0; i < numIng-1; i++){
+        addIng.click();
+    }
+    let ingInputs = document.getElementsByClassName("ingName");
+    for(let i = 0; i < numIng; i++){
+        ingInputs[i].value = recipeData.ingredients[i];
+    }
+
+    // Steps fill-in
+    let numSteps = recipeData.steps.length;
+    for(let i = 0; i < numSteps-1; i++){
+        addStep.click();
+    }
+    let stepInputs = document.getElementsByClassName("stepName");
+    for(let i = 0; i < numSteps; i++){
+        stepInputs[i].value = recipeData.steps[i];
+    }
+
+    // Nutrition fill-in
+    let numNutrients = recipeData.nutrition.length;
+    for(let i = 0; i < numNutrients-1; i++){
+        addNutrition.click();
+    }
+    let nutritionInputs = document.getElementsByClassName("nutrName");
+    for(let i = 0; i < numNutrients; i++){
+        nutritionInputs[i].value = recipeData.nutrition[i];
+    }
+}
