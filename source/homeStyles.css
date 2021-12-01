@@ -1,9 +1,6 @@
-body {
-  background-color: var(--light-gray);
-}
-
 #recipeCards {
   display: flex;
+  justify-content: center;
   flex-flow: row;
   margin: 20px 2rem 50px 2rem;
   min-height: min-content;
@@ -27,12 +24,6 @@ recipe-card{
 
 recipe-card:hover{
   transform: scale(1.1);
-}
-
-#favContainer {
-  background-color: var(--red);
-  border-radius: 10%;
-  padding: 0.2rem 0.5rem;
 }
 
 #searchQuery {
@@ -85,7 +76,7 @@ h1 {
   float: right;
   margin-right: 10px;
   margin-bottom: 10px;
-  background-color: var(--light-gray);
+  background-color: var(--light-red);
   border:1px solid var(--black);    
   height:50px;
   border-radius:50%;

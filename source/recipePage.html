@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head> 
-        <title>Recipe Info</title>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="team3 logo.jpg"/>
-        <link rel="stylesheet" href="recipepage_style.css">
-        <link rel="stylesheet" href="common.css">
-        <script src="scripts/Router.js" type="module"></script>
 
-    </head>
-    <body>
+<head>
+    <title>Recipe Info</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="team3 logo.jpg" />
+    <link rel="stylesheet" href="recipepage_style.css">
+    <link rel="stylesheet" href="common.css">
+    <script src="scripts/Router.js" type="module"></script>
+
+</head>
+
+<body>
     <main id="recipeMain">
         <header>
             <nav>
@@ -19,11 +21,13 @@
                         src="logo3_231x231.jpg" alt="Logo" width="80"
                         height="80"></a>
                 <div id=search-container>
-                    <input type="search" id="search-bar" placeholder="What do you have in mind?"/>
-                    <input type = "image" id="search-icon" alt = "no image" src="icons-search.svg"/> 
+                    <input type="search" id="search-bar"
+                        placeholder="What do you have in mind?" />
+                    <input type="image" id="search-icon" alt="no image"
+                        src="icons-search.svg" />
                 </div>
-                <a href="#" id="favContainer"><img
-                        src="./icons8-favorite-folder-50.png"
+                <a href="/source/searchpage.html#favorites"
+                    id="favContainer"><img src="./icons8-favorite-folder-50.png"
                         alt="Favorite Icon"></a>
             </nav>
         </header>
@@ -42,7 +46,7 @@
                     <img id="recipe-image">
                 </div>
             </div>
-        </section> 
+        </section>
         <br>
         <section id="recipe-ingredients-container">
             <h2>Ingredients</h2>
@@ -90,7 +94,8 @@
         <button type="button" id="favorite">Favorite</button>
         <button type="button" id="delete">Delete</button>
     </main>
-    
+
     <script type="module" src="scripts/recipePage.js"></script>
-    </body>
+</body>
+
 </html>

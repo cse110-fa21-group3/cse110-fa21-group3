@@ -15,6 +15,10 @@
     font-family: 'Libre Baskerville', serif;
 }
 
+body {
+  background-color: var(--light-gray);
+}
+
 /* Navbar Styling */
 nav {
     background-color: var(--black);
