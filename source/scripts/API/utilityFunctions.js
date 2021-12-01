@@ -341,7 +341,6 @@ export async function fetchRecipes(recipe_count, offset){
                 // this promise is created to resolve after local
                 // storage is fully populated before resolving the parent promise 
                 let childPromise = new Promise((resolve, reject) => {
-                    let recipes 
                     res["results"].forEach(async r => {
                         await createRecipeObject(r);
                         if (localStorage.length >= res["results"].length) {
