@@ -8,23 +8,19 @@ hr {
     margin-top: 10px;
     margin-bottom: 10px;
     border: 0;
-    height: 5px;
-    background-image: linear-gradient(to right, #ccc, #FF4747, #ccc);
+    height: 2px;
+    background-image: linear-gradient(to right, var(--light-gray), var(--red), var(--light-gray));
 }
 
 #matchedCountText {
     color: gray
 }
 
-/* General Element Styling */
-body {
-    background-color: var(--light-gray) ;
-}
-
 /* search bar */
 #search-container {
     display: flex;
     width: 50%;
+    max-width: 45rem;
 }
 
 #searchBar {

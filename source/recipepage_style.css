@@ -1,13 +1,7 @@
-/* page setting */
-
-body {
-  background-color: var(--light-gray);
-}
-
 /* line under sub-title(h2) */
 hr {
   border: 0;
-  height: 5px;
+  height: 2px;
   background-image: linear-gradient(to right, var(--light-gray), var(--red), var(--light-gray));
 }
 
@@ -81,7 +75,7 @@ h2 {
 
 .recipe-info > section {
   font-size: 20px;
-  color: var(--dark-gray);
+  color: var(--black);
   margin-left: 1.5cm;
   margin-bottom: 15rem;
 }
