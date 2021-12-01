@@ -71,10 +71,6 @@ h1 {
   text-align: center;
 }
 
-h1, input, recipe-card, #search{
-  font-family: 'Libre Baskerville', serif;
-}
-
 @media screen and (min-width: 90em) {
   #recipeForm {
     max-width: 80rem;
