@@ -110,8 +110,9 @@ addNutrition.addEventListener("click", e => {
 });
 
 function removeItem(e){
-    let parentContainer = e.path[3];
-    let fieldSet = e.path[2];
+    let i = e.path[0].tagName === "IMG" ? 0 : 1;
+    let parentContainer = e.path[3-i];
+    let fieldSet = e.path[2-i];
     parentContainer.removeChild(fieldSet);
 }
 
