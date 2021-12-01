@@ -6,8 +6,7 @@ import * as util from "./API/utilityFunctions.js";
 
 window.addEventListener("DOMContentLoaded", init);
 
-let createRecipeButton = document.getElementById("create-recipe");
-createRecipeButton.addEventListener('click', e => {
+document.getElementById("create-recipe").addEventListener('click', e => {
     window.location.href = "/source/createRecipe.html";
 });
 
@@ -20,10 +19,12 @@ function init(){
         if(intols){
             util.setIntolerances(intols);
         }
-    }
-    util.fetchRecipes(util.DEFAULT_RECIPE_NUMBER, 0).then(() => {
+        util.fetchRecipes(util.DEFAULT_RECIPE_NUMBER, 0).then(() => {
+            createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
+        });
+    }else{
         createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
-    });
+    }
 
     let searchBtn = document.getElementById("search");
     searchBtn.addEventListener("click", e => {

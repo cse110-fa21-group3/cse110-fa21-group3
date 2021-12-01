@@ -53,7 +53,7 @@ function init(){
     let favArr = util.getFavoriteRecipes();
     if(favArr && favArr.includes(id)){
         //favoriteBtn.innerText = "Unfavorite";
-    }else{
+    } else{
         //favoriteBtn.innerText = "Favorite";
     }
     
@@ -62,14 +62,31 @@ function init(){
         if(favArr && favArr.includes(id)){
             util.removeFavoriteRecipe(id);
             //favoriteBtn.innerText = "Favorite";
-        }else{
+        } else{
             util.addFavoriteRecipe(id);
             //favoriteBtn.innerText = "Unfavorite";
         }
     });
+
+    let deleteBtn = document.getElementById("delete");
+    let deletedRecipes = util.getDeletedRecipes();
+    deleteBtn.addEventListener("click", e => {
+        util.removeRecipe(id);
+
+        deletedRecipes = util.getDeletedRecipes();
+        deletedRecipes.push(parseInt(id))
+        util.updateUserData("deletedRecipes", deletedRecipes);
+
+        window.location.href = "/source/homepage.html";
+    });
+
 }
 
 // changing the color
 document.querySelector('#favorite').addEventListener('click', (e) => {
     e.currentTarget.classList.toggle('liked');
-  });
+});
+
+document.getElementById("editRecipe").addEventListener('click', e => {
+    window.location.href = "/source/createRecipe.html#"+id;
+});
