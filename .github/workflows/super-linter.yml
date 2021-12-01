@@ -39,10 +39,17 @@ jobs:
           # Recurse into subdirectories when scanning for source files
           recurse: true
           
+      - name: Check npm is installed
+        run: npm -v
+        
+      - name: Install Jest and Babel
+        run: npm install --save-dev jest babel-jest @babel/core @babel/preset-env puppeteer jest-puppeteer
+
       - name: Run Jest
        # You may pin to the exact commit or the version.
        # uses: stefanoeb/jest-action@f9bb23f509cde20ee9b494f0496d1d3323861cc4
         uses: stefanoeb/jest-action@1.0.4
+          
         
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
