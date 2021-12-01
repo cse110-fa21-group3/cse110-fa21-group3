@@ -21,7 +21,7 @@ addIng.addEventListener("click", e => {
     let elementContainerLength = elementContainer.length;
     let fieldSet = document.createElement("fieldset");
     let fieldSetLabel = document.createElement("label");
-    let fieldInput = document.createElement("input");
+    let fieldTextArea = document.createElement("textarea");
     let deleteBtn = document.createElement("button");
     
     deleteBtn.type = "button";
@@ -34,12 +34,14 @@ addIng.addEventListener("click", e => {
 
     fieldSetLabel.innerText = "Ingredient: ";
 
-    fieldInput.name = "ingredients";
-    fieldInput.classList.add("ingName");
+    fieldTextArea.name = "ingredients";
+    fieldTextArea.classList.add("ingName");
+    fieldTextArea.cols = "30";
+    fieldTextArea.rows = "2";
 
     fieldSet.classList.add("ingredientContainer");
     fieldSet.appendChild(fieldSetLabel);
-    fieldSet.appendChild(fieldInput);
+    fieldSet.appendChild(fieldTextArea);
     fieldSet.appendChild(deleteBtn);
 
     elementContainer[elementContainerLength-1].after(fieldSet);
@@ -50,7 +52,7 @@ addStep.addEventListener("click", e => {
     let elementContainerLength = elementContainer.length;
     let fieldSet = document.createElement("fieldset");
     let fieldSetLabel = document.createElement("label");
-    let fieldInput = document.createElement("input");
+    let fieldTextArea = document.createElement("textarea");
     let deleteBtn = document.createElement("button");
     
     deleteBtn.type = "button";
@@ -63,12 +65,14 @@ addStep.addEventListener("click", e => {
 
     fieldSetLabel.innerText = "Step: ";
     
-    fieldInput.name = "steps";
-    fieldInput.classList.add("stepName");
+    fieldTextArea.name = "steps";
+    fieldTextArea.classList.add("stepName");
+    fieldTextArea.cols = "30";
+    fieldTextArea.rows = "2";
     
     fieldSet.classList.add("stepsContainer");
     fieldSet.appendChild(fieldSetLabel);
-    fieldSet.appendChild(fieldInput);
+    fieldSet.appendChild(fieldTextArea);
     fieldSet.appendChild(deleteBtn);
     
     elementContainer[elementContainerLength-1].after(fieldSet); 
@@ -79,7 +83,7 @@ addNutrition.addEventListener("click", e => {
     let elementContainerLength = elementContainer.length;
     let fieldSet = document.createElement("fieldset");
     let fieldSetLabel = document.createElement("label");
-    let fieldInput = document.createElement("input");
+    let fieldTextArea = document.createElement("textarea");
     let deleteBtn = document.createElement("button");
     
     deleteBtn.type = "button";
@@ -92,20 +96,23 @@ addNutrition.addEventListener("click", e => {
 
     fieldSetLabel.innerText = "Nutrition: ";
     
-    fieldInput.name = "nutrition";
-    fieldInput.classList.add("nutrName");
+    fieldTextArea.name = "nutrition";
+    fieldTextArea.classList.add("nutrName");
+    fieldTextArea.cols = "30";
+    fieldTextArea.rows = "2";
     
     fieldSet.classList.add("nutritionContainer");
     fieldSet.appendChild(fieldSetLabel);
-    fieldSet.appendChild(fieldInput);
+    fieldSet.appendChild(fieldTextArea);
     fieldSet.appendChild(deleteBtn);
     
     elementContainer[elementContainerLength-1].after(fieldSet);
 });
 
 function removeItem(e){
-    let parentContainer = e.path[3];
-    let fieldSet = e.path[2];
+    let i = e.path[0].tagName === "IMG" ? 0 : 1;
+    let parentContainer = e.path[3-i];
+    let fieldSet = e.path[2-i];
     parentContainer.removeChild(fieldSet);
 }
 
