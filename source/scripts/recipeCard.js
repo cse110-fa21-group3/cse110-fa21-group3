@@ -1,5 +1,8 @@
 // RECIPE TILES
 
+/**
+ * Creates Recipes Cards for the DOM and has styling for it as well
+ */
 class RecipeCard extends HTMLElement{
     constructor(){
         super();
