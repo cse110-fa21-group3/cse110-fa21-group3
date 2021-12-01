@@ -83,7 +83,7 @@ addNutrition.addEventListener("click", e => {
     let elementContainerLength = elementContainer.length;
     let fieldSet = document.createElement("fieldset");
     let fieldSetLabel = document.createElement("label");
-    let fieldTextArea = document.createElement("input");
+    let fieldTextArea = document.createElement("textarea");
     let deleteBtn = document.createElement("button");
     
     deleteBtn.type = "button";
