@@ -8,7 +8,8 @@
     "puppeteer": "^11.0.0"
   },
   "scripts": {
-    "test": "jest --passWithNoTests"
+    //"test": "jest --passWithNoTests"
+    "test": "jest"
   },
   "jest": {
     "preset": "jest-puppeteer",
