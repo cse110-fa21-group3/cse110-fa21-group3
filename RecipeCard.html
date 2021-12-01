@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>main.js - Documentation</title>
+    <title>RecipeCard - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,99 +29,133 @@
 
 <div id="main">
     
-    <h1 class="page-title">main.js</h1>
+    <h1 class="page-title">RecipeCard</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Homepage JS file
- */
+        <h2>
+        RecipeCard
+        </h2>
+        
+            <div class="class-description">Creates Recipes Cards for the DOM and has styling for it as well</div>
+        
+    
+</header>
 
-import * as util from "./API/utilityFunctions.js";
+<article>
+    <div class="container-overview">
+    
+        
+<div class="section-method">
 
-window.addEventListener("DOMContentLoaded", init);
+    
+    <h2>Constructor</h2>
+    
 
-document.getElementById("create-recipe").addEventListener('click', e => {
-    window.location.href = "/source/createRecipe.html";
-});
+    <h4 class="name" id="RecipeCard"><span class="type-signature"></span>new RecipeCard<span class="signature">()</span><span class="type-signature"></span></h4>
 
-/**
- * Function that runs when the page loads
- */
-function init(){
-    if(util.getLocalStorageRecipes().length == 0){
-        let intols = prompt("Enter your intolerances");
-        if(intols){
-            util.setIntolerances(intols);
-        }
-        util.fetchRecipes(util.DEFAULT_RECIPE_NUMBER, 0).then(() => {
-            createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
-        });
-    }else{
-        createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
-    }
+    
 
-    let searchBtn = document.getElementById("search");
-    searchBtn.addEventListener("click", e => {
-        e.preventDefault();
-        let searchQuery = document.getElementById("searchQuery").value;
-        util.searchLocalRecipes(searchQuery).then(arr => {
-            let res = [];
-            arr.forEach(recipe => {
-                res.push(recipe["id"]);
-            });
-            console.log(res);
-            let searchObj = {
-                "data": res,
-                "query": searchQuery,
-                "matchedCount": arr.length
-            }
-            localStorage.setItem("latestSearch", JSON.stringify(searchObj));
-            window.location.href = "/source/searchpage.html";
-        });
-    });
-}
 
-/**
- * Create recipe cards for an arbitrary amount of recipes
- * 
- * @param {number} N The number of recipes to display
- * @param {boolean} search If you're creating recipe cards from a search query
- * 
- */
-export function createRecipeCards(N){ 
-    let recipes = util.getLocalStorageRecipes();
-    // Get the recipe cards' section element
-    let recipeCardsSection = document.getElementById("recipeCards");
 
-    recipes.forEach(recipe => {
-        const recipeCard = document.createElement("recipe-card");
-        recipeCard.data = recipe;
-        let key = recipe["id"];
-        bindRC(recipeCard, key);
-        recipeCardsSection.appendChild(recipeCard);
-    });
-}
 
-/**
- * Binds a recipe card to its router page function via the 'click' event
- * 
- * @param {HTMLElement} recipeCard The element to which we bind an event listener
- * @param {string} key The id of the recipe card
- */
-function bindRC(recipeCard, key){
-    recipeCard.addEventListener("click", e => {
-        util.router.navigate(key);
-    });
-}</code></pre>
-        </article>
-    </section>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="recipeCard.js.html">recipeCard.js</a>, <a href="recipeCard.js.html#line7">line 7</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

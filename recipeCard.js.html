@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>main.js - Documentation</title>
+    <title>recipeCard.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">main.js</h1>
+    <h1 class="page-title">recipeCard.js</h1>
     
 
     
@@ -39,87 +39,81 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Homepage JS file
- */
-
-import * as util from "./API/utilityFunctions.js";
-
-window.addEventListener("DOMContentLoaded", init);
-
-document.getElementById("create-recipe").addEventListener('click', e => {
-    window.location.href = "/source/createRecipe.html";
-});
+            <pre class="prettyprint source linenums"><code>// RECIPE TILES
 
 /**
- * Function that runs when the page loads
+ * Creates Recipes Cards for the DOM and has styling for it as well
  */
-function init(){
-    if(util.getLocalStorageRecipes().length == 0){
-        let intols = prompt("Enter your intolerances");
-        if(intols){
-            util.setIntolerances(intols);
-        }
-        util.fetchRecipes(util.DEFAULT_RECIPE_NUMBER, 0).then(() => {
-            createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
-        });
-    }else{
-        createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
+class RecipeCard extends HTMLElement{
+    constructor(){
+        super();
+        this.attachShadow({ mode: "open" });
     }
 
-    let searchBtn = document.getElementById("search");
-    searchBtn.addEventListener("click", e => {
-        e.preventDefault();
-        let searchQuery = document.getElementById("searchQuery").value;
-        util.searchLocalRecipes(searchQuery).then(arr => {
-            let res = [];
-            arr.forEach(recipe => {
-                res.push(recipe["id"]);
-            });
-            console.log(res);
-            let searchObj = {
-                "data": res,
-                "query": searchQuery,
-                "matchedCount": arr.length
-            }
-            localStorage.setItem("latestSearch", JSON.stringify(searchObj));
-            window.location.href = "/source/searchpage.html";
-        });
-    });
+    set data(data){
+        if(!data) return;
+        this.json = data;
+
+        // Recipe card css
+        const style = document.createElement('style');
+        style.innerHTML = `
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        article {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid black;
+            border-radius: 8px;
+            padding: 1rem 1rem;
+            background-color: white;
+            transition: all 0.2s ease;
+            height: 100%;
+        }
+
+        article:hover {
+            box-shadow: 0px 0px 10px grey;
+        }
+
+        article:active {
+            box-shadow: 0 0;
+        }
+
+        article > img {
+            border-radius: 8px;
+            object-fit: cover;
+            max-width: 100%;
+            height: auto;
+        }
+
+        article > p {
+            justify-self: initial;
+            margin-top: 1rem;
+            line-height: 1.5rem;
+        }
+        `;
+
+        const recipeCard = document.createElement("article");
+        const recipeImage = document.createElement("img");
+        const recipeTitle = document.createElement("p");
+        
+        recipeImage.setAttribute("src", data["image"]);
+        recipeTitle.innerText = data["title"];
+        
+        recipeCard.appendChild(recipeImage);
+        recipeCard.appendChild(recipeTitle);
+        this.shadowRoot.append(style, recipeCard);
+    }
+
+    get data(){
+        return this.json;
+    }
 }
 
-/**
- * Create recipe cards for an arbitrary amount of recipes
- * 
- * @param {number} N The number of recipes to display
- * @param {boolean} search If you're creating recipe cards from a search query
- * 
- */
-export function createRecipeCards(N){ 
-    let recipes = util.getLocalStorageRecipes();
-    // Get the recipe cards' section element
-    let recipeCardsSection = document.getElementById("recipeCards");
-
-    recipes.forEach(recipe => {
-        const recipeCard = document.createElement("recipe-card");
-        recipeCard.data = recipe;
-        let key = recipe["id"];
-        bindRC(recipeCard, key);
-        recipeCardsSection.appendChild(recipeCard);
-    });
-}
-
-/**
- * Binds a recipe card to its router page function via the 'click' event
- * 
- * @param {HTMLElement} recipeCard The element to which we bind an event listener
- * @param {string} key The id of the recipe card
- */
-function bindRC(recipeCard, key){
-    recipeCard.addEventListener("click", e => {
-        util.router.navigate(key);
-    });
-}</code></pre>
+customElements.define("recipe-card", RecipeCard);</code></pre>
         </article>
     </section>
 
