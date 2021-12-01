@@ -12,7 +12,7 @@ window.addEventListener("DOMContentLoaded", e => {
         let id = window.location.hash.slice(1);
         let recipeData = JSON.parse(localStorage.getItem(id));
         populateRecipeForm(recipeData);
-        createRecipe.value = "Update";
+        createRecipe.innerText = "Update";
     }
 });
 
