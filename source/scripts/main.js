@@ -22,29 +22,53 @@ function init(){
         util.fetchRecipes(util.DEFAULT_RECIPE_NUMBER, 0).then(() => {
             createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
         });
-    }else{
-        createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
     }
+    // else if (window.location.pathname === '/source/homepage.html'){
+    //     createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
+    // }
 
-    let searchBtn = document.getElementById("search");
-    searchBtn.addEventListener("click", e => {
-        e.preventDefault();
-        let searchQuery = document.getElementById("searchQuery").value;
-        util.searchLocalRecipes(searchQuery).then(arr => {
-            let res = [];
-            arr.forEach(recipe => {
-                res.push(recipe["id"]);
+    // display the 5 recipes and add search btn listener only in homepage
+    if (window.location.pathname === '/source/homepage.html') {
+        createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
+        let searchBtn = document.getElementById("search");
+        searchBtn.addEventListener("click", e => {
+            e.preventDefault();
+            let searchQuery = document.getElementById("searchQuery").value;
+            util.searchLocalRecipes(searchQuery).then(arr => {
+                let res = [];
+                arr.forEach(recipe => {
+                    res.push(recipe["id"]);
+                });
+                console.log(res);
+                let searchObj = {
+                    "data": res,
+                    "query": searchQuery,
+                    "matchedCount": arr.length
+                }
+                localStorage.setItem("latestSearch", JSON.stringify(searchObj));
+                window.location.href = "/source/searchpage.html";
             });
-            console.log(res);
-            let searchObj = {
-                "data": res,
-                "query": searchQuery,
-                "matchedCount": arr.length
-            }
-            localStorage.setItem("latestSearch", JSON.stringify(searchObj));
-            window.location.href = "/source/searchpage.html";
         });
-    });
+    }
+    // let searchBtn = document.getElementById("search");
+    // searchBtn.addEventListener("click", e => {
+    //     e.preventDefault();
+    //     let searchQuery = document.getElementById("searchQuery").value;
+    //     util.searchLocalRecipes(searchQuery).then(arr => {
+    //         let res = [];
+    //         arr.forEach(recipe => {
+    //             res.push(recipe["id"]);
+    //         });
+    //         console.log(res);
+    //         let searchObj = {
+    //             "data": res,
+    //             "query": searchQuery,
+    //             "matchedCount": arr.length
+    //         }
+    //         localStorage.setItem("latestSearch", JSON.stringify(searchObj));
+    //         window.location.href = "/source/searchpage.html";
+    //     });
+    // });
 }
 
 /**
