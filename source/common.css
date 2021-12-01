@@ -38,7 +38,7 @@ nav {
 #favContainer {
     background-color: var(--red);
     border-radius: 10%;
-    padding: 0.2rem 0.5rem;
+    padding: 0.2rem 0.5rem 0 0.5rem;
 }
 
 #favContainer:hover {
@@ -51,7 +51,7 @@ nav {
 
 /* Create Button */
 #create-recipe{
-  padding: 0.81rem 0.93rem;
+  padding: 0.81rem 0.93rem 0.60rem 0.93rem;
   margin: 0 10px 10px 0;
   background-color: #ffdadaa8;
   border-radius: 50px;
