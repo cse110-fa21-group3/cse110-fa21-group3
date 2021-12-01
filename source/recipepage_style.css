@@ -77,7 +77,6 @@ h2 {
 .recipe-info {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .recipe-info > section {
@@ -91,12 +90,17 @@ h2 {
   margin: 2rem;
 }
 
+p{
+  color: var(--black);
+}
+
 #recipe-image {
   float: right;
   width: 468px;
   height: 346.5px;
-  margin-top: 2rem;
-  margin-right: 12rem;
+  align-items: flex-start;
+  margin-top: 6rem;
+  margin-right: 2rem;
 }
 
 /* ingredient */
