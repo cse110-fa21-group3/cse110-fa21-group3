@@ -333,21 +333,40 @@ export async function fetchRecipes(recipe_count, offset){
         reqUrl += "&intolerances="+intolerancesStr;
     }
 
-   return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         fetch(reqUrl, options)
             .then(res => res.json())
-            .then(res => {
-                res["results"].forEach(r => {
-                    if (deletedRecipes.includes(r["id"])) { 
-                        removeRecipe((r["id"]).toString())
-                    }
-                    else { 
-                        createRecipeObject(r);
-                    } 
+            .then(async res => {
+                
+                // this promise is created to resolve after local
+                // storage is fully populated before resolving the parent promise 
+                let childPromise = new Promise((resolve, reject) => {
+                    let recipes 
+                    res["results"].forEach(async r => {
+                        await createRecipeObject(r);
+                        if (localStorage.length >= res["results"].length) {
+                            resolve(true);
+                        }
+                    });
                 });
-                resolve(true);
+
+                // action after local storage is populated
+                childPromise.then(() => {
+
+                    // remove deleted recipes from local storage
+                    // according to deleteRecipes array
+                    for (let i = 0; i < localStorage.length; i++){
+                        let key = localStorage.key(i);
+                        if (deletedRecipes.includes(parseInt(key))) {
+                            removeRecipe(`${key}`);
+                        }
+                    }
+
+                    resolve(true);
+                });
             })
             .catch(error => {
+                console.log(error);
                 reject(false);
             });
    });
@@ -459,6 +478,6 @@ export function getLocalStorageRecipes() {
  * @param {number} id - id for the local storage item
  * @param {Object} recipeObject - a JSON recipe object
  */ 
-export async function setLocalStorageItem(id, recipeObject) {
+export function setLocalStorageItem(id, recipeObject) {
     localStorage.setItem(id, JSON.stringify(recipeObject));
 }
