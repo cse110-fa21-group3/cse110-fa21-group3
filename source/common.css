@@ -32,6 +32,7 @@ nav {
     border-radius: 10%;
 }
 
+/* Favorite Button */
 #favContainer {
     background-color: var(--red);
     border-radius: 10%;
@@ -44,4 +45,25 @@ nav {
 
 #favContainer:active {
     filter: brightness(0.3);
+}
+
+/* Create Button */
+#create-recipe{
+  padding: 0.81rem 0.93rem;
+  margin: 0 10px 10px 0;
+  background-color: #ffdadaa8;
+  border-radius: 50px;
+  border: 1px solid var(--black);
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+#create-recipe:hover{
+  box-shadow: 0px 0px 5px grey;
+  cursor: pointer;
+}
+
+#create-recipe:active{
+  background-color: var(--black);
 }
