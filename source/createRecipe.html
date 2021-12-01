@@ -46,44 +46,19 @@
                     <textarea name="recipeDesc" id="recipeDesc" cols="60"
                         rows="10"></textarea>
                 </div>
-                <div id="recipeIngredients">
+                <fieldset id="recipeIngredients">
                     <fieldset class="ingredientContainer">
-                        <label>Ingredient:
-                            <textarea name="ingredients" cols="30" rows="2"
-                                class="ingName"></textarea>
-                        </label>
-                        <!-- <label>Quantity:
-                        <input type="text" class="ingQuantity" />
-                    </label> -->
+                        <label>Ingredient: </label>
+                        <input type="text" name="ingredients" class="ingName" />
                     </fieldset>
-                    <!-- <fieldset class="ingredientContainer">
-                    <label>Quantity:
-                        <input type="text" class="ingQuantity" />
-                    </label>
-                    <label>Ingredient 2:
-                        <input type="text" class="ingName" />
-                    </label>
-                    <button type="button" class="removeBtn">[Cross]</button>
-                </fieldset>
-                <fieldset class="ingredientContainer">
-                    <label>Quantity:
-                        <input type="text" class="ingQuantity" />
-                    </label>
-                    <label>Ingredient 3:
-                        <input type="text" class="ingName" />
-                    </label>
-                    <button type="button" class="removeBtn">[Cross]</button> -->
                     <button type="button" id="addIng" class="addBtn"><img
                             src="./icons8-plus-+.svg"
                             style='width: 30px;'></button>
                 </fieldset>
-                </fieldset>
                 <fieldset id="recipeSteps">
                     <fieldset class="stepsContainer">
-                        <label>Step:
-                            <textarea name="steps" class="stepName" cols="30" rows="2">
-                            </textarea>
-                        </label>
+                        <label>Step: </label>
+                        <input type="text" name="steps" class="stepName" />
                     </fieldset>
                     <button type="button" id="addStep" class="addBtn"><img
                             src="./icons8-plus-+.svg"
@@ -91,10 +66,8 @@
                 </fieldset>
                 <fieldset id="recipeNutrition">
                     <fieldset class="nutritionContainer">
-                        <label>Nutrition:
-                            <textarea name="nutrition" class="nutrName" cols="30" rows="2">
-                            </textarea>
-                        </label>
+                        <label>Nutrition: </label>
+                        <input type="text" name="nutrition" class="nutrName" />
                     </fieldset>
                     <button type="button" id="addNutrition" class="addBtn"><img
                             src="./icons8-plus-+.svg"

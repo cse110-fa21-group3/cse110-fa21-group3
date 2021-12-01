@@ -11,6 +11,7 @@ input {
     margin: 0 0.5rem 0 0.5rem;
     border: 1px solid var(--dark-gray);
     padding: 0.2rem 0.2rem;
+    border-radius: 5px;
 }
 
 body {
@@ -46,6 +47,16 @@ fieldset {
 
 #descContainer label {
     margin-bottom: 0.5rem ;
+}
+
+#descContainer textarea {
+    border-radius: 5px;
+}
+
+.ingredientContainer, .stepsContainer, .nutritionContainer {
+    display: flex;
+    align-items: center;
+    margin: 0.2rem 0;
 }
 
 #btns {
@@ -97,7 +108,8 @@ fieldset {
 .removeBtn {
     border: none;
     background-color: transparent;
-    padding: 0.5rem 0.5rem;
+    display: flex;
+    align-items: center;
 }
 
 .removeBtn:hover {
