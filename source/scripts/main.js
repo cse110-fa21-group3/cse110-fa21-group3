@@ -19,8 +19,8 @@ function init(){
         if(intols || intols === ""){
             util.setIntolerances(intols);
         }
-        util.fetchRecipes(util.DEFAULT_RECIPE_NUMBER, 0).then(() => {
-            createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
+        util.populateRecipes(util.DEFAULT_RECIPE_NUMBER).then(() => {
+            createRecipeCards(util.MINIMUM_RECIPE_REQUIRED);
         });
     }
     // else if (window.location.pathname === '/source/homepage.html'){
