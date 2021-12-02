@@ -39,9 +39,9 @@
                 </div>
                 <span class="recipe-info">
                     <section style="display: inline-block;">
-                        <p>Time: <span id="recipe-time"></span> minutes</p>
+                        <p>Time: <b><span id="recipe-time"></span></b> minutes</p>
                         <!--<p id="recipe-serves"> Serves: x people</p>-->
-                        <p id="recipe-description">Description</p>
+                        <p>Description: <span id="recipe-description"></span> </p>
                     </section>
                     <img id="recipe-image">
                 </span>
@@ -92,8 +92,10 @@
             </ul>
         </section>
 
-        <button type="button" id="editRecipe">Edit Recipe</button>
-        <button type="button" id="delete">Delete</button>
+        <div id="edit-delete-btns">
+            <button type="button" id="edit-recipe">Edit Recipe</button>
+            <button type="button" id="delete">Delete</button>
+        </div>
     </main>
 
     <script type="module" src="scripts/recipePage.js"></script>

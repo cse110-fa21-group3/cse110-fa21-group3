@@ -77,11 +77,12 @@ h2 {
   font-size: 20px;
   color: var(--black);
   margin-left: 1.5cm;
-  margin-bottom: 15rem;
+  margin-bottom: 1.5rem;
 }
 
 .recipe-info > section > p {
-  margin: 2rem;
+  line-height: 2.5rem;
+  padding-right: 1.5rem;;
 }
 
 p{
@@ -93,8 +94,9 @@ p{
   width: 468px;
   height: 346.5px;
   align-items: flex-start;
-  margin-top: 6rem;
-  margin-right: 2rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  margin-right: 5rem;
 }
 
 /* ingredient */
@@ -125,9 +127,46 @@ ol > li::before {
 /* list of nutrition */
 #recipe-nutrition-list {
   padding-left: 5rem;
+  margin-bottom: 5rem;
 }
 
 ul > li {
   font-size: 1.25rem;
   line-height: 3rem;
+}
+
+/* buttons */
+#edit-delete-btns {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+  position: fixed;
+  bottom: 0.5rem;
+  right: 2rem;
+}
+
+#edit-recipe, #delete {
+  border: none;
+  color: var(--white);
+  border-radius: 5%;
+  padding: 0.8rem 1rem;
+}
+
+#edit-recipe {
+  background-color: var(--red);
+  margin-right: 1rem;
+}
+
+#edit-recipe:hover, #delete:hover {
+  filter: brightness(0.7);
+  cursor: pointer;
+}
+
+#edit-recipe:active, #delete:active {
+  filter: brightness(0.3);
+}
+
+#delete {
+  background-color: var(--black);
+  margin-right: 5rem;
 }
