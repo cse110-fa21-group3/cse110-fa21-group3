@@ -1,7 +1,6 @@
 #recipeCards {
   display: grid;
   grid-template-columns: repeat(20 , 20rem);
-
   margin: 20px 2rem 50px 2rem;
   min-height: min-content;
   overflow-x: auto;
