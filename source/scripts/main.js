@@ -16,7 +16,7 @@ document.getElementById("create-recipe").addEventListener('click', e => {
 function init(){
     if(util.getLocalStorageRecipes().length == 0){
         let intols = prompt("Enter your intolerances");
-        if(intols){
+        if(intols || intols === ""){
             util.setIntolerances(intols);
         }
         util.fetchRecipes(util.DEFAULT_RECIPE_NUMBER, 0).then(() => {
