@@ -52,19 +52,15 @@ function init(){
     let favoriteBtn = document.getElementById("favorite");
     let favArr = util.getFavoriteRecipes();
     if(favArr && favArr.includes(id)){
-        //favoriteBtn.innerText = "Unfavorite";
-    } else{
-        //favoriteBtn.innerText = "Favorite";
+        favoriteBtn.classList.add("liked");
     }
     
     favoriteBtn.addEventListener("click", e => {
         favArr = util.getFavoriteRecipes();
         if(favArr && favArr.includes(id)){
             util.removeFavoriteRecipe(id);
-            //favoriteBtn.innerText = "Favorite";
         } else{
             util.addFavoriteRecipe(id);
-            //favoriteBtn.innerText = "Unfavorite";
         }
     });
 
