@@ -8,10 +8,13 @@
     "puppeteer": "^11.0.0"
   },
   "scripts": {
-    "test": "jest --passWithNoTests --coverage"
+    "test": "jest"
   },
   "jest": {
     "preset": "jest-puppeteer",
     "verbose": true
+  },
+  "transform": {
+    "^.+\\.jsx?$": "babel-jest"
   }
 } 

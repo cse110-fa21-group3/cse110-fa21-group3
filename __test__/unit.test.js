@@ -1,11 +1,5 @@
 // DON'T TOUCH THIS IMPORT STATEMENT PLEASE
-import '../source/scripts/API/utilityFunctions.js'
-/*
-.then(importFunc => {
-  console.log(importFunc);
-})
-.catch(err => console.log(err));*/
-//import * as utilFunc from '../source/scripts/API/utilityFunctions.js';
+  import * as functions from '../source/scripts/API/utilityFunctions'
 
 // Below is copied from stack overflow
 var localStorageMock = (function() {
@@ -60,7 +54,7 @@ test('removeRecipe test', () => {
   }
 
   //localStorageMock.setItem('lmao', object)
-  u.removeRecipe('lmao')
+  functions.removeRecipe('lmao')
   //let item = localStorageMock.getItem('lmao')
   //expect(item).toBe('undefined')
 })
