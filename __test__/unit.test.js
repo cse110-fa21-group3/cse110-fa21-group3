@@ -25,7 +25,18 @@ class localStorageMock {
   }
 }
 
-global.localStorage = new localStorageMock
+// storing unmocked local storage before all test.
+const unmockedlocalStorage = global.localStorage
+
+// set local storage in global to a mock version
+beforeAll(() => {
+  global.localStorage = new localStorageMock
+})
+
+// clean up mocked components in global
+afterAll(() => {
+  global.localStorage = unmockedlocalStorage
+})
 
 test('setLocalStorageItem Test', () => {
   let key = 'testID'
