@@ -1,7 +1,7 @@
 #recipeCards {
-  display: flex;
-  justify-content: center;
-  flex-flow: row;
+  display: grid;
+  grid-template-columns: repeat(20 , 20rem);
+
   margin: 20px 2rem 50px 2rem;
   min-height: min-content;
   overflow-x: auto;
@@ -11,6 +11,13 @@
   overflow-y: hidden;
   padding: 1rem 0.5rem;
   gap: 0.2rem;
+  
+  
+  /* margin: 3rem;
+  display: grid;
+  grid-template-columns: repeat(20 , 20rem);
+  column-gap: 0.5rem;
+  overflow-x: auto; */
 }
 
 #recipeCards::-webkit-scrollbar {    
