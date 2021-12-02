@@ -19,7 +19,7 @@ function init(){
         if(intols || intols === ""){
             util.setIntolerances(intols);
         }
-        util.fetchRecipes(util.DEFAULT_RECIPE_NUMBER, 0).then(() => {
+        util.populateRecipes(util.DEFAULT_RECIPE_NUMBER).then(() => {
             createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
         });
     }
