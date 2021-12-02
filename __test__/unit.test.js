@@ -1,24 +1,39 @@
-// DON'T TOUCH THIS IMPORT STATEMENT PLEASE
+// Used Babel in package.jsonto transform ES6 syntax to commonjs syntax, 
+// so now `import` and/or `export` statements work on both browser and unit test
   import * as functions from '../source/scripts/API/utilityFunctions'
 
-// Below is copied from stack overflow
-var localStorageMock = (function() {
-  var store = {};
-  return {
-    getItem: function(key) {
-      return store[key];
-    },
-    setItem: function(key, value) {
-      store[key] = value.toString();
-    },
-    clear: function() {
-      store = {};
-    },
-    removeItem: function(key) {
-      delete store[key];
-    }
-  };
-})();
+// Class used to mimick the localstorage in browsers
+class localStorageMock {
+  constructor() {
+    this.data = {}
+  }
+
+  getItem(key) {
+    return this.data[key]
+  }
+
+  setItem(key, value) {
+    this.data[key] = String(value)
+  }
+
+  removeItem(key) {
+    delete this.data[key]
+  }
+
+  clear() {
+    this.data = {}
+  }
+}
+
+global.localStorage = new localStorageMock
+
+test('setLocalStorageItem Test', () => {
+  let key = 'testID'
+  let value = 'testValue'
+  functions.setLocalStorageItem(key, 'testValue')
+  let result = localStorage.getItem(key)
+  expect(result).toMatch(/testValue/)
+})
 
 test('setIntolerances Test', () => {
   
@@ -49,14 +64,7 @@ test('removeFavoriteRecipe Test', () => {
 })
 
 test('removeRecipe test', () => {
-  let object = {
-    content: 'recipeToBeRemoved'
-  }
 
-  //localStorageMock.setItem('lmao', object)
-  functions.removeRecipe('lmao')
-  //let item = localStorageMock.getItem('lmao')
-  //expect(item).toBe('undefined')
 })
 
 test('updateUserData Test', () => {
@@ -88,9 +96,5 @@ test('createRecipeObject Test', () => {
 })
 
 test('getLocalStorageRecipes Test', () => {
-
-})
-
-test('setLocalStorageItem Test', () => {
 
 })
