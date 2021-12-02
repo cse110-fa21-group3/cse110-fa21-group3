@@ -82,12 +82,12 @@ h2 {
 
 .recipe-info > section > p {
   line-height: 2.5rem;
-  padding-right: 1.5rem;;
+  padding-right: 1.5rem;
 }
 
-p{
+/* p {
   color: var(--black);
-}
+} */
 
 #recipe-image {
   float: right;
@@ -145,7 +145,8 @@ ul > li {
   right: 2rem;
 }
 
-#edit-recipe, #delete {
+#edit-recipe,
+#delete {
   border: none;
   color: var(--white);
   border-radius: 5%;
@@ -157,16 +158,17 @@ ul > li {
   margin-right: 1rem;
 }
 
-#edit-recipe:hover, #delete:hover {
+#delete {
+  background-color: var(--black);
+  margin-right: 5rem;
+}
+
+#edit-recipe:hover,
+#delete:hover {
   filter: brightness(0.7);
   cursor: pointer;
 }
 
 #edit-recipe:active, #delete:active {
   filter: brightness(0.3);
-}
-
-#delete {
-  background-color: var(--black);
-  margin-right: 5rem;
 }
