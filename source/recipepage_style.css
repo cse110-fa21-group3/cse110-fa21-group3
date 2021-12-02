@@ -19,10 +19,11 @@ h2 {
   width: 100%;
   border: none;
   text-indent: 1rem;
-  border-top-left-radius: 0.5em;
+  border-radius: 0.5rem 0rem 0rem 0.5rem;
+  /* border-top-left-radius: 0.5em;
   border-bottom-left-radius: 0.5em;
   border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  border-bottom-right-radius: 0; */
 }
 
 #search-icon {
@@ -169,6 +170,7 @@ ul > li {
   cursor: pointer;
 }
 
-#edit-recipe:active, #delete:active {
+#edit-recipe:active,
+#delete:active {
   filter: brightness(0.3);
 }
