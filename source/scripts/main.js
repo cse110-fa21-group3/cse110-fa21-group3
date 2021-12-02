@@ -20,7 +20,7 @@ function init(){
             util.setIntolerances(intols);
         }
         util.populateRecipes(util.DEFAULT_RECIPE_NUMBER).then(() => {
-            createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
+            createRecipeCards(util.MINIMUM_RECIPE_REQUIRED);
         });
     }
     // else if (window.location.pathname === '/source/homepage.html'){

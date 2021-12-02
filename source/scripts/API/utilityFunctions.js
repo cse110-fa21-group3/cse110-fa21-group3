@@ -20,8 +20,9 @@ export var router = new Router(() => {
   window.location.href = '/source/homepage.html'
 })
 
-export const DEFAULT_RECIPE_NUMBER = 5
+export const DEFAULT_RECIPE_NUMBER = 10
 const DEFAULT_MAX_TIME = 60
+export const MINIMUM_RECIPE_REQUIRED = 5;
 // list of intolerances filter offered by the Spoonacular API
 const allowedIntolerances = [
   'dairy',
@@ -250,14 +251,14 @@ export async function populateRecipes (total_count) {
     // Because that's tha max amount the API returns per call
     for (let i = 0; i < repeat_times; i++) {
         fetchRecipes(100, offset).then(() => {
-            if (getLocalStorageRecipes().length >= total_count) {
+            if (getRecipesCount() >= MINIMUM_RECIPE_REQUIRED) {
                 removeDeletedRecipes();
                 resolve(true);
             }
         })
         .catch(err => {
             console.log(err);
-            resolve(false);
+            reject(false);
         })
         offset += 100
     }
@@ -265,18 +266,29 @@ export async function populateRecipes (total_count) {
     // getting the remaining amount (< 100 recips)
     if (remain_number > 0) {
         fetchRecipes(remain_number, offset).then(() => {
-            if (getLocalStorageRecipes().length >= total_count) {
+            if (getRecipesCount() >= MINIMUM_RECIPE_REQUIRED) {
                 removeDeletedRecipes();
                 resolve(true);
             }
         })
         .catch(err => {
             console.log(err);
-            resolve(false);
+            reject(false);
         });
         offset += remain_number
     }
   });
+}
+
+function getRecipesCount() {
+  let length = localStorage.length
+  if (localStorage.getItem(USER_DATA)) {
+    length--
+  }
+  if (localStorage.getItem('latestSearch')) {
+    length--
+  }
+  return length
 }
 
 /**
@@ -364,7 +376,7 @@ export async function fetchRecipes (recipe_count, offset) {
       .then(res => {
         // Find the expected length of recipes in the local storage
         const expectedLength = res.results.length;
-        const originalLength = getLocalStorageRecipes().length;
+        const originalLength = getRecipesCount();
 
         // create local storage items
         res.results.forEach(async r => {
@@ -372,15 +384,15 @@ export async function fetchRecipes (recipe_count, offset) {
 
             // Find amount of recipes in the local storage
             // filtering out `userData` and `latestSearch`
-            let localStorageLength = getLocalStorageRecipes().length;
+            let recipesCount = getRecipesCount();
             // resolves when expected amount of recipes is met.
-            if (localStorageLength - originalLength >= expectedLength) {
+            if (recipesCount - originalLength >= MINIMUM_RECIPE_REQUIRED) {
               resolve(true);
             }
           })
           .catch(err => {
             console.log(err);
-            resolve(false);
+            reject(false);
           });
         })
       })
