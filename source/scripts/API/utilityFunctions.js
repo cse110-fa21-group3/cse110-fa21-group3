@@ -252,13 +252,9 @@ export async function populateRecipes (total_count) {
     for (let i = 0; i < repeat_times; i++) {
         fetchRecipes(100, offset).then(() => {
             if (getRecipesCount() >= MINIMUM_RECIPE_REQUIRED) {
-                removeDeletedRecipes();
-                resolve(true);
+                removeDeletedRecipes()
+                resolve(true)
             }
-        })
-        .catch(err => {
-            console.log(err);
-            reject(false);
         })
         offset += 100
     }
@@ -267,14 +263,10 @@ export async function populateRecipes (total_count) {
     if (remain_number > 0) {
         fetchRecipes(remain_number, offset).then(() => {
             if (getRecipesCount() >= MINIMUM_RECIPE_REQUIRED) {
-                removeDeletedRecipes();
-                resolve(true);
+                removeDeletedRecipes()
+                resolve(true)
             }
         })
-        .catch(err => {
-            console.log(err);
-            reject(false);
-        });
         offset += remain_number
     }
   });
