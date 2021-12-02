@@ -1,7 +1,7 @@
 #recipeCards {
   display: grid;
-  grid-template-columns: repeat(5 , 20rem);
-  margin: 20px 2rem 50px 2rem;
+  grid-template-columns: repeat(5, 20rem);
+  margin: 20px 2rem 50px;
   min-height: min-content;
   overflow-x: auto;
   background-color: var(--dark-gray);
@@ -12,24 +12,24 @@
   gap: 0.2rem;
 }
 
-#recipeCards::-webkit-scrollbar {    
+#recipeCards::-webkit-scrollbar {
   height: 0.8rem;
   border-radius: 5rem;
-  box-shadow: inset 0 0 5px var(--black);
+  box-shadow: inset 0 0 5px var(--black); 
 }
 
-#recipeCards::-webkit-scrollbar-thumb {    
+#recipeCards::-webkit-scrollbar-thumb {
   border-radius: 5rem;
   background: var(--black);
 }
 
-#recipeCards::-webkit-scrollbar-track {  
+#recipeCards::-webkit-scrollbar-track {
   border-radius: 5rem;
   background: var(--light-red);
 }
- 
-recipe-card{
-  transition: transform .2s;
+
+recipe-card {
+  transition: transform 0.2s;
   justify-content: space-around;
 }
 
@@ -42,11 +42,12 @@ recipe-card:hover{
   height: 3em;
   max-width: 600px;
   border: 1px solid var(--dark-gray);
-  border-top-left-radius: 0.5em;
+  text-indent: 1em;
+  border-radius: 0.5rem 0 0 0.5rem;
+  /* border-top-left-radius: 0.5em;
   border-bottom-left-radius: 0.5em;
   border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  text-indent: 1em;
+  border-bottom-right-radius: 0; */
 }
 
 *:focus {
