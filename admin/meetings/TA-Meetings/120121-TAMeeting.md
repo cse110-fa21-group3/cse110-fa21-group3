@@ -25,3 +25,7 @@
 - For testing, any DOM related things are additional
 - Test functions that manipulate local storage(might have to test the DOM)
 - Run lighthouse in incognito(turn off chrome extensions)
+- For the public video, demo every single feature, talk about the retros, etc
+- For the private video, meant for only the professor, TA's, and staff, runthrough of the repo
+- Come to the final on Friday 7pm, mandatory(zoom link will be sent out)
+- Cutoff date for repo: Thurs 12/9 11:59pm
