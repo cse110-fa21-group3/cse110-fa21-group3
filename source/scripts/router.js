@@ -7,7 +7,7 @@ export class Router{
         if(key == "home"){
             this["home"]();
         }else{
-            window.location.href = "/source/recipePage.html#"+key;
+            window.location.href = "/recipePage.html#"+key;
         }
     }
 }

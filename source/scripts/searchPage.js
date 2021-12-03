@@ -2,7 +2,7 @@ import { router, searchLocalRecipes } from "./API/utilityFunctions.js";
 
 window.addEventListener("DOMContentLoaded", () => {
     document.getElementById('favContainer').addEventListener('click', e => {
-        window.location.href = "/source/searchpage.html#favorites";
+        window.location.href = "/searchpage.html#favorites";
         window.location.reload();
     });
 
@@ -22,7 +22,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 "matchedCount": arr.length
             }
             localStorage.setItem("latestSearch", JSON.stringify(searchObj));
-            window.location.href = "/source/searchpage.html";
+            window.location.href = "/searchpage.html";
         });
     });
 

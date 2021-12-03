@@ -28,7 +28,7 @@ function init(){
     // }
 
     // display the 5 recipes and add search btn listener only in homepage
-    if (window.location.pathname === '/source/homepage.html') {
+    if (window.location.pathname === '/index.html') {
         createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
         let searchBtn = document.getElementById("search");
         searchBtn.addEventListener("click", e => {
@@ -46,7 +46,7 @@ function init(){
                     "matchedCount": arr.length
                 }
                 localStorage.setItem("latestSearch", JSON.stringify(searchObj));
-                window.location.href = "/source/searchpage.html";
+                window.location.href = "/searchpage.html";
             });
         });
     }
