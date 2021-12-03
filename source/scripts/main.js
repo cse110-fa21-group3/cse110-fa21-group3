@@ -28,7 +28,7 @@ function init(){
     // }
 
     // display the 5 recipes and add search btn listener only in homepage
-    if (window.location.pathname === '/index.html') {
+    if (window.location.pathname === '/index.html' || window.location.pathname === '/' || window.location.pathname === '') {
         createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
         let searchBtn = document.getElementById("search");
         searchBtn.addEventListener("click", e => {
