@@ -21,7 +21,7 @@ export var router = new Router(() => {
 })
 
 export const DEFAULT_RECIPE_NUMBER = 10
-const DEFAULT_MAX_TIME = 60
+export const DEFAULT_MAX_TIME = 60
 export const MINIMUM_RECIPE_REQUIRED = 5
 // list of intolerances filter offered by the Spoonacular API
 const allowedIntolerances = [
@@ -111,10 +111,10 @@ export function loadUserData () {
  * @returns the favorited recipes
  */
 export function getFavoriteRecipes () {
-  const userData = JSON.parse(localStorage.getItem(USER_DATA))
+  const userData = localStorage.getItem(USER_DATA)
   let favoriteRecipes
   if (userData) {
-    favoriteRecipes = userData.favorites
+    favoriteRecipes = JSON.parse(userData).favorites
   }
 
   if (!favoriteRecipes) {
@@ -128,12 +128,8 @@ export function getFavoriteRecipes () {
  * @returns the deleted recipes
  */
 export function getDeletedRecipes () {
-  const userData = JSON.parse(localStorage.getItem(USER_DATA))
-
-  let deletedRecipes
-  if (userData) {
-    deletedRecipes = userData.deletedRecipes
-  }
+  if (!localStorage.getItem(USER_DATA)) { return [] }
+  let deletedRecipes = JSON.parse(localStorage.getItem(USER_DATA)).deletedRecipes
 
   if (!deletedRecipes) {
     deletedRecipes = []
@@ -153,8 +149,6 @@ export function addFavoriteRecipe (id) {
     recipe = JSON.parse(recipeItem)
     recipe.favorite = true
     localStorage.setItem(id, JSON.stringify(recipe))
-  } else {
-    return
   }
 
   // get the favorites array and add the favorited recipe to the array
@@ -163,8 +157,6 @@ export function addFavoriteRecipe (id) {
     if (!favArr.includes(id)) {
       favArr.push(id)
     }
-  } else {
-    favArr = [id]
   }
   updateUserData('favorites', favArr)
 }
@@ -183,8 +175,6 @@ export function removeFavoriteRecipe (id) {
     const recipe = JSON.parse(recipeItem)
     recipe.favorite = false
     localStorage.setItem(`${id}`, JSON.stringify(recipe))
-  } else {
-    return
   }
 
   for (const recipeID of favArr) {
@@ -227,36 +217,37 @@ export function updateUserData (key, value) {
  * @param {number} total_count - The total number of recipes to get from API.
  */
 export async function populateRecipes (total_count) {
-  let offset = 0
-  // get recipes by 100s
-  const repeat_times = Math.round(total_count / 100)
-  // get marginal recipes
-  const remain_number = total_count % 100
+  return new Promise(async (resolve) => {
+    total_count = total_count - MINIMUM_RECIPE_REQUIRED
+    if (total_count < 0) {
+      total_count = 0
+    }
 
-  return new Promise((resolve) => {
+    let offset = 0
+    // get recipes by 100s
+    const repeat_times = Math.round(total_count / 100)
+    // get marginal recipes
+    const remain_number = total_count % 100
+
+    // getting minimum amount of recipes first
+    await fetchRecipes(MINIMUM_RECIPE_REQUIRED, offset)
+    removeDeletedRecipes()
+    resolve(true)
+    offset += MINIMUM_RECIPE_REQUIRED
+
+    // getting the remaining amount (< 100 recips)
+    if (remain_number > 0) {
+      await fetchRecipes(remain_number, offset)
+      removeDeletedRecipes()
+      offset += remain_number
+    }
 
     // repeat getting 100 recipes at a time
     // Because that's tha max amount the API returns per call
     for (let i = 0; i < repeat_times; i++) {
-        fetchRecipes(100, offset).then(() => {
-            if (getRecipesCount() >= MINIMUM_RECIPE_REQUIRED) {
-              removeDeletedRecipes()
-              resolve(true)
-            }
-            offset += 100
-        })
-    }
-
-    console.log(remain_number)
-    // getting the remaining amount (< 100 recips)
-    if (remain_number > 0) {
-        fetchRecipes(remain_number, offset).then(() => {
-            if (getRecipesCount() >= MINIMUM_RECIPE_REQUIRED) {
-              removeDeletedRecipes()
-              resolve(true)
-            }
-        })
-        offset += remain_number
+        await fetchRecipes(100, offset)
+        removeDeletedRecipes()
+        offset += 100
     }
   })
 }
@@ -297,10 +288,6 @@ export async function searchLocalRecipes (query) {
   const recipeList = []
   query = query.toLowerCase()
   let localRecipes = getLocalStorageRecipes()
-  if (!localRecipes) {
-    populateRecipes(DEFAULT_RECIPE_NUMBER)
-    localRecipes = getLocalStorageRecipes()
-  }
 
   const endQuery = []
   // if query includes commas
@@ -366,15 +353,13 @@ export async function fetchRecipes (recipe_count, offset) {
             // filtering out `userData` and `latestSearch`
             let recipesCount = getRecipesCount()
             // resolves when expected amount of recipes is met.
-            if (recipesCount - originalLength >= MINIMUM_RECIPE_REQUIRED) {
-              resolve(true)
-            }
+            resolve(true)
           })
         })
       })
       .catch(error => {
         console.log(error)
-        reject(false)
+        reject('error')
       })
   })
 }
@@ -479,7 +464,7 @@ export function getLocalStorageRecipes () {
   const recipeList = []
 
   // check to see if local storage is empty, if so then populate local storage
-  if (!localKeys) {
+  if (localKeys.length === 0) {
     return recipeList
   }
 

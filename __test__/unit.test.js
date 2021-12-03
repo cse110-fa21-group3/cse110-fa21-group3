@@ -1,6 +1,7 @@
 // Used Babel in package.jsonto transform ES6 syntax to commonjs syntax, 
 // so now `import` and/or `export` statements work on both browser and unit test
-  import * as functions from '../source/scripts/API/utilityFunctions'
+  import * as utilityFunctions from '../source/scripts/API/utilityFunctions'
+  import * as router from "../source/scripts/router";
   import * as jsonData from './data.json'
 
 // Class used to mimick the localstorage in browsers
@@ -29,10 +30,18 @@ class localStorageMock {
   }
 }
 
-// storing unmocked local storage before all test.
-const unmockedlocalStorage = global.localStorage
+class windowMock {
+  constructor(url) {
+    this.location = {href: url}
+  }
+}
 
+
+// global constants
+const unmockedlocalStorage = global.localStorage
 const unmockedFetch = global.fetch
+const unmockedWindow = global.window
+
 
 let dataArr = []
 
@@ -74,7 +83,7 @@ test('setLocalStorageItem Test', () => {
   let obj = {
     key : 'value'
   }
-  functions.setLocalStorageItem(id, obj)
+  utilityFunctions.setLocalStorageItem(id, obj)
   let result = localStorage.getItem(id)
   expect(result).toMatch(JSON.stringify(obj))
 })
@@ -84,7 +93,7 @@ test('updateUserData Test', () => {
   localStorage.clear()
   let key = 'testKey'
   let value = ['1', '2', '3']
-  functions.updateUserData(key, value)
+  utilityFunctions.updateUserData(key, value)
   let result = JSON.parse(localStorage.getItem('userData'))[key]
   expect(result).toContain('1')
   expect(result).toContain('2')
@@ -95,19 +104,34 @@ test('updateUserData Test', () => {
 test('setIntolerances Test', () => {
   localStorage.clear()
   let intolerances = 'dairy, snake, bamboo, milkshake, peanut'
-  functions.setIntolerances(intolerances)
+  utilityFunctions.setIntolerances(intolerances)
   let result = JSON.parse(localStorage.getItem('userData'))['intolerances']
   expect(result).toContain('dairy');
   expect(result).toContain('peanut');
+})
+
+test('setIntolerances Empty Test', () => {
+  localStorage.clear()
+  let intolerances = ''
+  utilityFunctions.setIntolerances(intolerances)
+  let result = JSON.parse(localStorage.getItem('userData'))['intolerances']
+  expect(result.length).toBe(0)
 })
 
 // martin
 test('setMaxTime Test', () => {
   localStorage.clear()
   let maxTime = 123
-  functions.setMaxTime(123)
+  utilityFunctions.setMaxTime(123)
   let result = JSON.parse(localStorage.getItem('userData'))['maxTime']
   expect(result).toBe(123)
+})
+
+test('setMaxTime Empty Test', () => {
+  localStorage.clear()
+  utilityFunctions.setMaxTime('')
+  let result = JSON.parse(localStorage.getItem('userData'))['maxTime']
+  expect(result).toBe(utilityFunctions.DEFAULT_MAX_TIME)
 })
 
 // Done
@@ -116,7 +140,7 @@ test('removeRecipe test', () => {
   let key = 'testKey';
   let value = 'testValue';
   localStorage.setItem(key, value);
-  functions.removeRecipe(key);
+  utilityFunctions.removeRecipe(key);
   expect(localStorage.getItem(key)).toBeUndefined;
 })
 
@@ -128,7 +152,7 @@ test('getFavoriteRecipes Test', () => {
     'favorites': ['1111', '2222']
   }
   localStorage.setItem(key, JSON.stringify(userData))
-  let result = functions.getFavoriteRecipes()
+  let result = utilityFunctions.getFavoriteRecipes()
   expect(result).toContain('1111')
   expect(result).toContain('2222')
 })
@@ -141,9 +165,24 @@ test('getDeletedRecipes Test', () => {
     'deletedRecipes': ['1111', '2222']
   }
   localStorage.setItem(key, JSON.stringify(userData))
-  let result = functions.getDeletedRecipes()
+  let result = utilityFunctions.getDeletedRecipes()
   expect(result).toContain('1111')
   expect(result).toContain('2222')
+})
+
+test('getDeletedRecipes userData Empty Test', () => {
+  localStorage.clear()
+  let result = utilityFunctions.getDeletedRecipes()
+  expect(result.length).toBe(0)
+})
+
+test('getDeletedRecipes Array Empty Test', () => {
+  localStorage.clear()
+  let key = 'userData'
+  let userData = {}
+  localStorage.setItem(key, JSON.stringify(userData))
+  let result = utilityFunctions.getDeletedRecipes()
+  expect(result.length).toBe(0)
 })
 
 // Done
@@ -155,13 +194,24 @@ test('addFavoriteRecipe Test', () => {
   }
   localStorage.setItem(key, JSON.stringify(userData))
   let id =  '3333'
+  let id2 = '1111'
   let value = {
     title : 'kale',
     ingredient : 'kale',
     favorite: false
   }
   localStorage.setItem(id, JSON.stringify(value))
-  functions.addFavoriteRecipe(id)
+  utilityFunctions.addFavoriteRecipe(id)
+  utilityFunctions.addFavoriteRecipe(id2)
+  let result = JSON.parse(localStorage.getItem('userData'))['favorites']
+  expect(result).toContain(id)
+  expect(result).toContain(id2)
+})
+
+test('addFavoriteRecipe Empty Test', () => {
+  localStorage.clear()
+  let id = '1111'
+  utilityFunctions.addFavoriteRecipe(id)
   let result = JSON.parse(localStorage.getItem('userData'))['favorites']
   expect(result).toContain(id)
 })
@@ -175,22 +225,25 @@ test('removeFavoriteRecipe Test', () => {
   }
   localStorage.setItem(key, JSON.stringify(userData))
   let id =  '3333'
+  let id2 =  '1111'
   let value = {
     title : 'kale',
     ingredient : 'kale',
     favorite: true
   }
   localStorage.setItem(id, JSON.stringify(value))
-  functions.removeFavoriteRecipe(id)
+  utilityFunctions.removeFavoriteRecipe(id)
+  utilityFunctions.removeFavoriteRecipe(id2)
   let result = JSON.parse(localStorage.getItem('userData'))['favorites']
   expect(result).not.toContain(id);
+  expect(result).not.toContain(id2);
 })
 
 // presley
 test('getLocalStorageRecipes Test', () => {
   localStorage.clear();
   // case 1: localStorage is empty
-  let emptyTest = (!functions.getLocalStorageRecipes().length) ? true : false;
+  let emptyTest = (!utilityFunctions.getLocalStorageRecipes().length) ? true : false;
 
   // case 2: localStorage filled including userData & latestSearch keys
   // populate localStorage as reference
@@ -212,7 +265,7 @@ test('getLocalStorageRecipes Test', () => {
   localStorage.setItem(id2, JSON.stringify(value2))
   
   let filledTest = true;
-  let returnedRecipes = functions.getLocalStorageRecipes();
+  let returnedRecipes = utilityFunctions.getLocalStorageRecipes();
   for (let item of returnedRecipes) {
     if (!localStorage.getItem(item.id)) {
       filledTest = false;
@@ -222,6 +275,12 @@ test('getLocalStorageRecipes Test', () => {
   
   expect(emptyTest).toBe(true);
   expect(filledTest).toBe(true);
+})
+
+test('getLocalStorageRecipes Empty Test', () => {
+  localStorage.clear()
+  let returnedRecipes = utilityFunctions.getLocalStorageRecipes();
+  expect(returnedRecipes.length).toBe(0)
 })
 
 // martin
@@ -242,7 +301,7 @@ test('removeDeletedRecipes Test', () => {
   localStorage.setItem(id2, JSON.stringify(recipe2))
   localStorage.setItem('userData', JSON.stringify(userData))
 
-  functions.removeDeletedRecipes()
+  utilityFunctions.removeDeletedRecipes()
   let recipeCount = Object.keys(localStorage).length - 1
   expect(recipeCount).toBe(0)
 })
@@ -250,7 +309,7 @@ test('removeDeletedRecipes Test', () => {
 // NATHAN
 test('searchLocalRecipes Test', async () => {
   localStorage.clear()
-  let queryTitle = 'chicken'
+  let queryTitle = 'chicken, salad'
   let queryIngre = 'lettuce'
   let id1 = 'testId1'
   let id2 = 'testId2'
@@ -264,29 +323,37 @@ test('searchLocalRecipes Test', async () => {
   }
   localStorage.setItem(id1, JSON.stringify(value1))
   localStorage.setItem(id2, JSON.stringify(value2))
-  functions.searchLocalRecipes(queryTitle).then(recipeTitleResults => {
+  utilityFunctions.searchLocalRecipes(queryTitle).then(recipeTitleResults => {
     expect(recipeTitleResults).toContainEqual(value1)
+    expect(recipeTitleResults).toContainEqual(value2)
   })
-  functions.searchLocalRecipes(queryIngre).then(recipeIngreResults => {
+  utilityFunctions.searchLocalRecipes(queryIngre).then(recipeIngreResults => {
     expect(recipeIngreResults).toContainEqual(value2)
+  })
+})
+
+test('searchLocalRecipes Test2', async () => {
+  localStorage.clear()
+  utilityFunctions.searchLocalRecipes('test').then(recipeIngreResults => {
+    expect(recipeIngreResults.length).toBe(0)
   })
 })
 
 // martin
 test('removeSummaryLinks Test', () => {
   let summary = 'Start. <a href="blah.combla.com .comh">blahblah</a> ss. End.'
-  let result = functions.removeSummaryLinks(summary)
+  let result = utilityFunctions.removeSummaryLinks(summary)
   expect(result).toMatch(/Start. End./)
 
   let summary2 = 'Start. <a href="blah.combla.com .comh">blahblah</a> ss.'
-  let result2 = functions.removeSummaryLinks(summary2)
+  let result2 = utilityFunctions.removeSummaryLinks(summary2)
   expect(result2).toMatch(/Start./)
 })
 
 // leave it for now, we'll figure it out - nathan & martin
 test('createRecipeObject Test', () => {
   localStorage.clear()
-  functions.createRecipeObject(jsonData).then(() => {
+  utilityFunctions.createRecipeObject(jsonData).then(() => {
     expect(Object.keys(localStorage).length).toBe(1)
   })
 })
@@ -295,19 +362,42 @@ test('createRecipeObject Test', () => {
 
 test('populateRecipes Test', async () => {
   localStorage.clear()
-  return functions.populateRecipes(10).then(() => {
-    console.log(Object.keys(localStorage).length)
-    //expect(Object.keys(localStorage).length).toBe(101)
+  return utilityFunctions.populateRecipes(199).then(() => {
+    expect(Object.keys(localStorage).length).toBe(utilityFunctions.MINIMUM_RECIPE_REQUIRED)
+  })
+})
+
+test('populateRecipes small number test', async () => {
+  localStorage.clear()
+  return utilityFunctions.populateRecipes(1).then(() => {
+    expect(Object.keys(localStorage).length).toBe(utilityFunctions.MINIMUM_RECIPE_REQUIRED)
   })
 })
 
 // leave it for now, we'll figure it out - nathan & martin
 test('fetchRecipes Test', async () => {
   localStorage.clear()
+  let userData = {
+    intolerances: ['dairy', 'snake', 'bamboo', 'milkshake', 'peanut']
+  }
+  localStorage.setItem('userData', JSON.stringify(userData))
 
-  return functions.fetchRecipes(10, 0).then(() => {
-    expect(Object.keys(localStorage).length).toBe(10)
+  return utilityFunctions.fetchRecipes(5, 0).then(() => {
+    // not counting userData
+    expect(Object.keys(localStorage).length-1).toBe(5)
   })
+})
+
+// leave it for now, we'll figure it out - nathan & martin
+test('fetchRecipes Fail Test', async () => {
+  localStorage.clear()
+  let fetch = global.fetch
+  global.fetch = () => Promise.resolve({
+    json: () => Promise.resolve([])
+  })
+  return expect(utilityFunctions.fetchRecipes(5, 0).then(() => {
+      global.fetch = fetch
+    })).rejects.toBe('error')
 })
 
 // martin
@@ -317,9 +407,9 @@ test('loadUserData Test', () => {
     intolerances: ['dairy'],
     maxTime: 11
   }))
-  functions.loadUserData()
-  expect(functions.intolerances).toContain('dairy')
-  expect(functions.maxTime).toBe(11)
+  utilityFunctions.loadUserData()
+  expect(utilityFunctions.intolerances).toContain('dairy')
+  expect(utilityFunctions.maxTime).toBe(11)
 })
 
 // martin
@@ -337,5 +427,17 @@ test('getRecipesCount Test', () => {
   localStorage.setItem('latestSearch', JSON.stringify({
     query : '123'
   }))
-  expect(functions.getRecipesCount()).toBe(2)
+  expect(utilityFunctions.getRecipesCount()).toBe(2)
+})
+
+// meed jsdom to test
+test('router Test', () => {
+
+  global.window = new windowMock('https://007.com')
+  utilityFunctions.router.home()
+  utilityFunctions.router.navigate('test')
+  utilityFunctions.router.navigate('home')
+
+  console.log(window.location.href)
+  global.window = unmockedWindow
 })
