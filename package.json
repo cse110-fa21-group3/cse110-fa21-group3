@@ -9,6 +9,7 @@
   },
   "scripts": {
     "test": "jest --passWithNoTests --coverage"
+    "build": "parcel build source/index.html"
   },
   "jest": {
     "preset": "jest-puppeteer",
