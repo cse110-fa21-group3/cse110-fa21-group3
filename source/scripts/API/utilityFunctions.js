@@ -64,12 +64,9 @@ export function setIntolerances (inputIntol) {
     updateUserData('intolerances', [])
     return
   }
-
-  // format the intolerance string by pattern matching
-  console.log(inputIntol)
+  
   // Expected format: in1, in2, in3, ...
   const inputArray = inputIntol.toLowerCase().replace(/\s/g, '').split(',')
-  console.log(inputArray)
   const intols = []
   for (const intol of inputArray) {
     // if the entries matches any of the item in the allowedIntolerances
@@ -230,7 +227,6 @@ export function updateUserData (key, value) {
 
   data[key] = value
   localStorage.setItem(USER_DATA, JSON.stringify(data))
-  console.log(JSON.parse(localStorage.getItem(USER_DATA)))
 }
 
 /**
@@ -305,7 +301,6 @@ export async function searchLocalRecipes (query) {
   const recipeList = []
   query = query.toLowerCase()
   let localRecipes = getLocalStorageRecipes()
-  console.log(localRecipes)
   if (!localRecipes) {
     populateRecipes(DEFAULT_RECIPE_NUMBER)
     localRecipes = getLocalStorageRecipes()
@@ -471,24 +466,28 @@ export async function createRecipeObject (r) {
 }
 
 /**
- * 
+ * Method to remove the links in summary of the recipes which are unneccesary
  * @returns {String} - a String with all the link texts removed.
  */
-function removeSummaryLinks(summary) {
+export function removeSummaryLinks(summary) {
   const linkTerm = '<a href='
   while (summary.indexOf(linkTerm) !== -1) {
     let indexOfFirstLink = summary.indexOf(linkTerm)
     let indexOfPeriodBefore = summary.lastIndexOf('.', indexOfFirstLink)
     let indexOfLinkPostFix = summary.indexOf('.com')
-    let indexOfPeriodAfter = indexOfLinkPostFix
+    let indexOfPeriodAfter
+    if (indexOfLinkPostFix === -1) { 
+      indexOfPeriodAfter = summary.indexOf('.')
+    }else {
+      indexOfPeriodAfter = indexOfLinkPostFix
+    }
+
     while (indexOfPeriodAfter === indexOfLinkPostFix) {
       indexOfPeriodAfter = summary.indexOf('.', indexOfPeriodAfter+1)
       indexOfLinkPostFix = summary.indexOf('.com', indexOfLinkPostFix+1)
     }
 
     let temp = summary.substring(0, indexOfPeriodBefore+1) + summary.substring(indexOfPeriodAfter+1)
-    console.log(summary)
-    console.log(temp)
     summary = temp
   }
   return summary
