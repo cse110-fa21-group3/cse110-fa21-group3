@@ -39,20 +39,12 @@ const allowedIntolerances = [
   'wheat'
 ]
 // list of user Intolerances
-let intolerances = []
+export let intolerances = []
 // max for recipes prep time
-let maxTime = DEFAULT_MAX_TIME
+export let maxTime = DEFAULT_MAX_TIME
 // user data variables
 const USER_DATA = 'userData'
 
-/**
- * Just a testing function for the start up
- */
-function init () {
-  loadUserData()
-  console.log(intolerances)
-  console.log(maxTime)
-}
 
 /**
  * This function updates the intolerances of the user which is used when
@@ -85,7 +77,7 @@ export function setIntolerances (inputIntol) {
  * from the API
  * @param {string} time - A string containing the maxTime.
  */
-function setMaxTime (time) {
+export function setMaxTime (time) {
   if (time == '') {
     updateUserData('maxTime', DEFAULT_MAX_TIME)
     return
@@ -100,7 +92,7 @@ function setMaxTime (time) {
  * This function loads the userData stored in localStorage and
  * sets the `intolerances` variable and the `maxTime` variable
  */
-function loadUserData () {
+export function loadUserData () {
   let data = localStorage.getItem(USER_DATA)
   if (data) {
     data = JSON.parse(data)
@@ -241,26 +233,27 @@ export async function populateRecipes (total_count) {
   // get marginal recipes
   const remain_number = total_count % 100
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
 
     // repeat getting 100 recipes at a time
     // Because that's tha max amount the API returns per call
     for (let i = 0; i < repeat_times; i++) {
         fetchRecipes(100, offset).then(() => {
             if (getRecipesCount() >= MINIMUM_RECIPE_REQUIRED) {
-                removeDeletedRecipes()
-                resolve(true)
+              removeDeletedRecipes()
+              resolve(true)
             }
+            offset += 100
         })
-        offset += 100
     }
 
+    console.log(remain_number)
     // getting the remaining amount (< 100 recips)
     if (remain_number > 0) {
         fetchRecipes(remain_number, offset).then(() => {
             if (getRecipesCount() >= MINIMUM_RECIPE_REQUIRED) {
-                removeDeletedRecipes()
-                resolve(true)
+              removeDeletedRecipes()
+              resolve(true)
             }
         })
         offset += remain_number
@@ -268,8 +261,11 @@ export async function populateRecipes (total_count) {
   })
 }
 
-function getRecipesCount() {
-  let length = localStorage.length
+/** returns amount of recipes in localStorage
+ * @returns {number} length - amount of recipes in localStorage
+ */
+export function getRecipesCount() {
+  let length = Object.keys(localStorage).length
   if (localStorage.getItem(USER_DATA)) {
     length--
   }
@@ -283,7 +279,7 @@ function getRecipesCount() {
  * This function checks deletedRecipes array in the `userData` 
  * and remove recipes which ids are in that array from local storage.
  */
-function removeDeletedRecipes() {
+export function removeDeletedRecipes() {
   // remove Recipes in the `deletedRecipes` list
     const deletedRecipes = getDeletedRecipes()
     deletedRecipes.forEach(id => {
@@ -353,7 +349,6 @@ export async function fetchRecipes (recipe_count, offset) {
   if (intolerances.length > 0) {
     intolerances.forEach(i => intolerancesStr += `,${i}`)
     intolerancesStr = intolerancesStr.slice(1, intolerancesStr.length)
-    console.log(intolerancesStr)
     reqUrl += '&intolerances=' + intolerancesStr
   }
 
@@ -364,12 +359,9 @@ export async function fetchRecipes (recipe_count, offset) {
         // Find the expected length of recipes in the local storage
         const expectedLength = res.results.length
         const originalLength = getRecipesCount()
-
-        console.log(res)
         // create local storage items
         res.results.forEach(async r => {
           createRecipeObject(r).then(() => {
-
             // Find amount of recipes in the local storage
             // filtering out `userData` and `latestSearch`
             let recipesCount = getRecipesCount()
@@ -378,29 +370,7 @@ export async function fetchRecipes (recipe_count, offset) {
               resolve(true)
             }
           })
-          .catch(err => {
-            console.log(err)
-            reject(false)
-          })
         })
-      })
-      .catch(error => {
-        reject(false)
-      })
-  })
-}
-
-/**
- * Gets the summary of a specific recipe with its id
- * @param {string} id - id of the recipe to be removed.
- */
-async function fetchSummary (id) {
-  const reqUrl = `${API_ENDPOINT}/recipes/${id}/summary`
-  return new Promise((resolve, reject) => {
-    fetch(reqUrl, options)
-      .then(res => res.json())
-      .then(res => {
-        resolve(res.summary)
       })
       .catch(error => {
         console.log(error)
@@ -408,6 +378,7 @@ async function fetchSummary (id) {
       })
   })
 }
+
 
 /**
  * This function takes in what is fetched and from those parameters finds what we need for the recipe and sorts it into an object
@@ -440,8 +411,6 @@ export async function createRecipeObject (r) {
     nutrition.push(nutr_title + ': ' + nutr_amount + ' ' + nutr_unit)
   }
 
-  // TODO: Optimize the steps array, now it has ingredients inside,
-  //       which we don't need
   const steps = []
   r.analyzedInstructions[0].steps.forEach(recipeStep => {
     steps.push(recipeStep.step)
@@ -470,25 +439,30 @@ export async function createRecipeObject (r) {
  * @returns {String} - a String with all the link texts removed.
  */
 export function removeSummaryLinks(summary) {
-  const linkTerm = '<a href='
-  while (summary.indexOf(linkTerm) !== -1) {
+  const linkTerm = '<a href=', linkEnd = '</a>'
+  while (summary.includes(linkTerm) && summary.includes(linkEnd) && summary.indexOf(linkTerm) < summary.indexOf(linkEnd)) {
     let indexOfFirstLink = summary.indexOf(linkTerm)
-    let indexOfPeriodBefore = summary.lastIndexOf('.', indexOfFirstLink)
-    let indexOfLinkPostFix = summary.indexOf('.com')
-    let indexOfPeriodAfter
-    if (indexOfLinkPostFix === -1) { 
-      indexOfPeriodAfter = summary.indexOf('.')
-    }else {
-      indexOfPeriodAfter = indexOfLinkPostFix
-    }
+    let indexOfEndLink = summary.indexOf(linkEnd)
 
-    while (indexOfPeriodAfter === indexOfLinkPostFix) {
-      indexOfPeriodAfter = summary.indexOf('.', indexOfPeriodAfter+1)
-      indexOfLinkPostFix = summary.indexOf('.com', indexOfLinkPostFix+1)
-    }
+    let firstHalf = summary.substring(0, indexOfFirstLink)
+    let lastPeriodIndex = firstHalf.lastIndexOf('.')
+    firstHalf = (lastPeriodIndex >= 0) ? firstHalf.substring(0, lastPeriodIndex+1) : firstHalf
 
-    let temp = summary.substring(0, indexOfPeriodBefore+1) + summary.substring(indexOfPeriodAfter+1)
-    summary = temp
+    let secondHalf = summary.substring(indexOfEndLink+4)
+
+    let periodIndex, urlPostfixIndex
+    do {
+      periodIndex = secondHalf.indexOf('.')
+      urlPostfixIndex = secondHalf.indexOf('.com')
+      if (periodIndex < 0) { break }
+      if (periodIndex >= secondHalf.length-1) { 
+        secondHalf = ''
+        break
+      }
+      secondHalf = secondHalf.substring(periodIndex+1)
+    } while (periodIndex === urlPostfixIndex)
+
+    summary = firstHalf + secondHalf
   }
   return summary
 }
