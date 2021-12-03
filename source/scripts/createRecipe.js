@@ -27,7 +27,7 @@ addIng.addEventListener("click", e => {
     deleteBtn.type = "button";
     deleteBtn.classList.add("removeBtn");
     let removeIcon = document.createElement("img");
-    removeIcon.src = "./icons8-delete.svg";
+    removeIcon.src = "./image/icons8-delete.svg";
     removeIcon.style.width = "30px";
     deleteBtn.appendChild(removeIcon);
     deleteBtn.addEventListener('click', removeItem);
@@ -59,7 +59,7 @@ addStep.addEventListener("click", e => {
     deleteBtn.type = "button";
     deleteBtn.classList.add("removeBtn");
     let removeIcon = document.createElement("img");
-    removeIcon.src = "./icons8-delete.svg";
+    removeIcon.src = "./image/icons8-delete.svg";
     removeIcon.style.width = "30px";
     deleteBtn.appendChild(removeIcon);
     deleteBtn.addEventListener('click', removeItem);
@@ -91,7 +91,7 @@ addNutrition.addEventListener("click", e => {
     deleteBtn.type = "button";
     deleteBtn.classList.add("removeBtn");
     let removeIcon = document.createElement("img");
-    removeIcon.src = "./icons8-delete.svg";
+    removeIcon.src = "./image/icons8-delete.svg";
     removeIcon.style.width = "30px";
     deleteBtn.appendChild(removeIcon);
     deleteBtn.addEventListener('click', removeItem);

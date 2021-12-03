@@ -27,7 +27,7 @@ function init(){
     eImage.setAttribute("src", data["image"]);
     eTime.innerText = data["readyInMinutes"];
  
-    // eServes.innerText = data["serves"];
+    eServes.innerText = data["servingSize"];
     eDescription.innerHTML = data["summary"] ? data["summary"] : "";
     
     data["ingredients"].forEach(ing => {

@@ -22,7 +22,7 @@ export var router = new Router(() => {
 
 export const DEFAULT_RECIPE_NUMBER = 10
 const DEFAULT_MAX_TIME = 60
-export const MINIMUM_RECIPE_REQUIRED = 5;
+export const MINIMUM_RECIPE_REQUIRED = 5
 // list of intolerances filter offered by the Spoonacular API
 const allowedIntolerances = [
   'dairy',
@@ -269,7 +269,7 @@ export async function populateRecipes (total_count) {
         })
         offset += remain_number
     }
-  });
+  })
 }
 
 function getRecipesCount() {
@@ -289,9 +289,9 @@ function getRecipesCount() {
  */
 function removeDeletedRecipes() {
   // remove Recipes in the `deletedRecipes` list
-    const deletedRecipes = getDeletedRecipes();
+    const deletedRecipes = getDeletedRecipes()
     deletedRecipes.forEach(id => {
-      removeRecipe(id.toString());
+      removeRecipe(id.toString())
     })
 }
 
@@ -367,25 +367,26 @@ export async function fetchRecipes (recipe_count, offset) {
       .then(res => res.json())
       .then(res => {
         // Find the expected length of recipes in the local storage
-        const expectedLength = res.results.length;
-        const originalLength = getRecipesCount();
+        const expectedLength = res.results.length
+        const originalLength = getRecipesCount()
 
+        console.log(res)
         // create local storage items
         res.results.forEach(async r => {
           createRecipeObject(r).then(() => {
 
             // Find amount of recipes in the local storage
             // filtering out `userData` and `latestSearch`
-            let recipesCount = getRecipesCount();
+            let recipesCount = getRecipesCount()
             // resolves when expected amount of recipes is met.
             if (recipesCount - originalLength >= MINIMUM_RECIPE_REQUIRED) {
-              resolve(true);
+              resolve(true)
             }
           })
           .catch(err => {
-            console.log(err);
-            reject(false);
-          });
+            console.log(err)
+            reject(false)
+          })
         })
       })
       .catch(error => {
@@ -424,7 +425,7 @@ export async function createRecipeObject (r) {
   const foodImage = r.image
   const favorite = false
 
-  const summary = await fetchSummary(id)
+  const summary = removeSummaryLinks(r.summary)
   const size = r.servings
 
   // populating ingredient list
@@ -470,6 +471,30 @@ export async function createRecipeObject (r) {
 }
 
 /**
+ * 
+ * @returns {String} - a String with all the link texts removed.
+ */
+function removeSummaryLinks(summary) {
+  const linkTerm = '<a href='
+  while (summary.indexOf(linkTerm) !== -1) {
+    let indexOfFirstLink = summary.indexOf(linkTerm)
+    let indexOfPeriodBefore = summary.lastIndexOf('.', indexOfFirstLink)
+    let indexOfLinkPostFix = summary.indexOf('.com')
+    let indexOfPeriodAfter = indexOfLinkPostFix
+    while (indexOfPeriodAfter === indexOfLinkPostFix) {
+      indexOfPeriodAfter = summary.indexOf('.', indexOfPeriodAfter+1)
+      indexOfLinkPostFix = summary.indexOf('.com', indexOfLinkPostFix+1)
+    }
+
+    let temp = summary.substring(0, indexOfPeriodBefore+1) + summary.substring(indexOfPeriodAfter+1)
+    console.log(summary)
+    console.log(temp)
+    summary = temp
+  }
+  return summary
+}
+
+/**
  * This function get all recipes stored inside the localStorage and return
  * them in a list
  * @returns {JSON[]} - an array of recipes JSON Objects in the localStorage.
@@ -482,7 +507,7 @@ export function getLocalStorageRecipes () {
 
   // check to see if local storage is empty, if so then populate local storage
   if (!localKeys) {
-    return recipeList;
+    return recipeList
   }
 
   for (const key of localKeys) {
@@ -490,7 +515,7 @@ export function getLocalStorageRecipes () {
       recipeList.push(JSON.parse(localStorage.getItem(key)))
     }
   }
-  return recipeList;
+  return recipeList
 }
 
 /**
