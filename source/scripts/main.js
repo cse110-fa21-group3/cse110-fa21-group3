@@ -7,7 +7,7 @@ import * as util from "./API/utilityFunctions.js";
 window.addEventListener("DOMContentLoaded", init);
 
 document.getElementById("create-recipe").addEventListener('click', e => {
-    window.location.href = "/source/createRecipe.html";
+    window.location.href = "/createRecipe.html";
 });
 
 /**
