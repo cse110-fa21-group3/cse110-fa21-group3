@@ -14,10 +14,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins";
-  
+  font-family: "Poppins", sans-serif;
+
   /* font-family: 'Libre Baskerville', serif; */
-  /* font-family: "Poppins", sans-serif; */
 }
 
 body {
@@ -33,7 +32,7 @@ nav {
   padding: 0.5rem 1rem;
 }
 
-#web_logo {
+#web-logo {
   border-radius: 10%;
 }
 
