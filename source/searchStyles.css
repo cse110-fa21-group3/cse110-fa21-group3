@@ -1,5 +1,5 @@
 #textContainer {
-  margin:20px;
+  margin: 20px;
   margin-top: 2em;
   padding: 0;
 }
@@ -13,7 +13,7 @@ hr {
 }
 
 #matchedCountText {
-  color: gray
+  color: gray;
 }
 
 /* search bar */
@@ -27,10 +27,12 @@ hr {
   width: 100%;
   border: none;
   text-indent: 1rem;
-  border-top-left-radius: 0.5em;
+  border-radius: 0.5rem 0 0 0.5rem;
+  
+  /* border-top-left-radius: 0.5em;
   border-bottom-left-radius: 0.5em;
   border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  border-bottom-right-radius: 0; */
 }
 
 #searchBar:focus {
@@ -42,11 +44,11 @@ hr {
   background-color: var(--red);
   border-top-right-radius: 0.5em;
   border-bottom-right-radius: 0.5em;
-  padding: 0.5rem 0.5rem;
+  padding: 0.5rem;
 }
 
 #search-icon:hover {
-  box-shadow: 0px 0px 5px grey;
+  box-shadow: 0 0 5px grey;
   cursor: pointer;
 }
 
@@ -56,12 +58,12 @@ hr {
   grid-template-columns: repeat(3, minmax(auto, 20rem));
   justify-content: center;
   gap: 3rem;
-  padding: 2rem 2rem;
+  padding: 2rem;
 }
 
 @media screen and (min-width: 90em) {
-    #recipeCards {
-        grid-template-columns: repeat(4, minmax(auto, 20rem));
-        gap: 5rem;
-    }
+  #recipeCards {
+    grid-template-columns: repeat(4, minmax(auto, 20rem));
+    gap: 5rem;
+  }
 }
