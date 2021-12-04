@@ -1,20 +1,22 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
 :root {
-    --black: #353535;
-    --light-gray: #f2f2f2;
-    --dark-gray: #d1d1d1;
-    --red: #ff4747;
-    --light-red: #ffdada;
-    --white: #ffffff;
+  --black: #353535;
+  --light-gray: #f2f2f2;
+  --dark-gray: #d1d1d1;
+  --red: #ff4747;
+  --light-red: #ffdada;
+  --white: #ffffff;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    /* font-family: 'Libre Baskerville', serif; */
-    font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  /* font-family: 'Libre Baskerville', serif; */
+  font-family: "Poppins", sans-serif;
 }
 
 body {
@@ -23,35 +25,35 @@ body {
 
 /* Navbar Styling */
 nav {
-    background-color: var(--black);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1rem;
+  background-color: var(--black);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
 }
 
 #web_logo {
-    border-radius: 10%;
+  border-radius: 10%;
 }
 
 /* Favorite Button */
 #favContainer {
-    background-color: var(--red);
-    border-radius: 10%;
-    padding: 0.2rem 0.5rem 0 0.5rem;
+  background-color: var(--red);
+  border-radius: 10%;
+  padding: 0.2rem 0.5rem 0;
 }
 
 #favContainer:hover {
-    filter: brightness(0.7);
+  filter: brightness(0.7);
 }
 
 #favContainer:active {
-    filter: brightness(0.3);
+  filter: brightness(0.3);
 }
 
 /* Create Button */
-#create-recipe{
-  padding: 0.81rem 0.93rem 0.60rem 0.93rem;
+#create-recipe {
+  padding: 0.81rem 0.93rem 0.6rem;
   margin: 0 10px 10px 0;
   background-color: #ffdadaa8;
   border-radius: 50px;
@@ -61,11 +63,11 @@ nav {
   right: 0;
 }
 
-#create-recipe:hover{
-  box-shadow: 0px 0px 5px grey;
+#create-recipe:hover {
+  box-shadow: 0 0 5px grey;
   cursor: pointer;
 }
 
-#create-recipe:active{
+#create-recipe:active {
   background-color: var(--black);
 }
