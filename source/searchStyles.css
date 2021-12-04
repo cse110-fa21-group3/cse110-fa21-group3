@@ -1,36 +1,36 @@
 #textContainer {
-    margin:20px;
-    margin-top: 2em;
-    padding: 0;
+  margin:20px;
+  margin-top: 2em;
+  padding: 0;
 }
 
 hr {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border: 0;
-    height: 2px;
-    background-image: linear-gradient(to right, var(--light-gray), var(--red), var(--light-gray));
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 0;
+  height: 2px;
+  background-image: linear-gradient(to right, var(--light-gray), var(--red), var(--light-gray));
 }
 
 #matchedCountText {
-    color: gray
+  color: gray
 }
 
 /* search bar */
 #search-container {
-    display: flex;
-    width: 50%;
-    max-width: 45rem;
+  display: flex;
+  width: 50%;
+  max-width: 45rem;
 }
 
 #searchBar {
-    width: 100%;
-    border: none;
-    text-indent: 1rem;
-    border-top-left-radius: 0.5em;
-    border-bottom-left-radius: 0.5em;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+  width: 100%;
+  border: none;
+  text-indent: 1rem;
+  border-top-left-radius: 0.5em;
+  border-bottom-left-radius: 0.5em;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 #searchBar:focus {
@@ -38,11 +38,11 @@ hr {
 }
 
 #search-icon {
-    object-fit: contain;
-    background-color: var(--red);
-    border-top-right-radius: 0.5em;
-    border-bottom-right-radius: 0.5em;
-    padding: 0.5rem 0.5rem;
+  object-fit: contain;
+  background-color: var(--red);
+  border-top-right-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+  padding: 0.5rem 0.5rem;
 }
 
 #search-icon:hover {
@@ -52,11 +52,11 @@ hr {
 
 /* Recipe Card Styling */
 #recipeCards {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(auto, 20rem));
-    justify-content: center;
-    gap: 3rem;
-    padding: 2rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(auto, 20rem));
+  justify-content: center;
+  gap: 3rem;
+  padding: 2rem 2rem;
 }
 
 @media screen and (min-width: 90em) {
