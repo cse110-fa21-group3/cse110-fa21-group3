@@ -73,7 +73,7 @@ function init(){
         deletedRecipes.push(parseInt(id))
         util.updateUserData("deletedRecipes", deletedRecipes);
 
-        window.location.href = "/source/homepage.html";
+        window.location.href = "/index.html";
     });
 
 }
@@ -84,5 +84,5 @@ document.querySelector('#favorite').addEventListener('click', (e) => {
 });
 
 document.getElementById("edit-recipe").addEventListener('click', e => {
-    window.location.href = "/source/createRecipe.html#"+id;
+    window.location.href = "/createRecipe.html#"+id;
 });
