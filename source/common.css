@@ -7,16 +7,17 @@
   --dark-gray: #d1d1d1;
   --red: #ff4747;
   --light-red: #ffdada;
-  --white: #ffffff;
+  --white: #fff;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
+  font-family: "Poppins";
+  
   /* font-family: 'Libre Baskerville', serif; */
-  font-family: "Poppins", sans-serif;
+  /* font-family: "Poppins", sans-serif; */
 }
 
 body {
