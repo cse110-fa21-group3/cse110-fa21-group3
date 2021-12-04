@@ -1,4 +1,4 @@
-#textContainer {
+#text-container {
   margin: 20px;
   margin-top: 2em;
   padding: 0;
@@ -12,7 +12,7 @@ hr {
   background-image: linear-gradient(to right, var(--light-gray), var(--red), var(--light-gray));
 }
 
-#matchedCountText {
+#matched-count-text {
   color: gray;
 }
 
@@ -23,19 +23,19 @@ hr {
   max-width: 45rem;
 }
 
-#searchBar {
+#search-bar {
   width: 100%;
   border: none;
   text-indent: 1rem;
   border-radius: 0.5rem 0 0 0.5rem;
-  
+
   /* border-top-left-radius: 0.5em;
   border-bottom-left-radius: 0.5em;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0; */
 }
 
-#searchBar:focus {
+#search-bar:focus {
   outline-color: var(--light-red);
 }
 

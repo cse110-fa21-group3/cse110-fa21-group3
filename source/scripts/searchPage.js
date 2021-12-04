@@ -9,7 +9,7 @@ window.addEventListener("DOMContentLoaded", () => {
     let searchBtn = document.getElementById("search-icon");
     searchBtn.addEventListener("click", e => {
         e.preventDefault();
-        let searchQuery = document.getElementById("searchBar").value;
+        let searchQuery = document.getElementById("search-bar").value;
         searchLocalRecipes(searchQuery).then(arr => {
             let res = [];
             arr.forEach(recipe => {
@@ -28,7 +28,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     let results = localStorage.getItem("latestSearch");
     let queryDisplay = document.getElementById("queryDisplay");
-    let matchedCountText = document.getElementById("matchedCountText");
+    let matchedCountText = document.getElementById("matched-count-text");
 
     if(window.location.hash === "#favorites"){
         results = JSON.parse(localStorage.getItem("userData")).favorites;
