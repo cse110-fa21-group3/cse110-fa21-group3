@@ -81,7 +81,7 @@ function init(){
 export function createRecipeCards(N){ 
     let recipes = util.getLocalStorageRecipes();
     // Get the recipe cards' section element
-    let recipeCardsSection = document.getElementById("recipeCards");
+    let recipeCardsSection = document.getElementById("recipe-cards");
 
     recipes.forEach(recipe => {
         const recipeCard = document.createElement("recipe-card");

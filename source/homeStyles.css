@@ -1,4 +1,4 @@
-#recipeCards {
+#recipe-cards {
   display: grid;
   grid-template-columns: repeat(5, 20rem);
   margin: 20px 2rem 50px;
@@ -12,18 +12,18 @@
   gap: 0.2rem;
 }
 
-#recipeCards::-webkit-scrollbar {
+#recipe-cards::-webkit-scrollbar {
   height: 0.8rem;
   border-radius: 5rem;
   box-shadow: inset 0 0 5px var(--black);
 }
 
-#recipeCards::-webkit-scrollbar-thumb {
+#recipe-cards::-webkit-scrollbar-thumb {
   border-radius: 5rem;
   background: var(--black);
 }
 
-#recipeCards::-webkit-scrollbar-track {
+#recipe-cards::-webkit-scrollbar-track {
   border-radius: 5rem;
   background: var(--light-red);
 }

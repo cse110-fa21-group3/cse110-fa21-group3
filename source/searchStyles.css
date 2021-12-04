@@ -53,7 +53,7 @@ hr {
 }
 
 /* Recipe Card Styling */
-#recipeCards {
+#recipe-cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(auto, 20rem));
   justify-content: center;
@@ -62,7 +62,7 @@ hr {
 }
 
 @media screen and (min-width: 90em) {
-  #recipeCards {
+  #recipe-cards {
     grid-template-columns: repeat(4, minmax(auto, 20rem));
     gap: 5rem;
   }
