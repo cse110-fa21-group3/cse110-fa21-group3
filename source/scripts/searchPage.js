@@ -1,7 +1,7 @@
 import { router, searchLocalRecipes } from "./API/utilityFunctions.js";
 
 window.addEventListener("DOMContentLoaded", () => {
-    document.getElementById('favContainer').addEventListener('click', e => {
+    document.getElementById('fav-container').addEventListener('click', e => {
         window.location.href = "/searchpage.html#favorites";
         window.location.reload();
     });

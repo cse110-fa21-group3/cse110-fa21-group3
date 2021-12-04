@@ -37,17 +37,17 @@ nav {
 }
 
 /* Favorite Button */
-#favContainer {
+#fav-container {
   background-color: var(--red);
   border-radius: 10%;
   padding: 0.2rem 0.5rem 0;
 }
 
-#favContainer:hover {
+#fav-container:hover {
   filter: brightness(0.7);
 }
 
-#favContainer:active {
+#fav-container:active {
   filter: brightness(0.3);
 }
 
