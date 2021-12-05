@@ -5,7 +5,8 @@
     "babel-jest": "^27.4.2",
     "jest": "^27.4.3",
     "jest-puppeteer": "^6.0.2",
-    "puppeteer": "^11.0.0"
+    "puppeteer": "^11.0.0",
+    "standard": "^16.0.4"
   },
   "scripts": {
     "test": "jest --passWithNoTests --coverage"
@@ -13,7 +14,7 @@
   "jest": {
     "preset": "jest-puppeteer",
     "verbose": true
-  },  
+  },
   "preset": "ts-jest",
   "transform": {
     "^.+\\.(ts|tsx)?$": "ts-jest",
@@ -21,5 +22,11 @@
   },
   "dependencies": {
     "ts-jest": "^27.1.0"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ],
+    "browser": true
   }
 }
