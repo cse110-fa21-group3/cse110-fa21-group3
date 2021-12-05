@@ -27,7 +27,7 @@ addIng.addEventListener("click", e => {
     deleteBtn.type = "button";
     deleteBtn.classList.add("removeBtn");
     let removeIcon = document.createElement("img");
-    removeIcon.src = "./image/icons8-delete.svg";
+    removeIcon.src = "./source/image/icons8-delete.svg";
     removeIcon.style.width = "30px";
     deleteBtn.appendChild(removeIcon);
     deleteBtn.addEventListener('click', removeItem);
@@ -59,7 +59,7 @@ addStep.addEventListener("click", e => {
     deleteBtn.type = "button";
     deleteBtn.classList.add("removeBtn");
     let removeIcon = document.createElement("img");
-    removeIcon.src = "./image/icons8-delete.svg";
+    removeIcon.src = "./source/image/icons8-delete.svg";
     removeIcon.style.width = "30px";
     deleteBtn.appendChild(removeIcon);
     deleteBtn.addEventListener('click', removeItem);
@@ -91,7 +91,7 @@ addNutrition.addEventListener("click", e => {
     deleteBtn.type = "button";
     deleteBtn.classList.add("removeBtn");
     let removeIcon = document.createElement("img");
-    removeIcon.src = "./image/icons8-delete.svg";
+    removeIcon.src = "./source/image/icons8-delete.svg";
     removeIcon.style.width = "30px";
     deleteBtn.appendChild(removeIcon);
     deleteBtn.addEventListener('click', removeItem);
@@ -173,11 +173,11 @@ createRecipe.addEventListener("click", e => {
     });
     
     util.setLocalStorageItem(formRes["id"], formRes);
-    window.location.href = "/source/homepage.html";
+    window.location.href = "/index.html";
 });
 
 cancelBtn.addEventListener('click', e => {
-    window.location.href = "/source/homepage.html";
+    window.location.href = "/index.html";
 });
 
 function populateRecipeForm(recipeData){

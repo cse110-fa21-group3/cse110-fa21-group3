@@ -17,7 +17,7 @@ const options = {
 
 // Create a new Router for handling pages
 export var router = new Router(() => {
-  window.location.href = '/source/homepage.html'
+  window.location.href = '/index.html'
 })
 
 export const DEFAULT_RECIPE_NUMBER = 100
@@ -356,7 +356,6 @@ export async function fetchRecipes (recipe_count, offset) {
     fetch(reqUrl, options)
       .then(res => res.json())
       .then(res => {
-        let originalLength = getRecipesCount()
         // create local storage items
         res['results'].forEach(r => {
           createRecipeObject(r)
