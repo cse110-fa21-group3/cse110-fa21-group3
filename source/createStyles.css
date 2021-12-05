@@ -37,60 +37,60 @@ legend {
 
 /* Form Styling */
 
-#recipeForm {
+#recipe-form {
   padding: 3rem;
   max-width: 60rem;
   margin: 0 auto;
 }
 
-#timeContainer,
-#serveContainer {
+#time-container,
+#serve-container {
   display: flex;
   align-items: center;
 }
 
-#recipeName,
-#timeContainer,
-#serveContainer,
-#recipeIngredients,
-#recipeSteps,
-#recipeNutrition,
-#descContainer,
-#imgContainer {
+#recipe-name,
+#time-container,
+#serve-container,
+#recipe-ingredients,
+#recipe-steps,
+#recipe-nutrition,
+#desc-container,
+#img-container {
   margin-bottom: 1.5rem;
 }
 
-#descContainer {
+#desc-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-#descContainer label {
+#desc-container label {
   margin-bottom: 0.5rem;
 }
 
-#descContainer textarea {
+#desc-container textarea {
   border-radius: 5px;
 }
 
-#recipeDesc {
-  padding: 5px 5px;
+#recipe-desc {
+  padding: 5px;
 }
 
-.ingredientContainer,
-.stepsContainer,
-.nutritionContainer {
+.ingredient-container,
+.steps-container,
+.nutrition-container {
   display: flex;
   align-items: center;
   margin: 0.2rem 0;
 }
 
-.noPreview {
+.no-preview {
   display: none;
 }
 
-#previewImg {
+#preview-img {
   border-radius: 5px;
   margin-top: 1rem;
   width: 468px;
@@ -102,35 +102,35 @@ legend {
   justify-content: flex-end;
 }
 
-#createBtn,
-#cancelBtn {
+#create-btn,
+#cancel-btn {
   border: none;
   color: var(--white);
   border-radius: 5%;
   padding: 0.8rem 1rem;
 }
 
-#createBtn {
+#create-btn {
   background-color: var(--red);
   margin-left: 1rem;
 }
 
-#createBtn:hover,
-#cancelBtn:hover {
+#create-btn:hover,
+#cancel-btn:hover {
   filter: brightness(0.7);
   cursor: pointer;
 }
 
-#createBtn:active,
-#cancelBtn:active {
+#create-btn:active,
+#cancel-btn:active {
   filter: brightness(0.3);
 }
 
-#cancelBtn {
+#cancel-btn {
   background-color: var(--black);
 }
 
-.addBtn {
+.add-btn {
   border: 1px solid var(--dark-gray);
   background-color: var(--white);
   display: flex;
@@ -138,32 +138,32 @@ legend {
   justify-content: center;
   border-radius: 50%;
   margin-top: 0.5rem;
-  padding: 0.5rem 0.5rem;
+  padding: 0.5rem;
 }
 
-.addBtn:hover {
+.add-btn:hover {
   box-shadow: 0px 0px 5px grey;
   cursor: pointer;
 }
 
-.removeBtn {
+.remove-btn {
   border: none;
   background-color: transparent;
   display: flex;
   align-items: center;
 }
 
-.removeBtn:hover {
+.remove-btn:hover {
   cursor: pointer;
 }
 
-.addBtn:active,
+.add-btn:active,
 .removeBtn:active {
   filter: brightness(0.3);
 }
 
 @media screen and (min-width: 90em) {
-  #recipeForm {
+  #recipe-form {
     max-width: 70rem;
     margin: 0 auto;
   }

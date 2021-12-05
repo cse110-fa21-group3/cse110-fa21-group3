@@ -23,68 +23,70 @@
             </nav>
         </header>
         <main>
-            <form id="recipeForm" action="#">
-                <div id="imgContainer">
-                    <label for="recipeImg">Upload Image:</label>
-                    <input type="file" id="recipeImg" name="image"
+            <form id="recipe-form" action="#">
+                <div id="img-container">
+                    <label for="recipe-img">Upload Image:</label>
+                    <input type="file" id="recipe-img" name="image"
                         accept="image/png, image/jpeg, image/jpg">
-                    <img id="previewImg" class="noPreview" src="#"
+                    <img id="preview-img" class="no-preview" src="#"
                         alt="Custom Image">
                 </div>
-                <label for="recipeName">Name:</label>
-                <input type="text" id="recipeName" name="title" />
-                <div id="timeContainer">
-                    <label for="recipeTime">Time:</label>
-                    <input type="number" id="recipeTime"
+                <label for="recipe-name">Name:</label>
+                <input type="text" id="recipe-name" name="title" />
+                <div id="time-container">
+                    <label for="recipe-time">Time:</label>
+                    <input type="number" id="recipe-time"
                         name="readyInMinutes" />
                     <p>mins</p>
                 </div>
-                <div id="serveContainer">
-                    <label for="recipeServe">Serve:</label>
-                    <input type="number" id="recipeServe" name="servingSize" />
+                <div id="serve-container">
+                    <label for="recipe-serve">Serve:</label>
+                    <input type="number" id="recipe-serve" name="servingSize" />
                     <p>people</p>
                 </div>
-                <div id="descContainer">
-                    <label for="recipeDesc">Description:</label>
-                    <textarea name="recipeDesc" id="recipeDesc" cols="60"
+                <div id="desc-container">
+                    <label for="recipe-desc">Description:</label>
+                    <textarea name="recipeDesc" id="recipe-desc" cols="60"
                         rows="10"></textarea>
                 </div>
-                <fieldset id="recipeIngredients">
+                <fieldset id="recipe-ingredients">
                     <legend>Ingredient</legend>
                     <hr>
-                    <fieldset class="ingredientContainer">
+                    <fieldset class="ingredient-container">
                         <label>Ingredient: </label>
-                        <input type="text" name="ingredients" class="ingName" />
+                        <input type="text" name="ingredients"
+                            class="ing-name" />
                     </fieldset>
-                    <button type="button" id="addIng" class="addBtn"><img
+                    <button type="button" id="add-ing" class="add-btn"><img
                             src="./source/image/icons8-plus-+.svg"
                             style='width: 30px;'></button>
                 </fieldset>
-                <fieldset id="recipeSteps">
+                <fieldset id="recipe-steps">
                     <legend>Step</legend>
                     <hr>
-                    <fieldset class="stepsContainer">
+                    <fieldset class="steps-container">
                         <label>Step: </label>
-                        <input type="text" name="steps" class="stepName" />
+                        <input type="text" name="steps" class="step-name" />
                     </fieldset>
-                    <button type="button" id="addStep" class="addBtn"><img
+                    <button type="button" id="add-step" class="add-btn"><img
                             src="./source/image/icons8-plus-+.svg"
                             style='width: 30px;'></button>
                 </fieldset>
-                <fieldset id="recipeNutrition">
+                <fieldset id="recipe-nutrition">
                     <legend>Nutrition</legend>
                     <hr>
-                    <fieldset class="nutritionContainer">
+                    <fieldset class="nutrition-container">
                         <label>Nutrition: </label>
-                        <input type="text" name="nutrition" class="nutrName" />
+                        <input type="text" name="nutrition" class="nutr-name" />
                     </fieldset>
-                    <button type="button" id="addNutrition" class="addBtn"><img
+                    <button type="button" id="add-nutrition"
+                        class="add-btn"><img
                             src="./source/image/icons8-plus-+.svg"
                             style='width: 30px;'></button>
                 </fieldset>
                 <div id="btns">
-                    <button type="button" id="cancelBtn">Cancel</button>
-                    <button type="button" id="createBtn">Create</button>
+                    <button type="button" id="cancel-btn">Cancel</button>
+                    <button type="button" id="create-btn">Create</button>
                 </div>
             </form>
         </main>
