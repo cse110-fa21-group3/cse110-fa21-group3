@@ -1,5 +1,8 @@
 import * as util from "./API/utilityFunctions.js";
 
+let recipeImg = document.getElementById('recipeImg');
+let compressedImg; // store base64 compressed image (string)
+
 let addIng = document.getElementById("addIng");
 let addStep = document.getElementById("addStep");
 let addNutrition = document.getElementById("addNutrition");
@@ -13,6 +16,36 @@ window.addEventListener("DOMContentLoaded", e => {
         let recipeData = JSON.parse(localStorage.getItem(id));
         populateRecipeForm(recipeData);
         createRecipe.innerText = "Update";
+    }
+});
+
+recipeImg.addEventListener('change', (e) => {
+    const input = e.target.files[0];
+    const previewImg = document.getElementById('previewImg');
+    const fileReader = new FileReader();
+
+    fileReader.addEventListener('load', (event) => {
+        previewImg.src = event.target.result;
+        previewImg.classList.remove('noPreview');
+
+        // resizing and compressing input image using <canvas>
+        previewImg.addEventListener('load', (imgData) => {
+            const canvas = document.createElement('canvas');
+            const FIXED_WIDTH = 312 * 2;
+            const FIXED_HEIGHT = 231 * 2;
+
+            canvas.width = FIXED_WIDTH;
+            canvas.height = FIXED_HEIGHT;
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(imgData.target, 0, 0, canvas.width, canvas.height);
+            const imgEncoded = ctx.canvas.toDataURL(imgData, 'image/jpeg');
+            compressedImg = imgEncoded;
+        })
+    });
+
+    if (input) {
+        fileReader.readAsDataURL(input);
     }
 });
 
@@ -126,6 +159,7 @@ createRecipe.addEventListener("click", e => {
         "image": "../../admin/branding/logo3_231x231.jpg",
         "favorite": true,
         "readyInMinutes": 0,
+        "servingSize": 0,
         "title": "",
         "summary": "",
         "ingredients": [],
@@ -159,10 +193,15 @@ createRecipe.addEventListener("click", e => {
 
     formKeys.forEach(key => {
         let res = formObj.getAll(key);
+
+        console.log(key);
+
         if(key == "steps" || key === "nutrition" || key == "ingredients"){
             formRes[key] = formObj.getAll(key);
         }else if(key === "recipeDesc"){
             formRes['summary'] = res[0];
+        }else if (key === 'image') {
+            formRes[key] = compressedImg;
         }else{
             formRes[key] = res[0];
         }
