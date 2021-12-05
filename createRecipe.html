@@ -29,7 +29,7 @@
                 accept="image/png, image/jpeg" /> -->
                 <!-- <img id="imgContainer" src="#" alt="Attached Recipe Image"> -->
                 <label for="recipeName">Name:</label>
-                <input type="text" id="recipeName" name="title" />
+                <input type="text" id="recipeName" name="title" rows="1" cols="30"/>
                 <div id="timeContainer">
                     <label for="recipeTime">Time:</label>
                     <input type="number" id="recipeTime"
@@ -49,7 +49,8 @@
                 <fieldset id="recipeIngredients">
                     <fieldset class="ingredientContainer">
                         <label>Ingredient: </label>
-                        <input type="text" name="ingredients" class="ingName" />
+                        <textarea type="text" name="ingredients" class="ingName" rows="2" 
+                        cols="30"></textarea>
                     </fieldset>
                     <button type="button" id="addIng" class="addBtn"><img
                             src="./source/image/icons8-plus-+.svg"
@@ -58,7 +59,8 @@
                 <fieldset id="recipeSteps">
                     <fieldset class="stepsContainer">
                         <label>Step: </label>
-                        <input type="text" name="steps" class="stepName" />
+                        <textarea type="text" name="steps" class="stepName" rows="5" 
+                        cols="50"></textarea>
                     </fieldset>
                     <button type="button" id="addStep" class="addBtn"><img
                             src="./source/image/icons8-plus-+.svg"
@@ -67,7 +69,8 @@
                 <fieldset id="recipeNutrition">
                     <fieldset class="nutritionContainer">
                         <label>Nutrition: </label>
-                        <input type="text" name="nutrition" class="nutrName" />
+                        <textarea type="text" name="nutrition" class="nutrName" rows="2"
+                        cols="30"></textarea>
                     </fieldset>
                     <button type="button" id="addNutrition" class="addBtn"><img
                             src="./source/image/icons8-plus-+.svg"
@@ -75,7 +78,7 @@
                 </fieldset>
                 <div id="btns">
                     <button type="button" id="cancelBtn">Cancel</button>
-                    <button type="button" id="createBtn">Create</button>
+                    <button type="submit" id="createBtn">Create</button>
                 </div>
             </form>
         </main>

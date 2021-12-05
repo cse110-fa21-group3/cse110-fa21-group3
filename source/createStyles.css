@@ -7,7 +7,7 @@ label {
     font-weight: bold;
 }
 
-input {
+input, textarea {
     margin: 0 0.5rem 0 0.5rem;
     border: 1px solid var(--dark-gray);
     padding: 0.2rem 0.2rem;
@@ -15,7 +15,7 @@ input {
 }
 
 body {
-    background-color: var(--light-gray) ;
+    background-color: var(--light-gray);
 }
 
 fieldset {
@@ -37,6 +37,7 @@ fieldset {
 #recipeName, #timeContainer, #recipeIngredients, 
 #recipeSteps, #recipeNutrition, #descContainer {
     margin-bottom: 2rem;
+    width: 15rem;
 }
 
 #descContainer {
