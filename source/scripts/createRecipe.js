@@ -17,7 +17,7 @@ window.addEventListener("DOMContentLoaded", e => {
 });
 
 addIng.addEventListener("click", e => {
-    let elementContainer = document.querySelectorAll(".ingredientContainer");
+    let elementContainer = document.querySelectorAll(".ingredient-container");
     let elementContainerLength = elementContainer.length;
     let fieldSet = document.createElement("fieldset");
     let fieldSetLabel = document.createElement("label");
@@ -25,7 +25,7 @@ addIng.addEventListener("click", e => {
     let deleteBtn = document.createElement("button");
     
     deleteBtn.type = "button";
-    deleteBtn.classList.add("removeBtn");
+    deleteBtn.classList.add("remove-btn");
     let removeIcon = document.createElement("img");
     removeIcon.src = "./source/image/icons8-delete.svg";
     removeIcon.style.width = "30px";
@@ -35,12 +35,12 @@ addIng.addEventListener("click", e => {
     fieldSetLabel.innerText = "Ingredient: ";
 
     fieldTextArea.name = "ingredients";
-    fieldTextArea.classList.add("ingName");
+    fieldTextArea.classList.add("ing-name");
     fieldTextArea.type = 'text';
     // fieldTextArea.cols = "30";
     // fieldTextArea.rows = "2";
 
-    fieldSet.classList.add("ingredientContainer");
+    fieldSet.classList.add(".ingredient-container");
     fieldSet.appendChild(fieldSetLabel);
     fieldSet.appendChild(fieldTextArea);
     fieldSet.appendChild(deleteBtn);
@@ -49,7 +49,7 @@ addIng.addEventListener("click", e => {
 });
 
 addStep.addEventListener("click", e => {
-    let elementContainer = document.querySelectorAll(".stepsContainer");
+    let elementContainer = document.querySelectorAll(".steps-container");
     let elementContainerLength = elementContainer.length;
     let fieldSet = document.createElement("fieldset");
     let fieldSetLabel = document.createElement("label");
@@ -57,7 +57,7 @@ addStep.addEventListener("click", e => {
     let deleteBtn = document.createElement("button");
     
     deleteBtn.type = "button";
-    deleteBtn.classList.add("removeBtn");
+    deleteBtn.classList.add("remove-btn");
     let removeIcon = document.createElement("img");
     removeIcon.src = "./source/image/icons8-delete.svg";
     removeIcon.style.width = "30px";
@@ -67,12 +67,12 @@ addStep.addEventListener("click", e => {
     fieldSetLabel.innerText = "Step: ";
     
     fieldTextArea.name = "steps";
-    fieldTextArea.classList.add("stepName");
+    fieldTextArea.classList.add("step-name");
     fieldTextArea.type = 'text';
     // fieldTextArea.cols = "30";
     // fieldTextArea.rows = "2";
     
-    fieldSet.classList.add("stepsContainer");
+    fieldSet.classList.add("steps-container");
     fieldSet.appendChild(fieldSetLabel);
     fieldSet.appendChild(fieldTextArea);
     fieldSet.appendChild(deleteBtn);
@@ -81,7 +81,7 @@ addStep.addEventListener("click", e => {
 });
 
 addNutrition.addEventListener("click", e => {
-    let elementContainer = document.querySelectorAll(".nutritionContainer");
+    let elementContainer = document.querySelectorAll(".nutrition-container");
     let elementContainerLength = elementContainer.length;
     let fieldSet = document.createElement("fieldset");
     let fieldSetLabel = document.createElement("label");
@@ -89,7 +89,7 @@ addNutrition.addEventListener("click", e => {
     let deleteBtn = document.createElement("button");
     
     deleteBtn.type = "button";
-    deleteBtn.classList.add("removeBtn");
+    deleteBtn.classList.add("remove-btn");
     let removeIcon = document.createElement("img");
     removeIcon.src = "./source/image/icons8-delete.svg";
     removeIcon.style.width = "30px";
@@ -99,12 +99,12 @@ addNutrition.addEventListener("click", e => {
     fieldSetLabel.innerText = "Nutrition: ";
     
     fieldTextArea.name = "nutrition";
-    fieldTextArea.classList.add("nutrName");
+    fieldTextArea.classList.add("nutr-name");
     fieldTextArea.type = 'text';
     // fieldTextArea.cols = "30";
     // fieldTextArea.rows = "2";
     
-    fieldSet.classList.add("nutritionContainer");
+    fieldSet.classList.add("nutrition-container");
     fieldSet.appendChild(fieldSetLabel);
     fieldSet.appendChild(fieldTextArea);
     fieldSet.appendChild(deleteBtn);
@@ -161,7 +161,7 @@ createRecipe.addEventListener("click", e => {
         let res = formObj.getAll(key);
         if(key == "steps" || key === "nutrition" || key == "ingredients"){
             formRes[key] = formObj.getAll(key);
-        }else if(key === "recipeDesc"){
+        }else if(key === "recipe-desc"){
             formRes['summary'] = res[0];
         }else{
             formRes[key] = res[0];

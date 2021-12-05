@@ -1,128 +1,136 @@
 /* General Element Styling */
 img {
-    width: 100%;
+  width: 100%;
 }
 
 label {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 input {
-    margin: 0 0.5rem;
-    border: 1px solid var(--dark-gray);
-    padding: 0.2rem;
-    border-radius: 5px;
+  margin: 0 0.5rem;
+  border: 1px solid var(--dark-gray);
+  padding: 0.2rem;
+  border-radius: 5px;
 }
 
 body {
-    background-color: var(--light-gray) ;
+  background-color: var(--light-gray);
 }
 
 fieldset {
-    border: none;
+  border: none;
 }
 
 /* Form Styling */
 #recipe-form {
-    padding: 3rem;
-    max-width: 60rem;
-    margin: 0 auto;
+  padding: 3rem;
+  max-width: 60rem;
+  margin: 0 auto;
 }
 
 #time-container {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
-#recipe-name, #time-container, #recipe-ingredients,
-#recipe-steps, #recipe-nutrition, #desc-container {
-    margin-bottom: 2rem;
+#recipe-name,
+#time-container,
+#recipe-ingredients,
+#recipe-steps,
+#recipe-nutrition,
+#desc-container {
+  margin-bottom: 2rem;
 }
 
 #desc-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 #desc-container label {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 #desc-container textarea {
-    border-radius: 5px;
+  border-radius: 5px;
 }
 
 .ingredient-container, .steps-container, .nutrition-container {
-    display: flex;
-    align-items: center;
-    margin: 0.2rem 0;
+  display: flex;
+  align-items: center;
+  margin: 0.2rem 0;
 }
 
 #btns {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
-#create-btn, #cancel-btn {
-    border: none;
-    color: var(--white);
-    border-radius: 5%;
-    padding: 0.8rem 1rem;
+#create-btn,
+#cancel-btn {
+  border: none;
+  color: var(--white);
+  border-radius: 5%;
+  padding: 0.8rem 1rem;
 }
 
 #create-btn {
-    background-color: var(--red);
-    margin-left: 1rem;
+  background-color: var(--red);
+  margin-left: 1rem;
 }
 
-#create-btn:hover, #cancel-btn:hover {
-    filter: brightness(0.7);
-    cursor: pointer;
+#create-btn:hover,
+#cancel-btn:hover {
+  filter: brightness(0.7);
+  cursor: pointer;
 }
 
-#create-btn:active, #cancel-btn:active {
-    filter: brightness(0.3);
+#create-btn:active,
+#cancel-btn:active {
+  filter: brightness(0.3);
 }
 
 #cancel-btn {
-    background-color: var(--black);
+  background-color: var(--black);
 }
 
 .add-btn {
-    border: 1px solid var(--dark-gray);
-    background-color: var(--white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    margin-top: 0.5rem;
-    padding: 0.5rem;
+  border: 1px solid var(--dark-gray);
+  background-color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
 }
 
 .add-btn:hover {
-    box-shadow: 0px 0px 5px grey;
-    cursor: pointer;
+  box-shadow: 0px 0px 5px grey;
+  cursor: pointer;
 }
 
 .remove-btn {
-    border: none;
-    background-color: transparent;
-    display: flex;
-    align-items: center;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
 }
 
 .remove-btn:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-.add-btn:active, .remove-btn:active {
-    filter: brightness(0.3);
+.add-btn:active,
+.remove-btn:active {
+  filter: brightness(0.3);
 }
 
 @media screen and (min-width: 90em) {
-    #recipe-form {
-        max-width: 70rem;
-        margin: 0 auto;
-    }
+  #recipe-form {
+      max-width: 70rem;
+      margin: 0 auto;
+  }
 }
