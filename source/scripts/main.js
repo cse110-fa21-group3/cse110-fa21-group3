@@ -4,8 +4,6 @@
 
 import * as util from "./API/utilityFunctions.js";
 
-const NUMBER_OF_RECIPES_TO_DISPLAY = 10
-
 window.addEventListener("DOMContentLoaded", init);
 
 document.getElementById("create-recipe").addEventListener('click', e => {
@@ -28,13 +26,13 @@ function init(){
 
     util.populateRecipes().then(() => {
         if (isFirstTime) {
-            createRecipeCards(NUMBER_OF_RECIPES_TO_DISPLAY)
+            createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY)
         }
     })
 
     // display the 5 recipes and add search btn listener only in homepage
     if (window.location.pathname === '/index.html' || window.location.pathname === '/' || window.location.pathname === '') {
-        createRecipeCards(NUMBER_OF_RECIPES_TO_DISPLAY)
+        createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY)
         let searchBtn = document.getElementById("search");
         searchBtn.addEventListener("click", e => {
             e.preventDefault();

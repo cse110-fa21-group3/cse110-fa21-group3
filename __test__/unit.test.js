@@ -2,6 +2,7 @@
 // so now `import` and/or `export` statements work on both browser and unit test
   import * as utilityFunctions from '../source/scripts/API/utilityFunctions'
   import * as jsonData from './data.json'
+  import regeneratorRuntime from "regenerator-runtime";
 
 // Class used to mimick the localstorage in browsers
 class localStorageMock {
@@ -369,16 +370,8 @@ test('createRecipeObject Test', () => {
 // Done
 test('populateRecipes Test', async () => {
   localStorage.clear()
-  return utilityFunctions.populateRecipes(199).then(() => {
-    expect(Object.keys(localStorage).length).toBe(utilityFunctions.MINIMUM_RECIPE_REQUIRED)
-  })
-})
-
-// Done
-test('populateRecipes small number test', async () => {
-  localStorage.clear()
-  return utilityFunctions.populateRecipes(1).then(() => {
-    expect(Object.keys(localStorage).length).toBe(utilityFunctions.MINIMUM_RECIPE_REQUIRED)
+  return utilityFunctions.populateRecipes().then(() => {
+    expect(Object.keys(localStorage).length-1).toBeGreaterThanOrEqual(utilityFunctions.NUMBER_OF_RECIPES_TO_DISPLAY)
   })
 })
 

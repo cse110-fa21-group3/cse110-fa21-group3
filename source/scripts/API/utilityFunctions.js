@@ -20,9 +20,10 @@ export var router = new Router(() => {
   window.location.href = '/index.html'
 })
 
-export const DEFAULT_RECIPE_NUMBER = 200
+export const DEFAULT_RECIPE_NUMBER = 100
 export const DEFAULT_MAX_TIME = 60
-export const MINIMUM_RECIPE_REQUIRED = 5
+export const NUMBER_OF_RECIPES_TO_DISPLAY = 10
+
 // list of intolerances filter offered by the Spoonacular API
 const allowedIntolerances = [
   'dairy',
@@ -229,11 +230,15 @@ export function updateUserData (key, value) {
  * to get a recipe dump
  */
 export async function populateRecipes () {
-  return new Promise(async (resolve) => {
+  return new Promise(async (resolve, reject) => {
+    if (DEFAULT_RECIPE_NUMBER < NUMBER_OF_RECIPES_TO_DISPLAY) {
+      reject('DEFAULT_RECIPE_NUMBER is too small')
+      return
+    }
     let recipeCount = getRecipesCount()
 
     let offset = 0
-    let userData = JSON.parse(localStorage.getItem(USER_DATA))
+    let userData = localStorage.getItem(USER_DATA) ? JSON.parse(localStorage.getItem(USER_DATA)) : undefined
     if (userData) {
       offset = userData.offset ? userData.offset : 0
     }
@@ -242,7 +247,7 @@ export async function populateRecipes () {
     let remain_number = DEFAULT_RECIPE_NUMBER - recipeCount
 
     while (remain_number > 0) {
-      if (getRecipesCount() >= MINIMUM_RECIPE_REQUIRED) {
+      if (getRecipesCount() >= NUMBER_OF_RECIPES_TO_DISPLAY) {
         resolve(true)
       }
 
@@ -258,6 +263,7 @@ export async function populateRecipes () {
         remain_number = 0
       }
     }
+
     resolve(true)
   })
 }
