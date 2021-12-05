@@ -8,9 +8,9 @@ label {
 }
 
 input {
-    margin: 0 0.5rem 0 0.5rem;
+    margin: 0 0.5rem;
     border: 1px solid var(--dark-gray);
-    padding: 0.2rem 0.2rem;
+    padding: 0.2rem;
     border-radius: 5px;
 }
 
@@ -24,7 +24,7 @@ fieldset {
 
 /* Form Styling */
 #recipe-form {
-    padding: 3rem 3rem;
+    padding: 3rem;
     max-width: 60rem;
     margin: 0 auto;
 }
@@ -34,7 +34,7 @@ fieldset {
     align-items: center;
 }
 
-#recipe-name, #time-container, #recipe-ingredients, 
+#recipe-name, #time-container, #recipe-ingredients,
 #recipe-steps, #recipe-nutrition, #desc-container {
     margin-bottom: 2rem;
 }
@@ -46,7 +46,7 @@ fieldset {
 }
 
 #desc-container label {
-    margin-bottom: 0.5rem ;
+    margin-bottom: 0.5rem;
 }
 
 #desc-container textarea {
@@ -97,7 +97,7 @@ fieldset {
     justify-content: center;
     border-radius: 50%;
     margin-top: 0.5rem;
-    padding: 0.5rem 0.5rem;
+    padding: 0.5rem;
 }
 
 .add-btn:hover {
@@ -126,10 +126,3 @@ fieldset {
         margin: 0 auto;
     }
 }
-
-
-
-
-
-
-
