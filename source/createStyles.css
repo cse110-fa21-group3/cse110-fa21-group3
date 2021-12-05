@@ -1,17 +1,18 @@
 /* General Element Styling */
-img {
-    width: 100%;
-}
 
+img {
+  width: 100%;
+}
+     
 label {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 input {
-    margin: 0 0.5rem 0 0.5rem;
-    border: 1px solid var(--dark-gray);
-    padding: 0.2rem 0.2rem;
-    border-radius: 5px;
+  margin: 0 0.5rem;
+  border: 1px solid var(--dark-gray);
+  padding: 0.2rem;
+  border-radius: 5px;
 }
 
 hr {
@@ -22,140 +23,148 @@ hr {
 }
 
 body {
-    background-color: var(--light-gray) ;
+  background-color: var(--light-gray);
 }
 
 fieldset {
-    border: none;
+  border: none;
 }
 
 legend {
-    font-weight: bold;
+  font-weight: bold;
 }
+
 
 /* Form Styling */
+
 #recipeForm {
-    padding: 3rem 3rem;
-    max-width: 60rem;
-    margin: 0 auto;
+  padding: 3rem;
+  max-width: 60rem;
+  margin: 0 auto;
 }
 
-#timeContainer, #serveContainer {
-    display: flex;
-    align-items: center;
+#timeContainer,
+#serveContainer {
+  display: flex;
+  align-items: center;
 }
 
-#recipeName, #timeContainer, #serveContainer, #recipeIngredients, 
-#recipeSteps, #recipeNutrition, #descContainer, #imgContainer {
-    margin-bottom: 1.5rem;
+#recipeName,
+#timeContainer,
+#serveContainer,
+#recipeIngredients,
+#recipeSteps,
+#recipeNutrition,
+#descContainer,
+#imgContainer {
+  margin-bottom: 1.5rem;
 }
 
 #descContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 #descContainer label {
-    margin-bottom: 0.5rem ;
+  margin-bottom: 0.5rem;
 }
 
 #descContainer textarea {
-    border-radius: 5px;
+  border-radius: 5px;
 }
 
 #recipeDesc {
-    padding: 5px 5px;
+  padding: 5px 5px;
 }
 
-.ingredientContainer, .stepsContainer, .nutritionContainer {
-    display: flex;
-    align-items: center;
-    margin: 0.2rem 0;
+.ingredientContainer,
+.stepsContainer,
+.nutritionContainer {
+  display: flex;
+  align-items: center;
+  margin: 0.2rem 0;
 }
 
 .noPreview {
-    display: none;
+  display: none;
 }
 
 #previewImg {
-    border-radius: 5px;
-    margin-top: 1rem;
-    width: 468px; 
-    height: 319.5px;
+  border-radius: 5px;
+  margin-top: 1rem;
+  width: 468px;
+  height: 319.5px;
 }
 
 #btns {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
-#createBtn, #cancelBtn {
-    border: none;
-    color: var(--white);
-    border-radius: 5%;
-    padding: 0.8rem 1rem;
+#createBtn,
+#cancelBtn {
+  border: none;
+  color: var(--white);
+  border-radius: 5%;
+  padding: 0.8rem 1rem;
 }
 
 #createBtn {
-    background-color: var(--red);
-    margin-left: 1rem;
+  background-color: var(--red);
+  margin-left: 1rem;
 }
 
-#createBtn:hover, #cancelBtn:hover {
-    filter: brightness(0.7);
-    cursor: pointer;
+#createBtn:hover,
+#cancelBtn:hover {
+  filter: brightness(0.7);
+  cursor: pointer;
 }
 
-#createBtn:active, #cancelBtn:active {
-    filter: brightness(0.3);
+#createBtn:active,
+#cancelBtn:active {
+  filter: brightness(0.3);
 }
 
 #cancelBtn {
-    background-color: var(--black);
+  background-color: var(--black);
 }
 
 .addBtn {
-    border: 1px solid var(--dark-gray);
-    background-color: var(--white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    margin-top: 0.5rem;
-    padding: 0.5rem 0.5rem;
+  border: 1px solid var(--dark-gray);
+  background-color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.5rem;
 }
 
 .addBtn:hover {
-    box-shadow: 0px 0px 5px grey;
-    cursor: pointer;
+  box-shadow: 0px 0px 5px grey;
+  cursor: pointer;
 }
 
 .removeBtn {
-    border: none;
-    background-color: transparent;
-    display: flex;
-    align-items: center;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
 }
 
 .removeBtn:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-.addBtn:active, .removeBtn:active {
-    filter: brightness(0.3);
+.addBtn:active,
+.removeBtn:active {
+  filter: brightness(0.3);
 }
 
 @media screen and (min-width: 90em) {
-    #recipeForm {
-        max-width: 70rem;
-        margin: 0 auto;
-    }
+  #recipeForm {
+    max-width: 70rem;
+    margin: 0 auto;
+  }
 }
-
-
-
-
-
-
-
