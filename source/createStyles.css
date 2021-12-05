@@ -23,7 +23,7 @@ fieldset {
 }
 
 /* Form Styling */
-#recipeForm {
+#recipe-form {
     padding: 3rem 3rem;
     max-width: 60rem;
     margin: 0 auto;
@@ -35,7 +35,7 @@ fieldset {
 }
 
 #recipe-name, #time-container, #recipe-ingredients, 
-#recipeSteps, #recipeNutrition, #desc-container {
+#recipe-steps, #recipe-nutrition, #desc-container {
     margin-bottom: 2rem;
 }
 
@@ -45,15 +45,15 @@ fieldset {
     align-items: flex-start;
 }
 
-#descContainer label {
+#desc-container label {
     margin-bottom: 0.5rem ;
 }
 
-#descContainer textarea {
+#desc-container textarea {
     border-radius: 5px;
 }
 
-.ingredientContainer, .stepsContainer, .nutritionContainer {
+.ingredient-container, .steps-container, .nutrition-container {
     display: flex;
     align-items: center;
     margin: 0.2rem 0;
@@ -64,32 +64,32 @@ fieldset {
     justify-content: flex-end;
 }
 
-#createBtn, #cancelBtn {
+#create-btn, #cancel-btn {
     border: none;
     color: var(--white);
     border-radius: 5%;
     padding: 0.8rem 1rem;
 }
 
-#createBtn {
+#create-btn {
     background-color: var(--red);
     margin-left: 1rem;
 }
 
-#createBtn:hover, #cancelBtn:hover {
+#create-btn:hover, #cancel-btn:hover {
     filter: brightness(0.7);
     cursor: pointer;
 }
 
-#createBtn:active, #cancelBtn:active {
+#create-btn:active, #cancel-btn:active {
     filter: brightness(0.3);
 }
 
-#cancelBtn {
+#cancel-btn {
     background-color: var(--black);
 }
 
-.addBtn {
+.add-btn {
     border: 1px solid var(--dark-gray);
     background-color: var(--white);
     display: flex;
@@ -100,28 +100,28 @@ fieldset {
     padding: 0.5rem 0.5rem;
 }
 
-.addBtn:hover {
+.add-btn:hover {
     box-shadow: 0px 0px 5px grey;
     cursor: pointer;
 }
 
-.removeBtn {
+.remove-btn {
     border: none;
     background-color: transparent;
     display: flex;
     align-items: center;
 }
 
-.removeBtn:hover {
+.remove-btn:hover {
     cursor: pointer;
 }
 
-.addBtn:active, .removeBtn:active {
+.add-btn:active, .remove-btn:active {
     filter: brightness(0.3);
 }
 
 @media screen and (min-width: 90em) {
-    #recipeForm {
+    #recipe-form {
         max-width: 70rem;
         margin: 0 auto;
     }

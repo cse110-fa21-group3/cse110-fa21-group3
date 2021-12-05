@@ -1,11 +1,11 @@
 import * as util from "./API/utilityFunctions.js";
 
-let addIng = document.getElementById("addIng");
-let addStep = document.getElementById("addStep");
-let addNutrition = document.getElementById("addNutrition");
+let addIng = document.getElementById("add-ing");
+let addStep = document.getElementById("add-step");
+let addNutrition = document.getElementById("add-nutrition");
 
-let createRecipe = document.getElementById("createBtn");
-let cancelBtn = document.getElementById("cancelBtn");
+let createRecipe = document.getElementById("create-btn");
+let cancelBtn = document.getElementById("cancel-btn");
 
 window.addEventListener("DOMContentLoaded", e => {
     if(window.location.hash){
