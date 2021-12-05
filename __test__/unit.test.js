@@ -398,7 +398,7 @@ test('fetchRecipes Fail Test', async () => {
   })
   return expect(utilityFunctions.fetchRecipes(5, 0).then(() => {
       global.fetch = fetch
-    })).rejects.toBe('error')
+    })).rejects
 })
 
 // Done
