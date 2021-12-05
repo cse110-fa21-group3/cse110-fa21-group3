@@ -20,7 +20,7 @@ export var router = new Router(() => {
   window.location.href = '/source/homepage.html'
 })
 
-export const DEFAULT_RECIPE_NUMBER = 10
+export const DEFAULT_RECIPE_NUMBER = 200
 const DEFAULT_MAX_TIME = 60
 export const MINIMUM_RECIPE_REQUIRED = 5
 // list of intolerances filter offered by the Spoonacular API
@@ -230,7 +230,7 @@ export function updateUserData (key, value) {
 
   data[key] = value
   localStorage.setItem(USER_DATA, JSON.stringify(data))
-  console.log(JSON.parse(localStorage.getItem(USER_DATA)))
+  //console.log(JSON.parse(localStorage.getItem(USER_DATA)))
 }
 
 /**
@@ -370,7 +370,7 @@ export async function fetchRecipes (recipe_count, offset) {
         const expectedLength = res.results.length
         const originalLength = getRecipesCount()
 
-        console.log(res)
+        //console.log(res)
         // create local storage items
         res.results.forEach(async r => {
           createRecipeObject(r).then(() => {
@@ -487,8 +487,8 @@ function removeSummaryLinks(summary) {
     }
 
     let temp = summary.substring(0, indexOfPeriodBefore+1) + summary.substring(indexOfPeriodAfter+1)
-    console.log(summary)
-    console.log(temp)
+    //console.log(summary)
+    //console.log(temp)
     summary = temp
   }
   return summary
