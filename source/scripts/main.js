@@ -29,7 +29,7 @@ function init(){
 
     // display the 5 recipes and add search btn listener only in homepage
     if (window.location.pathname === '/index.html' || window.location.pathname === '/' || window.location.pathname === '') {
-        createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
+        createRecipeCards(util.MINIMUM_RECIPE_REQUIRED);
         let searchBtn = document.getElementById("search");
         searchBtn.addEventListener("click", e => {
             e.preventDefault();
@@ -79,11 +79,12 @@ function init(){
  * 
  */
 export function createRecipeCards(N){ 
-    let recipes = util.getLocalStorageRecipes();
+    let recipes = util.getNRandomRecipes(N);
     // Get the recipe cards' section element
     let recipeCardsSection = document.getElementById("recipe-cards");
 
     recipes.forEach(recipe => {
+        console.log(recipe)
         const recipeCard = document.createElement("recipe-card");
         recipeCard.data = recipe;
         let key = recipe["id"];

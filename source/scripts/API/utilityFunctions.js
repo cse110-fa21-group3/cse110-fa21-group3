@@ -515,11 +515,11 @@ export function getNRandomRecipes(num) {
   if (num > recipeCount) {
     return allRecipes
   }
-  
+
   let randomIndexes = getRandomNumbers(num, recipeCount)
   let randomRecipes = []
   randomIndexes.forEach(i => {
-    randomRecipes.push(randomIndexes[i])
+    randomRecipes.push(allRecipes[i])
   });
   return randomRecipes
 }
