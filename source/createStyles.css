@@ -3,7 +3,7 @@
 img {
   width: 100%;
 }
-     
+
 label {
   font-weight: bold;
 }
@@ -114,6 +114,10 @@ legend {
   margin-left: 1rem;
 }
 
+#cancel-btn {
+  background-color: var(--black);
+}
+
 #create-btn:hover,
 #cancel-btn:hover {
   filter: brightness(0.7);
@@ -123,10 +127,6 @@ legend {
 #create-btn:active,
 #cancel-btn:active {
   filter: brightness(0.3);
-}
-
-#cancel-btn {
-  background-color: var(--black);
 }
 
 .add-btn {
