@@ -29,17 +29,17 @@ fieldset {
     margin: 0 auto;
 }
 
-#timeContainer {
+#time-container {
     display: flex;
     align-items: center;
 }
 
-#recipeName, #timeContainer, #recipeIngredients, 
-#recipeSteps, #recipeNutrition, #descContainer {
+#recipe-name, #time-container, #recipe-ingredients, 
+#recipeSteps, #recipeNutrition, #desc-container {
     margin-bottom: 2rem;
 }
 
-#descContainer {
+#desc-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;

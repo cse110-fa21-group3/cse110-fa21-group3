@@ -133,7 +133,7 @@ createRecipe.addEventListener("click", e => {
         "steps": [],
         "nutrition": []
     };
-    let formData = document.getElementById("recipeForm");
+    let formData = document.getElementById("recipe-form");
     let formObj = new FormData(formData);
     let formKeys = Array.from(formObj.keys());
     let hash = window.location.hash;
@@ -181,16 +181,16 @@ cancelBtn.addEventListener('click', e => {
 });
 
 function populateRecipeForm(recipeData){
-    document.getElementById("recipeName").value = recipeData.title;
-    document.getElementById("recipeTime").value = recipeData.readyInMinutes;
-    document.getElementById("recipeDesc").value = recipeData.summary;
+    document.getElementById("recipe-name").value = recipeData.title;
+    document.getElementById("recipe-time").value = recipeData.readyInMinutes;
+    document.getElementById("recipe-desc").value = recipeData.summary;
     
     // Ingredients fill-in
     let numIng = recipeData.ingredients.length;
     for(let i = 0; i < numIng-1; i++){
         addIng.click();
     }
-    let ingInputs = document.getElementsByClassName("ingName");
+    let ingInputs = document.getElementsByClassName("ing-name");
     for(let i = 0; i < numIng; i++){
         ingInputs[i].value = recipeData.ingredients[i];
     }
@@ -200,7 +200,7 @@ function populateRecipeForm(recipeData){
     for(let i = 0; i < numSteps-1; i++){
         addStep.click();
     }
-    let stepInputs = document.getElementsByClassName("stepName");
+    let stepInputs = document.getElementsByClassName("step-name");
     for(let i = 0; i < numSteps; i++){
         stepInputs[i].value = recipeData.steps[i];
     }
@@ -210,7 +210,7 @@ function populateRecipeForm(recipeData){
     for(let i = 0; i < numNutrients-1; i++){
         addNutrition.click();
     }
-    let nutritionInputs = document.getElementsByClassName("nutrName");
+    let nutritionInputs = document.getElementsByClassName("nutr-name");
     for(let i = 0; i < numNutrients; i++){
         nutritionInputs[i].value = recipeData.nutrition[i];
     }
