@@ -445,8 +445,11 @@ export async function createRecipeObject (r) {
  * @returns {String} - a String with all the link texts removed.
  */
 export function removeSummaryLinks(summary) {
-  const linkTerm = '<a href=', linkEnd = '</a>'
-  if (!summary) { return '' }
+  const linkTerm = '<a href='
+  const linkEnd = '</a>'
+  if (!summary) { 
+    return ''
+  }
   while (summary.includes(linkTerm) && summary.includes(linkEnd) && summary.indexOf(linkTerm) < summary.indexOf(linkEnd)) {
     let indexOfFirstLink = summary.indexOf(linkTerm)
     let indexOfEndLink = summary.indexOf(linkEnd)
