@@ -1,15 +1,15 @@
 import { router, searchLocalRecipes } from "./API/utilityFunctions.js";
 
 window.addEventListener("DOMContentLoaded", () => {
-    document.getElementById('favContainer').addEventListener('click', e => {
-        window.location.href = "/source/searchpage.html#favorites";
+    document.getElementById('fav-container').addEventListener('click', e => {
+        window.location.href = "/searchpage.html#favorites";
         window.location.reload();
     });
 
     let searchBtn = document.getElementById("search-icon");
     searchBtn.addEventListener("click", e => {
         e.preventDefault();
-        let searchQuery = document.getElementById("searchBar").value;
+        let searchQuery = document.getElementById("search-bar").value;
         searchLocalRecipes(searchQuery).then(arr => {
             let res = [];
             arr.forEach(recipe => {
@@ -22,13 +22,13 @@ window.addEventListener("DOMContentLoaded", () => {
                 "matchedCount": arr.length
             }
             localStorage.setItem("latestSearch", JSON.stringify(searchObj));
-            window.location.href = "/source/searchpage.html";
+            window.location.href = "/searchpage.html";
         });
     });
 
     let results = localStorage.getItem("latestSearch");
     let queryDisplay = document.getElementById("queryDisplay");
-    let matchedCountText = document.getElementById("matchedCountText");
+    let matchedCountText = document.getElementById("matched-count-text");
 
     if(window.location.hash === "#favorites"){
         results = JSON.parse(localStorage.getItem("userData")).favorites;
@@ -48,7 +48,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
     
     results.forEach(id => {
-        let recipeCardsSection = document.getElementById("recipeCards");
+        let recipeCardsSection = document.getElementById("recipe-cards");
         let recipeCard = document.createElement("recipe-card");
         let recipeData = JSON.parse(localStorage.getItem(id));
         console.log(recipeData);

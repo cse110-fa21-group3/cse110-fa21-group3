@@ -17,7 +17,7 @@ const options = {
 
 // Create a new Router for handling pages
 export var router = new Router(() => {
-  window.location.href = '/source/homepage.html'
+  window.location.href = '/index.html'
 })
 
 export const DEFAULT_RECIPE_NUMBER = 200
