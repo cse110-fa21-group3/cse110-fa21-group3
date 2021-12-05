@@ -4,70 +4,18 @@
 </head>
 <body>
     <!-- searchRecipes('pasta', ['dairy', 'gluten']) -->
-    <button style="display:inline" type="button" id="loadBtn" onclick="init()">Load User Data</button>
-    <button style="display:inline" type="button" id="searchBtn" onclick="searchLocalRecipes('         avocado pasta')">Recipe Search</button>
-    <button style="display:inline" type="button" id="dumpBtn" onclick="populateRecipes(5)">Recipe Dump</button>
-    <button style="display:inline" type="button" id="getLocalRecipesBtn">Get Local Recipes</button>
-    <script>
-        let get_btn = document.getElementById("getLocalRecipesBtn");
-        get_btn.addEventListener('click', function() {
-            console.log("Local Recipes: ", getLocalStorageRecipes());
-        })
-    </script>
     <div>
-        <input type="text" id="intolerance_textbox" style="margin-top:30px">
+        <input type="text" id="webscrapper" style="margin-top:30px">
         <br>
-        <button id="intolerance_btn">Set Intolerances</button>
+        <button id="webscrapper_btn">Enter URL</button>
         <script>
-            let intolerance_btn = document.getElementById("intolerance_btn");
-            let intolerance_textbox = document.getElementById("intolerance_textbox");
-            intolerance_btn.addEventListener('click', function (){
-                setIntolerances(intolerance_textbox.value);
-            })
-        </script>
-    </div>
-    <div>
-        <input type="text" id="maxTime_textbox" style="margin-top:30px">
-        <br>
-        <button id="maxTime_btn">Set Max Time</button>
-        <script>
-            let maxTime_btn = document.getElementById("maxTime_btn");
-            let maxTime_textbox = document.getElementById("maxTime_textbox");
-            maxTime_btn.addEventListener('click', function (){
-                setMaxTime(maxTime_textbox.value);
-            })
-        </script>
-    </div>
-    <div>
-        <input type="text" id="favorite_textbox" style="margin-top:30px">
-        <br>
-        <button id="add_btn">Add Favorite</button>
-        <button id="remove_btn">Remove Favorite</button>
-        <script>
-            let add_btn = document.getElementById("add_btn");
-            let remove_btn = document.getElementById("remove_btn");
-            let favorite_textbox = document.getElementById("favorite_textbox");
-            add_btn.addEventListener('click', function (){
-                addFavoriteRecipes(favorite_textbox.value);
-            })
-            remove_btn.addEventListener('click', function (){
-                removeFavoriteRecipe(favorite_textbox.value);
-            })
-        </script>
-    </div>
-
-    <div>
-        <input type="text" id="delete_textbox" style="margin-top:30px">
-        <br>
-        <button id="delete_btn">Delete Recipe</button>
-        <script>
-            let delete_btn = document.getElementById("delete_btn");
-            let delete_textbox = document.getElementById("delete_textbox");
-            delete_btn.addEventListener('click', function (){
-                removeRecipe(delete_textbox.value);
+            let webscapper_btn = document.getElementById("webscrapper_btn");
+            let webscrapper = document.getElementById("webscrapper");
+            webscrapper_btn.addEventListener('click', function (){
+                webScrapper(webscrapper.value);
             })
         </script>
     </div>
     <p id="disp"></p>
-    <script type="text/javascript" src="/API/utilityFunctions.js"></script>
+    <script type="text/javascript" src='index.js'></script>
 </body>

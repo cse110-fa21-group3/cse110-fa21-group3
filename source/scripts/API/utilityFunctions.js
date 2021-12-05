@@ -343,18 +343,21 @@ export async function fetchRecipes (recipe_count, offset) {
     fetch(reqUrl, options)
       .then(res => res.json())
       .then(res => {
-        // Find the expected length of recipes in the local storage
-        const expectedLength = res.results.length
-        const originalLength = getRecipesCount()
+        let originalLength = getRecipesCount()
         // create local storage items
-        res.results.forEach(async r => {
+        res['results'].forEach(async r => {
+
+          await createRecipeObject(r)
+          if ((getRecipesCount() - originalLength) === recipe_count) {
+            resolve(true)
+          }
+          
+          /** 
           createRecipeObject(r).then(() => {
-            // Find amount of recipes in the local storage
-            // filtering out `userData` and `latestSearch`
-            let recipesCount = getRecipesCount()
             // resolves when expected amount of recipes is met.
             resolve(true)
           })
+          */
         })
       })
       .catch(error => {
@@ -382,10 +385,17 @@ export async function createRecipeObject (r) {
   // populating ingredient list
   const ingredients = []
   let ingredientSearch = ''
-  r.missedIngredients.forEach(ingre => {
-    ingredients.push(ingre.original)
-    ingredientSearch += ingre.name + ' '
-  })
+  if (r.missedIngredients) {
+    r.missedIngredients.forEach(ingre => {
+      ingredients.push(ingre.original)
+      ingredientSearch += ingre.name + ' '
+    })
+  }else if (r.extendedIngredients) {
+    r.extendedIngredients.forEach(ingre => {
+      ingredients.push(ingre.original)
+      ingredientSearch += ingre.name + ' '
+    })
+  }
 
   // populating nutrition list
   const nutrition = []
@@ -425,6 +435,7 @@ export async function createRecipeObject (r) {
  */
 export function removeSummaryLinks(summary) {
   const linkTerm = '<a href=', linkEnd = '</a>'
+  if (!summary) { return '' }
   while (summary.includes(linkTerm) && summary.includes(linkEnd) && summary.indexOf(linkTerm) < summary.indexOf(linkEnd)) {
     let indexOfFirstLink = summary.indexOf(linkTerm)
     let indexOfEndLink = summary.indexOf(linkEnd)
@@ -483,4 +494,63 @@ export function getLocalStorageRecipes () {
  */
 export function setLocalStorageItem (id, recipeObject) {
   localStorage.setItem(id, JSON.stringify(recipeObject))
+}
+
+/**
+ * Method to get a given amount of random recipes from local storage
+ * @param {number} num - the number of random recipes to get
+ * @returns {JSON[]} - `num` amount of random recipes in local storage
+ */
+export function getNRandomRecipes(num) {
+  let recipeCount = getRecipesCount()
+  let allRecipes = getLocalStorageRecipes()
+  if (num > recipeCount) {
+    return allRecipes
+  }
+  
+  let randomIndexes = getRandomNumbers(num, recipeCount)
+  let randomRecipes = []
+  randomIndexes.forEach(i => {
+    randomRecipes.push(randomIndexes[i])
+  });
+  return randomRecipes
+}
+
+/**
+ * Method to get a random integer
+ * @param {number} count - number of random integers
+ * @param {number} max - the max value
+ * @returns {number[]} random number between 0 and the parameter
+ */
+function getRandomNumbers(count, max) {
+  let randomArr = []
+  while (randomArr.length < count) {
+    let randInt = Math.floor(Math.random() * max)
+    if (!randomArr.includes(randInt)) {
+      randomArr.push(randInt)
+    }
+  }
+
+  return randomArr
+}
+
+/**
+ * Web Scrapping method for additional functionality for creating recipes
+ * @param {string} url - the url inputted to scrap 
+ * @return {JSON} the json data of that website
+ */
+export function webScrapper(url) {
+  let urlToExtract = `${API_ENDPOINT}/recipes/?apiKey=${API_KEY}?url=${url}$includeNutrition=true`
+  return new Promise((resolve, reject) => {
+    fetch(urlToExtract, options)
+      .then(res => {res.json(); console.log(res)})
+      .then(async res => {
+        await createRecipeObject(res)
+        resolve(true)
+      })
+      .catch(error => {
+        console.log(error)
+        reject('error')
+      })
+  })
 }
