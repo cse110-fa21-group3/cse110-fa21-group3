@@ -33,7 +33,7 @@ function init(){
         let searchBtn = document.getElementById("search");
         searchBtn.addEventListener("click", e => {
             e.preventDefault();
-            let searchQuery = document.getElementById("searchQuery").value;
+            let searchQuery = document.getElementById("search-query").value;
             util.searchLocalRecipes(searchQuery).then(arr => {
                 let res = [];
                 arr.forEach(recipe => {
@@ -53,7 +53,7 @@ function init(){
     // let searchBtn = document.getElementById("search");
     // searchBtn.addEventListener("click", e => {
     //     e.preventDefault();
-    //     let searchQuery = document.getElementById("searchQuery").value;
+    //     let searchQuery = document.getElementById("search-query").value;
     //     util.searchLocalRecipes(searchQuery).then(arr => {
     //         let res = [];
     //         arr.forEach(recipe => {

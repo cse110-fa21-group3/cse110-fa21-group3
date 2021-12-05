@@ -74,6 +74,7 @@ addIng.addEventListener("click", e => {
     // fieldTextArea.rows = "2";
 
     fieldSet.classList.add("ingredient-container");
+
     fieldSet.appendChild(fieldSetLabel);
     fieldSet.appendChild(fieldTextArea);
     fieldSet.appendChild(deleteBtn);
@@ -198,7 +199,7 @@ createRecipe.addEventListener("click", e => {
 
         if(key == "steps" || key === "nutrition" || key == "ingredients"){
             formRes[key] = formObj.getAll(key);
-        }else if(key === "recipeDesc"){
+        }else if(key === "recipe-desc"){
             formRes['summary'] = res[0];
         }else if (key === 'image') {
             formRes[key] = compressedImg;
@@ -225,6 +226,7 @@ function populateRecipeForm(recipeData){
     document.getElementById("recipe-desc").value = recipeData.summary;
     document.getElementById("recipe-serve").value = recipeData.servingSize;
 
+    // Image fill-in
     let previewImg = document.getElementById('preview-img');
     previewImg.src = recipeData.image;
     compressedImg = recipeData.image;
