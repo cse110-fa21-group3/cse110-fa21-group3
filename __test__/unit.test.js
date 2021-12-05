@@ -365,7 +365,7 @@ test('createRecipeObject Test', () => {
   })
 })
 
-/*
+
 // Done
 test('populateRecipes Test', async () => {
   localStorage.clear()
@@ -380,7 +380,7 @@ test('populateRecipes small number test', async () => {
   return utilityFunctions.populateRecipes(1).then(() => {
     expect(Object.keys(localStorage).length).toBe(utilityFunctions.MINIMUM_RECIPE_REQUIRED)
   })
-})*/
+})
 
 // Done
 test('fetchRecipes Test', async () => {
@@ -464,7 +464,7 @@ test('getRandom Test', async () => {
   expect(resultArr.length).toBe(2)
 })
 
-/*
+/** 
 test('webScrapper Test', async () => {
   localStorage.clear()
   let obj = utilityFunctions.webScrapper('https://www.allrecipes.com/recipe/23439/perfect-pumpkin-pie/')

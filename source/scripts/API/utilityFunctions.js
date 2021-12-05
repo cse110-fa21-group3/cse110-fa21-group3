@@ -20,7 +20,7 @@ export var router = new Router(() => {
   window.location.href = '/source/homepage.html'
 })
 
-export const DEFAULT_RECIPE_NUMBER = 10
+export const DEFAULT_RECIPE_NUMBER = 100
 export const DEFAULT_MAX_TIME = 60
 export const MINIMUM_RECIPE_REQUIRED = 5
 // list of intolerances filter offered by the Spoonacular API
@@ -38,6 +38,19 @@ const allowedIntolerances = [
   'tree nut',
   'wheat'
 ]
+
+const DEFAULT_NUTRITIONS = [
+  'Calories: unknown', 
+  'Fat : unknown', 
+  'Saturated Fat: unknown', 
+  'Carbohydrates: unknown', 
+  'Net Carbohydrates: unknown', 
+  'Sugar: unknown', 
+  'Cholestroel: unknown', 
+  'Sodium: unknown', 
+  'Protein: unknown'
+]
+
 // list of user Intolerances
 export let intolerances = []
 // max for recipes prep time
@@ -345,20 +358,10 @@ export async function fetchRecipes (recipe_count, offset) {
       .then(res => {
         let originalLength = getRecipesCount()
         // create local storage items
-        res['results'].forEach(async r => {
-
-          await createRecipeObject(r)
-          if ((getRecipesCount() - originalLength) === recipe_count) {
-            resolve(true)
-          }
-          
-          /** 
-          createRecipeObject(r).then(() => {
-            // resolves when expected amount of recipes is met.
-            resolve(true)
-          })
-          */
+        res['results'].forEach(r => {
+          createRecipeObject(r)
         })
+        resolve(true)
       })
       .catch(error => {
         console.log(error)
@@ -373,43 +376,49 @@ export async function fetchRecipes (recipe_count, offset) {
  * @param {JSON} r - recipe json Object
  */
 export async function createRecipeObject (r) {
-  const id = r.id
-  const readyInMinutes = r.readyInMinutes
-  const title = r.title
-  const foodImage = r.image
+  const id = r.id ? r.id : '-0'
+  const readyInMinutes = r.readyInMinutes ? r.readyInMinutes : 'unkown'
+  const title = r.title ? r.title : 'Website Food'
+  const foodImage = r.image ? r.image : './image/team3-logo.jpg'
   const favorite = false
 
   const summary = removeSummaryLinks(r.summary)
-  const size = r.servings
+  const size = r.servings ? r.servings : 'unknown'
 
   // populating ingredient list
+  let apiIngredients = r.missedIngredients ? r.missedIngredients : r.extendedIngredients
   const ingredients = []
   let ingredientSearch = ''
-  if (r.missedIngredients) {
-    r.missedIngredients.forEach(ingre => {
-      ingredients.push(ingre.original)
-      ingredientSearch += ingre.name + ' '
-    })
-  }else if (r.extendedIngredients) {
-    r.extendedIngredients.forEach(ingre => {
+  if (apiIngredients) {
+      apiIngredients.forEach(ingre => {
       ingredients.push(ingre.original)
       ingredientSearch += ingre.name + ' '
     })
   }
 
   // populating nutrition list
-  const nutrition = []
-  for (let nutr_index = 0; nutr_index < 9; nutr_index++) {
-    const nutr_title = r.nutrition.nutrients[nutr_index].title
-    const nutr_amount = r.nutrition.nutrients[nutr_index].amount
-    const nutr_unit = r.nutrition.nutrients[nutr_index].unit
-    nutrition.push(nutr_title + ': ' + nutr_amount + ' ' + nutr_unit)
+  let nutrition = []
+  if(r.nutrition) {
+    for (let nutr_index = 0; nutr_index < 9; nutr_index++) {
+      const nutr_title = r.nutrition.nutrients[nutr_index].title
+      const nutr_amount = r.nutrition.nutrients[nutr_index].amount
+      const nutr_unit = r.nutrition.nutrients[nutr_index].unit
+      nutrition.push(nutr_title + ': ' + nutr_amount + ' ' + nutr_unit)
+    }
   }
+  else {
+    nutrition = DEFAULT_NUTRITIONS
+  }
+  
 
-  const steps = []
-  r.analyzedInstructions[0].steps.forEach(recipeStep => {
-    steps.push(recipeStep.step)
-  })
+  let steps = []
+  if (r.analyzedInstructions && r.analyzedInstructions[0]) {
+    r.analyzedInstructions[0].steps.forEach(recipeStep => {
+      steps.push(recipeStep.step)
+    })
+  }else {
+    steps = 'No Steps'
+  }
 
   // Create a JSON Object to store the data
   // in the format we specified
@@ -540,12 +549,12 @@ function getRandomNumbers(count, max) {
  * @return {JSON} the json data of that website
  */
 export function webScrapper(url) {
-  let urlToExtract = `${API_ENDPOINT}/recipes/?apiKey=${API_KEY}?url=${url}$includeNutrition=true`
+  let urlToExtract = `${API_ENDPOINT}/recipes/extract?apiKey=${API_KEY}&url=${url}&analyze=true`
   return new Promise((resolve, reject) => {
     fetch(urlToExtract, options)
-      .then(res => {res.json(); console.log(res)})
-      .then(async res => {
-        await createRecipeObject(res)
+      .then(res => res.json())
+      .then(res => {
+        createRecipeObject(res)
         resolve(true)
       })
       .catch(error => {

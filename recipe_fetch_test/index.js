@@ -68,7 +68,7 @@ async function searchRecipes(query, intolerances){
  * @return {JSON} the json data of that website
  */
  function webScrapper(url) {
-    let urlToExtract = `${API_ENDPOINT}/recipes/?apiKey=${API_KEY}?url=${url}$includeNutrition=true`
+    let urlToExtract = `${API_ENDPOINT}/recipes/extract?apiKey=${API_KEY}&url=${url}`
     return new Promise((resolve, reject) => {
       fetch(urlToExtract, options)
         .then(res => {res.json(); console.log(res)})
