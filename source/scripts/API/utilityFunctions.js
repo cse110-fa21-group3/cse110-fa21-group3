@@ -20,7 +20,7 @@ export var router = new Router(() => {
   window.location.href = '/index.html'
 })
 
-export const DEFAULT_RECIPE_NUMBER = 100
+export const DEFAULT_RECIPE_NUMBER = 200
 export const DEFAULT_MAX_TIME = 60
 export const MINIMUM_RECIPE_REQUIRED = 5
 // list of intolerances filter offered by the Spoonacular API
@@ -227,41 +227,38 @@ export function updateUserData (key, value) {
 /**
  * This function query the API multiple times with the fetchRecipes(...) function
  * to get a recipe dump
- * @param {number} total_count - The total number of recipes to get from API.
  */
-export async function populateRecipes (total_count) {
+export async function populateRecipes () {
   return new Promise(async (resolve) => {
-    total_count = total_count - MINIMUM_RECIPE_REQUIRED
-    if (total_count < 0) {
-      total_count = 0
-    }
+    let recipeCount = getRecipesCount()
 
     let offset = 0
-    // get recipes by 100s
-    const repeat_times = Math.round(total_count / 100)
-    // get marginal recipes
-    const remain_number = total_count % 100
-
-    // getting minimum amount of recipes first
-    await fetchRecipes(MINIMUM_RECIPE_REQUIRED, offset)
-    removeDeletedRecipes()
-    resolve(true)
-    offset += MINIMUM_RECIPE_REQUIRED
-
-    // getting the remaining amount (< 100 recips)
-    if (remain_number > 0) {
-      await fetchRecipes(remain_number, offset)
-      removeDeletedRecipes()
-      offset += remain_number
+    let userData = JSON.parse(localStorage.getItem(USER_DATA))
+    if (userData) {
+      offset = userData.offset ? userData.offset : 0
     }
 
-    // repeat getting 100 recipes at a time
-    // Because that's tha max amount the API returns per call
-    for (let i = 0; i < repeat_times; i++) {
+    // # of recipes waiting to fetch
+    let remain_number = DEFAULT_RECIPE_NUMBER - recipeCount
+
+    while (remain_number > 0) {
+      if (getRecipesCount() >= MINIMUM_RECIPE_REQUIRED) {
+        resolve(true)
+      }
+
+      if (remain_number > 100) {
         await fetchRecipes(100, offset)
-        removeDeletedRecipes()
         offset += 100
+        updateUserData('offset', offset)
+        remain_number -= 100
+      }else {
+        await fetchRecipes(remain_number, offset)
+        offset += remain_number
+        updateUserData('offset', offset)
+        remain_number = 0
+      }
     }
+    resolve(true)
   })
 }
 

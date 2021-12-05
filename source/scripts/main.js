@@ -4,6 +4,8 @@
 
 import * as util from "./API/utilityFunctions.js";
 
+const NUMBER_OF_RECIPES_TO_DISPLAY = 10
+
 window.addEventListener("DOMContentLoaded", init);
 
 document.getElementById("create-recipe").addEventListener('click', e => {
@@ -14,22 +16,25 @@ document.getElementById("create-recipe").addEventListener('click', e => {
  * Function that runs when the page loads
  */
 function init(){
-    if(util.getLocalStorageRecipes().length == 0){
+    let isFirstTime = false
+    if(util.getRecipesCount() === 0){
+        isFirstTime = true
         let intols = prompt("Enter your intolerances");
         if(intols || intols === ""){
             util.setIntolerances(intols);
         }
-        util.populateRecipes(util.DEFAULT_RECIPE_NUMBER).then(() => {
-            createRecipeCards(util.MINIMUM_RECIPE_REQUIRED);
-        });
+        util.updateUserData('offset', 0)
     }
-    // else if (window.location.pathname === '/source/homepage.html'){
-    //     createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
-    // }
+
+    util.populateRecipes().then(() => {
+        if (isFirstTime) {
+            createRecipeCards(NUMBER_OF_RECIPES_TO_DISPLAY)
+        }
+    })
 
     // display the 5 recipes and add search btn listener only in homepage
     if (window.location.pathname === '/index.html' || window.location.pathname === '/' || window.location.pathname === '') {
-        createRecipeCards(util.MINIMUM_RECIPE_REQUIRED);
+        createRecipeCards(NUMBER_OF_RECIPES_TO_DISPLAY)
         let searchBtn = document.getElementById("search");
         searchBtn.addEventListener("click", e => {
             e.preventDefault();
@@ -39,7 +44,6 @@ function init(){
                 arr.forEach(recipe => {
                     res.push(recipe["id"]);
                 });
-                console.log(res);
                 let searchObj = {
                     "data": res,
                     "query": searchQuery,
@@ -84,7 +88,6 @@ export function createRecipeCards(N){
     let recipeCardsSection = document.getElementById("recipe-cards");
 
     recipes.forEach(recipe => {
-        console.log(recipe)
         const recipeCard = document.createElement("recipe-card");
         recipeCard.data = recipe;
         let key = recipe["id"];
