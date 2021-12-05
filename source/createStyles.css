@@ -78,6 +78,13 @@ legend {
     display: none;
 }
 
+#previewImg {
+    border-radius: 5px;
+    margin-top: 1rem;
+    width: 468px; 
+    height: 319.5px;
+}
+
 #btns {
     display: flex;
     justify-content: flex-end;
