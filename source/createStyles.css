@@ -141,7 +141,7 @@ legend {
 }
 
 .add-btn:hover {
-  box-shadow: 0px 0px 5px grey;
+  box-shadow: 0 0 5px grey;
   cursor: pointer;
 }
 
@@ -157,7 +157,7 @@ legend {
 }
 
 .add-btn:active,
-.removeBtn:active {
+.remove-btn:active {
   filter: brightness(0.3);
 }
 
