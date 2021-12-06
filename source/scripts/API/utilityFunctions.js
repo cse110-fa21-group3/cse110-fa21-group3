@@ -1,5 +1,3 @@
-import { Router } from '../router.js'
-
 // API Key and endpoint
 const API_KEY = '6c38415312msh8fd80bab0f17271p1dcefajsn83892f0c646f'
 const API_ENDPOINT = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
@@ -14,11 +12,6 @@ const options = {
     'x-rapidapi-key': '6c38415312msh8fd80bab0f17271p1dcefajsn83892f0c646f'
   }
 }
-
-// Create a new Router for handling pages
-export const router = new Router(() => {
-  window.location.href = '/index.html'
-})
 
 export const DEFAULT_RECIPE_NUMBER = 201
 export const DEFAULT_MAX_TIME = 60
@@ -348,7 +341,8 @@ export async function searchLocalRecipes (query) {
  */
 export function fetchRecipes (recipeCount, offset) {
   loadUserData()
-  let reqUrl = `${API_ENDPOINT}/recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true&number=${recipeCount}&offset=${offset}&readyReadyTime=${maxTime}`
+  let reqUrl = `${API_ENDPOINT}/recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true&number=${recipe_count}&offset=${offset}&maxReadyTime=${maxTime}`
+
   let intolerancesStr = ''
   if (intolerances.length > 0) {
     for (let i = 0; i > intolerances.length; i++) {
@@ -385,7 +379,7 @@ export async function createRecipeObject (r) {
   const foodImage = r.image ? r.image : './image/team3-logo.jpg'
   const favorite = false
 
-  const summary = removeSummaryLinks(r.summary)
+  const summary = removeSummaryLinks(r.summary).replaceAll("<b>", "").replaceAll("</b>", "")
   const size = r.servings ? r.servings : 'unknown'
 
   // populating ingredient list

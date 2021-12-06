@@ -27,7 +27,7 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 
     let results = localStorage.getItem("latestSearch");
-    let queryDisplay = document.getElementById("queryDisplay");
+    let queryDisplay = document.getElementById("query-display");
     let matchedCountText = document.getElementById("matched-count-text");
 
     if(window.location.hash === "#favorites"){
