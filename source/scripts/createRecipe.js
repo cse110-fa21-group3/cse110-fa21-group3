@@ -157,7 +157,7 @@ createRecipe.addEventListener("click", e => {
     e.preventDefault();
     let formRes = {
         "id": "",
-        "image": "../../admin/branding/logo3_231x231.jpg",
+        "image": "",
         "favorite": true,
         "readyInMinutes": 0,
         "servingSize": 0,
@@ -195,14 +195,13 @@ createRecipe.addEventListener("click", e => {
     formKeys.forEach(key => {
         let res = formObj.getAll(key);
 
-        console.log(key);
-
         if(key == "steps" || key === "nutrition" || key == "ingredients"){
             formRes[key] = formObj.getAll(key);
-        }else if(key === "recipe-desc"){
+        }else if(key === "recipeDesc"){
             formRes['summary'] = res[0];
         }else if (key === 'image') {
-            formRes[key] = compressedImg;
+            const defaultImg = "../../admin/branding/logo3_231x231.jpg";
+            formRes[key] = (compressedImg ? compressedImg : defaultImg);
         }else{
             formRes[key] = res[0];
         }
@@ -228,9 +227,15 @@ function populateRecipeForm(recipeData){
 
     // Image fill-in
     let previewImg = document.getElementById('preview-img');
-    previewImg.src = recipeData.image;
-    compressedImg = recipeData.image;
-    previewImg.classList.remove('no-preview');
+    const defaultImg = "../../admin/branding/logo3_231x231.jpg";
+
+    if (recipeData.image === defaultImg) {
+        compressedImg = defaultImg;
+    } else {
+        previewImg.src = recipeData.image; 
+        compressedImg = recipeData.image;
+        previewImg.classList.remove('no-preview');
+    }
     
     // Ingredients fill-in
     let numIng = recipeData.ingredients.length;
