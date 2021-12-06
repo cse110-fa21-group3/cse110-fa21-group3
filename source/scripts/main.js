@@ -22,11 +22,12 @@ function init(){
         let searchBtn = document.getElementById("search");
         searchBtn.addEventListener("click", e => {
             e.preventDefault();
-            let searchQuery = document.getElementById("searchQuery").value;
+            let searchQuery = document.getElementById("search-query").value;
             util.searchLocalRecipes(searchQuery).then(searchResults => {
                 let resIds = [];
                 searchResults.forEach(recipe => {
                     resIds.push(recipe["id"]);
+
                 });
                 let searchObj = {
                     "data": resIds,
@@ -38,6 +39,27 @@ function init(){
             });
         });
     }
+
+    // let searchBtn = document.getElementById("search");
+    // searchBtn.addEventListener("click", e => {
+    //     e.preventDefault();
+    //     let searchQuery = document.getElementById("search-query").value;
+    //     util.searchLocalRecipes(searchQuery).then(arr => {
+    //         let res = [];
+    //         arr.forEach(recipe => {
+    //             res.push(recipe["id"]);
+    //         });
+    //         console.log(res);
+    //         let searchObj = {
+    //             "data": res,
+    //             "query": searchQuery,
+    //             "matchedCount": arr.length
+    //         }
+    //         localStorage.setItem("latestSearch", JSON.stringify(searchObj));
+    //         window.location.href = "/source/searchpage.html";
+    //     });
+    // });
+
 }
 
 /**
