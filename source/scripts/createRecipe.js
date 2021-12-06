@@ -54,7 +54,7 @@ addIng.addEventListener("click", e => {
     let elementContainerLength = elementContainer.length;
     let fieldSet = document.createElement("fieldset");
     let fieldSetLabel = document.createElement("label");
-    let fieldTextArea = document.createElement("input");
+    let fieldTextArea = document.createElement("textarea");
     let deleteBtn = document.createElement("button");
     
     deleteBtn.type = "button";
@@ -68,10 +68,12 @@ addIng.addEventListener("click", e => {
     fieldSetLabel.innerText = "Ingredient: ";
 
     fieldTextArea.name = "ingredients";
+
     fieldTextArea.classList.add("ing-name");
-    fieldTextArea.type = 'text';
-    // fieldTextArea.cols = "30";
-    // fieldTextArea.rows = "2";
+    // fieldTextArea.type = 'text';
+     fieldTextArea.cols = "30";
+     fieldTextArea.rows = "2";
+
 
     fieldSet.classList.add("ingredient-container");
 
@@ -87,7 +89,7 @@ addStep.addEventListener("click", e => {
     let elementContainerLength = elementContainer.length;
     let fieldSet = document.createElement("fieldset");
     let fieldSetLabel = document.createElement("label");
-    let fieldTextArea = document.createElement("input");
+    let fieldTextArea = document.createElement("textarea");
     let deleteBtn = document.createElement("button");
     
     deleteBtn.type = "button";
@@ -101,10 +103,17 @@ addStep.addEventListener("click", e => {
     fieldSetLabel.innerText = "Step: ";
     
     fieldTextArea.name = "steps";
+
+    fieldTextArea.classList.add("stepName");
+    // fieldTextArea.type = 'text';
+    fieldTextArea.cols = "50";
+    fieldTextArea.rows = "5";
+
     fieldTextArea.classList.add("step-name");
-    fieldTextArea.type = 'text';
-    // fieldTextArea.cols = "30";
-    // fieldTextArea.rows = "2";
+    //fieldTextArea.type = 'text';
+    fieldTextArea.cols = "50";
+    fieldTextArea.rows = "5";
+
     
     fieldSet.classList.add("steps-container");
     fieldSet.appendChild(fieldSetLabel);
@@ -119,7 +128,7 @@ addNutrition.addEventListener("click", e => {
     let elementContainerLength = elementContainer.length;
     let fieldSet = document.createElement("fieldset");
     let fieldSetLabel = document.createElement("label");
-    let fieldTextArea = document.createElement("input");
+    let fieldTextArea = document.createElement("textarea");
     let deleteBtn = document.createElement("button");
     
     deleteBtn.type = "button";
@@ -133,10 +142,11 @@ addNutrition.addEventListener("click", e => {
     fieldSetLabel.innerText = "Nutrition: ";
     
     fieldTextArea.name = "nutrition";
+
     fieldTextArea.classList.add("nutr-name");
-    fieldTextArea.type = 'text';
-    // fieldTextArea.cols = "30";
-    // fieldTextArea.rows = "2";
+    //fieldTextArea.type = 'text';
+     fieldTextArea.cols = "30";
+     fieldTextArea.rows = "2";
     
     fieldSet.classList.add("nutrition-container");
     fieldSet.appendChild(fieldSetLabel);

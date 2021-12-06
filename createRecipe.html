@@ -23,6 +23,7 @@
             </nav>
         </header>
         <main>
+
             <form id="recipe-form" action="#">
                 <div id="img-container">
                     <label for="recipe-img">Upload Image:</label>
@@ -32,7 +33,7 @@
                         alt="Custom Image">
                 </div>
                 <label for="recipe-name">Name:</label>
-                <input type="text" id="recipe-name" name="title" />
+                <input type="text" id="recipe-name" name="title" rows="1" cols="30"/>
                 <div id="time-container">
                     <label for="recipe-time">Time:</label>
                     <input type="number" id="recipe-time"
@@ -54,8 +55,10 @@
                     <hr>
                     <fieldset class="ingredient-container">
                         <label>Ingredient: </label>
-                        <input type="text" name="ingredients"
-                            class="ing-name" />
+
+                        <textarea type="text" name="ingredients" class="ing-name" rows="2" 
+                        cols="30"></textarea>
+
                     </fieldset>
                     <button type="button" id="add-ing" class="add-btn"><img
                             src="./source/image/icons8-plus-+.svg"
@@ -66,7 +69,10 @@
                     <hr>
                     <fieldset class="steps-container">
                         <label>Step: </label>
-                        <input type="text" name="steps" class="step-name" />
+
+                        <textarea type="text" name="steps" class="step-name" rows="5" 
+                        cols="50"></textarea>
+
                     </fieldset>
                     <button type="button" id="add-step" class="add-btn"><img
                             src="./source/image/icons8-plus-+.svg"
@@ -77,7 +83,10 @@
                     <hr>
                     <fieldset class="nutrition-container">
                         <label>Nutrition: </label>
-                        <input type="text" name="nutrition" class="nutr-name" />
+
+                        <textarea type="text" name="nutrition" class="nutr-name" rows="2"
+                        cols="30"></textarea>
+
                     </fieldset>
                     <button type="button" id="add-nutrition"
                         class="add-btn"><img
@@ -85,8 +94,10 @@
                             alt="plus icon" style="width: 30px;"></button>
                 </fieldset>
                 <div id="btns">
+
                     <button type="button" id="cancel-btn">Cancel</button>
-                    <button type="button" id="create-btn">Create</button>
+                    <button type="submit" id="create-btn">Create</button>
+
                 </div>
             </form>
         </main>

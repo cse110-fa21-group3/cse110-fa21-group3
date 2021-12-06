@@ -14,19 +14,8 @@ document.getElementById("create-recipe").addEventListener('click', e => {
  * Function that runs when the page loads
  */
 function init(){
-    if(util.getLocalStorageRecipes().length == 0){
-        let intols = prompt("Enter your intolerances");
-        if(intols || intols === ""){
-            util.setIntolerances(intols);
-        }
-        util.populateRecipes(util.DEFAULT_RECIPE_NUMBER).then(() => {
-            createRecipeCards(util.MINIMUM_RECIPE_REQUIRED);
-        });
-    }
-    // else if (window.location.pathname === '/source/homepage.html'){
-    //     createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
-    // }
-
+    getUserPrefs();
+    
     // display the 5 recipes and add search btn listener only in homepage
     if (window.location.pathname === '/index.html' || window.location.pathname === '/' || window.location.pathname === '') {
         createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
@@ -34,22 +23,23 @@ function init(){
         searchBtn.addEventListener("click", e => {
             e.preventDefault();
             let searchQuery = document.getElementById("search-query").value;
-            util.searchLocalRecipes(searchQuery).then(arr => {
-                let res = [];
-                arr.forEach(recipe => {
-                    res.push(recipe["id"]);
+            util.searchLocalRecipes(searchQuery).then(searchResults => {
+                let resIds = [];
+                searchResults.forEach(recipe => {
+                    resIds.push(recipe["id"]);
+
                 });
-                console.log(res);
                 let searchObj = {
-                    "data": res,
+                    "data": resIds,
                     "query": searchQuery,
-                    "matchedCount": arr.length
+                    "matchedCount": searchResults.length
                 }
                 localStorage.setItem("latestSearch", JSON.stringify(searchObj));
                 window.location.href = "/searchpage.html";
             });
         });
     }
+
     // let searchBtn = document.getElementById("search");
     // searchBtn.addEventListener("click", e => {
     //     e.preventDefault();
@@ -69,6 +59,7 @@ function init(){
     //         window.location.href = "/source/searchpage.html";
     //     });
     // });
+
 }
 
 /**
@@ -100,6 +91,24 @@ export function createRecipeCards(N){
  */
 function bindRC(recipeCard, key){
     recipeCard.addEventListener("click", e => {
-        util.router.navigate(key);
+        window.location.href = "/recipePage.html#"+key;
     });
+}
+
+function getUserPrefs(){
+    if(util.getLocalStorageRecipes().length == 0){
+        let intols = prompt("Enter your intolerances (ingredients not to include)\n\nAvailable: dairy, gluten, shellfish, seafood, wheat, eggs, peanut, soy, grain, sesame, tree nut, sulfite");
+        if(intols || intols === ""){
+            util.setIntolerances(intols);
+        }
+
+        let maxTime = prompt("Enter the maximum amount of time you'd want to spend making a recipe (in minutes)");
+        if(maxTime || !isNaN(Number(maxTime))){
+            util.setMaxTime(maxTime);
+        }
+
+        util.populateRecipes(util.DEFAULT_RECIPE_NUMBER).then(() => {
+            createRecipeCards(util.MINIMUM_RECIPE_REQUIRED);
+        });
+    }
 }

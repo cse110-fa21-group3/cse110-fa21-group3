@@ -1,5 +1,3 @@
-import { Router } from '../router.js'
-
 // API Key and endpoint
 const API_KEY = '6c38415312msh8fd80bab0f17271p1dcefajsn83892f0c646f'
 const API_ENDPOINT = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
@@ -15,29 +13,12 @@ const options = {
   }
 }
 
-// Create a new Router for handling pages
-export var router = new Router(() => {
-  window.location.href = '/index.html'
-})
+export const DEFAULT_RECIPE_NUMBER = 10
+export const DEFAULT_MAX_TIME = 60
 
-export const DEFAULT_RECIPE_NUMBER = 200
-const DEFAULT_MAX_TIME = 60
 export const MINIMUM_RECIPE_REQUIRED = 5
 // list of intolerances filter offered by the Spoonacular API
-const allowedIntolerances = [
-  'dairy',
-  'egg',
-  'gluten',
-  'grain',
-  'peanut',
-  'seafood',
-  'sesame',
-  'shellfish',
-  'soy',
-  'sulfite',
-  'tree nut',
-  'wheat'
-]
+const allowedIntolerances = ['dairy','egg','gluten','grain','peanut','seafood','sesame','shellfish','soy','sulfite','tree nut','wheat']
 // list of user Intolerances
 let intolerances = []
 // max for recipes prep time
@@ -88,7 +69,7 @@ export function setIntolerances (inputIntol) {
  * from the API
  * @param {string} time - A string containing the maxTime.
  */
-function setMaxTime (time) {
+export function setMaxTime (time) {
   if (time == '') {
     updateUserData('maxTime', DEFAULT_MAX_TIME)
     return
@@ -353,7 +334,7 @@ export async function searchLocalRecipes (query) {
  */
 export async function fetchRecipes (recipe_count, offset) {
   loadUserData()
-  let reqUrl = `${API_ENDPOINT}/recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true&number=${recipe_count}&offset=${offset}&readyReadyTime=${maxTime}`
+  let reqUrl = `${API_ENDPOINT}/recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true&number=${recipe_count}&offset=${offset}&maxReadyTime=${maxTime}`
   let intolerancesStr = ''
   if (intolerances.length > 0) {
     intolerances.forEach(i => intolerancesStr += `,${i}`)
@@ -425,7 +406,7 @@ export async function createRecipeObject (r) {
   const foodImage = r.image
   const favorite = false
 
-  const summary = removeSummaryLinks(r.summary)
+  const summary = removeSummaryLinks(r.summary).replaceAll("<b>", "").replaceAll("</b>", "")
   const size = r.servings
 
   // populating ingredient list
