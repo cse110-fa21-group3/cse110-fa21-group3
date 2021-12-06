@@ -1,5 +1,8 @@
 import * as util from "./API/utilityFunctions.js";
 
+let recipeImg = document.getElementById('recipe-img');
+let compressedImg; // store base64 compressed image (string)
+
 let addIng = document.getElementById("add-ing");
 let addStep = document.getElementById("add-step");
 let addNutrition = document.getElementById("add-nutrition");
@@ -13,6 +16,36 @@ window.addEventListener("DOMContentLoaded", e => {
         let recipeData = JSON.parse(localStorage.getItem(id));
         populateRecipeForm(recipeData);
         createRecipe.innerText = "Update";
+    }
+});
+
+recipeImg.addEventListener('change', (e) => {
+    const input = e.target.files[0];
+    const previewImg = document.getElementById('preview-img');
+    const fileReader = new FileReader();
+
+    fileReader.addEventListener('load', (event) => {
+        previewImg.src = event.target.result;
+        previewImg.classList.remove('no-preview');
+
+        // resizing and compressing input image using <canvas>
+        previewImg.addEventListener('load', (imgData) => {
+            const canvas = document.createElement('canvas');
+            const FIXED_WIDTH = 312 * 2;
+            const FIXED_HEIGHT = 231 * 2;
+
+            canvas.width = FIXED_WIDTH;
+            canvas.height = FIXED_HEIGHT;
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(imgData.target, 0, 0, canvas.width, canvas.height);
+            const imgEncoded = ctx.canvas.toDataURL(imgData, 'image/jpeg');
+            compressedImg = imgEncoded;
+        })
+    });
+
+    if (input) {
+        fileReader.readAsDataURL(input);
     }
 });
 
@@ -40,7 +73,8 @@ addIng.addEventListener("click", e => {
     // fieldTextArea.cols = "30";
     // fieldTextArea.rows = "2";
 
-    fieldSet.classList.add(".ingredient-container");
+    fieldSet.classList.add("ingredient-container");
+
     fieldSet.appendChild(fieldSetLabel);
     fieldSet.appendChild(fieldTextArea);
     fieldSet.appendChild(deleteBtn);
@@ -123,9 +157,10 @@ createRecipe.addEventListener("click", e => {
     e.preventDefault();
     let formRes = {
         "id": "",
-        "image": "../../admin/branding/logo3_231x231.jpg",
+        "image": "",
         "favorite": true,
         "readyInMinutes": 0,
+        "servingSize": 0,
         "title": "",
         "summary": "",
         "ingredients": [],
@@ -159,10 +194,14 @@ createRecipe.addEventListener("click", e => {
 
     formKeys.forEach(key => {
         let res = formObj.getAll(key);
+
         if(key == "steps" || key === "nutrition" || key == "ingredients"){
             formRes[key] = formObj.getAll(key);
-        }else if(key === "recipe-desc"){
+        }else if(key === "recipeDesc"){
             formRes['summary'] = res[0];
+        }else if (key === 'image') {
+            const defaultImg = "../../admin/branding/logo3_231x231.jpg";
+            formRes[key] = (compressedImg ? compressedImg : defaultImg);
         }else{
             formRes[key] = res[0];
         }
@@ -184,6 +223,19 @@ function populateRecipeForm(recipeData){
     document.getElementById("recipe-name").value = recipeData.title;
     document.getElementById("recipe-time").value = recipeData.readyInMinutes;
     document.getElementById("recipe-desc").value = recipeData.summary;
+    document.getElementById("recipe-serve").value = recipeData.servingSize;
+
+    // Image fill-in
+    let previewImg = document.getElementById('preview-img');
+    const defaultImg = "../../admin/branding/logo3_231x231.jpg";
+
+    if (recipeData.image === defaultImg) {
+        compressedImg = defaultImg;
+    } else {
+        previewImg.src = recipeData.image; 
+        compressedImg = recipeData.image;
+        previewImg.classList.remove('no-preview');
+    }
     
     // Ingredients fill-in
     let numIng = recipeData.ingredients.length;

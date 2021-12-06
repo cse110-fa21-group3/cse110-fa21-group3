@@ -1,5 +1,6 @@
 #recipe-cards {
   display: grid;
+  justify-content: center;
   grid-template-columns: repeat(5, 20rem);
   margin: 20px 2rem 50px;
   min-height: min-content;
