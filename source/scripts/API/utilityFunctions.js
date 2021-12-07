@@ -54,17 +54,17 @@ const USER_DATA = 'userData'
 
 class RecipeObject {
   constructor (id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size) {
-    this.id = id,
-    this.title = title,
-    this.image = foodImage,
-    this.readyInMinutes = readyInMinutes,
-    this.ingredientSearch = ingredientSearch,
-    this.ingredients = ingredients,
-    this.steps = steps,
-    this.nutrition = nutrition,
-    this.favorite = favorite,
-    this.summary = summary,
-    this.servingSize = size
+    this.id = id ? id : '0'
+    this.title = title ? title : 'Website Food'
+    this.image = foodImage ? foodImage : './image/team3-logo.jpg'
+    this.readyInMinutes = readyInMinutes ? readyInMinutes : 'unkown'
+    this.ingredientSearch = ingredientSearch
+    this.ingredients = ingredients
+    this.steps = steps
+    this.nutrition = nutrition
+    this.favorite = favorite
+    this.summary = summary
+    this.servingSize = size ? size : 'unkown'
   }
 }
 
@@ -393,15 +393,11 @@ export async function createRecipeObject (r) {
     throw new Error('recipe is undefined')
   }
 
-  let id = r.id ? r.id : '0'
-
-  let readyInMinutes = r.readyInMinutes ? r.readyInMinutes : 'unkown'
-
-  let title = r.title ? r.title : 'Website Food'
-
-  let foodImage = r.image ? r.image : './image/team3-logo.jpg'
-
-  let size = r.servings ? r.servings : './image/team3-logo.jpg'
+  let id = r.id
+  let readyInMinutes = r.readyInMinutes
+  let title = r.title
+  let foodImage = r.image
+  let size = r.servings
 
   const favorite = false
   const summary = removeSummaryLinks(r.summary)
@@ -418,32 +414,56 @@ export async function createRecipeObject (r) {
   }
 
   // populating nutrition list
-  let nutrition = []
-  if (r.nutrition) {
-    for (let nutrIndex = 0; nutrIndex < 9; nutrIndex++) {
-      const nutrTitle = r.nutrition.nutrients[nutrIndex].title
-      const nutrAmount = r.nutrition.nutrients[nutrIndex].amount
-      const nutrUnit = r.nutrition.nutrients[nutrIndex].unit
-      nutrition.push(nutrTitle + ': ' + nutrAmount + ' ' + nutrUnit)
-    }
-  } else {
-    nutrition = DEFAULT_NUTRITIONS
-  }
+  let nutrition = r.nutrition? extractNutrition(r.nutrition) : DEFAULT_NUTRITIONS
 
-  let steps = []
-  if (r.analyzedInstructions && r.analyzedInstructions[0]) {
-    let apiSteps = r.analyzedInstructions[0].steps
-    for (let i = 0 ; i < apiSteps.length; i++) {
-      steps.push(apiSteps[i].step)
-    }
-  } else {
-    steps = ['No Steps']
+  let steps = ['No Steps']
+  if (r.analyzedInstructions) {
+    steps = extractSteps(r.analyzedInstructions[0])
   }
 
   // Create a JSON Object to store the data
   // in the format we specified
   const recipeObject = new RecipeObject(id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size)
   setLocalStorageItem(r.id, recipeObject)
+}
+
+/**
+ * extracts nutritional data from api response json object
+ * @param {*} nutrition - array of nutritions from API
+ * @returns {String[]} - array of nutritions in strings
+ */
+function extractNutrition(nutrition) {
+  let resultArr = []
+
+  if (!nutrition) {
+    return resultArr
+  }
+
+  for (let nutrIndex = 0; nutrIndex < 9; nutrIndex++) {
+    const nutrTitle = nutrition.nutrients[nutrIndex].title
+    const nutrAmount = nutrition.nutrients[nutrIndex].amount
+    const nutrUnit = nutrition.nutrients[nutrIndex].unit
+    resultArr.push(nutrTitle + ': ' + nutrAmount + ' ' + nutrUnit)
+  }
+  return resultArr
+}
+
+/**
+ * extracts steps data from api response json object
+ * @param {*} nutrition - array of steps from API
+ * @returns {String[]} - array of steps in strings
+ */
+function extractSteps(steps) {
+  let resultArr = []
+
+  if (!steps || steps.length === 0) {
+    return resultArr
+  }
+
+  for (let i = 0 ; i < steps.length; i++) {
+    resultArr.push(apiSteps[i].step)
+  }
+  return resultArr
 }
 
 /**
@@ -455,7 +475,7 @@ export function removeSummaryLinks (summary) {
   const linkEnd = '</a>'
   const urlPostfix = 'com'
   if (!summary) {
-    return ''
+    return 'No Summary Found'
   }
 
   let arr = summary.split('.')
