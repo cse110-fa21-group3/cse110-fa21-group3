@@ -171,7 +171,7 @@ export async function createRecipeObject (r) {
 
   // populating ingredient list
   const apiIngredients = r.missedIngredients ? r.missedIngredients : r.extendedIngredients
-  const ingredientObj = extractIngredients(apiIngredients)
+  const ingredientObj = extractIngredients(apiIngredients, title)
   const ingredients = ingredientObj.ingredients
   const ingredientSearch = ingredientObj.ingredientSearch
 
@@ -251,10 +251,11 @@ function extractSteps (steps) {
 /**
  * extracts ingredients data from api response json object
  * @param {*} nutrition - array of steps from API
+ * @param {*} title - title of recipe
  * @returns {JSON} - array of steps in strings
  */
-function extractIngredients (apiIngredients) {
-  let ingredientSearch = ''
+function extractIngredients (apiIngredients, title) {
+  let ingredientSearch = {}
   const ingredients = []
 
   if (!apiIngredients) {
@@ -266,8 +267,13 @@ function extractIngredients (apiIngredients) {
 
   for (let i = 0; i < apiIngredients.length; i++) {
     ingredients.push(apiIngredients[i].original)
-    ingredientSearch += apiIngredients[i].name + ' '
+    ingredientSearch[apiIngredients[i].name.toLowerCase()] = 1
   }
+
+  let titleArr = title.split(' ')
+  titleArr.forEach(item => {
+    ingredientSearch[item.toLowerCase()] = 1
+  })
 
   return {
     ingredientSearch: ingredientSearch,

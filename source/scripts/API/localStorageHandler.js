@@ -191,16 +191,21 @@ export async function searchLocalRecipes (query) {
 
   // iterate through all recipes and check the title and ingredients for the query
   for (const recipe of localRecipes) {
-    const recipeTitle = recipe.title.toLowerCase()
-    const recipeIngredients = recipe.ingredientSearch.toLowerCase()
-    // if the query is in the recipes then add it to an array
-    for (const queryElement of endQuery) {
-      let tempString = recipeTitle + ' ' + recipeIngredients
-      if (tempString.includes(queryElement)) {
+    for (const q of endQuery) {
+      if (recipe.ingredientSearch[q] === 1) {
         recipeList.push(recipe)
         break
       }
     }
+
+    // if the query is in the recipes then add it to an array
+    /*
+    for (const queryElement of endQuery) {
+      if (tempString.includes(queryElement)) {
+        recipeList.push(recipe)
+        break
+      }
+    }*/
   }
   // return a populated array of recipes relating to the query
   updateLatestSearch(recipeList, query)
