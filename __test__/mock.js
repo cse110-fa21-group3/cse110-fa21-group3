@@ -29,23 +29,23 @@ export class windowMock {
   }
 }
 
-export function fetchMock(url) {
-    let dataArr = []
-    for (let index = 0; index < 100; index++) {
-        const newJson = JSON.parse(JSON.stringify(jsonData))
-        newJson.id = index
-        dataArr.push(newJson)
-    }
-
-    url = url.toString()
-    const startIndex = url.indexOf('&number=') + 8
-    const nextOptionIndex = url.indexOf('&', startIndex + 1)
-    let endIndex = nextOptionIndex
-    if (nextOptionIndex < 0) { endIndex = url.length }
-    let number = parseInt(url.substring(startIndex, endIndex))
-    number = (number > 100) ? 100 : number
-    const res = { results: dataArr.slice(0, number) }
-    return Promise.resolve({
-      json: () => Promise.resolve(res)
-    })
+export function fetchMock (url) {
+  const dataArr = []
+  for (let index = 0; index < 100; index++) {
+    const newJson = JSON.parse(JSON.stringify(jsonData))
+    newJson.id = index
+    dataArr.push(newJson)
   }
+
+  url = url.toString()
+  const startIndex = url.indexOf('&number=') + 8
+  const nextOptionIndex = url.indexOf('&', startIndex + 1)
+  let endIndex = nextOptionIndex
+  if (nextOptionIndex < 0) { endIndex = url.length }
+  let number = parseInt(url.substring(startIndex, endIndex))
+  number = (number > 100) ? 100 : number
+  const res = { results: dataArr.slice(0, number) }
+  return Promise.resolve({
+    json: () => Promise.resolve(res)
+  })
+}

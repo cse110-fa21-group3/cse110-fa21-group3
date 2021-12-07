@@ -14,9 +14,6 @@ function init () {
   const eTime = document.getElementById('recipe-time') // done
   const eServes = document.getElementById('recipe-serves') // don't have
   const eDescription = document.getElementById('recipe-description') // don't have
-  const eIngredients = document.getElementById('recipe-ingredients-list') // done
-  const eSteps = document.getElementById('recipe-steps-list') // done
-  const eNutrition = document.getElementById('recipe-nutrition-list') // done
 
   // Preferably, we would have a function from the API utils that gets recipe data for us
   let data = localStorage.getItem(id) // get the recipe data (here it's a string)
@@ -29,6 +26,18 @@ function init () {
 
   eServes.innerText = data.servingSize
   eDescription.innerHTML = data.summary ? data.summary : ''
+
+  populateListElements(data)
+  setUpBtns()
+}
+
+/**
+ * creates list elements for recipe page
+ */
+function populateListElements (data) {
+  const eIngredients = document.getElementById('recipe-ingredients-list') // done
+  const eSteps = document.getElementById('recipe-steps-list') // done
+  const eNutrition = document.getElementById('recipe-nutrition-list') // done
 
   data.ingredients.forEach(ing => {
     const ingItem = document.createElement('li')
@@ -47,7 +56,12 @@ function init () {
     factItem.innerText = fact
     eNutrition.appendChild(factItem)
   })
+}
 
+/**
+ * set up buttons for recipe page
+ */
+function setUpBtns () {
   const favoriteBtn = document.getElementById('favorite')
   let favArr = LSHandler.getFavoriteRecipes()
   if (favArr && favArr.includes(id)) {

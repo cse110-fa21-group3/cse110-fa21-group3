@@ -3,7 +3,6 @@ import * as Mock from './mock'
 import * as jsonData from './data.json'
 import regeneratorRuntime from 'regenerator-runtime'
 
-
 // global constants
 const unmockedlocalStorage = global.localStorage
 const unmockedFetch = global.fetch

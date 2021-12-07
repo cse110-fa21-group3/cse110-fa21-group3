@@ -179,7 +179,7 @@ export async function createRecipeObject (r) {
 
   let steps = ['No Steps']
   if (r.analyzedInstructions) {
-    steps = extractSteps(r.analyzedInstructions[0])
+    steps = extractSteps(r.analyzedInstructions[0].steps)
   }
 
   // Create a JSON Object to store the data

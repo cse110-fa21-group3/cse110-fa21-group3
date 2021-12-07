@@ -1,4 +1,4 @@
-import * as LSHandler from "./API/localStorageHandler.js";
+import * as LSHandler from './API/localStorageHandler.js'
 
 const recipeImg = document.getElementById('recipe-img')
 let compressedImg // store base64 compressed image (string)
