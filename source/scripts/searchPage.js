@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const searchObj = {
         data: res,
         query: searchQuery,
-        matchedCount: arr.length,
+        matchedCount: arr.length
       }
       localStorage.setItem('latestSearch', JSON.stringify(searchObj))
       window.location.href = '/searchpage.html'
