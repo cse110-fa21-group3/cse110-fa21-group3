@@ -48,8 +48,8 @@ jobs:
       - name: Run unit tests
         run: |
           SUMMARY=$(npm run test | tail -2 | head -1)
-          COVERAGE=$(echo ${SUMMARY} | cut -c9-14)
-          echo "COVERAGE=$(echo ${COVERAGE})" >> $GITHUB_ENV
+          COVERAGE=$(echo "${SUMMARY}" | cut -c9-14)
+          echo "COVERAGE=$(echo "${COVERAGE}")" >> "$GITHUB_ENV"
           
       - name: Generate Covreage Badge
         uses: schneegans/dynamic-badges-action@v1.1.0
