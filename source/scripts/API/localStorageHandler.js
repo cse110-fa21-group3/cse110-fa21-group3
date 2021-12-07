@@ -183,7 +183,8 @@ export async function searchLocalRecipes (query) {
   const localRecipes = getLocalStorageRecipes()
 
   // replace query commas with space
-  query = query.replace(/,/g, ' ').replace(/\s+/g,' ')
+  query = query.replace(/,/g, ' ')
+  query = query.replace(/\s+/g, ' ')
 
   // if there are spaces
   const endQuery = query.split(' ')

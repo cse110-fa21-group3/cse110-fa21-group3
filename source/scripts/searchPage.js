@@ -1,4 +1,4 @@
-import { searchLocalRecipes } from './API/utilityFunctions.js'
+import { searchLocalRecipes } from './API/localStorageHandler.js'
 
 window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('fav-container').addEventListener('click', () => {

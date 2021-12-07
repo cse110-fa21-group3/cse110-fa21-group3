@@ -255,31 +255,28 @@ function populateRecipeForm (recipeData) {
 function populateLists (recipeData) {
   // Ingredients fill-in
   const numIng = recipeData.ingredients.length
+  const ingInputs = document.getElementsByClassName('ing-name')
   for (let i = 0; i < numIng - 1; i++) {
     addIng.click()
-  }
-  const ingInputs = document.getElementsByClassName('ing-name')
-  for (let i = 0; i < numIng; i++) {
     ingInputs[i].value = recipeData.ingredients[i]
   }
+  ingInputs[numIng - 1].value = recipeData.ingredients[numIng - 1]
 
   // Steps fill-in
-  const numSteps = recipeData.steps.length
+  const numSteps = recipeData.steps.length - 1
+  const stepInputs = document.getElementsByClassName('step-name')
   for (let i = 0; i < numSteps - 1; i++) {
     addStep.click()
-  }
-  const stepInputs = document.getElementsByClassName('step-name')
-  for (let i = 0; i < numSteps; i++) {
     stepInputs[i].value = recipeData.steps[i]
   }
+  stepInputs[numSteps - 1].value = recipeData.steps[numSteps - 1]
 
   // Nutrition fill-in
   const numNutrients = recipeData.nutrition.length
+  const nutritionInputs = document.getElementsByClassName('nutr-name')
   for (let i = 0; i < numNutrients - 1; i++) {
     addNutrition.click()
-  }
-  const nutritionInputs = document.getElementsByClassName('nutr-name')
-  for (let i = 0; i < numNutrients; i++) {
     nutritionInputs[i].value = recipeData.nutrition[i]
   }
+  nutritionInputs[numNutrients - 1].value = recipeData.nutrition[numNutrients - 1]
 }
