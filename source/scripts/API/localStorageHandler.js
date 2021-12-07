@@ -192,7 +192,7 @@ export async function searchLocalRecipes (query) {
   // iterate through all recipes and check the title and ingredients for the query
   for (const recipe of localRecipes) {
     for (const q of endQuery) {
-      if (recipe.ingredientSearch.includes(q)) {
+      if (recipe.ingredientSearch[q] === 1) {
         recipeList.push(recipe)
         break
       }
