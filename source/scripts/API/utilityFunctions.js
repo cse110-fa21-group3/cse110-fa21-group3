@@ -52,6 +52,22 @@ export let maxTime = DEFAULT_MAX_TIME
 // user data variables
 const USER_DATA = 'userData'
 
+class RecipeObject {
+  constructor (id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size) {
+    this.id = id,
+    this.title = title,
+    this.image = foodImage,
+    this.readyInMinutes = readyInMinutes,
+    this.ingredientSearch = ingredientSearch,
+    this.ingredients = ingredients,
+    this.steps = steps,
+    this.nutrition = nutrition,
+    this.favorite = favorite,
+    this.summary = summary,
+    this.servingSize = size
+  }
+}
+
 /**
  * This function updates the intolerances of the user which is used when
  * fetching recipes from the API
@@ -373,14 +389,37 @@ export function fetchRecipes (recipeCount, offset) {
  * @param {JSON} r - recipe json Object
  */
 export async function createRecipeObject (r) {
-  const id = r.id ? r.id : '-0'
-  const readyInMinutes = r.readyInMinutes ? r.readyInMinutes : 'unkown'
-  const title = r.title ? r.title : 'Website Food'
-  const foodImage = r.image ? r.image : './image/team3-logo.jpg'
-  const favorite = false
+  if (!r) {
+    throw new Error('recipe is undefined')
+  }
 
-  const summary = removeSummaryLinks(r.summary).split('<b>').join('').split('</b>').join('')
-  const size = r.servings ? r.servings : 'unknown'
+  let id = r.id
+  if (!id) {
+    id = '-0'
+  }
+
+  let readyInMinutes = r.readyInMinutes
+  if (!readyInMinutes) {
+    readyInMinutes = 'unkown'
+  }
+
+  let title = r.title
+  if (!title) {
+    title = 'Website Food'
+  }
+
+  let foodImage = r.image  
+  if (!foodImage) {
+    foodImage = './image/team3-logo.jpg'
+  }
+
+  let size = r.servings
+  if (!size) {
+    foodImage = './image/team3-logo.jpg'
+  }
+
+  const favorite = false
+  const summary = removeSummaryLinks(r.summary)
 
   // populating ingredient list
   const apiIngredients = r.missedIngredients ? r.missedIngredients : r.extendedIngredients
@@ -417,19 +456,7 @@ export async function createRecipeObject (r) {
 
   // Create a JSON Object to store the data
   // in the format we specified
-  const recipeObject = {
-    id: id,
-    title: title,
-    image: foodImage,
-    readyInMinutes: readyInMinutes,
-    ingredientSearch: ingredientSearch,
-    ingredients: ingredients,
-    steps: steps,
-    nutrition: nutrition,
-    favorite: favorite,
-    summary: summary,
-    servingSize: size
-  }
+  const recipeObject = new RecipeObject(id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size)
   setLocalStorageItem(r.id, recipeObject)
 }
 
