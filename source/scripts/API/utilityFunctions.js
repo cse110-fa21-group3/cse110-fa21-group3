@@ -393,30 +393,15 @@ export async function createRecipeObject (r) {
     throw new Error('recipe is undefined')
   }
 
-  let id = r.id
-  if (!id) {
-    id = '-0'
-  }
+  let id = r.id ? r.id : '0'
 
-  let readyInMinutes = r.readyInMinutes
-  if (!readyInMinutes) {
-    readyInMinutes = 'unkown'
-  }
+  let readyInMinutes = r.readyInMinutes ? r.readyInMinutes : 'unkown'
 
-  let title = r.title
-  if (!title) {
-    title = 'Website Food'
-  }
+  let title = r.title ? r.title : 'Website Food'
 
-  let foodImage = r.image  
-  if (!foodImage) {
-    foodImage = './image/team3-logo.jpg'
-  }
+  let foodImage = r.image ? r.image : './image/team3-logo.jpg'
 
-  let size = r.servings
-  if (!size) {
-    foodImage = './image/team3-logo.jpg'
-  }
+  let size = r.servings ? r.servings : './image/team3-logo.jpg'
 
   const favorite = false
   const summary = removeSummaryLinks(r.summary)
@@ -426,10 +411,10 @@ export async function createRecipeObject (r) {
   const ingredients = []
   let ingredientSearch = ''
   if (apiIngredients) {
-    apiIngredients.forEach(ingre => {
-      ingredients.push(ingre.original)
-      ingredientSearch += ingre.name + ' '
-    })
+    for (let i = 0; i < apiIngredients.length; i++) {
+      ingredients.push(apiIngredients[i].original)
+      ingredientSearch += apiIngredients[i].name + ' '
+    }
   }
 
   // populating nutrition list
@@ -447,11 +432,12 @@ export async function createRecipeObject (r) {
 
   let steps = []
   if (r.analyzedInstructions && r.analyzedInstructions[0]) {
-    r.analyzedInstructions[0].steps.forEach(recipeStep => {
-      steps.push(recipeStep.step)
-    })
+    let apiSteps = r.analyzedInstructions[0].steps
+    for (let i = 0 ; i < apiSteps.length; i++) {
+      steps.push(apiSteps[i].step)
+    }
   } else {
-    steps = 'No Steps'
+    steps = ['No Steps']
   }
 
   // Create a JSON Object to store the data
