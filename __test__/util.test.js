@@ -72,12 +72,16 @@ test('extractSteps Test', () => {
   expect(emptyResult).toContain('No Steps')
 })
 
-test('extractSteps Test', () => {
+test('extractNutrition Test', () => {
   global.localStorage.clear()
-  const steps = [{ step: 'step 1' }, { step: 'step 2' }]
-  const result = util.extractSteps(steps)
-  expect(result).toContain('step 1')
-  expect(result).toContain('step 2')
+  const arr = []
+  for (let i = 0; i < 9; i++) {
+    arr.push({ title: 'Sugar', amount: '1', unit: 'g' })
+  }
+  const nutrition = { nutrients: arr }
+
+  const result = util.extractNutrition(nutrition)
+  expect(result).toContain('Sugar: 1 g')
 })
 
 test('extractIngredients Test', () => {
