@@ -15,13 +15,8 @@
     "preset": "jest-puppeteer",
     "verbose": true
   },
-  "preset": "ts-jest",
   "transform": {
-    "^.+\\.(ts|tsx)?$": "ts-jest",
     "^.+\\.(js|jsx)$": "babel-jest"
-  },
-  "dependencies": {
-    "ts-jest": "^27.1.0"
   },
   "standard": {
     "env": [

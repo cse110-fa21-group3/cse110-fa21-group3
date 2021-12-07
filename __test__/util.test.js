@@ -1,26 +1,9 @@
 // Used Babel in package.jsonto transform ES6 syntax to commonjs syntax,
 // so now `import` and/or `export` statements work on both browser and unit test
 import * as util from '../source/scripts/API/utilityFunctions'
-import * as Mock from './mock'
 import * as jsonData from './data.json'
-import regeneratorRuntime from 'regenerator-runtime'
-
-// global constants
-const unmockedlocalStorage = global.localStorage
-const unmockedFetch = global.fetch
-
-// set local storage in global to a mock version
-beforeAll(() => {
-  global.localStorage = new Mock.LocalStorageMock()
-
-  global.fetch = Mock.fetchMock
-})
-
-// clean up mocked components in global
-afterAll(() => {
-  global.localStorage = unmockedlocalStorage
-  global.fetch = unmockedFetch
-})
+import 'regenerator-runtime'
+import './setup'
 
 // Done
 test('removeSummaryLinks Test', () => {
@@ -31,6 +14,10 @@ test('removeSummaryLinks Test', () => {
   const summary2 = 'Start. <a href="blah.combla.com .comh">blahblah</a> ss.'
   const result2 = util.removeSummaryLinks(summary2)
   expect(result2).toMatch(/Start./)
+
+  const summary3 = undefined
+  const result3 = util.removeSummaryLinks(summary3)
+  expect(result3).toBe('No Summary Found')
 })
 
 // Done
@@ -63,18 +50,6 @@ test('fetchRecipes Test', async () => {
   })
 })
 
-// done
-test('fetchRecipes Fail Test', async () => {
-  global.localStorage.clear()
-  const fetch = global.fetch
-  global.fetch = () => Promise.resolve({
-    json: () => Promise.resolve([])
-  })
-  return expect(util.fetchRecipes(5, 0).then(() => {
-    global.fetch = fetch
-  })).rejects.toEqual(TypeError("Cannot read property 'forEach' of undefined"))
-})
-
 // Done
 test('loadUserData Test', () => {
   global.localStorage.clear()
@@ -85,6 +60,50 @@ test('loadUserData Test', () => {
   util.loadUserData()
   expect(util.intolerances).toContain('dairy')
   expect(util.maxTime).toBe(11)
+})
+
+test('extractSteps Test', () => {
+  global.localStorage.clear()
+  const steps = [{ step: 'step 1' }, { step: 'step 2' }]
+  const result = util.extractSteps(steps)
+  expect(result).toContain('step 1')
+  expect(result).toContain('step 2')
+  const emptyResult = util.extractSteps(undefined)
+  expect(emptyResult).toContain('No Steps')
+})
+
+test('extractSteps Test', () => {
+  global.localStorage.clear()
+  const steps = [{ step: 'step 1' }, { step: 'step 2' }]
+  const result = util.extractSteps(steps)
+  expect(result).toContain('step 1')
+  expect(result).toContain('step 2')
+})
+
+test('extractIngredients Test', () => {
+  global.localStorage.clear()
+  const title = 'chicken breast'
+  const ingredients = [{ original: '1 oz chicken', name: 'chicken' }, { original: '1 oz oil', name: 'oil' }]
+  const result = util.extractIngredients(ingredients, title)
+  expect(result.ingredientSearch.chicken).toBe(1)
+  expect(result.ingredientSearch.breast).toBe(1)
+  expect(result.ingredientSearch.oil).toBe(1)
+  const result2 = util.extractIngredients(undefined, title)
+  expect(result2.ingredientSearch.chicken).toBe(1)
+})
+
+test('updateOffset Test', () => {
+  global.localStorage.clear()
+  util.updateOffset(50)
+  expect(JSON.parse(global.localStorage.getItem('userData')).offset).toBe(50)
+  util.updateOffset(100)
+  expect(JSON.parse(global.localStorage.getItem('userData')).offset).toBe(150)
+})
+
+test('webScrapper Test', async () => {
+  global.localStorage.clear()
+  await util.webScrapper('https://007.com')
+  expect(Object.keys(global.localStorage).length).toBe(1)
 })
 
 // need jsdom to test IN PROGRESS
