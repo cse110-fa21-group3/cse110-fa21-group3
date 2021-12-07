@@ -106,21 +106,6 @@ export async function populateRecipes () {
       }
       fetchOffset += numberToFetch
       remainCount -= numberToFetch
-
-      /*
-      if (numberToFetch > 100) {
-        resolve(fetchRecipes(100, fetchOffset).then(offsetFinished => updateOffset(offsetFinished)))
-        fetchOffset += 100
-        numberToFetch -= 100
-      } else {
-        if (numberToFetch >= NUMBER_OF_RECIPES_TO_DISPLAY) {
-          resolve(fetchRecipes(numberToFetch, fetchOffset).then(offsetFinished => updateOffset(offsetFinished)))
-        } else {
-          fetchRecipes(numberToFetch, fetchOffset).then(offsetFinished => updateOffset(offsetFinished))
-        }
-        fetchOffset += numberToFetch
-        numberToFetch = 0
-      }*/
     }
   })
 }
