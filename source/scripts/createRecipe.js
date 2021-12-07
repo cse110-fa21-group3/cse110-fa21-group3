@@ -50,37 +50,37 @@ recipeImg.addEventListener('change', (e) => {
 })
 
 addIng.addEventListener('click', e => {
-  const elementContainer = document.querySelectorAll('.ingredient-container')
-  const elementContainerLength = elementContainer.length
-  const fieldSet = document.createElement('fieldset')
-  const fieldSetLabel = document.createElement('label')
-  const fieldTextArea = document.createElement('textarea')
-  const deleteBtn = document.createElement('button')
+  const elementContainerIng = document.querySelectorAll('.ingredient-container')
+  const elementContainerLengthIng = elementContainerIng.length
+  const fieldSetIng = document.createElement('fieldset')
+  const fieldSetLabelIng = document.createElement('label')
+  const fieldTextAreaIng = document.createElement('textarea')
+  const deleteBtnIng = document.createElement('button')
 
-  deleteBtn.type = 'button'
-  deleteBtn.classList.add('remove-btn')
-  const removeIcon = document.createElement('img')
-  removeIcon.src = './source/image/icons8-delete.svg'
-  removeIcon.style.width = '30px'
-  deleteBtn.appendChild(removeIcon)
-  deleteBtn.addEventListener('click', removeItem)
+  deleteBtnIng.type = 'button'
+  deleteBtnIng.classList.add('remove-btn')
+  const removeIconIng = document.createElement('img')
+  removeIconIng.src = './source/image/icons8-delete.svg'
+  removeIconIng.style.width = '30px'
+  deleteBtnIng.appendChild(removeIconIng)
+  deleteBtnIng.addEventListener('click', removeItem)
 
-  fieldSetLabel.innerText = 'Ingredient: '
+  fieldSetLabelIng.innerText = 'Ingredient: '
 
-  fieldTextArea.name = 'ingredients'
+  fieldTextAreaIng.name = 'ingredients'
 
-  fieldTextArea.classList.add('ing-name')
+  fieldTextAreaIng.classList.add('ing-name')
   // fieldTextArea.type = 'text';
-  fieldTextArea.cols = '30'
-  fieldTextArea.rows = '2'
+  fieldTextAreaIng.cols = '30'
+  fieldTextAreaIng.rows = '2'
 
-  fieldSet.classList.add('ingredient-container')
+  fieldSetIng.classList.add('ingredient-container')
 
-  fieldSet.appendChild(fieldSetLabel)
-  fieldSet.appendChild(fieldTextArea)
-  fieldSet.appendChild(deleteBtn)
+  fieldSetIng.appendChild(fieldSetLabelIng)
+  fieldSetIng.appendChild(fieldTextAreaIng)
+  fieldSetIng.appendChild(deleteBtnIng)
 
-  elementContainer[elementContainerLength - 1].after(fieldSet)
+  elementContainerIng[elementContainerLengthIng - 1].after(fieldSetIng)
 })
 
 addStep.addEventListener('click', e => {
