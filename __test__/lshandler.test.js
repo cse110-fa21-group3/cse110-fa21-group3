@@ -108,9 +108,9 @@ test('getDeletedRecipes Test', () => {
 // Done
 test('getFavoriteRecipes Test', () => {
   global.localStorage.clear()
-  global.localStorage.setItem('userData', {
+  global.localStorage.setItem('userData', JSON.stringify({
     favorites: ['3', '4', '5']
-  })
+  }))
   const result = LSHandler.getFavoriteRecipes()
   expect(result).toContain('3')
   expect(result).toContain('4')
