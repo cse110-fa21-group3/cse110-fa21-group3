@@ -89,6 +89,7 @@ export async function populateRecipes () {
 
     // # of recipes waiting to fetch
     let numberToFetch = DEFAULT_RECIPE_NUMBER - recipeCount
+    let fetchOffset = offset
 
     if (recipeCount >= NUMBER_OF_RECIPES_TO_DISPLAY) {
       resolve(true)
@@ -96,20 +97,27 @@ export async function populateRecipes () {
 
     while (numberToFetch > 0) {
       if (numberToFetch > 100) {
-        resolve(fetchRecipes(100, offset).then(offsetFinished => localStorageHandler.updateUserData('offset', offsetFinished)))
-        offset += 100
+        resolve(fetchRecipes(100, fetchOffset).then(offsetFinished => updateOffset(offsetFinished)))
+        fetchOffset += 100
         numberToFetch -= 100
       } else {
         if (numberToFetch >= NUMBER_OF_RECIPES_TO_DISPLAY) {
-          resolve(fetchRecipes(numberToFetch, offset).then(offsetFinished => localStorageHandler.updateUserData('offset', offsetFinished)))
+          resolve(fetchRecipes(numberToFetch, fetchOffset).then(offsetFinished => updateOffset(offsetFinished)))
         } else {
-          fetchRecipes(numberToFetch, offset).then(offsetFinished => localStorageHandler.updateUserData('offset', offsetFinished))
+          fetchRecipes(numberToFetch, fetchOffset).then(offsetFinished => updateOffset(offsetFinished))
         }
-        offset += numberToFetch
+        fetchOffset += numberToFetch
         numberToFetch = 0
       }
     }
   })
+}
+
+function updateOffset(offsetToAdd) {
+  if (typeof offsetToUpdate !== Error) {
+    loadUserData()
+    localStorageHandler.updateUserData('offset', offset + offsetToAdd)
+  }
 }
 
 /**
@@ -139,7 +147,7 @@ export function fetchRecipes (recipeCount, offset) {
         res.results.forEach(r => {
           createRecipeObject(r)
         })
-        resolve(offset)
+        resolve(recipeCount)
       })
       .catch(error => {
         reject(error)
@@ -174,7 +182,7 @@ export async function createRecipeObject (r) {
   const nutrition = extractNutrition(r.nutrition)
 
   let steps = ['No Steps']
-  if (r.analyzedInstructions) {
+  if (r.analyzedInstructions.length > 0) {
     steps = extractSteps(r.analyzedInstructions[0].steps)
   }
 
