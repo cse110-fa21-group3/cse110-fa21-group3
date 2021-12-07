@@ -404,14 +404,9 @@ export async function createRecipeObject (r) {
 
   // populating ingredient list
   const apiIngredients = r.missedIngredients ? r.missedIngredients : r.extendedIngredients
-  const ingredients = []
-  let ingredientSearch = ''
-  if (apiIngredients) {
-    for (let i = 0; i < apiIngredients.length; i++) {
-      ingredients.push(apiIngredients[i].original)
-      ingredientSearch += apiIngredients[i].name + ' '
-    }
-  }
+  const ingredientObj = extractIngredients(apiIngredients)
+  const ingredients = ingredientObj.ingredients
+  const ingredientSearch = ingredientObj.ingredientSearch
 
   // populating nutrition list
   const nutrition = extractNutrition(r.nutrition)
@@ -450,20 +445,47 @@ function extractNutrition (nutrition) {
 
 /**
  * extracts steps data from api response json object
- * @param {*} nutrition - array of steps from API
+ * @param {*} steps - array of steps from API
  * @returns {String[]} - array of steps in strings
  */
 function extractSteps (steps) {
   const resultArr = []
 
   if (!steps || steps.length === 0) {
-    return resultArr
+    return ['No Steps']
   }
 
   for (let i = 0; i < steps.length; i++) {
     resultArr.push(steps[i].step)
   }
   return resultArr
+}
+
+/**
+ * extracts ingredients data from api response json object
+ * @param {*} nutrition - array of steps from API
+ * @returns {JSON} - array of steps in strings
+ */
+function extractIngredients (apiIngredients) {
+  let ingredientSearch = ''
+  const ingredients = []
+
+  if (!apiIngredients) {
+    return {
+      ingredientSearch: ingredientSearch,
+      ingredients: ingredients
+    }
+  }
+
+  for (let i = 0; i < apiIngredients.length; i++) {
+    ingredients.push(apiIngredients[i].original)
+    ingredientSearch += apiIngredients[i].name + ' '
+  }
+
+  return {
+    ingredientSearch: ingredientSearch,
+    ingredients: ingredients
+  }
 }
 
 /**
