@@ -341,7 +341,7 @@ export async function searchLocalRecipes (query) {
  */
 export function fetchRecipes (recipeCount, offset) {
   loadUserData()
-  let reqUrl = `${API_ENDPOINT}/recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true&number=${recipe_count}&offset=${offset}&maxReadyTime=${maxTime}`
+  let reqUrl = `${API_ENDPOINT}/recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true&number=${recipeCount}&offset=${offset}&maxReadyTime=${maxTime}`
 
   let intolerancesStr = ''
   if (intolerances.length > 0) {
