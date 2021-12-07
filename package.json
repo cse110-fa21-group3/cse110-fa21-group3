@@ -9,7 +9,7 @@
     "standard": "^16.0.4"
   },
   "scripts": {
-    "test": "jest --passWithNoTests --coverage",
+    "test": "jest --passWithNoTests --coverage --coverageReporters='text-summary'",
     "test:badges": "npm run test && jest-coverage-badges"
   },
   "jest": {
