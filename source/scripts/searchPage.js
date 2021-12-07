@@ -1,4 +1,4 @@
-import { router, searchLocalRecipes } from "./API/utilityFunctions.js";
+import { searchLocalRecipes } from "./API/utilityFunctions.js";
 
 window.addEventListener("DOMContentLoaded", () => {
     document.getElementById('fav-container').addEventListener('click', e => {
@@ -55,7 +55,8 @@ window.addEventListener("DOMContentLoaded", () => {
         recipeCard.data = recipeData;
         recipeCardsSection.appendChild(recipeCard);
         recipeCard.addEventListener("click", e => {
-            router.navigate(id);
+            // router.navigate(id);
+            window.location.href = "/recipePage.html#"+id;
         });
     });
 });
