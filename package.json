@@ -13,7 +13,12 @@
   },
   "jest": {
     "preset": "jest-puppeteer",
-    "verbose": true
+    "verbose": true,
+    "coverageReporters": [
+      "json-summary", 
+      "text",
+      "lcov"
+    ]
   },
   "transform": {
     "^.+\\.(js|jsx)$": "babel-jest"
