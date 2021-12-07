@@ -108,14 +108,13 @@ test('getDeletedRecipes Test', () => {
 // Done
 test('getFavoriteRecipes Test', () => {
   global.localStorage.clear()
-  const key = 'userData'
-  const userData = {
-    favorites: ['3', '4']
-  }
-  global.localStorage.setItem(key, JSON.stringify(userData))
+  global.localStorage.setItem('userData', {
+    favorites: ['3', '4', '5']
+  })
   const result = LSHandler.getFavoriteRecipes()
   expect(result).toContain('3')
   expect(result).toContain('4')
+  expect(result).toContain('5')
 })
 
 // Done
@@ -220,12 +219,6 @@ test('getLocalStorageRecipes Test', () => {
 
   expect(emptyTest).toBe(true)
   expect(filledTest).toBe(true)
-})
-
-test('getLocalStorageRecipes Empty Test', () => {
-  global.localStorage.clear()
-  const returnedRecipes = LSHandler.getLocalStorageRecipes()
-  expect(returnedRecipes.length).toBe(0)
 })
 
 // Done
