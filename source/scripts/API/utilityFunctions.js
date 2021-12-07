@@ -101,7 +101,7 @@ export async function populateRecipes () {
 
       if (numberToFetch >= NUMBER_OF_RECIPES_TO_DISPLAY) {
         resolve(fetchRecipes(numberToFetch, fetchOffset).then(offsetFinished => updateOffset(offsetFinished)))
-      }else {
+      } else {
         fetchRecipes(numberToFetch, fetchOffset).then(offsetFinished => updateOffset(offsetFinished))
       }
       fetchOffset += numberToFetch
@@ -110,11 +110,9 @@ export async function populateRecipes () {
   })
 }
 
-function updateOffset(offsetToAdd) {
-  if (typeof offsetToUpdate !== Error) {
-    loadUserData()
-    localStorageHandler.updateUserData('offset', offset + offsetToAdd)
-  }
+export function updateOffset (offsetToAdd) {
+  loadUserData()
+  localStorageHandler.updateUserData('offset', offset + offsetToAdd)
 }
 
 /**
@@ -200,8 +198,7 @@ export function webScrapper (url) {
     fetch(urlToExtract, options)
       .then(res => res.json())
       .then(res => {
-        createRecipeObject(res)
-        resolve(true)
+        resolve(createRecipeObject(res))
       })
       .catch(error => {
         reject(error)
@@ -214,7 +211,7 @@ export function webScrapper (url) {
  * @param {*} nutrition - array of nutritions from API
  * @returns {String[]} - array of nutritions in strings
  */
-function extractNutrition (nutrition) {
+export function extractNutrition (nutrition) {
   const resultArr = []
 
   if (!nutrition) {
@@ -235,7 +232,7 @@ function extractNutrition (nutrition) {
  * @param {*} steps - array of steps from API
  * @returns {String[]} - array of steps in strings
  */
-function extractSteps (steps) {
+export function extractSteps (steps) {
   const resultArr = []
 
   if (!steps || steps.length === 0) {
@@ -254,9 +251,16 @@ function extractSteps (steps) {
  * @param {*} title - title of recipe
  * @returns {JSON} - array of steps in strings
  */
-function extractIngredients (apiIngredients, title) {
-  let ingredientSearch = {}
+export function extractIngredients (apiIngredients, title) {
+  const ingredientSearch = {}
   const ingredients = []
+
+  if (title) {
+    const titleArr = title.split(' ')
+    titleArr.forEach(item => {
+      ingredientSearch[item.toLowerCase()] = 1
+    })
+  }
 
   if (!apiIngredients) {
     return {
@@ -269,11 +273,6 @@ function extractIngredients (apiIngredients, title) {
     ingredients.push(apiIngredients[i].original)
     ingredientSearch[apiIngredients[i].name.toLowerCase()] = 1
   }
-
-  let titleArr = title.split(' ')
-  titleArr.forEach(item => {
-    ingredientSearch[item.toLowerCase()] = 1
-  })
 
   return {
     ingredientSearch: ingredientSearch,

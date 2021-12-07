@@ -61,37 +61,37 @@ addNutrition.addEventListener('click', e => {
   addContainer('nutrition-container', 'Nutrition: ', 'nutrition', 'nutr-name', '2', '30')
 })
 
-function addContainer(containerClass, labelText, textAreaName, textAreaClass, rows, cols) {
-    const elementContainer = document.querySelectorAll('.'+containerClass)
-    const elementContainerLength = elementContainer.length
-    const fieldSet = document.createElement('fieldset')
-    const fieldSetLabel = document.createElement('label')
-    const fieldTextArea = document.createElement('textarea')
-    const deleteBtn = document.createElement('button')
-    const removeIcon = document.createElement('img')
+function addContainer (containerClass, labelText, textAreaName, textAreaClass, rows, cols) {
+  const elementContainer = document.querySelectorAll('.' + containerClass)
+  const elementContainerLength = elementContainer.length
+  const fieldSet = document.createElement('fieldset')
+  const fieldSetLabel = document.createElement('label')
+  const fieldTextArea = document.createElement('textarea')
+  const deleteBtn = document.createElement('button')
+  const removeIcon = document.createElement('img')
 
-    deleteBtn.type = 'button'
-    deleteBtn.classList.add('remove-btn')
-    removeIcon.src = './source/image/icons8-delete.svg'
-    removeIcon.style.width = '30px'
-    deleteBtn.appendChild(removeIcon)
-    deleteBtn.addEventListener('click', removeItem)
+  deleteBtn.type = 'button'
+  deleteBtn.classList.add('remove-btn')
+  removeIcon.src = './source/image/icons8-delete.svg'
+  removeIcon.style.width = '30px'
+  deleteBtn.appendChild(removeIcon)
+  deleteBtn.addEventListener('click', removeItem)
 
-    fieldSetLabel.innerText = labelText
+  fieldSetLabel.innerText = labelText
 
-    fieldTextArea.name = textAreaName
-  
-    fieldTextArea.classList.add(textAreaClass)
-    // fieldTextArea.type = 'text';
-    fieldTextArea.cols = cols
-    fieldTextArea.rows = rows
-  
-    fieldSet.classList.add(containerClass)
-    fieldSet.appendChild(fieldSetLabel)
-    fieldSet.appendChild(fieldTextArea)
-    fieldSet.appendChild(deleteBtn)
-  
-    elementContainer[elementContainerLength - 1].after(fieldSet)
+  fieldTextArea.name = textAreaName
+
+  fieldTextArea.classList.add(textAreaClass)
+  // fieldTextArea.type = 'text';
+  fieldTextArea.cols = cols
+  fieldTextArea.rows = rows
+
+  fieldSet.classList.add(containerClass)
+  fieldSet.appendChild(fieldSetLabel)
+  fieldSet.appendChild(fieldTextArea)
+  fieldSet.appendChild(deleteBtn)
+
+  elementContainer[elementContainerLength - 1].after(fieldSet)
 }
 
 function removeItem (e) {

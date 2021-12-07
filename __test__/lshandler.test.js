@@ -1,24 +1,6 @@
 import * as LSHandler from '../source/scripts/API/localStorageHandler'
-import * as Mock from './mock'
 import * as jsonData from './data.json'
-import regeneratorRuntime from 'regenerator-runtime'
-
-// global constants
-const unmockedlocalStorage = global.localStorage
-const unmockedFetch = global.fetch
-
-// set local storage in global to a mock version
-beforeAll(() => {
-  global.localStorage = new Mock.LocalStorageMock()
-
-  global.fetch = Mock.fetchMock
-})
-
-// clean up mocked components in global
-afterAll(() => {
-  global.localStorage = unmockedlocalStorage
-  global.fetch = unmockedFetch
-})
+import './setup'
 
 /// ///// Testing Functions For Javascript Files ////////
 
@@ -88,7 +70,7 @@ test('removeRecipe test', () => {
   const value = 'testValue'
   global.localStorage.setItem(key, value)
   LSHandler.removeRecipe(key)
-  expect(global.localStorage.getItem(key)).toBeUndefined
+  expect(global.localStorage.getItem(key)).toBe(undefined)
 })
 
 // Done
@@ -244,12 +226,16 @@ test('searchLocalRecipes Test', async () => {
   const id1 = 'testId1'
   const id2 = 'testId2'
   const value1 = {
-    title: 'chicken',
-    ingredientSearch: 'chicken'
+    ingredientSearch: {
+      salad: 1,
+      chicken: 1
+    }
   }
   const value2 = {
-    title: 'salad',
-    ingredientSearch: 'lettuce'
+    ingredientSearch: {
+      chicken: 1,
+      lettuce: 1
+    }
   }
   global.localStorage.setItem(id1, JSON.stringify(value1))
   global.localStorage.setItem(id2, JSON.stringify(value2))

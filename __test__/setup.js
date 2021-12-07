@@ -1,4 +1,22 @@
+import 'regenerator-runtime'
 import * as jsonData from './data.json'
+
+// global constants
+const unmockedlocalStorage = global.localStorage
+const unmockedFetch = global.fetch
+
+// set local storage in global to a mock version
+beforeAll(() => {
+  global.localStorage = new LocalStorageMock()
+
+  global.fetch = fetchMock
+})
+
+// clean up mocked components in global
+afterAll(() => {
+  global.localStorage = unmockedlocalStorage
+  global.fetch = unmockedFetch
+})
 
 // Class used to mimick the localstorage in browsers
 export class LocalStorageMock {
@@ -30,6 +48,12 @@ export class windowMock {
 }
 
 export function fetchMock (url) {
+  if (url.toString().indexOf('extract?') !== -1) {
+    return Promise.resolve({
+      json: () => Promise.resolve(jsonData)
+    })
+  }
+
   const dataArr = []
   for (let index = 0; index < 100; index++) {
     const newJson = JSON.parse(JSON.stringify(jsonData))

@@ -205,7 +205,7 @@ export async function searchLocalRecipes (query) {
         recipeList.push(recipe)
         break
       }
-    }*/
+    } */
   }
   // return a populated array of recipes relating to the query
   updateLatestSearch(recipeList, query)
@@ -217,17 +217,17 @@ export async function searchLocalRecipes (query) {
  * the most recent search query made by user
  * @param {*} recipeList list of recipes from search
  */
-function updateLatestSearch(searchResult, searchQuery) {
-    const resIds = []
-    searchResult.forEach(recipe => {
-      resIds.push(recipe.id)
-    })
-    const searchObj = {
-      data: resIds,
-      query: searchQuery,
-      matchedCount: searchResult.length
-    }
-    localStorage.setItem('latestSearch', JSON.stringify(searchObj))
+function updateLatestSearch (searchResult, searchQuery) {
+  const resIds = []
+  searchResult.forEach(recipe => {
+    resIds.push(recipe.id)
+  })
+  const searchObj = {
+    data: resIds,
+    query: searchQuery,
+    matchedCount: searchResult.length
+  }
+  localStorage.setItem('latestSearch', JSON.stringify(searchObj))
 }
 
 /**
