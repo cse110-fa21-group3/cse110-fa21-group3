@@ -46,7 +46,7 @@ jobs:
         run: npm install --save-dev jest babel-jest @babel/core @babel/preset-env puppeteer jest-puppeteer
         
       - name: Run tests
-        run: npm run test
+        run: npm run test:badges
 
 #      - name: Run Jest
 #       # You may pin to the exact commit or the version.
