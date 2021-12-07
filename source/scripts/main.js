@@ -109,7 +109,7 @@ function getUserPrefs(){
         }
 
         util.populateRecipes(util.DEFAULT_RECIPE_NUMBER).then(() => {
-            createRecipeCards(util.MINIMUM_RECIPE_REQUIRED);
+            createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY);
         });
     }
 }
