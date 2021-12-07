@@ -55,7 +55,7 @@ const USER_DATA = 'userData'
 /**
  * This function updates the intolerances of the user which is used when
  * fetching recipes from the API
- * @param {string} inputIntol - A string of the intolerances.
+ * @param {String} inputIntol - A string of the intolerances.
  */
 export function setIntolerances (inputIntol) {
   if (inputIntol === '') {
@@ -81,7 +81,7 @@ export function setIntolerances (inputIntol) {
 /**
  * This function updates the maxTime of the recipes which is used when fetching
  * from the API
- * @param {string} time - A string containing the maxTime.
+ * @param {String} time - A string containing the maxTime.
  */
 export function setMaxTime (time) {
   if (time === '') {
@@ -145,7 +145,7 @@ export function getDeletedRecipes () {
 
 /**
  * Adds a recipe id to the favorites list in the userData item in the local storage
- * @param {string} id - the id of the recipe being added
+ * @param {String} id - the id of the recipe being added
  */
 export function addFavoriteRecipe (id) {
   // change favorite property in the recipe object
@@ -169,7 +169,7 @@ export function addFavoriteRecipe (id) {
 
 /**
  * Method to remove the favorite status on a recipe
- * @param {string} id the id for the recipe
+ * @param {String} id the id for the recipe
  */
 export function removeFavoriteRecipe (id) {
   const favArr = getFavoriteRecipes()
@@ -193,7 +193,7 @@ export function removeFavoriteRecipe (id) {
 
 /**
  * Function to remove the user recipe
- * @param {string} id the user created recipe id
+ * @param {String} id the user created recipe id
  */
 export function removeRecipe (id) {
   localStorage.removeItem(id)
@@ -202,7 +202,7 @@ export function removeRecipe (id) {
 /**
  * This function updates the userData stored in localStorage using
  * the Key-Value pair passed in.
- * @param {string} key - The key of the user data being stored.
+ * @param {String} key - The key of the user data being stored.
  * @param {any} value - The data being stored.
  */
 export function updateUserData (key, value) {
@@ -291,7 +291,7 @@ export function removeDeletedRecipes () {
 /**
  * This function search through the local storage linearly and returns a list of recipes that
  * matches the word in the query
- * @param {string} query - the query used to search the local storage
+ * @param {String} query - the query used to search the local storage
  * @returns {JSON[]} - the list of matched recipes
  */
 export async function searchLocalRecipes (query) {
@@ -379,7 +379,7 @@ export async function createRecipeObject (r) {
   const foodImage = r.image ? r.image : './image/team3-logo.jpg'
   const favorite = false
 
-  const summary = removeSummaryLinks(r.summary).replaceAll("<b>", "").replaceAll("</b>", "")
+  const summary = removeSummaryLinks(r.summary).split('<b>').join('').split('</b>').join('')
   const size = r.servings ? r.servings : 'unknown'
 
   // populating ingredient list
@@ -543,7 +543,7 @@ function getRandomNumbers (count, max) {
 
 /**
  * Web Scrapping method for additional functionality for creating recipes
- * @param {string} url - the url inputted to scrap
+ * @param {String} url - the url inputted to scrap
  * @return {JSON} the json data of that website
  */
 export function webScrapper (url) {
