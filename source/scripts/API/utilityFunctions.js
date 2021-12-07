@@ -165,7 +165,6 @@ export async function createRecipeObject (r) {
   const title = r.title
   const foodImage = r.image
   const size = r.servings
-
   const favorite = false
   const summary = removeSummaryLinks(r.summary)
 
