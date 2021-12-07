@@ -1,5 +1,5 @@
 # cse110-fa21-group3
-### Single Source of Truth for Group 3 of CSE 110 Fall 2021.
+### Single Source of Truth for Group 3 of CSE 110 Fall 2021
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/17334651f5f930bb684f/maintainability)](https://codeclimate.com/github/cse110-fa21-group3/cse110-fa21-group3/maintainability)  [![Action Status](https://github.com/cse110-fa21-group3/cse110-fa21-group3/actions/workflows/super-linter.yml/badge.svg)](https://github.com/cse110-fa21-group3/cse110-fa21-group3/actions)
 Code Coverage: (badge)
