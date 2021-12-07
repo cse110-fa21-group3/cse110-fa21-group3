@@ -13,7 +13,7 @@ const options = {
   }
 }
 
-export const DEFAULT_RECIPE_NUMBER = 201
+export const DEFAULT_RECIPE_NUMBER = 10
 export const DEFAULT_MAX_TIME = 60
 export const NUMBER_OF_RECIPES_TO_DISPLAY = 10
 
@@ -249,7 +249,7 @@ export async function populateRecipes () {
         updateUserData('offset', offset)
         numberToFetch -= 100
       } else {
-        if (numberToFetch > NUMBER_OF_RECIPES_TO_DISPLAY) {
+        if (numberToFetch >= NUMBER_OF_RECIPES_TO_DISPLAY) {
           resolve(fetchRecipes(numberToFetch, offset))
         } else {
           fetchRecipes(numberToFetch, offset)
@@ -440,34 +440,21 @@ export async function createRecipeObject (r) {
 export function removeSummaryLinks (summary) {
   const linkTerm = '<a href='
   const linkEnd = '</a>'
+  const urlPostfix = 'com'
   if (!summary) {
     return ''
   }
-  while (summary.includes(linkTerm) && summary.includes(linkEnd) && summary.indexOf(linkTerm) < summary.indexOf(linkEnd)) {
-    const indexOfFirstLink = summary.indexOf(linkTerm)
-    const indexOfEndLink = summary.indexOf(linkEnd)
 
-    let firstHalf = summary.substring(0, indexOfFirstLink)
-    const lastPeriodIndex = firstHalf.lastIndexOf('.')
-    firstHalf = (lastPeriodIndex >= 0) ? firstHalf.substring(0, lastPeriodIndex + 1) : firstHalf
-
-    let secondHalf = summary.substring(indexOfEndLink + 4)
-
-    let periodIndex, urlPostfixIndex
-    do {
-      periodIndex = secondHalf.indexOf('.')
-      urlPostfixIndex = secondHalf.indexOf('.com')
-      if (periodIndex < 0) { break }
-      if (periodIndex >= secondHalf.length - 1) {
-        secondHalf = ''
-        break
-      }
-      secondHalf = secondHalf.substring(periodIndex + 1)
-    } while (periodIndex === urlPostfixIndex)
-
-    summary = firstHalf + secondHalf
-  }
-  return summary
+  let arr = summary.split('.')
+  let resultSummary = ''
+  arr.forEach(sentence => {
+    if (sentence != '' && !sentence.includes(linkTerm) && !sentence.includes(linkEnd) && !sentence.includes(urlPostfix)) {
+      resultSummary = resultSummary + sentence + '.'
+    }
+  })
+  resultSummary = resultSummary.split('<b>').join('')
+  resultSummary = resultSummary.split('</b>').join('')
+  return resultSummary
 }
 
 /**
