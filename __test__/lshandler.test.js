@@ -1,67 +1,17 @@
-// Used Babel in package.jsonto transform ES6 syntax to commonjs syntax,
-// so now `import` and/or `export` statements work on both browser and unit test
-import * as utilityFunctions from '../source/scripts/API/utilityFunctions'
-import * as jsonData from './data.json'
+import * as LSHandler from '../source/scripts/API/localStorageHandler'
+import * as Mock from './mock'
 import regeneratorRuntime from 'regenerator-runtime'
 
-// Class used to mimick the localstorage in browsers
-class LocalStorageMock {
-  getItem (key) {
-    return this[key]
-  }
-
-  setItem (key, value) {
-    this[key] = value
-  }
-
-  removeItem (key) {
-    delete this[key]
-  }
-
-  clear () {
-    for (const key in this) {
-      if (Object.prototype.hasOwnProperty.call(this, key)) {
-        delete this[key]
-      }
-    }
-  }
-}
-
-class windowMock {
-  constructor (url) {
-    this.location = { href: url }
-  }
-}
 
 // global constants
 const unmockedlocalStorage = global.localStorage
 const unmockedFetch = global.fetch
 
-const dataArr = []
-
 // set local storage in global to a mock version
 beforeAll(() => {
-  global.localStorage = new LocalStorageMock()
+  global.localStorage = new Mock.LocalStorageMock()
 
-  for (let index = 0; index < 100; index++) {
-    const newJson = JSON.parse(JSON.stringify(jsonData))
-    newJson.id = index
-    dataArr.push(newJson)
-  }
-
-  global.fetch = url => {
-    url = url.toString()
-    const startIndex = url.indexOf('&number=') + 8
-    const nextOptionIndex = url.indexOf('&', startIndex + 1)
-    let endIndex = nextOptionIndex
-    if (nextOptionIndex < 0) { endIndex = url.length }
-    let number = parseInt(url.substring(startIndex, endIndex))
-    number = (number > 100) ? 100 : number
-    const res = { results: dataArr.slice(0, number) }
-    return Promise.resolve({
-      json: () => Promise.resolve(res)
-    })
-  }
+  global.fetch = Mock.fetchMock
 })
 
 // clean up mocked components in global
@@ -79,7 +29,7 @@ test('setLocalStorageItem Test', () => {
   const obj = {
     key: 'value'
   }
-  utilityFunctions.setLocalStorageItem(id, obj)
+  LSHandler.setLocalStorageItem(id, obj)
   const result = global.localStorage.getItem(id)
   expect(result).toMatch(JSON.stringify(obj))
 })
@@ -89,7 +39,7 @@ test('updateUserData Test', () => {
   global.localStorage.clear()
   const key = 'testKey'
   const value = ['1', '2', '3']
-  utilityFunctions.updateUserData(key, value)
+  LSHandler.updateUserData(key, value)
   const result = JSON.parse(global.localStorage.getItem('userData'))[key]
   expect(result).toContain('1')
   expect(result).toContain('2')
@@ -100,7 +50,7 @@ test('updateUserData Test', () => {
 test('setIntolerances Test', () => {
   global.localStorage.clear()
   const intolerances = 'dairy, snake, bamboo, milkshake, peanut'
-  utilityFunctions.setIntolerances(intolerances)
+  LSHandler.setIntolerances(intolerances)
   const result = JSON.parse(global.localStorage.getItem('userData')).intolerances
   expect(result).toContain('dairy')
   expect(result).toContain('peanut')
@@ -110,7 +60,7 @@ test('setIntolerances Test', () => {
 test('setIntolerances Empty Test', () => {
   global.localStorage.clear()
   const intolerances = ''
-  utilityFunctions.setIntolerances(intolerances)
+  LSHandler.setIntolerances(intolerances)
   const result = JSON.parse(global.localStorage.getItem('userData')).intolerances
   expect(result.length).toBe(0)
 })
@@ -119,7 +69,7 @@ test('setIntolerances Empty Test', () => {
 test('setMaxTime Test', () => {
   global.localStorage.clear()
   const maxTime = 123
-  utilityFunctions.setMaxTime(maxTime)
+  LSHandler.setMaxTime(maxTime)
   const result = JSON.parse(global.localStorage.getItem('userData')).maxTime
   expect(result).toBe(maxTime)
 })
@@ -127,9 +77,9 @@ test('setMaxTime Test', () => {
 // Done
 test('setMaxTime Empty Test', () => {
   global.localStorage.clear()
-  utilityFunctions.setMaxTime('')
+  LSHandler.setMaxTime('')
   const result = JSON.parse(global.localStorage.getItem('userData')).maxTime
-  expect(result).toBe(utilityFunctions.DEFAULT_MAX_TIME)
+  expect(result).toBe(LSHandler.DEFAULT_MAX_TIME)
 })
 
 // Done
@@ -138,7 +88,7 @@ test('removeRecipe test', () => {
   const key = 'testKey'
   const value = 'testValue'
   global.localStorage.setItem(key, value)
-  utilityFunctions.removeRecipe(key)
+  LSHandler.removeRecipe(key)
   expect(global.localStorage.getItem(key)).toBeUndefined
 })
 
@@ -150,7 +100,7 @@ test('getDeletedRecipes Test', () => {
     deletedRecipes: ['1111', '2222']
   }
   global.localStorage.setItem(key, JSON.stringify(userData))
-  const result = utilityFunctions.getDeletedRecipes()
+  const result = LSHandler.getDeletedRecipes()
   expect(result).toContain('1111')
   expect(result).toContain('2222')
 })
@@ -163,7 +113,7 @@ test('getFavoriteRecipes Test', () => {
     favorites: ['1111', '2222']
   }
   global.localStorage.setItem(key, JSON.stringify(userData))
-  const result = utilityFunctions.getFavoriteRecipes()
+  const result = LSHandler.getFavoriteRecipes()
   expect(result).toContain('1111')
   expect(result).toContain('2222')
 })
@@ -171,7 +121,7 @@ test('getFavoriteRecipes Test', () => {
 // Done
 test('getDeletedRecipes userData Empty Test', () => {
   global.localStorage.clear()
-  const result = utilityFunctions.getDeletedRecipes()
+  const result = LSHandler.getDeletedRecipes()
   expect(result.length).toBe(0)
 })
 
@@ -181,7 +131,7 @@ test('getDeletedRecipes Array Empty Test', () => {
   const key = 'userData'
   const userData = {}
   global.localStorage.setItem(key, JSON.stringify(userData))
-  const result = utilityFunctions.getDeletedRecipes()
+  const result = LSHandler.getDeletedRecipes()
   expect(result.length).toBe(0)
 })
 
@@ -201,8 +151,8 @@ test('addFavoriteRecipe Test', () => {
     favorite: false
   }
   global.localStorage.setItem(id, JSON.stringify(value))
-  utilityFunctions.addFavoriteRecipe(id)
-  utilityFunctions.addFavoriteRecipe(id2)
+  LSHandler.addFavoriteRecipe(id)
+  LSHandler.addFavoriteRecipe(id2)
   const result = JSON.parse(global.localStorage.getItem('userData')).favorites
   expect(result).toContain(id)
   expect(result).toContain(id2)
@@ -211,7 +161,7 @@ test('addFavoriteRecipe Test', () => {
 test('addFavoriteRecipe Empty Test', () => {
   global.localStorage.clear()
   const id = '1111'
-  utilityFunctions.addFavoriteRecipe(id)
+  LSHandler.addFavoriteRecipe(id)
   const result = JSON.parse(global.localStorage.getItem('userData')).favorites
   expect(result).toContain(id)
 })
@@ -232,8 +182,8 @@ test('removeFavoriteRecipe Test', () => {
     favorite: true
   }
   global.localStorage.setItem(id, JSON.stringify(value))
-  utilityFunctions.removeFavoriteRecipe(id)
-  utilityFunctions.removeFavoriteRecipe(id2)
+  LSHandler.removeFavoriteRecipe(id)
+  LSHandler.removeFavoriteRecipe(id2)
   const result = JSON.parse(global.localStorage.getItem('userData')).favorites
   expect(result).not.toContain(id)
   expect(result).not.toContain(id2)
@@ -243,7 +193,7 @@ test('removeFavoriteRecipe Test', () => {
 test('getLocalStorageRecipes Test', () => {
   global.localStorage.clear()
   // case 1: localStorage is empty
-  const emptyTest = (!utilityFunctions.getLocalStorageRecipes().length)
+  const emptyTest = (!LSHandler.getLocalStorageRecipes().length)
 
   // case 2: localStorage filled including userData & latestSearch keys
   // populate localStorage as reference
@@ -265,7 +215,7 @@ test('getLocalStorageRecipes Test', () => {
   global.localStorage.setItem(id2, JSON.stringify(value2))
 
   let filledTest = true
-  const returnedRecipes = utilityFunctions.getLocalStorageRecipes()
+  const returnedRecipes = LSHandler.getLocalStorageRecipes()
   for (const item of returnedRecipes) {
     if (!global.localStorage.getItem(item.id)) {
       filledTest = false
@@ -279,7 +229,7 @@ test('getLocalStorageRecipes Test', () => {
 
 test('getLocalStorageRecipes Empty Test', () => {
   global.localStorage.clear()
-  const returnedRecipes = utilityFunctions.getLocalStorageRecipes()
+  const returnedRecipes = LSHandler.getLocalStorageRecipes()
   expect(returnedRecipes.length).toBe(0)
 })
 
@@ -301,7 +251,7 @@ test('removeDeletedRecipes Test', () => {
   global.localStorage.setItem(id2, JSON.stringify(recipe2))
   global.localStorage.setItem('userData', JSON.stringify(userData))
 
-  utilityFunctions.removeDeletedRecipes()
+  LSHandler.removeDeletedRecipes()
   const recipeCount = Object.keys(global.localStorage).length - 1
   expect(recipeCount).toBe(0)
 })
@@ -323,11 +273,11 @@ test('searchLocalRecipes Test', async () => {
   }
   global.localStorage.setItem(id1, JSON.stringify(value1))
   global.localStorage.setItem(id2, JSON.stringify(value2))
-  utilityFunctions.searchLocalRecipes(queryTitle).then(recipeTitleResults => {
+  LSHandler.searchLocalRecipes(queryTitle).then(recipeTitleResults => {
     expect(recipeTitleResults).toContainEqual(value1)
     expect(recipeTitleResults).toContainEqual(value2)
   })
-  utilityFunctions.searchLocalRecipes(queryIngre).then(recipeIngreResults => {
+  LSHandler.searchLocalRecipes(queryIngre).then(recipeIngreResults => {
     expect(recipeIngreResults).toContainEqual(value2)
   })
 })
@@ -335,74 +285,9 @@ test('searchLocalRecipes Test', async () => {
 // Done
 test('searchLocalRecipes Test2', async () => {
   global.localStorage.clear()
-  utilityFunctions.searchLocalRecipes('test').then(recipeIngreResults => {
+  LSHandler.searchLocalRecipes('test').then(recipeIngreResults => {
     expect(recipeIngreResults.length).toBe(0)
   })
-})
-
-// Done
-test('removeSummaryLinks Test', () => {
-  const summary = 'Start. <a href="blah.combla.com .comh">blahblah</a> ss. End.'
-  const result = utilityFunctions.removeSummaryLinks(summary)
-  expect(result).toMatch(/Start. End./)
-
-  const summary2 = 'Start. <a href="blah.combla.com .comh">blahblah</a> ss.'
-  const result2 = utilityFunctions.removeSummaryLinks(summary2)
-  expect(result2).toMatch(/Start./)
-})
-
-// Done
-test('createRecipeObject Test', () => {
-  global.localStorage.clear()
-  utilityFunctions.createRecipeObject(jsonData).then(() => {
-    expect(Object.keys(global.localStorage).length).toBe(1)
-  })
-})
-
-// Done
-test('populateRecipes Test', async () => {
-  global.localStorage.clear()
-  return utilityFunctions.populateRecipes().then(() => {
-    expect(Object.keys(global.localStorage).length - 1).toBeGreaterThanOrEqual(utilityFunctions.NUMBER_OF_RECIPES_TO_DISPLAY)
-  })
-})
-
-// Done
-test('fetchRecipes Test', async () => {
-  global.localStorage.clear()
-  const userData = {
-    intolerances: ['dairy', 'snake', 'bamboo', 'milkshake', 'peanut']
-  }
-  global.localStorage.setItem('userData', JSON.stringify(userData))
-
-  return utilityFunctions.fetchRecipes(5, 0).then(() => {
-    // not counting userData
-    expect(Object.keys(global.localStorage).length - 1).toBe(5)
-  })
-})
-
-// done
-test('fetchRecipes Fail Test', async () => {
-  global.localStorage.clear()
-  const fetch = global.fetch
-  global.fetch = () => Promise.resolve({
-    json: () => Promise.resolve([])
-  })
-  return expect(utilityFunctions.fetchRecipes(5, 0).then(() => {
-    global.fetch = fetch
-  })).rejects
-})
-
-// Done
-test('loadUserData Test', () => {
-  global.localStorage.clear()
-  global.localStorage.setItem('userData', JSON.stringify({
-    intolerances: ['dairy'],
-    maxTime: 11
-  }))
-  utilityFunctions.loadUserData()
-  expect(utilityFunctions.intolerances).toContain('dairy')
-  expect(utilityFunctions.maxTime).toBe(11)
 })
 
 // Done
@@ -420,19 +305,7 @@ test('getRecipesCount Test', () => {
   global.localStorage.setItem('latestSearch', JSON.stringify({
     query: '123'
   }))
-  expect(utilityFunctions.getRecipesCount()).toBe(2)
-})
-
-// need jsdom to test IN PROGRESS
-test('router Test', () => {
-/*
-  global.window = new windowMock('https://007.com')
-  utilityFunctions.router.home()
-  utilityFunctions.router.navigate('test')
-  utilityFunctions.router.navigate('home')
-
-  console.log(window.location.href)
-  global.window = unmockedWindow */
+  expect(LSHandler.getRecipesCount()).toBe(2)
 })
 
 // Done
@@ -445,15 +318,6 @@ test('getRandom Test', async () => {
     }
     global.localStorage.setItem(`${i}`, JSON.stringify(value))
   }
-  const resultArr = utilityFunctions.getNRandomRecipes(2)
+  const resultArr = LSHandler.getNRandomRecipes(2)
   expect(resultArr.length).toBe(2)
 })
-
-/**
-test('webScrapper Test', async () => {
-  global.localStorage.clear()
-  let obj = utilityFunctions.webScrapper('https://www.allrecipes.com/recipe/23439/perfect-pumpkin-pie/')
-  expect(typeof obj).toBe('object')
-  return obj
-})
-*/

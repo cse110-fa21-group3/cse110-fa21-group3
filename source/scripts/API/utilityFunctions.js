@@ -1,3 +1,5 @@
+import * as localStorageHandler from './localStorageHandler.js'
+
 // API Key and endpoint
 const API_KEY = '6c38415312msh8fd80bab0f17271p1dcefajsn83892f0c646f'
 const API_ENDPOINT = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
@@ -14,24 +16,7 @@ const options = {
 }
 
 export const DEFAULT_RECIPE_NUMBER = 10
-export const DEFAULT_MAX_TIME = 60
 export const NUMBER_OF_RECIPES_TO_DISPLAY = 10
-
-// list of intolerances filter offered by the Spoonacular API
-const allowedIntolerances = [
-  'dairy',
-  'egg',
-  'gluten',
-  'grain',
-  'peanut',
-  'seafood',
-  'sesame',
-  'shellfish',
-  'soy',
-  'sulfite',
-  'tree nut',
-  'wheat'
-]
 
 const DEFAULT_NUTRITIONS = [
   'Calories: unknown',
@@ -48,9 +33,8 @@ const DEFAULT_NUTRITIONS = [
 // list of user Intolerances
 export let intolerances = []
 // max for recipes prep time
-export let maxTime = DEFAULT_MAX_TIME
+export let maxTime = localStorageHandler.DEFAULT_MAX_TIME
 // user data variables
-const USER_DATA = 'userData'
 
 class RecipeObject {
   constructor (id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size) {
@@ -69,168 +53,21 @@ class RecipeObject {
 }
 
 /**
- * This function updates the intolerances of the user which is used when
- * fetching recipes from the API
- * @param {String} inputIntol - A string of the intolerances.
- */
-export function setIntolerances (inputIntol) {
-  if (inputIntol === '') {
-    updateUserData('intolerances', [])
-    return
-  }
-
-  // Expected format: in1, in2, in3, ...
-  const inputArray = inputIntol.toLowerCase().replace(/\s/g, '').split(',')
-  const intols = []
-  for (const intol of inputArray) {
-    // if the entries matches any of the item in the allowedIntolerances
-    // array, then add it to userData.
-    if (allowedIntolerances.includes(intol)) {
-      intols.push(intol)
-    }
-  }
-
-  // Update the userData in localStorage
-  updateUserData('intolerances', intols)
-}
-
-/**
- * This function updates the maxTime of the recipes which is used when fetching
- * from the API
- * @param {String} time - A string containing the maxTime.
- */
-export function setMaxTime (time) {
-  if (time === '') {
-    updateUserData('maxTime', DEFAULT_MAX_TIME)
-    return
-  }
-  maxTime = parseInt(time)
-
-  // Update the userData in localStorage
-  updateUserData('maxTime', maxTime)
-}
-
-/**
  * This function loads the userData stored in localStorage and
  * sets the `intolerances` variable and the `maxTime` variable
  */
 export function loadUserData () {
-  let data = localStorage.getItem(USER_DATA)
+  let data = localStorage.getItem(localStorageHandler.USER_DATA)
   if (data) {
     data = JSON.parse(data)
   } else {
     intolerances = []
-    maxTime = DEFAULT_MAX_TIME
+    maxTime = localStorageHandler.DEFAULT_MAX_TIME
     return
   }
 
   intolerances = data.intolerances ? data.intolerances : []
-  maxTime = data.maxTime ? data.maxTime : DEFAULT_MAX_TIME
-}
-
-/**
- * Method to get the current favorited recipes
- * @returns the favorited recipes
- */
-export function getFavoriteRecipes () {
-  const userData = localStorage.getItem(USER_DATA)
-  let favoriteRecipes
-  if (userData) {
-    favoriteRecipes = JSON.parse(userData).favorites
-  }
-
-  if (!favoriteRecipes) {
-    favoriteRecipes = []
-  }
-  return favoriteRecipes
-}
-
-/**
- * Method to get the current deleted recipes
- * @returns the deleted recipes
- */
-export function getDeletedRecipes () {
-  if (!localStorage.getItem(USER_DATA)) { return [] }
-  let deletedRecipes = JSON.parse(localStorage.getItem(USER_DATA)).deletedRecipes
-
-  if (!deletedRecipes) {
-    deletedRecipes = []
-  }
-  return deletedRecipes
-}
-
-/**
- * Adds a recipe id to the favorites list in the userData item in the local storage
- * @param {String} id - the id of the recipe being added
- */
-export function addFavoriteRecipe (id) {
-  // change favorite property in the recipe object
-  const recipeItem = localStorage.getItem((`${id}`))
-  let recipe
-  if (recipeItem) {
-    recipe = JSON.parse(recipeItem)
-    recipe.favorite = true
-    localStorage.setItem(id, JSON.stringify(recipe))
-  }
-
-  // get the favorites array and add the favorited recipe to the array
-  const favArr = getFavoriteRecipes()
-  if (favArr) {
-    if (!favArr.includes(id)) {
-      favArr.push(id)
-    }
-  }
-  updateUserData('favorites', favArr)
-}
-
-/**
- * Method to remove the favorite status on a recipe
- * @param {String} id the id for the recipe
- */
-export function removeFavoriteRecipe (id) {
-  const favArr = getFavoriteRecipes()
-  const removed = []
-
-  // change favorite property in the recipe object
-  const recipeItem = localStorage.getItem((`${id}`))
-  if (recipeItem) {
-    const recipe = JSON.parse(recipeItem)
-    recipe.favorite = false
-    localStorage.setItem(`${id}`, JSON.stringify(recipe))
-  }
-
-  for (const recipeID of favArr) {
-    if (recipeID !== id) {
-      removed.push(recipeID)
-    }
-  }
-  updateUserData('favorites', removed)
-}
-
-/**
- * Function to remove the user recipe
- * @param {String} id the user created recipe id
- */
-export function removeRecipe (id) {
-  localStorage.removeItem(id)
-}
-
-/**
- * This function updates the userData stored in localStorage using
- * the Key-Value pair passed in.
- * @param {String} key - The key of the user data being stored.
- * @param {any} value - The data being stored.
- */
-export function updateUserData (key, value) {
-  let data = localStorage.getItem(USER_DATA)
-  if (data) {
-    data = JSON.parse(data)
-  } else {
-    data = {}
-  }
-
-  data[key] = value
-  localStorage.setItem(USER_DATA, JSON.stringify(data))
+  maxTime = data.maxTime ? data.maxTime : localStorageHandler.DEFAULT_MAX_TIME
 }
 
 /**
@@ -243,10 +80,10 @@ export async function populateRecipes () {
       reject(Error('DEFAULT_RECIPE_NUMBER is too small'))
       return
     }
-    const recipeCount = getRecipesCount()
+    const recipeCount = localStorageHandler.getRecipesCount()
 
     let offset = 0
-    const userData = localStorage.getItem(USER_DATA) ? JSON.parse(localStorage.getItem(USER_DATA)) : undefined
+    const userData = localStorage.getItem(localStorageHandler.USER_DATA) ? JSON.parse(localStorage.getItem(localStorageHandler.USER_DATA)) : undefined
     if (userData) {
       offset = userData.offset ? userData.offset : 0
     }
@@ -262,7 +99,7 @@ export async function populateRecipes () {
       if (numberToFetch > 100) {
         resolve(fetchRecipes(100, offset))
         offset += 100
-        updateUserData('offset', offset)
+        localStorageHandler.updateUserData('offset', offset)
         numberToFetch -= 100
       } else {
         if (numberToFetch >= NUMBER_OF_RECIPES_TO_DISPLAY) {
@@ -271,81 +108,11 @@ export async function populateRecipes () {
           fetchRecipes(numberToFetch, offset)
         }
         offset += numberToFetch
-        updateUserData('offset', offset)
+        localStorageHandler.updateUserData('offset', offset)
         numberToFetch = 0
       }
     }
   })
-}
-
-/** returns amount of recipes in localStorage
- * @returns {number} length - amount of recipes in localStorage
- */
-export function getRecipesCount () {
-  let length = Object.keys(localStorage).length
-  if (localStorage.getItem(USER_DATA)) {
-    length--
-  }
-  if (localStorage.getItem('latestSearch')) {
-    length--
-  }
-  return length
-}
-
-/**
- * This function checks deletedRecipes array in the `userData`
- * and remove recipes which ids are in that array from local storage.
- */
-export function removeDeletedRecipes () {
-  // remove Recipes in the `deletedRecipes` list
-  const deletedRecipes = getDeletedRecipes()
-  deletedRecipes.forEach(id => {
-    removeRecipe(id.toString())
-  })
-}
-
-/**
- * This function search through the local storage linearly and returns a list of recipes that
- * matches the word in the query
- * @param {String} query - the query used to search the local storage
- * @returns {JSON[]} - the list of matched recipes
- */
-export async function searchLocalRecipes (query) {
-  const recipeList = []
-  query = query.toLowerCase()
-  const localRecipes = getLocalStorageRecipes()
-
-  const endQuery = []
-  // if query includes commas
-  if (query.includes(',')) {
-    // replace commas by space
-    query = query.replace(/,/g, ' ')
-  }
-  // if there are spaces
-  const queryTemp = query.split(' ')
-  for (const queryWord of queryTemp) {
-    if (queryWord !== '') {
-      endQuery.push(queryWord)
-    }
-  }
-
-  // iterate through all recipes and check the title and ingredients for the query
-  for (const recipe of localRecipes) {
-    const recipeTitle = recipe.title.toLowerCase()
-    const recipeIngredients = recipe.ingredientSearch.toLowerCase()
-    // if the query is in the recipes then add it to an array
-    for (const queryElement of endQuery) {
-      if (recipeTitle.includes(queryElement)) {
-        recipeList.push(recipe)
-        break
-      } else if (recipeIngredients.includes(queryElement)) {
-        recipeList.push(recipe)
-        break
-      }
-    }
-  }
-  // return a populated array of recipes relating to the query
-  return recipeList
 }
 
 /**
@@ -419,7 +186,27 @@ export async function createRecipeObject (r) {
   // Create a JSON Object to store the data
   // in the format we specified
   const recipeObject = new RecipeObject(id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size)
-  setLocalStorageItem(r.id, recipeObject)
+  localStorageHandler.setLocalStorageItem(r.id, recipeObject)
+}
+
+/**
+ * Web Scrapping method for additional functionality for creating recipes
+ * @param {String} url - the url inputted to scrap
+ * @return {JSON} the json data of that website
+ */
+export function webScrapper (url) {
+  const urlToExtract = `${API_ENDPOINT}/recipes/extract?apiKey=${API_KEY}&url=${url}&analyze=true`
+  return new Promise((resolve, reject) => {
+    fetch(urlToExtract, options)
+      .then(res => res.json())
+      .then(res => {
+        createRecipeObject(res)
+        resolve(true)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
 }
 
 /**
@@ -510,95 +297,4 @@ export function removeSummaryLinks (summary) {
   resultSummary = resultSummary.split('<b>').join('')
   resultSummary = resultSummary.split('</b>').join('')
   return resultSummary
-}
-
-/**
- * This function get all recipes stored inside the localStorage and return
- * them in a list
- * @returns {JSON[]} - an array of recipes JSON Objects in the localStorage.
- */
-export function getLocalStorageRecipes () {
-  // get the keys of all recipes in local storage
-  const localKeys = Object.keys(localStorage)
-
-  const recipeList = []
-
-  // check to see if local storage is empty, if so then populate local storage
-  if (localKeys.length === 0) {
-    return recipeList
-  }
-
-  for (const key of localKeys) {
-    if (key !== USER_DATA && key !== 'latestSearch') {
-      recipeList.push(JSON.parse(localStorage.getItem(key)))
-    }
-  }
-  return recipeList
-}
-
-/**
- * This function adds the passed in recipe JSON object into local storage
- * @param {number} id - id for the local storage item
- * @param {Object} recipeObject - a JSON recipe object
- */
-export function setLocalStorageItem (id, recipeObject) {
-  localStorage.setItem(id, JSON.stringify(recipeObject))
-}
-
-/**
- * Method to get a given amount of random recipes from local storage
- * @param {number} num - the number of random recipes to get
- * @returns {JSON[]} - `num` amount of random recipes in local storage
- */
-export function getNRandomRecipes (num) {
-  const recipeCount = getRecipesCount()
-  const allRecipes = getLocalStorageRecipes()
-  if (num > recipeCount) {
-    return allRecipes
-  }
-
-  const randomIndexes = getRandomNumbers(num, recipeCount)
-  const randomRecipes = []
-  randomIndexes.forEach(i => {
-    randomRecipes.push(allRecipes[i])
-  })
-  return randomRecipes
-}
-
-/**
- * Method to get a random integer
- * @param {number} count - number of random integers
- * @param {number} max - the max value
- * @returns {number[]} random number between 0 and the parameter
- */
-function getRandomNumbers (count, max) {
-  const randomArr = []
-  while (randomArr.length < count) {
-    const randInt = Math.floor(Math.random() * max)
-    if (!randomArr.includes(randInt)) {
-      randomArr.push(randInt)
-    }
-  }
-
-  return randomArr
-}
-
-/**
- * Web Scrapping method for additional functionality for creating recipes
- * @param {String} url - the url inputted to scrap
- * @return {JSON} the json data of that website
- */
-export function webScrapper (url) {
-  const urlToExtract = `${API_ENDPOINT}/recipes/extract?apiKey=${API_KEY}&url=${url}&analyze=true`
-  return new Promise((resolve, reject) => {
-    fetch(urlToExtract, options)
-      .then(res => res.json())
-      .then(res => {
-        createRecipeObject(res)
-        resolve(true)
-      })
-      .catch(error => {
-        reject(error)
-      })
-  })
 }

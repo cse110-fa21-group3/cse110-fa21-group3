@@ -1,4 +1,4 @@
-import * as util from "./API/utilityFunctions.js";
+import * as LSHandler from "./API/localStorageHandler.js";
 
 const id = window.location.hash.slice(1);
 
@@ -50,28 +50,28 @@ function init(){
 
 
     let favoriteBtn = document.getElementById("favorite");
-    let favArr = util.getFavoriteRecipes();
+    let favArr = LSHandler.getFavoriteRecipes();
     if(favArr && favArr.includes(id)){
         favoriteBtn.classList.add("liked");
     }
     
     favoriteBtn.addEventListener("click", e => {
-        favArr = util.getFavoriteRecipes();
+        favArr = LSHandler.getFavoriteRecipes();
         if(favArr && favArr.includes(id)){
-            util.removeFavoriteRecipe(id);
+            LSHandler.removeFavoriteRecipe(id);
         } else{
-            util.addFavoriteRecipe(id);
+            LSHandler.addFavoriteRecipe(id);
         }
     });
 
     let deleteBtn = document.getElementById("delete");
-    let deletedRecipes = util.getDeletedRecipes();
+    let deletedRecipes = LSHandler.getDeletedRecipes();
     deleteBtn.addEventListener("click", e => {
-        util.removeRecipe(id);
+        LSHandler.removeRecipe(id);
 
-        deletedRecipes = util.getDeletedRecipes();
+        deletedRecipes = LSHandler.getDeletedRecipes();
         deletedRecipes.push(parseInt(id))
-        util.updateUserData("deletedRecipes", deletedRecipes);
+        LSHandler.updateUserData("deletedRecipes", deletedRecipes);
 
         window.location.href = "/index.html";
     });

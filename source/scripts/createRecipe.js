@@ -1,4 +1,4 @@
-import * as util from "./API/utilityFunctions.js";
+import * as LSHandler from "./API/localStorageHandler.js";
 
 let recipeImg = document.getElementById('recipe-img');
 let compressedImg; // store base64 compressed image (string)
@@ -199,7 +199,7 @@ createRecipe.addEventListener("click", e => {
     }else{
         let title = formObj.get("title");
         formRes["id"] = "ucr_" + title.replaceAll(" ", "");
-        util.addFavoriteRecipe(formRes["id"]);
+        LSHandler.addFavoriteRecipe(formRes["id"]);
     }
 
     formKeys.forEach(key => {
@@ -221,7 +221,7 @@ createRecipe.addEventListener("click", e => {
         formRes["ingredientSearch"] += ing;
     });
     
-    util.setLocalStorageItem(formRes["id"], formRes);
+    LSHandler.setLocalStorageItem(formRes["id"], formRes);
     window.location.href = "/index.html";
 });
 
