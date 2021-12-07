@@ -13,7 +13,7 @@ const options = {
   }
 }
 
-export const DEFAULT_RECIPE_NUMBER = 201
+export const DEFAULT_RECIPE_NUMBER = 10
 export const DEFAULT_MAX_TIME = 60
 export const NUMBER_OF_RECIPES_TO_DISPLAY = 10
 
@@ -52,10 +52,26 @@ export let maxTime = DEFAULT_MAX_TIME
 // user data variables
 const USER_DATA = 'userData'
 
+class RecipeObject {
+  constructor (id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size) {
+    this.id = id || '0'
+    this.title = title || 'Website Food'
+    this.image = foodImage || './image/team3-logo.jpg'
+    this.readyInMinutes = readyInMinutes || 'unkown'
+    this.ingredientSearch = ingredientSearch
+    this.ingredients = ingredients
+    this.steps = steps
+    this.nutrition = nutrition
+    this.favorite = favorite
+    this.summary = summary
+    this.servingSize = size || 'unkown'
+  }
+}
+
 /**
  * This function updates the intolerances of the user which is used when
  * fetching recipes from the API
- * @param {string} inputIntol - A string of the intolerances.
+ * @param {String} inputIntol - A string of the intolerances.
  */
 export function setIntolerances (inputIntol) {
   if (inputIntol === '') {
@@ -81,7 +97,7 @@ export function setIntolerances (inputIntol) {
 /**
  * This function updates the maxTime of the recipes which is used when fetching
  * from the API
- * @param {string} time - A string containing the maxTime.
+ * @param {String} time - A string containing the maxTime.
  */
 export function setMaxTime (time) {
   if (time === '') {
@@ -145,7 +161,7 @@ export function getDeletedRecipes () {
 
 /**
  * Adds a recipe id to the favorites list in the userData item in the local storage
- * @param {string} id - the id of the recipe being added
+ * @param {String} id - the id of the recipe being added
  */
 export function addFavoriteRecipe (id) {
   // change favorite property in the recipe object
@@ -169,7 +185,7 @@ export function addFavoriteRecipe (id) {
 
 /**
  * Method to remove the favorite status on a recipe
- * @param {string} id the id for the recipe
+ * @param {String} id the id for the recipe
  */
 export function removeFavoriteRecipe (id) {
   const favArr = getFavoriteRecipes()
@@ -193,7 +209,7 @@ export function removeFavoriteRecipe (id) {
 
 /**
  * Function to remove the user recipe
- * @param {string} id the user created recipe id
+ * @param {String} id the user created recipe id
  */
 export function removeRecipe (id) {
   localStorage.removeItem(id)
@@ -202,7 +218,7 @@ export function removeRecipe (id) {
 /**
  * This function updates the userData stored in localStorage using
  * the Key-Value pair passed in.
- * @param {string} key - The key of the user data being stored.
+ * @param {String} key - The key of the user data being stored.
  * @param {any} value - The data being stored.
  */
 export function updateUserData (key, value) {
@@ -249,7 +265,7 @@ export async function populateRecipes () {
         updateUserData('offset', offset)
         numberToFetch -= 100
       } else {
-        if (numberToFetch > NUMBER_OF_RECIPES_TO_DISPLAY) {
+        if (numberToFetch >= NUMBER_OF_RECIPES_TO_DISPLAY) {
           resolve(fetchRecipes(numberToFetch, offset))
         } else {
           fetchRecipes(numberToFetch, offset)
@@ -291,7 +307,7 @@ export function removeDeletedRecipes () {
 /**
  * This function search through the local storage linearly and returns a list of recipes that
  * matches the word in the query
- * @param {string} query - the query used to search the local storage
+ * @param {String} query - the query used to search the local storage
  * @returns {JSON[]} - the list of matched recipes
  */
 export async function searchLocalRecipes (query) {
@@ -373,64 +389,102 @@ export function fetchRecipes (recipeCount, offset) {
  * @param {JSON} r - recipe json Object
  */
 export async function createRecipeObject (r) {
-  const id = r.id ? r.id : '-0'
-  const readyInMinutes = r.readyInMinutes ? r.readyInMinutes : 'unkown'
-  const title = r.title ? r.title : 'Website Food'
-  const foodImage = r.image ? r.image : './image/team3-logo.jpg'
-  const favorite = false
+  if (!r) {
+    throw new Error('recipe is undefined')
+  }
 
-  const summary = removeSummaryLinks(r.summary).replaceAll('<b>', '').replaceAll('</b>', '')
-  const size = r.servings ? r.servings : 'unknown'
+  const id = r.id
+  const readyInMinutes = r.readyInMinutes
+  const title = r.title
+  const foodImage = r.image
+  const size = r.servings
+  const favorite = false
+  const summary = removeSummaryLinks(r.summary)
 
   // populating ingredient list
   const apiIngredients = r.missedIngredients ? r.missedIngredients : r.extendedIngredients
-  const ingredients = []
-  let ingredientSearch = ''
-  if (apiIngredients) {
-    apiIngredients.forEach(ingre => {
-      ingredients.push(ingre.original)
-      ingredientSearch += ingre.name + ' '
-    })
-  }
+  const ingredientObj = extractIngredients(apiIngredients)
+  const ingredients = ingredientObj.ingredients
+  const ingredientSearch = ingredientObj.ingredientSearch
 
   // populating nutrition list
-  let nutrition = []
-  if (r.nutrition) {
-    for (let nutrIndex = 0; nutrIndex < 9; nutrIndex++) {
-      const nutrTitle = r.nutrition.nutrients[nutrIndex].title
-      const nutrAmount = r.nutrition.nutrients[nutrIndex].amount
-      const nutrUnit = r.nutrition.nutrients[nutrIndex].unit
-      nutrition.push(nutrTitle + ': ' + nutrAmount + ' ' + nutrUnit)
-    }
-  } else {
-    nutrition = DEFAULT_NUTRITIONS
-  }
+  const nutrition = extractNutrition(r.nutrition)
 
-  let steps = []
-  if (r.analyzedInstructions && r.analyzedInstructions[0]) {
-    r.analyzedInstructions[0].steps.forEach(recipeStep => {
-      steps.push(recipeStep.step)
-    })
-  } else {
-    steps = 'No Steps'
+  let steps = ['No Steps']
+  if (r.analyzedInstructions) {
+    steps = extractSteps(r.analyzedInstructions[0])
   }
 
   // Create a JSON Object to store the data
   // in the format we specified
-  const recipeObject = {
-    id: id,
-    title: title,
-    image: foodImage,
-    readyInMinutes: readyInMinutes,
-    ingredientSearch: ingredientSearch,
-    ingredients: ingredients,
-    steps: steps,
-    nutrition: nutrition,
-    favorite: favorite,
-    summary: summary,
-    servingSize: size
-  }
+  const recipeObject = new RecipeObject(id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size)
   setLocalStorageItem(r.id, recipeObject)
+}
+
+/**
+ * extracts nutritional data from api response json object
+ * @param {*} nutrition - array of nutritions from API
+ * @returns {String[]} - array of nutritions in strings
+ */
+function extractNutrition (nutrition) {
+  const resultArr = []
+
+  if (!nutrition) {
+    return DEFAULT_NUTRITIONS
+  }
+
+  for (let nutrIndex = 0; nutrIndex < 9; nutrIndex++) {
+    const nutrTitle = nutrition.nutrients[nutrIndex].title
+    const nutrAmount = nutrition.nutrients[nutrIndex].amount
+    const nutrUnit = nutrition.nutrients[nutrIndex].unit
+    resultArr.push(nutrTitle + ': ' + nutrAmount + ' ' + nutrUnit)
+  }
+  return resultArr
+}
+
+/**
+ * extracts steps data from api response json object
+ * @param {*} steps - array of steps from API
+ * @returns {String[]} - array of steps in strings
+ */
+function extractSteps (steps) {
+  const resultArr = []
+
+  if (!steps || steps.length === 0) {
+    return ['No Steps']
+  }
+
+  for (let i = 0; i < steps.length; i++) {
+    resultArr.push(steps[i].step)
+  }
+  return resultArr
+}
+
+/**
+ * extracts ingredients data from api response json object
+ * @param {*} nutrition - array of steps from API
+ * @returns {JSON} - array of steps in strings
+ */
+function extractIngredients (apiIngredients) {
+  let ingredientSearch = ''
+  const ingredients = []
+
+  if (!apiIngredients) {
+    return {
+      ingredientSearch: ingredientSearch,
+      ingredients: ingredients
+    }
+  }
+
+  for (let i = 0; i < apiIngredients.length; i++) {
+    ingredients.push(apiIngredients[i].original)
+    ingredientSearch += apiIngredients[i].name + ' '
+  }
+
+  return {
+    ingredientSearch: ingredientSearch,
+    ingredients: ingredients
+  }
 }
 
 /**
@@ -440,34 +494,21 @@ export async function createRecipeObject (r) {
 export function removeSummaryLinks (summary) {
   const linkTerm = '<a href='
   const linkEnd = '</a>'
+  const urlPostfix = 'com'
   if (!summary) {
-    return ''
+    return 'No Summary Found'
   }
-  while (summary.includes(linkTerm) && summary.includes(linkEnd) && summary.indexOf(linkTerm) < summary.indexOf(linkEnd)) {
-    const indexOfFirstLink = summary.indexOf(linkTerm)
-    const indexOfEndLink = summary.indexOf(linkEnd)
 
-    let firstHalf = summary.substring(0, indexOfFirstLink)
-    const lastPeriodIndex = firstHalf.lastIndexOf('.')
-    firstHalf = (lastPeriodIndex >= 0) ? firstHalf.substring(0, lastPeriodIndex + 1) : firstHalf
-
-    let secondHalf = summary.substring(indexOfEndLink + 4)
-
-    let periodIndex, urlPostfixIndex
-    do {
-      periodIndex = secondHalf.indexOf('.')
-      urlPostfixIndex = secondHalf.indexOf('.com')
-      if (periodIndex < 0) { break }
-      if (periodIndex >= secondHalf.length - 1) {
-        secondHalf = ''
-        break
-      }
-      secondHalf = secondHalf.substring(periodIndex + 1)
-    } while (periodIndex === urlPostfixIndex)
-
-    summary = firstHalf + secondHalf
-  }
-  return summary
+  const arr = summary.split('.')
+  let resultSummary = ''
+  arr.forEach(sentence => {
+    if (sentence !== '' && !sentence.includes(linkTerm) && !sentence.includes(linkEnd) && !sentence.includes(urlPostfix)) {
+      resultSummary = resultSummary + sentence + '.'
+    }
+  })
+  resultSummary = resultSummary.split('<b>').join('')
+  resultSummary = resultSummary.split('</b>').join('')
+  return resultSummary
 }
 
 /**
@@ -543,7 +584,7 @@ function getRandomNumbers (count, max) {
 
 /**
  * Web Scrapping method for additional functionality for creating recipes
- * @param {string} url - the url inputted to scrap
+ * @param {String} url - the url inputted to scrap
  * @return {JSON} the json data of that website
  */
 export function webScrapper (url) {
