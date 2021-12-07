@@ -88,6 +88,15 @@ function setUpBtns () {
 
     window.location.href = '/index.html'
   })
+
+  const searchBtn = document.getElementById('search-icon')
+  searchBtn.addEventListener('click', e => {
+    e.preventDefault()
+    const searchQuery = document.getElementById('search-bar').value
+    LSHandler.searchLocalRecipes(searchQuery).then(() => {
+      window.location.href = '/searchpage.html'
+    })
+  })
 }
 
 // changing the color
