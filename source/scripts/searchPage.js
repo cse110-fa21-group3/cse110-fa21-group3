@@ -51,7 +51,7 @@ window.addEventListener("DOMContentLoaded", () => {
         let recipeCardsSection = document.getElementById("recipe-cards");
         let recipeCard = document.createElement("recipe-card");
         let recipeData = JSON.parse(localStorage.getItem(id));
-        console.log(recipeData);
+        // console.log(recipeData);
         recipeCard.data = recipeData;
         recipeCardsSection.appendChild(recipeCard);
         recipeCard.addEventListener("click", e => {
