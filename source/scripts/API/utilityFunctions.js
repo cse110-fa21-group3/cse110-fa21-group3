@@ -379,7 +379,7 @@ export async function createRecipeObject (r) {
   const foodImage = r.image ? r.image : './image/team3-logo.jpg'
   const favorite = false
 
-  const summary = removeSummaryLinks(r.summary).replaceAll("<b>", "").replaceAll("</b>", "")
+  const summary = removeSummaryLinks(r.summary).replaceAll('<b>', '').replaceAll('</b>', '')
   const size = r.servings ? r.servings : 'unknown'
 
   // populating ingredient list
