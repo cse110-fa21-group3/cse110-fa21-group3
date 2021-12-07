@@ -98,14 +98,10 @@ function getUserPrefs () {
   if (LSHandler.getLocalStorageRecipes().length === 0) {
     LSHandler.updateUserData('offset', 0)
     const intols = prompt('Enter your intolerances (ingredients not to include)\n\nAvailable: dairy, gluten, shellfish, seafood, wheat, eggs, peanut, soy, grain, sesame, tree nut, sulfite')
-    if (intols || intols === '') {
-      LSHandler.setIntolerances(intols)
-    }
+    LSHandler.setIntolerances(intols)
 
     const maxTime = prompt("Enter the maximum amount of time you'd want to spend making a recipe (in minutes)")
-    if (maxTime || !isNaN(Number(maxTime))) {
-      LSHandler.setMaxTime(maxTime)
-    }
+    LSHandler.setMaxTime(maxTime)
 
     util.populateRecipes().then(() => {
       createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY)

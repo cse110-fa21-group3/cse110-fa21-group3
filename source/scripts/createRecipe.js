@@ -245,6 +245,14 @@ function populateRecipeForm (recipeData) {
     previewImg.classList.remove('no-preview')
   }
 
+  populateLists(recipeData)
+}
+
+/**
+ * responsible for populating the list field like ingredirents, steps, and nutritions
+ * @param {*} recipeData - json data of recipe
+ */
+function populateLists (recipeData) {
   // Ingredients fill-in
   const numIng = recipeData.ingredients.length
   for (let i = 0; i < numIng - 1; i++) {

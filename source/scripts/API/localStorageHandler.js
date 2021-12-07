@@ -22,7 +22,7 @@ const allowedIntolerances = [
  * @param {String} inputIntol - A string of the intolerances.
  */
 export function setIntolerances (inputIntol) {
-  if (inputIntol === '') {
+  if (!inputIntol || inputIntol === '') {
     updateUserData('intolerances', [])
     return
   }
@@ -48,7 +48,7 @@ export function setIntolerances (inputIntol) {
    * @param {String} time - A string containing the maxTime.
    */
 export function setMaxTime (time) {
-  if (time === '') {
+  if (!time || time === '') {
     updateUserData('maxTime', DEFAULT_MAX_TIME)
     return
   }
@@ -182,19 +182,11 @@ export async function searchLocalRecipes (query) {
   query = query.toLowerCase()
   const localRecipes = getLocalStorageRecipes()
 
-  const endQuery = []
-  // if query includes commas
-  if (query.includes(',')) {
-    // replace commas by space
-    query = query.replace(/,/g, ' ')
-  }
+  // replace query commas with space
+  query = query.replace(/,/g, ' ').replace(/\s+/g,' ')
+
   // if there are spaces
-  const queryTemp = query.split(' ')
-  for (const queryWord of queryTemp) {
-    if (queryWord !== '') {
-      endQuery.push(queryWord)
-    }
-  }
+  const endQuery = query.split(' ')
 
   // iterate through all recipes and check the title and ingredients for the query
   for (const recipe of localRecipes) {
@@ -202,10 +194,7 @@ export async function searchLocalRecipes (query) {
     const recipeIngredients = recipe.ingredientSearch.toLowerCase()
     // if the query is in the recipes then add it to an array
     for (const queryElement of endQuery) {
-      if (recipeTitle.includes(queryElement)) {
-        recipeList.push(recipe)
-        break
-      } else if (recipeIngredients.includes(queryElement)) {
+      if ((recipeTitle.includes(queryElement) || recipeIngredients.includes(queryElement))) {
         recipeList.push(recipe)
         break
       }
