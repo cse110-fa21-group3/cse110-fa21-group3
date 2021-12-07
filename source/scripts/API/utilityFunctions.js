@@ -88,14 +88,26 @@ export async function populateRecipes () {
     const recipeCount = localStorageHandler.getRecipesCount()
 
     // # of recipes waiting to fetch
-    let numberToFetch = DEFAULT_RECIPE_NUMBER - recipeCount
+    let remainCount = DEFAULT_RECIPE_NUMBER - recipeCount
     let fetchOffset = offset
 
     if (recipeCount >= NUMBER_OF_RECIPES_TO_DISPLAY) {
       resolve(true)
     }
 
-    while (numberToFetch > 0) {
+    let numberToFetch = 0
+    while (remainCount > 0) {
+      numberToFetch = (remainCount >= 100) ? 100 : remainCount
+
+      if (numberToFetch >= NUMBER_OF_RECIPES_TO_DISPLAY) {
+        resolve(fetchRecipes(numberToFetch, fetchOffset).then(offsetFinished => updateOffset(offsetFinished)))
+      }else {
+        fetchRecipes(numberToFetch, fetchOffset).then(offsetFinished => updateOffset(offsetFinished))
+      }
+      fetchOffset += numberToFetch
+      remainCount -= numberToFetch
+
+      /*
       if (numberToFetch > 100) {
         resolve(fetchRecipes(100, fetchOffset).then(offsetFinished => updateOffset(offsetFinished)))
         fetchOffset += 100
@@ -108,7 +120,7 @@ export async function populateRecipes () {
         }
         fetchOffset += numberToFetch
         numberToFetch = 0
-      }
+      }*/
     }
   })
 }
