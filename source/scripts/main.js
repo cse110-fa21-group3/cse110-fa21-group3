@@ -108,7 +108,7 @@ function getUserPrefs(){
             util.setMaxTime(maxTime);
         }
 
-        util.populateRecipes(util.DEFAULT_RECIPE_NUMBER).then(() => {
+        util.populateRecipes().then(() => {
             createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY);
         });
     }
