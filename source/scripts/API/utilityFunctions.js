@@ -13,27 +13,44 @@ const options = {
   }
 }
 
-export const DEFAULT_RECIPE_NUMBER = 10
+export const DEFAULT_RECIPE_NUMBER = 201
 export const DEFAULT_MAX_TIME = 60
+export const NUMBER_OF_RECIPES_TO_DISPLAY = 10
 
-export const MINIMUM_RECIPE_REQUIRED = 5
 // list of intolerances filter offered by the Spoonacular API
-const allowedIntolerances = ['dairy','egg','gluten','grain','peanut','seafood','sesame','shellfish','soy','sulfite','tree nut','wheat']
+const allowedIntolerances = [
+  'dairy',
+  'egg',
+  'gluten',
+  'grain',
+  'peanut',
+  'seafood',
+  'sesame',
+  'shellfish',
+  'soy',
+  'sulfite',
+  'tree nut',
+  'wheat'
+]
+
+const DEFAULT_NUTRITIONS = [
+  'Calories: unknown',
+  'Fat : unknown',
+  'Saturated Fat: unknown',
+  'Carbohydrates: unknown',
+  'Net Carbohydrates: unknown',
+  'Sugar: unknown',
+  'Cholestroel: unknown',
+  'Sodium: unknown',
+  'Protein: unknown'
+]
+
 // list of user Intolerances
-let intolerances = []
+export let intolerances = []
 // max for recipes prep time
-let maxTime = DEFAULT_MAX_TIME
+export let maxTime = DEFAULT_MAX_TIME
 // user data variables
 const USER_DATA = 'userData'
-
-/**
- * Just a testing function for the start up
- */
-function init () {
-  loadUserData()
-  console.log(intolerances)
-  console.log(maxTime)
-}
 
 /**
  * This function updates the intolerances of the user which is used when
@@ -41,16 +58,13 @@ function init () {
  * @param {string} inputIntol - A string of the intolerances.
  */
 export function setIntolerances (inputIntol) {
-  if (inputIntol == '') {
+  if (inputIntol === '') {
     updateUserData('intolerances', [])
     return
   }
 
-  // format the intolerance string by pattern matching
-  console.log(inputIntol)
   // Expected format: in1, in2, in3, ...
   const inputArray = inputIntol.toLowerCase().replace(/\s/g, '').split(',')
-  console.log(inputArray)
   const intols = []
   for (const intol of inputArray) {
     // if the entries matches any of the item in the allowedIntolerances
@@ -70,7 +84,7 @@ export function setIntolerances (inputIntol) {
  * @param {string} time - A string containing the maxTime.
  */
 export function setMaxTime (time) {
-  if (time == '') {
+  if (time === '') {
     updateUserData('maxTime', DEFAULT_MAX_TIME)
     return
   }
@@ -84,7 +98,7 @@ export function setMaxTime (time) {
  * This function loads the userData stored in localStorage and
  * sets the `intolerances` variable and the `maxTime` variable
  */
-function loadUserData () {
+export function loadUserData () {
   let data = localStorage.getItem(USER_DATA)
   if (data) {
     data = JSON.parse(data)
@@ -103,10 +117,10 @@ function loadUserData () {
  * @returns the favorited recipes
  */
 export function getFavoriteRecipes () {
-  const userData = JSON.parse(localStorage.getItem(USER_DATA))
+  const userData = localStorage.getItem(USER_DATA)
   let favoriteRecipes
   if (userData) {
-    favoriteRecipes = userData.favorites
+    favoriteRecipes = JSON.parse(userData).favorites
   }
 
   if (!favoriteRecipes) {
@@ -120,12 +134,8 @@ export function getFavoriteRecipes () {
  * @returns the deleted recipes
  */
 export function getDeletedRecipes () {
-  const userData = JSON.parse(localStorage.getItem(USER_DATA))
-
-  let deletedRecipes
-  if (userData) {
-    deletedRecipes = userData.deletedRecipes
-  }
+  if (!localStorage.getItem(USER_DATA)) { return [] }
+  let deletedRecipes = JSON.parse(localStorage.getItem(USER_DATA)).deletedRecipes
 
   if (!deletedRecipes) {
     deletedRecipes = []
@@ -145,18 +155,14 @@ export function addFavoriteRecipe (id) {
     recipe = JSON.parse(recipeItem)
     recipe.favorite = true
     localStorage.setItem(id, JSON.stringify(recipe))
-  } else {
-    return
   }
 
   // get the favorites array and add the favorited recipe to the array
-  let favArr = getFavoriteRecipes()
+  const favArr = getFavoriteRecipes()
   if (favArr) {
     if (!favArr.includes(id)) {
       favArr.push(id)
     }
-  } else {
-    favArr = [id]
   }
   updateUserData('favorites', favArr)
 }
@@ -175,12 +181,10 @@ export function removeFavoriteRecipe (id) {
     const recipe = JSON.parse(recipeItem)
     recipe.favorite = false
     localStorage.setItem(`${id}`, JSON.stringify(recipe))
-  } else {
-    return
   }
 
   for (const recipeID of favArr) {
-    if (recipeID != id) {
+    if (recipeID !== id) {
       removed.push(recipeID)
     }
   }
@@ -211,50 +215,58 @@ export function updateUserData (key, value) {
 
   data[key] = value
   localStorage.setItem(USER_DATA, JSON.stringify(data))
-  //console.log(JSON.parse(localStorage.getItem(USER_DATA)))
 }
 
 /**
  * This function query the API multiple times with the fetchRecipes(...) function
  * to get a recipe dump
- * @param {number} total_count - The total number of recipes to get from API.
  */
-export async function populateRecipes (total_count) {
-  let offset = 0
-  // get recipes by 100s
-  const repeat_times = Math.round(total_count / 100)
-  // get marginal recipes
-  const remain_number = total_count % 100
-
+export async function populateRecipes () {
   return new Promise((resolve, reject) => {
+    if (DEFAULT_RECIPE_NUMBER < NUMBER_OF_RECIPES_TO_DISPLAY) {
+      reject(Error('DEFAULT_RECIPE_NUMBER is too small'))
+      return
+    }
+    const recipeCount = getRecipesCount()
 
-    // repeat getting 100 recipes at a time
-    // Because that's tha max amount the API returns per call
-    for (let i = 0; i < repeat_times; i++) {
-        fetchRecipes(100, offset).then(() => {
-            if (getRecipesCount() >= MINIMUM_RECIPE_REQUIRED) {
-                removeDeletedRecipes()
-                resolve(true)
-            }
-        })
-        offset += 100
+    let offset = 0
+    const userData = localStorage.getItem(USER_DATA) ? JSON.parse(localStorage.getItem(USER_DATA)) : undefined
+    if (userData) {
+      offset = userData.offset ? userData.offset : 0
     }
 
-    // getting the remaining amount (< 100 recips)
-    if (remain_number > 0) {
-        fetchRecipes(remain_number, offset).then(() => {
-            if (getRecipesCount() >= MINIMUM_RECIPE_REQUIRED) {
-                removeDeletedRecipes()
-                resolve(true)
-            }
-        })
-        offset += remain_number
+    // # of recipes waiting to fetch
+    let numberToFetch = DEFAULT_RECIPE_NUMBER - recipeCount
+
+    if (recipeCount >= NUMBER_OF_RECIPES_TO_DISPLAY) {
+      resolve(true)
+    }
+
+    while (numberToFetch > 0) {
+      if (numberToFetch > 100) {
+        resolve(fetchRecipes(100, offset))
+        offset += 100
+        updateUserData('offset', offset)
+        numberToFetch -= 100
+      } else {
+        if (numberToFetch > NUMBER_OF_RECIPES_TO_DISPLAY) {
+          resolve(fetchRecipes(numberToFetch, offset))
+        } else {
+          fetchRecipes(numberToFetch, offset)
+        }
+        offset += numberToFetch
+        updateUserData('offset', offset)
+        numberToFetch = 0
+      }
     }
   })
 }
 
-function getRecipesCount() {
-  let length = localStorage.length
+/** returns amount of recipes in localStorage
+ * @returns {number} length - amount of recipes in localStorage
+ */
+export function getRecipesCount () {
+  let length = Object.keys(localStorage).length
   if (localStorage.getItem(USER_DATA)) {
     length--
   }
@@ -265,15 +277,15 @@ function getRecipesCount() {
 }
 
 /**
- * This function checks deletedRecipes array in the `userData` 
+ * This function checks deletedRecipes array in the `userData`
  * and remove recipes which ids are in that array from local storage.
  */
-function removeDeletedRecipes() {
+export function removeDeletedRecipes () {
   // remove Recipes in the `deletedRecipes` list
-    const deletedRecipes = getDeletedRecipes()
-    deletedRecipes.forEach(id => {
-      removeRecipe(id.toString())
-    })
+  const deletedRecipes = getDeletedRecipes()
+  deletedRecipes.forEach(id => {
+    removeRecipe(id.toString())
+  })
 }
 
 /**
@@ -285,12 +297,7 @@ function removeDeletedRecipes() {
 export async function searchLocalRecipes (query) {
   const recipeList = []
   query = query.toLowerCase()
-  let localRecipes = getLocalStorageRecipes()
-  console.log(localRecipes)
-  if (!localRecipes) {
-    populateRecipes(DEFAULT_RECIPE_NUMBER)
-    localRecipes = getLocalStorageRecipes()
-  }
+  const localRecipes = getLocalStorageRecipes()
 
   const endQuery = []
   // if query includes commas
@@ -301,7 +308,7 @@ export async function searchLocalRecipes (query) {
   // if there are spaces
   const queryTemp = query.split(' ')
   for (const queryWord of queryTemp) {
-    if (queryWord != '') {
+    if (queryWord !== '') {
       endQuery.push(queryWord)
     }
   }
@@ -328,18 +335,20 @@ export async function searchLocalRecipes (query) {
 /**
  * This function queries the API and gets a fixed amount of recipes
  * with offset in the query.
- * @param {number} recipe_count - The number of recipes to get.
+ * @param {number} recipeCount - The number of recipes to get.
  * @param {number} offset - The number of results to skip.
  * @returns {Promise}
  */
-export async function fetchRecipes (recipe_count, offset) {
+export function fetchRecipes (recipeCount, offset) {
   loadUserData()
   let reqUrl = `${API_ENDPOINT}/recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true&number=${recipe_count}&offset=${offset}&maxReadyTime=${maxTime}`
+
   let intolerancesStr = ''
   if (intolerances.length > 0) {
-    intolerances.forEach(i => intolerancesStr += `,${i}`)
+    for (let i = 0; i > intolerances.length; i++) {
+      intolerancesStr += `,${intolerances[i]}`
+    }
     intolerancesStr = intolerancesStr.slice(1, intolerancesStr.length)
-    console.log(intolerancesStr)
     reqUrl += '&intolerances=' + intolerancesStr
   }
 
@@ -347,50 +356,14 @@ export async function fetchRecipes (recipe_count, offset) {
     fetch(reqUrl, options)
       .then(res => res.json())
       .then(res => {
-        // Find the expected length of recipes in the local storage
-        const expectedLength = res.results.length
-        const originalLength = getRecipesCount()
-
-        //console.log(res)
         // create local storage items
-        res.results.forEach(async r => {
-          createRecipeObject(r).then(() => {
-
-            // Find amount of recipes in the local storage
-            // filtering out `userData` and `latestSearch`
-            let recipesCount = getRecipesCount()
-            // resolves when expected amount of recipes is met.
-            if (recipesCount - originalLength >= MINIMUM_RECIPE_REQUIRED) {
-              resolve(true)
-            }
-          })
-          .catch(err => {
-            console.log(err)
-            reject(false)
-          })
+        res.results.forEach(r => {
+          createRecipeObject(r)
         })
+        resolve(true)
       })
       .catch(error => {
-        reject(false)
-      })
-  })
-}
-
-/**
- * Gets the summary of a specific recipe with its id
- * @param {string} id - id of the recipe to be removed.
- */
-async function fetchSummary (id) {
-  const reqUrl = `${API_ENDPOINT}/recipes/${id}/summary`
-  return new Promise((resolve, reject) => {
-    fetch(reqUrl, options)
-      .then(res => res.json())
-      .then(res => {
-        resolve(res.summary)
-      })
-      .catch(error => {
-        console.log(error)
-        reject(false)
+        reject(error)
       })
   })
 }
@@ -400,38 +373,47 @@ async function fetchSummary (id) {
  * @param {JSON} r - recipe json Object
  */
 export async function createRecipeObject (r) {
-  const id = r.id
-  const readyInMinutes = r.readyInMinutes
-  const title = r.title
-  const foodImage = r.image
+  const id = r.id ? r.id : '-0'
+  const readyInMinutes = r.readyInMinutes ? r.readyInMinutes : 'unkown'
+  const title = r.title ? r.title : 'Website Food'
+  const foodImage = r.image ? r.image : './image/team3-logo.jpg'
   const favorite = false
 
   const summary = removeSummaryLinks(r.summary).replaceAll("<b>", "").replaceAll("</b>", "")
-  const size = r.servings
+  const size = r.servings ? r.servings : 'unknown'
 
   // populating ingredient list
+  const apiIngredients = r.missedIngredients ? r.missedIngredients : r.extendedIngredients
   const ingredients = []
   let ingredientSearch = ''
-  r.missedIngredients.forEach(ingre => {
-    ingredients.push(ingre.original)
-    ingredientSearch += ingre.name + ' '
-  })
-
-  // populating nutrition list
-  const nutrition = []
-  for (let nutr_index = 0; nutr_index < 9; nutr_index++) {
-    const nutr_title = r.nutrition.nutrients[nutr_index].title
-    const nutr_amount = r.nutrition.nutrients[nutr_index].amount
-    const nutr_unit = r.nutrition.nutrients[nutr_index].unit
-    nutrition.push(nutr_title + ': ' + nutr_amount + ' ' + nutr_unit)
+  if (apiIngredients) {
+    apiIngredients.forEach(ingre => {
+      ingredients.push(ingre.original)
+      ingredientSearch += ingre.name + ' '
+    })
   }
 
-  // TODO: Optimize the steps array, now it has ingredients inside,
-  //       which we don't need
-  const steps = []
-  r.analyzedInstructions[0].steps.forEach(recipeStep => {
-    steps.push(recipeStep.step)
-  })
+  // populating nutrition list
+  let nutrition = []
+  if (r.nutrition) {
+    for (let nutrIndex = 0; nutrIndex < 9; nutrIndex++) {
+      const nutrTitle = r.nutrition.nutrients[nutrIndex].title
+      const nutrAmount = r.nutrition.nutrients[nutrIndex].amount
+      const nutrUnit = r.nutrition.nutrients[nutrIndex].unit
+      nutrition.push(nutrTitle + ': ' + nutrAmount + ' ' + nutrUnit)
+    }
+  } else {
+    nutrition = DEFAULT_NUTRITIONS
+  }
+
+  let steps = []
+  if (r.analyzedInstructions && r.analyzedInstructions[0]) {
+    r.analyzedInstructions[0].steps.forEach(recipeStep => {
+      steps.push(recipeStep.step)
+    })
+  } else {
+    steps = 'No Steps'
+  }
 
   // Create a JSON Object to store the data
   // in the format we specified
@@ -452,25 +434,38 @@ export async function createRecipeObject (r) {
 }
 
 /**
- * 
+ * Method to remove the links in summary of the recipes which are unneccesary
  * @returns {String} - a String with all the link texts removed.
  */
-function removeSummaryLinks(summary) {
+export function removeSummaryLinks (summary) {
   const linkTerm = '<a href='
-  while (summary.indexOf(linkTerm) !== -1) {
-    let indexOfFirstLink = summary.indexOf(linkTerm)
-    let indexOfPeriodBefore = summary.lastIndexOf('.', indexOfFirstLink)
-    let indexOfLinkPostFix = summary.indexOf('.com')
-    let indexOfPeriodAfter = indexOfLinkPostFix
-    while (indexOfPeriodAfter === indexOfLinkPostFix) {
-      indexOfPeriodAfter = summary.indexOf('.', indexOfPeriodAfter+1)
-      indexOfLinkPostFix = summary.indexOf('.com', indexOfLinkPostFix+1)
-    }
+  const linkEnd = '</a>'
+  if (!summary) {
+    return ''
+  }
+  while (summary.includes(linkTerm) && summary.includes(linkEnd) && summary.indexOf(linkTerm) < summary.indexOf(linkEnd)) {
+    const indexOfFirstLink = summary.indexOf(linkTerm)
+    const indexOfEndLink = summary.indexOf(linkEnd)
 
-    let temp = summary.substring(0, indexOfPeriodBefore+1) + summary.substring(indexOfPeriodAfter+1)
-    //console.log(summary)
-    //console.log(temp)
-    summary = temp
+    let firstHalf = summary.substring(0, indexOfFirstLink)
+    const lastPeriodIndex = firstHalf.lastIndexOf('.')
+    firstHalf = (lastPeriodIndex >= 0) ? firstHalf.substring(0, lastPeriodIndex + 1) : firstHalf
+
+    let secondHalf = summary.substring(indexOfEndLink + 4)
+
+    let periodIndex, urlPostfixIndex
+    do {
+      periodIndex = secondHalf.indexOf('.')
+      urlPostfixIndex = secondHalf.indexOf('.com')
+      if (periodIndex < 0) { break }
+      if (periodIndex >= secondHalf.length - 1) {
+        secondHalf = ''
+        break
+      }
+      secondHalf = secondHalf.substring(periodIndex + 1)
+    } while (periodIndex === urlPostfixIndex)
+
+    summary = firstHalf + secondHalf
   }
   return summary
 }
@@ -487,12 +482,12 @@ export function getLocalStorageRecipes () {
   const recipeList = []
 
   // check to see if local storage is empty, if so then populate local storage
-  if (!localKeys) {
+  if (localKeys.length === 0) {
     return recipeList
   }
 
   for (const key of localKeys) {
-    if (key != USER_DATA && key != 'latestSearch') {
+    if (key !== USER_DATA && key !== 'latestSearch') {
       recipeList.push(JSON.parse(localStorage.getItem(key)))
     }
   }
@@ -506,4 +501,62 @@ export function getLocalStorageRecipes () {
  */
 export function setLocalStorageItem (id, recipeObject) {
   localStorage.setItem(id, JSON.stringify(recipeObject))
+}
+
+/**
+ * Method to get a given amount of random recipes from local storage
+ * @param {number} num - the number of random recipes to get
+ * @returns {JSON[]} - `num` amount of random recipes in local storage
+ */
+export function getNRandomRecipes (num) {
+  const recipeCount = getRecipesCount()
+  const allRecipes = getLocalStorageRecipes()
+  if (num > recipeCount) {
+    return allRecipes
+  }
+
+  const randomIndexes = getRandomNumbers(num, recipeCount)
+  const randomRecipes = []
+  randomIndexes.forEach(i => {
+    randomRecipes.push(allRecipes[i])
+  })
+  return randomRecipes
+}
+
+/**
+ * Method to get a random integer
+ * @param {number} count - number of random integers
+ * @param {number} max - the max value
+ * @returns {number[]} random number between 0 and the parameter
+ */
+function getRandomNumbers (count, max) {
+  const randomArr = []
+  while (randomArr.length < count) {
+    const randInt = Math.floor(Math.random() * max)
+    if (!randomArr.includes(randInt)) {
+      randomArr.push(randInt)
+    }
+  }
+
+  return randomArr
+}
+
+/**
+ * Web Scrapping method for additional functionality for creating recipes
+ * @param {string} url - the url inputted to scrap
+ * @return {JSON} the json data of that website
+ */
+export function webScrapper (url) {
+  const urlToExtract = `${API_ENDPOINT}/recipes/extract?apiKey=${API_KEY}&url=${url}&analyze=true`
+  return new Promise((resolve, reject) => {
+    fetch(urlToExtract, options)
+      .then(res => res.json())
+      .then(res => {
+        createRecipeObject(res)
+        resolve(true)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
 }

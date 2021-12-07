@@ -15,10 +15,10 @@ document.getElementById("create-recipe").addEventListener('click', e => {
  */
 function init(){
     getUserPrefs();
-    
+  
     // display the 5 recipes and add search btn listener only in homepage
     if (window.location.pathname === '/index.html' || window.location.pathname === '/' || window.location.pathname === '') {
-        createRecipeCards(util.DEFAULT_RECIPE_NUMBER);
+        createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY)
         let searchBtn = document.getElementById("search");
         searchBtn.addEventListener("click", e => {
             e.preventDefault();
@@ -70,7 +70,7 @@ function init(){
  * 
  */
 export function createRecipeCards(N){ 
-    let recipes = util.getLocalStorageRecipes();
+    let recipes = util.getNRandomRecipes(N);
     // Get the recipe cards' section element
     let recipeCardsSection = document.getElementById("recipe-cards");
 
@@ -97,6 +97,7 @@ function bindRC(recipeCard, key){
 
 function getUserPrefs(){
     if(util.getLocalStorageRecipes().length == 0){
+        util.updateUserData('offset', 0)
         let intols = prompt("Enter your intolerances (ingredients not to include)\n\nAvailable: dairy, gluten, shellfish, seafood, wheat, eggs, peanut, soy, grain, sesame, tree nut, sulfite");
         if(intols || intols === ""){
             util.setIntolerances(intols);
