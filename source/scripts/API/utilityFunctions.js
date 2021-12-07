@@ -54,17 +54,17 @@ const USER_DATA = 'userData'
 
 class RecipeObject {
   constructor (id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size) {
-    this.id = id ? id : '0'
-    this.title = title ? title : 'Website Food'
-    this.image = foodImage ? foodImage : './image/team3-logo.jpg'
-    this.readyInMinutes = readyInMinutes ? readyInMinutes : 'unkown'
+    this.id = id || '0'
+    this.title = title || 'Website Food'
+    this.image = foodImage || './image/team3-logo.jpg'
+    this.readyInMinutes = readyInMinutes || 'unkown'
     this.ingredientSearch = ingredientSearch
     this.ingredients = ingredients
     this.steps = steps
     this.nutrition = nutrition
     this.favorite = favorite
     this.summary = summary
-    this.servingSize = size ? size : 'unkown'
+    this.servingSize = size || 'unkown'
   }
 }
 
@@ -393,11 +393,11 @@ export async function createRecipeObject (r) {
     throw new Error('recipe is undefined')
   }
 
-  let id = r.id
-  let readyInMinutes = r.readyInMinutes
-  let title = r.title
-  let foodImage = r.image
-  let size = r.servings
+  const id = r.id
+  const readyInMinutes = r.readyInMinutes
+  const title = r.title
+  const foodImage = r.image
+  const size = r.servings
 
   const favorite = false
   const summary = removeSummaryLinks(r.summary)
@@ -414,7 +414,7 @@ export async function createRecipeObject (r) {
   }
 
   // populating nutrition list
-  let nutrition = r.nutrition? extractNutrition(r.nutrition) : DEFAULT_NUTRITIONS
+  const nutrition = extractNutrition(r.nutrition)
 
   let steps = ['No Steps']
   if (r.analyzedInstructions) {
@@ -432,11 +432,11 @@ export async function createRecipeObject (r) {
  * @param {*} nutrition - array of nutritions from API
  * @returns {String[]} - array of nutritions in strings
  */
-function extractNutrition(nutrition) {
-  let resultArr = []
+function extractNutrition (nutrition) {
+  const resultArr = []
 
   if (!nutrition) {
-    return resultArr
+    return DEFAULT_NUTRITIONS
   }
 
   for (let nutrIndex = 0; nutrIndex < 9; nutrIndex++) {
@@ -453,15 +453,15 @@ function extractNutrition(nutrition) {
  * @param {*} nutrition - array of steps from API
  * @returns {String[]} - array of steps in strings
  */
-function extractSteps(steps) {
-  let resultArr = []
+function extractSteps (steps) {
+  const resultArr = []
 
   if (!steps || steps.length === 0) {
     return resultArr
   }
 
-  for (let i = 0 ; i < steps.length; i++) {
-    resultArr.push(apiSteps[i].step)
+  for (let i = 0; i < steps.length; i++) {
+    resultArr.push(steps[i].step)
   }
   return resultArr
 }
@@ -478,10 +478,10 @@ export function removeSummaryLinks (summary) {
     return 'No Summary Found'
   }
 
-  let arr = summary.split('.')
+  const arr = summary.split('.')
   let resultSummary = ''
   arr.forEach(sentence => {
-    if (sentence != '' && !sentence.includes(linkTerm) && !sentence.includes(linkEnd) && !sentence.includes(urlPostfix)) {
+    if (sentence !== '' && !sentence.includes(linkTerm) && !sentence.includes(linkEnd) && !sentence.includes(urlPostfix)) {
       resultSummary = resultSummary + sentence + '.'
     }
   })
