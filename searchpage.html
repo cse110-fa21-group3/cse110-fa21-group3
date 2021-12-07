@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group 3 Search Page</title>
+    <link rel="icon" href="./source/image/team3 logo.jpg" />
+    <link rel="stylesheet" href="./source/searchStyles.css">
+    <link href="./source/common.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="/index.html"><img id="web-logo" src="./source/image/logo3_231x231.jpg"
+                    alt="Logo" width="80" height="80"></a>
+            <div id="search-container">
+                <input type="search" id="search-bar"
+                    placeholder="What do you have in mind?" />
+                <input type="image" id="search-icon" alt="no image"
+                    src="./source/image/icons-search.svg" />
+            </div>
+            <a href="/searchpage.html#favorites" id="fav-container"><img
+                    src="./source/image/icons8-favorite-folder-50.png"
+                    alt="Favorite Icon"></a>
+        </nav>
+    </header>
+    <main>
+        <div id="text-container">
+            <h2 id="query-display">Showing Results for: "#placeholder"</h2>
+            <hr />
+            <p id="matched-count-text">#number results</p>
+        </div>
+        <section id="recipe-cards">
+        </section>
+    </main>
+    <footer>
+        <span>
+            <button id="create-recipe">
+                <img src="./source/image/icons8-plus-+.svg" alt="Create Recipe ">
+            </button>
+        </span>
+    </footer>
+    <script type="module" src="source/scripts/recipeCard.js"></script>
+    <script type="module" src="source/scripts/searchPage.js"></script>
+    <script type="module" src="source/scripts/main.js"></script>
+</body>
+
+</html>

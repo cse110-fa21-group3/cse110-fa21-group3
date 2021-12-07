@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>main.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="RecipeCard.html">RecipeCard</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#addFavoriteRecipe">addFavoriteRecipe</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#bindRC">bindRC</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#createRecipeCards">createRecipeCards</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#createRecipeObject">createRecipeObject</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#extractIngredients">extractIngredients</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#extractNutrition">extractNutrition</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#extractSteps">extractSteps</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#fetchRecipes">fetchRecipes</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getDeletedRecipes">getDeletedRecipes</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getFavoriteRecipes">getFavoriteRecipes</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getLocalStorageRecipes">getLocalStorageRecipes</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getNRandomRecipes">getNRandomRecipes</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getRandomNumbers">getRandomNumbers</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getRecipesCount">getRecipesCount</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#init">init</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#loadUserData">loadUserData</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#populateListElements">populateListElements</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#populateLists">populateLists</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#populateRecipes">populateRecipes</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#removeDeletedRecipes">removeDeletedRecipes</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#removeFavoriteRecipe">removeFavoriteRecipe</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#removeRecipe">removeRecipe</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#removeSummaryLinks">removeSummaryLinks</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#searchLocalRecipes">searchLocalRecipes</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#setIntolerances">setIntolerances</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#setLocalStorageItem">setLocalStorageItem</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#setMaxTime">setMaxTime</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#setUpBtns">setUpBtns</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#updateLatestSearch">updateLatestSearch</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#updateUserData">updateUserData</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#webScrapper">webScrapper</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">main.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Homepage JS file
+ */
+
+import * as util from './API/utilityFunctions.js'
+import * as LSHandler from './API/localStorageHandler.js'
+
+window.addEventListener('DOMContentLoaded', init)
+
+document.getElementById('create-recipe').addEventListener('click', e => {
+  window.location.href = '/createRecipe.html'
+})
+
+/**
+ * Function that runs when the page loads
+ */
+function init () {
+  getUserPrefs()
+
+  // display the 5 recipes and add search btn listener only in homepage
+  if (window.location.pathname === '/index.html' || window.location.pathname === '/' || window.location.pathname === '') {
+    createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY)
+    const searchBtn = document.getElementById('search')
+    searchBtn.addEventListener('click', e => {
+      e.preventDefault()
+      const searchQuery = document.getElementById('search-query').value
+      LSHandler.searchLocalRecipes(searchQuery).then(() => {
+        window.location.href = '/searchpage.html'
+      })
+    })
+  }
+
+  // let searchBtn = document.getElementById("search");
+  // searchBtn.addEventListener("click", e => {
+  //     e.preventDefault();
+  //     let searchQuery = document.getElementById("search-query").value;
+  //     util.searchLocalRecipes(searchQuery).then(arr => {
+  //         let res = [];
+  //         arr.forEach(recipe => {
+  //             res.push(recipe["id"]);
+  //         });
+  //         console.log(res);
+  //         let searchObj = {
+  //             "data": res,
+  //             "query": searchQuery,
+  //             "matchedCount": arr.length
+  //         }
+  //         localStorage.setItem("latestSearch", JSON.stringify(searchObj));
+  //         window.location.href = "/source/searchpage.html";
+  //     });
+  // });
+}
+
+/**
+ * Create recipe cards for an arbitrary amount of recipes
+ *
+ * @param {number} N The number of recipes to display
+ * @param {boolean} search If you're creating recipe cards from a search query
+ *
+ */
+export function createRecipeCards (N) {
+  const recipes = LSHandler.getNRandomRecipes(N)
+  // Get the recipe cards' section element
+  const recipeCardsSection = document.getElementById('recipe-cards')
+
+  recipes.forEach(recipe => {
+    const recipeCard = document.createElement('recipe-card')
+    recipeCard.data = recipe
+    const key = recipe.id
+    bindRC(recipeCard, key)
+    recipeCardsSection.appendChild(recipeCard)
+  })
+}
+
+/**
+ * Binds a recipe card to its router page function via the 'click' event
+ *
+ * @param {HTMLElement} recipeCard The element to which we bind an event listener
+ * @param {string} key The id of the recipe card
+ */
+function bindRC (recipeCard, key) {
+  recipeCard.addEventListener('click', e => {
+    window.location.href = '/recipePage.html#' + key
+  })
+}
+
+function getUserPrefs () {
+  if (LSHandler.getLocalStorageRecipes().length === 0) {
+    LSHandler.updateUserData('offset', 0)
+    const intols = prompt('Enter your intolerances (ingredients not to include)\n\nAvailable: dairy, gluten, shellfish, seafood, wheat, eggs, peanut, soy, grain, sesame, tree nut, sulfite')
+    LSHandler.setIntolerances(intols)
+
+    const maxTime = prompt("Enter the maximum amount of time you'd want to spend making a recipe (in minutes)")
+    LSHandler.setMaxTime(maxTime)
+
+    util.populateRecipes().then(() => {
+      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY)
+    })
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Tue Dec 07 2021 17:50:34 GMT+0000 (Coordinated Universal Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
