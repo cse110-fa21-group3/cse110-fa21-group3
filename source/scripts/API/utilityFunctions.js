@@ -101,7 +101,7 @@ export async function populateRecipes () {
 
       if (numberToFetch >= NUMBER_OF_RECIPES_TO_DISPLAY) {
         resolve(fetchRecipes(numberToFetch, fetchOffset).then(offsetFinished => updateOffset(offsetFinished)))
-      }else {
+      } else {
         fetchRecipes(numberToFetch, fetchOffset).then(offsetFinished => updateOffset(offsetFinished))
       }
       fetchOffset += numberToFetch
@@ -110,7 +110,7 @@ export async function populateRecipes () {
   })
 }
 
-function updateOffset(offsetToAdd) {
+function updateOffset (offsetToAdd) {
   if (typeof offsetToUpdate !== Error) {
     loadUserData()
     localStorageHandler.updateUserData('offset', offset + offsetToAdd)
@@ -255,7 +255,7 @@ function extractSteps (steps) {
  * @returns {JSON} - array of steps in strings
  */
 function extractIngredients (apiIngredients, title) {
-  let ingredientSearch = {}
+  const ingredientSearch = {}
   const ingredients = []
 
   if (!apiIngredients) {
@@ -270,7 +270,7 @@ function extractIngredients (apiIngredients, title) {
     ingredientSearch[apiIngredients[i].name.toLowerCase()] = 1
   }
 
-  let titleArr = title.split(' ')
+  const titleArr = title.split(' ')
   titleArr.forEach(item => {
     ingredientSearch[item.toLowerCase()] = 1
   })
