@@ -122,36 +122,36 @@ addStep.addEventListener('click', e => {
 })
 
 addNutrition.addEventListener('click', e => {
-  const elementContainer = document.querySelectorAll('.nutrition-container')
-  const elementContainerLength = elementContainer.length
-  const fieldSet = document.createElement('fieldset')
-  const fieldSetLabel = document.createElement('label')
-  const fieldTextArea = document.createElement('textarea')
-  const deleteBtn = document.createElement('button')
+  const elementContainerNutrition = document.querySelectorAll('.nutrition-container')
+  const elementContainerLengthNutrition = elementContainerNutrition.length
+  const fieldSetNutrition = document.createElement('fieldset')
+  const fieldSetLabelNutrition = document.createElement('label')
+  const fieldTextAreaNutrition = document.createElement('textarea')
+  const deleteBtnNutrition = document.createElement('button')
 
-  deleteBtn.type = 'button'
-  deleteBtn.classList.add('remove-btn')
-  const removeIcon = document.createElement('img')
-  removeIcon.src = './source/image/icons8-delete.svg'
-  removeIcon.style.width = '30px'
-  deleteBtn.appendChild(removeIcon)
-  deleteBtn.addEventListener('click', removeItem)
+  deleteBtnNutrition.type = 'button'
+  deleteBtnNutrition.classList.add('remove-btn')
+  const removeIconNutrition = document.createElement('img')
+  removeIconNutrition.src = './source/image/icons8-delete.svg'
+  removeIconNutrition.style.width = '30px'
+  deleteBtnNutrition.appendChild(removeIconNutrition)
+  deleteBtnNutrition.addEventListener('click', removeItem)
 
-  fieldSetLabel.innerText = 'Nutrition: '
+  fieldSetLabelNutrition.innerText = 'Nutrition: '
 
-  fieldTextArea.name = 'nutrition'
+  fieldTextAreaNutrition.name = 'nutrition'
 
-  fieldTextArea.classList.add('nutr-name')
+  fieldTextAreaNutrition.classList.add('nutr-name')
   // fieldTextArea.type = 'text';
-  fieldTextArea.cols = '30'
-  fieldTextArea.rows = '2'
+  fieldTextAreaNutrition.cols = '30'
+  fieldTextAreaNutrition.rows = '2'
 
-  fieldSet.classList.add('nutrition-container')
-  fieldSet.appendChild(fieldSetLabel)
-  fieldSet.appendChild(fieldTextArea)
-  fieldSet.appendChild(deleteBtn)
+  fieldSetNutrition.classList.add('nutrition-container')
+  fieldSetNutrition.appendChild(fieldSetLabelNutrition)
+  fieldSetNutrition.appendChild(fieldTextAreaNutrition)
+  fieldSetNutrition.appendChild(deleteBtnNutrition)
 
-  elementContainer[elementContainerLength - 1].after(fieldSet)
+  elementContainerNutrition[elementContainerLengthNutrition - 1].after(fieldSetNutrition)
 })
 
 function removeItem (e) {
