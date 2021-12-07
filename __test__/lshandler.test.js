@@ -1,5 +1,6 @@
 import * as LSHandler from '../source/scripts/API/localStorageHandler'
 import * as Mock from './mock'
+import * as jsonData from './data.json'
 import regeneratorRuntime from 'regenerator-runtime'
 
 
@@ -38,12 +39,11 @@ test('setLocalStorageItem Test', () => {
 test('updateUserData Test', () => {
   global.localStorage.clear()
   const key = 'testKey'
-  const value = ['1', '2', '3']
+  const value = ['1', '2']
   LSHandler.updateUserData(key, value)
   const result = JSON.parse(global.localStorage.getItem('userData'))[key]
   expect(result).toContain('1')
   expect(result).toContain('2')
-  expect(result).toContain('3')
 })
 
 // Done
@@ -110,12 +110,12 @@ test('getFavoriteRecipes Test', () => {
   global.localStorage.clear()
   const key = 'userData'
   const userData = {
-    favorites: ['1111', '2222']
+    favorites: ['3', '4']
   }
   global.localStorage.setItem(key, JSON.stringify(userData))
   const result = LSHandler.getFavoriteRecipes()
-  expect(result).toContain('1111')
-  expect(result).toContain('2222')
+  expect(result).toContain('3')
+  expect(result).toContain('4')
 })
 
 // Done
@@ -176,12 +176,7 @@ test('removeFavoriteRecipe Test', () => {
   global.localStorage.setItem(key, JSON.stringify(userData))
   const id = '3333'
   const id2 = '1111'
-  const value = {
-    title: 'kale',
-    ingredient: 'kale',
-    favorite: true
-  }
-  global.localStorage.setItem(id, JSON.stringify(value))
+  global.localStorage.setItem(id, JSON.stringify(jsonData))
   LSHandler.removeFavoriteRecipe(id)
   LSHandler.removeFavoriteRecipe(id2)
   const result = JSON.parse(global.localStorage.getItem('userData')).favorites
@@ -238,22 +233,15 @@ test('removeDeletedRecipes Test', () => {
   global.localStorage.clear()
   const id1 = 'testId1'
   const id2 = 'testId2'
-  const recipe1 = {
-    id: id1
-  }
-  const recipe2 = {
-    id: id2
-  }
   const userData = {
     deletedRecipes: [id1, id2]
   }
-  global.localStorage.setItem(id1, JSON.stringify(recipe1))
-  global.localStorage.setItem(id2, JSON.stringify(recipe2))
+  global.localStorage.setItem(id1, JSON.stringify(jsonData))
+  global.localStorage.setItem(id2, JSON.stringify(jsonData))
   global.localStorage.setItem('userData', JSON.stringify(userData))
 
   LSHandler.removeDeletedRecipes()
-  const recipeCount = Object.keys(global.localStorage).length - 1
-  expect(recipeCount).toBe(0)
+  expect(Object.keys(global.localStorage).length - 1).toBe(0)
 })
 
 // Done
@@ -293,17 +281,10 @@ test('searchLocalRecipes Test2', async () => {
 // Done
 test('getRecipesCount Test', () => {
   global.localStorage.clear()
-  global.localStorage.setItem('123', JSON.stringify({
-    id: '123'
-  }))
-  global.localStorage.setItem('345', JSON.stringify({
-    id: '345'
-  }))
+  global.localStorage.setItem('123', JSON.stringify(jsonData))
+  global.localStorage.setItem('345', JSON.stringify(jsonData))
   global.localStorage.setItem('userData', JSON.stringify({
     favorites: ['345']
-  }))
-  global.localStorage.setItem('latestSearch', JSON.stringify({
-    query: '123'
   }))
   expect(LSHandler.getRecipesCount()).toBe(2)
 })
@@ -312,11 +293,7 @@ test('getRecipesCount Test', () => {
 test('getRandom Test', async () => {
   global.localStorage.clear()
   for (let i = 0; i < 10; i++) {
-    const value = {
-      title: 'salad',
-      ingredientSearch: 'lettuce'
-    }
-    global.localStorage.setItem(`${i}`, JSON.stringify(value))
+    global.localStorage.setItem(`${i}`, JSON.stringify(jsonData))
   }
   const resultArr = LSHandler.getNRandomRecipes(2)
   expect(resultArr.length).toBe(2)
