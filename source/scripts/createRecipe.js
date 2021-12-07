@@ -50,109 +50,49 @@ recipeImg.addEventListener('change', (e) => {
 })
 
 addIng.addEventListener('click', e => {
-  const elementContainerIng = document.querySelectorAll('.ingredient-container')
-  const elementContainerLengthIng = elementContainerIng.length
-  const fieldSetIng = document.createElement('fieldset')
-  const fieldSetLabelIng = document.createElement('label')
-  const fieldTextAreaIng = document.createElement('textarea')
-  const deleteBtnIng = document.createElement('button')
-
-  deleteBtnIng.type = 'button'
-  deleteBtnIng.classList.add('remove-btn')
-  const removeIconIng = document.createElement('img')
-  removeIconIng.src = './source/image/icons8-delete.svg'
-  removeIconIng.style.width = '30px'
-  deleteBtnIng.appendChild(removeIconIng)
-  deleteBtnIng.addEventListener('click', removeItem)
-
-  fieldSetLabelIng.innerText = 'Ingredient: '
-
-  fieldTextAreaIng.name = 'ingredients'
-
-  fieldTextAreaIng.classList.add('ing-name')
-  // fieldTextArea.type = 'text';
-  fieldTextAreaIng.cols = '30'
-  fieldTextAreaIng.rows = '2'
-
-  fieldSetIng.classList.add('ingredient-container')
-
-  fieldSetIng.appendChild(fieldSetLabelIng)
-  fieldSetIng.appendChild(fieldTextAreaIng)
-  fieldSetIng.appendChild(deleteBtnIng)
-
-  elementContainerIng[elementContainerLengthIng - 1].after(fieldSetIng)
+  addContainer('ingredient-container', 'Ingredient: ', 'ingredients', 'ing-name', '2', '30')
 })
 
 addStep.addEventListener('click', e => {
-  const elementContainer = document.querySelectorAll('.steps-container')
-  const elementContainerLength = elementContainer.length
-  const fieldSet = document.createElement('fieldset')
-  const fieldSetLabel = document.createElement('label')
-  const fieldTextArea = document.createElement('textarea')
-  const deleteBtn = document.createElement('button')
-
-  deleteBtn.type = 'button'
-  deleteBtn.classList.add('remove-btn')
-  const removeIcon = document.createElement('img')
-  removeIcon.src = './source/image/icons8-delete.svg'
-  removeIcon.style.width = '30px'
-  deleteBtn.appendChild(removeIcon)
-  deleteBtn.addEventListener('click', removeItem)
-
-  fieldSetLabel.innerText = 'Step: '
-
-  fieldTextArea.name = 'steps'
-
-  fieldTextArea.classList.add('stepName')
-  // fieldTextArea.type = 'text';
-  fieldTextArea.cols = '50'
-  fieldTextArea.rows = '5'
-
-  fieldTextArea.classList.add('step-name')
-  // fieldTextArea.type = 'text';
-  fieldTextArea.cols = '50'
-  fieldTextArea.rows = '5'
-
-  fieldSet.classList.add('steps-container')
-  fieldSet.appendChild(fieldSetLabel)
-  fieldSet.appendChild(fieldTextArea)
-  fieldSet.appendChild(deleteBtn)
-
-  elementContainer[elementContainerLength - 1].after(fieldSet)
+  addContainer('steps-container', 'Step: ', 'steps', 'step-name', '5', '50')
 })
 
 addNutrition.addEventListener('click', e => {
-  const elementContainerNutrition = document.querySelectorAll('.nutrition-container')
-  const elementContainerLengthNutrition = elementContainerNutrition.length
-  const fieldSetNutrition = document.createElement('fieldset')
-  const fieldSetLabelNutrition = document.createElement('label')
-  const fieldTextAreaNutrition = document.createElement('textarea')
-  const deleteBtnNutrition = document.createElement('button')
-
-  deleteBtnNutrition.type = 'button'
-  deleteBtnNutrition.classList.add('remove-btn')
-  const removeIconNutrition = document.createElement('img')
-  removeIconNutrition.src = './source/image/icons8-delete.svg'
-  removeIconNutrition.style.width = '30px'
-  deleteBtnNutrition.appendChild(removeIconNutrition)
-  deleteBtnNutrition.addEventListener('click', removeItem)
-
-  fieldSetLabelNutrition.innerText = 'Nutrition: '
-
-  fieldTextAreaNutrition.name = 'nutrition'
-
-  fieldTextAreaNutrition.classList.add('nutr-name')
-  // fieldTextArea.type = 'text';
-  fieldTextAreaNutrition.cols = '30'
-  fieldTextAreaNutrition.rows = '2'
-
-  fieldSetNutrition.classList.add('nutrition-container')
-  fieldSetNutrition.appendChild(fieldSetLabelNutrition)
-  fieldSetNutrition.appendChild(fieldTextAreaNutrition)
-  fieldSetNutrition.appendChild(deleteBtnNutrition)
-
-  elementContainerNutrition[elementContainerLengthNutrition - 1].after(fieldSetNutrition)
+  addContainer('nutrition-container', 'Nutrition: ', 'nutrition', 'nutr-name', '2', '30')
 })
+
+function addContainer(containerClass, labelText, textAreaName, textAreaClass, rows, cols) {
+    const elementContainer = document.querySelectorAll('.'+containerClass)
+    const elementContainerLength = elementContainer.length
+    const fieldSet = document.createElement('fieldset')
+    const fieldSetLabel = document.createElement('label')
+    const fieldTextArea = document.createElement('textarea')
+    const deleteBtn = document.createElement('button')
+    const removeIcon = document.createElement('img')
+
+    deleteBtn.type = 'button'
+    deleteBtn.classList.add('remove-btn')
+    removeIcon.src = './source/image/icons8-delete.svg'
+    removeIcon.style.width = '30px'
+    deleteBtn.appendChild(removeIcon)
+    deleteBtn.addEventListener('click', removeItem)
+
+    fieldSetLabel.innerText = labelText
+
+    fieldTextArea.name = textAreaName
+  
+    fieldTextArea.classList.add(textAreaClass)
+    // fieldTextArea.type = 'text';
+    fieldTextArea.cols = cols
+    fieldTextArea.rows = rows
+  
+    fieldSet.classList.add(containerClass)
+    fieldSet.appendChild(fieldSetLabel)
+    fieldSet.appendChild(fieldTextArea)
+    fieldSet.appendChild(deleteBtn)
+  
+    elementContainer[elementContainerLength - 1].after(fieldSet)
+}
 
 function removeItem (e) {
   const i = e.path[0].tagName === 'IMG' ? 0 : 1
