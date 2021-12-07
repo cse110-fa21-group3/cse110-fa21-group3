@@ -195,7 +195,8 @@ export async function searchLocalRecipes (query) {
     const recipeIngredients = recipe.ingredientSearch.toLowerCase()
     // if the query is in the recipes then add it to an array
     for (const queryElement of endQuery) {
-      if (recipeTitle.includes(queryElement) || recipeIngredients.includes(queryElement)) {
+      let tempString = recipeTitle + ' ' + recipeIngredients
+      if (tempString.includes(queryElement) {
         recipeList.push(recipe)
         break
       }
