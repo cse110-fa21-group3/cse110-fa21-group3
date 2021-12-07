@@ -24,17 +24,7 @@ function init () {
     searchBtn.addEventListener('click', e => {
       e.preventDefault()
       const searchQuery = document.getElementById('search-query').value
-      LSHandler.searchLocalRecipes(searchQuery).then(searchResults => {
-        const resIds = []
-        searchResults.forEach(recipe => {
-          resIds.push(recipe.id)
-        })
-        const searchObj = {
-          data: resIds,
-          query: searchQuery,
-          matchedCount: searchResults.length
-        }
-        localStorage.setItem('latestSearch', JSON.stringify(searchObj))
+      LSHandler.searchLocalRecipes(searchQuery).then(() => {
         window.location.href = '/searchpage.html'
       })
     })

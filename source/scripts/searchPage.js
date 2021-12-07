@@ -10,17 +10,7 @@ window.addEventListener('DOMContentLoaded', () => {
   searchBtn.addEventListener('click', (e) => {
     e.preventDefault()
     const searchQuery = document.getElementById('search-bar').value
-    searchLocalRecipes(searchQuery).then((arr) => {
-      const res = []
-      arr.forEach((recipe) => {
-        res.push(recipe.id)
-      })
-      const searchObj = {
-        data: res,
-        query: searchQuery,
-        matchedCount: arr.length
-      }
-      localStorage.setItem('latestSearch', JSON.stringify(searchObj))
+    searchLocalRecipes(searchQuery).then(() => {
       window.location.href = '/searchpage.html'
     })
   })
