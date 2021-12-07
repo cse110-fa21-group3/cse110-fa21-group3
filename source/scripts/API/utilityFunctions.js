@@ -30,11 +30,13 @@ const DEFAULT_NUTRITIONS = [
   'Protein: unknown'
 ]
 
+// user data variables
+
 // list of user Intolerances
 export let intolerances = []
 // max for recipes prep time
 export let maxTime = localStorageHandler.DEFAULT_MAX_TIME
-// user data variables
+export let offset = 0
 
 class RecipeObject {
   constructor (id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size) {
@@ -63,11 +65,13 @@ export function loadUserData () {
   } else {
     intolerances = []
     maxTime = localStorageHandler.DEFAULT_MAX_TIME
+    offset = 0
     return
   }
 
   intolerances = data.intolerances ? data.intolerances : []
   maxTime = data.maxTime ? data.maxTime : localStorageHandler.DEFAULT_MAX_TIME
+  offset = data.offset ? data.offset : 0
 }
 
 /**
@@ -80,13 +84,8 @@ export async function populateRecipes () {
       reject(Error('DEFAULT_RECIPE_NUMBER is too small'))
       return
     }
+    loadUserData()
     const recipeCount = localStorageHandler.getRecipesCount()
-
-    let offset = 0
-    const userData = localStorage.getItem(localStorageHandler.USER_DATA) ? JSON.parse(localStorage.getItem(localStorageHandler.USER_DATA)) : undefined
-    if (userData) {
-      offset = userData.offset ? userData.offset : 0
-    }
 
     // # of recipes waiting to fetch
     let numberToFetch = DEFAULT_RECIPE_NUMBER - recipeCount
@@ -97,18 +96,16 @@ export async function populateRecipes () {
 
     while (numberToFetch > 0) {
       if (numberToFetch > 100) {
-        resolve(fetchRecipes(100, offset))
+        resolve(fetchRecipes(100, offset).then(offsetFinished => localStorageHandler.updateUserData('offset', offsetFinished)))
         offset += 100
-        localStorageHandler.updateUserData('offset', offset)
         numberToFetch -= 100
       } else {
         if (numberToFetch >= NUMBER_OF_RECIPES_TO_DISPLAY) {
-          resolve(fetchRecipes(numberToFetch, offset))
+          resolve(fetchRecipes(numberToFetch, offset).then(offsetFinished => localStorageHandler.updateUserData('offset', offsetFinished)))
         } else {
-          fetchRecipes(numberToFetch, offset)
+          fetchRecipes(numberToFetch, offset).then(offsetFinished => localStorageHandler.updateUserData('offset', offsetFinished))
         }
         offset += numberToFetch
-        localStorageHandler.updateUserData('offset', offset)
         numberToFetch = 0
       }
     }
@@ -123,7 +120,6 @@ export async function populateRecipes () {
  * @returns {Promise}
  */
 export function fetchRecipes (recipeCount, offset) {
-  loadUserData()
   let reqUrl = `${API_ENDPOINT}/recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true&number=${recipeCount}&offset=${offset}&maxReadyTime=${maxTime}`
 
   let intolerancesStr = ''
@@ -143,7 +139,7 @@ export function fetchRecipes (recipeCount, offset) {
         res.results.forEach(r => {
           createRecipeObject(r)
         })
-        resolve(true)
+        resolve(offset)
       })
       .catch(error => {
         reject(error)

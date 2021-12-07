@@ -182,7 +182,7 @@ export async function searchLocalRecipes (query) {
   query = query.toLowerCase()
   const localRecipes = getLocalStorageRecipes()
 
-  // replace query commas with space
+  // replace query commas with space and replace duplicate spaces.
   query = query.replace(/,/g, ' ')
   query = query.replace(/\s+/g, ' ')
 
@@ -195,7 +195,10 @@ export async function searchLocalRecipes (query) {
     const recipeIngredients = recipe.ingredientSearch.toLowerCase()
     // if the query is in the recipes then add it to an array
     for (const queryElement of endQuery) {
-      if ((recipeTitle.includes(queryElement) || recipeIngredients.includes(queryElement))) {
+      if (recipeTitle.includes(queryElement)) {
+        recipeList.push(recipe)
+        break
+      }else if (recipeIngredients.includes(queryElement)) {
         recipeList.push(recipe)
         break
       }
