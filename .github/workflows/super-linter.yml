@@ -43,7 +43,7 @@ jobs:
         run: npm -v
         
       - name: Install Jest and Babel
-        run: npm install --save-dev jest babel-jest @babel/core @babel/preset-env puppeteer jest-puppeteer,
+        run: npm install --save-dev jest babel-jest @babel/core @babel/preset-env puppeteer jest-puppeteer
         
       - name: Run unit tests
         run: |
