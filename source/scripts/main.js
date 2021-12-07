@@ -101,7 +101,6 @@ function getUserPrefs () {
       util.setIntolerances(intols)
     }
 
-
     const maxTime = prompt("Enter the maximum amount of time you'd want to spend making a recipe (in minutes)")
     if (maxTime || !isNaN(Number(maxTime))) {
       util.setMaxTime(maxTime)
