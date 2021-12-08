@@ -2,103 +2,69 @@
 <html lang="en">
 
 <head>
-    <title>Recipe Info</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./source/image/team3 logo.jpg" />
-    <link rel="stylesheet" href="./source/recipepage_style.css">
-    <link rel="stylesheet" href="./source/common.css">
-    <!-- <script src="source/scripts/Router.js" type="module"></script> -->
-
+  <title>Recipe Info</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="./source/image/team3-logo.jpg" />
+  <link rel="stylesheet" href="./source/recipepage_style.css">
+  <link rel="stylesheet" href="./source/common.css">
+  <script type="module" src="source/scripts/recipePage.js"></script>
 </head>
 
 <body>
-    <main id="recipeMain">
-        <header>
-            <nav>
-                <a href="/index.html"><img id="web-logo"
-                        src="./source/image/logo3_231x231.jpg" alt="Logo" width="80"
-                        height="80"></a>
-                <div id=search-container>
-                    <input type="search" id="search-bar"
-                        placeholder="What do you have in mind?" />
-                    <input type="image" id="search-icon" alt="no image"
-                        src="/source/image/icons-search.svg" />
-                </div>
-                <a href="/searchpage.html#favorites"
-                    id="fav-container"><img src="./source/image/icons8-favorite-folder-50.png"
-                        alt="Favorite Icon"></a>
-            </nav>
-        </header>
-        <section>
-            <div class="recipe">
-                <div id="title-button-container">
-                    <h1 id="recipe-title">Recipe Title</h1>
-                    <button type="button" id="favorite"></button>
-                </div>
-                <span class="recipe-info">
-                    <section style="display: inline-block;">
-                        <p>Time: <b><span id="recipe-time"></span></b> minutes</p>
-                        <p>Serves: <b><span id="recipe-serves"> </span></b> people</p>
-                        <p>Description: <span id="recipe-description"></span> </p>
-                    </section>
-                    <img id="recipe-image">
-                </span>
-            </div>
-        </section>
-        <br>
-        <section id="recipe-ingredients-container">
-            <h2>Ingredients</h2>
-            <hr>
-            <ul id="recipe-ingredients-list">
-                <!--<input type="checkbox" id="ingred_1">
-                <label for="Quantity - Ingredient 1">Quantity - Ingredient 1</label> <br>
-                <input type="checkbox" id="ingred_2"> 
-                <label for="Quantity - Ingredient 2">Quantity - Ingredient 2</label> <br>
-                <input type="checkbox" id="ingred_3"> 
-                <label for="Quantity - Ingredient 3">Quantity - Ingredient 3</label> <br>
-                <input type="checkbox" id="ingred_4"> 
-                <label for="Quantity - Ingredient 4">Quantity - Ingredient 4</label> <br>
-                <input type="checkbox" id="ingred_5"> 
-                <label for="Quantity - Ingredient 5">Quantity - Ingredient 5</label> <br>-->
-            </ul>
-        </section>
-
-
-        <br>
-        <section id="recipe-steps">
-            <h2>Steps</h2>
-            <hr>
-            <ol id="recipe-steps-list">
-                <!--<li>Step 1 </li>
-                <li>Step 2 </li>
-                <li>Step 3 </li>
-                <li>Step 4 </li>
-                <li>Step 5 </li>
-                <li>Step 6 </li>-->
-            </ol>
-        </section>
-
-        <br>
-        <section id="recipe-nutrition">
-            <h2>Nutrition facts</h2>
-            <hr>
-            <ul id="recipe-nutrition-list">
-                <!--<li>abc</li>
-                <li>abc</li>
-                <li>abc</li>
-                <li>abc</li>-->
-            </ul>
-        </section>
-
-        <div id="edit-delete-btns">
-            <button type="button" id="edit-recipe">Edit Recipe</button>
-            <button type="button" id="delete">Delete</button>
+  <main id="recipe-main">
+    <header>
+      <nav>
+        <a href="/index.html"><img id="web-logo"
+          src="./source/image/logo3_231x231.jpg" alt="Logo" width="80"
+          height="80" /></a>
+        <div id= "search-container">
+          <input type="search" id="search-bar" placeholder="What do you have in mind?" >
+          <input type="image" id="search-icon" alt="no image" src="/source/image/icons-search.svg" >
         </div>
-    </main>
-
-    <script type="module" src="source/scripts/recipePage.js"></script>
+        <a href="/searchpage.html#favorites" id="fav-container">
+          <img src="./source/image/icons8-favorite-folder-50.png" alt="Favorite Icon" /></a>
+      </nav>
+    </header>
+    <section>
+      <div class="recipe">
+        <div id="title-button-container">
+          <h1 id="recipe-title">Recipe Title</h1>
+            <button type="button" id="favorite"></button>
+        </div>
+        <section class="recipe-info">
+          <div style="display: inline-block;">
+            <p>Time: <b><span id="recipe-time"></span></b> minutes</p>
+            <p>Serves: <b><span id="recipe-serves"> </span></b> people</p>
+            <p>Description: <span id="recipe-description"></span> </p>
+          </div>
+          <img id="recipe-image" src = "/" alt = "No Image"/>
+        </section>
+      </div>
+    </section>
+    <br>
+    <section id="recipe-ingredients-container">
+      <h2>Ingredients</h2>
+      <hr>
+      <ul id="recipe-ingredients-list"></ul>
+    </section>
+    <br>
+    <section id="recipe-steps">
+      <h2>Steps</h2>
+      <hr>
+      <ol id="recipe-steps-list"></ol>
+    </section>
+    <br>
+    <section id="recipe-nutrition">
+      <h2>Nutrition facts</h2>
+      <hr>
+      <ul id="recipe-nutrition-list"></ul>
+    </section>
+    <div id="edit-delete-btns">
+      <button type="button" id="edit-recipe">Edit Recipe</button>
+      <button type="button" id="delete">Delete</button>
+    </div>
+  </main>
 </body>
-
 </html>
