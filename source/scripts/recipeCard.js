@@ -111,7 +111,6 @@ class RecipeCard extends HTMLElement {
     clockIcon.classList.add('icon')
     recipeTime.classList.add('time')
 
-
     recipeImage.setAttribute('src', data.image)
     clockIcon.setAttribute('src', './source/image/iconmonstr-time-10.svg')
     recipeTitle.innerText = data.title
