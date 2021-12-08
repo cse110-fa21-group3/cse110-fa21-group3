@@ -33,7 +33,10 @@ nav {
 }
 
 #web-logo {
-  border-radius: 10%;
+  width: 30%;
+  height: 30%;
+  margin-top: 5px;
+  border-radius: 50%;
 }
 
 /* Favorite Button */
@@ -53,21 +56,22 @@ nav {
 
 /* Create Button */
 #create-recipe {
-  padding: 0.81rem 0.93rem 0.6rem;
-  margin: 0 10px 10px 0;
-  background-color: #ffdadad5;
-  border-radius: 50px;
-  border: 1px solid var(--black);
+  display: block;
+  width: 5rem;
+  height: 5rem;
+  background-color: transparent;
+  border-radius: 0px;
+  border-color: transparent;
   position: fixed;
-  bottom: 0;
-  right: 0;
+  bottom: 10px;
+  right: 10px;
+  transition: all 0.3s ease-in-out;
 }
 
 #create-recipe:hover {
-  box-shadow: 0 0 5px grey;
-  cursor: pointer;
+  transform: rotate(45deg);
 }
 
 #create-recipe:active {
-  background-color: var(--black);
+  transform: scale(1.1);
 }
