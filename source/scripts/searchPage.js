@@ -20,18 +20,25 @@ window.addEventListener('DOMContentLoaded', () => {
   const matchedCountText = document.getElementById('matched-count-text')
 
   if (window.location.hash === '#favorites') {
-    results = JSON.parse(localStorage.getItem('userData')).favorites
-    queryDisplay.innerText = 'Showing Favorites'
-    matchedCountText.innerText = results.length
-  } else if (results) {
-    results = JSON.parse(results)
-
-    if (results.matchedCount === 0) {
-      alert('No results found')
-      window.location.href = '/index.html'
+    queryDisplay.innerText = 'Favorited Recipes'
+    let favorites
+    if (localStorage.getItem('userData')) {
+      favorites = JSON.parse(localStorage.getItem('userData')).favorites
+    }
+    if (!favorites || favorites.length === 0) {
+      matchedCountText.innerText = 'Nothing is found, go favorite a recipe!'
       return
     }
+    matchedCountText.innerText = favorites.length
+    results = favorites
+  } else if (results) {
+    results = JSON.parse(results)
     queryDisplay.innerText = `${'Showing results for: ' + '"'}${results.query}"`
+    if (!results || results.matchedCount === 0) {
+      //alert('No results found')
+      matchedCountText.innerText = '0 results found'
+      return
+    }
     matchedCountText.innerText = `${results.matchedCount} results found`
     results = results.data
   }
