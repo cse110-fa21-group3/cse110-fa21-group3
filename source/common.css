@@ -62,7 +62,8 @@ nav {
   border-width: 0px;
   position: fixed;
   bottom: 50px;
-  background-color: transparent;
+  background-color: white;
+  border-radius: 50%;
   right: 50px;
   opacity: 1;
   transition: all 0.3s ease-in-out;
@@ -72,7 +73,8 @@ nav {
   display: block;
   width: 4rem;
   height: 4rem;
-  background-color: transparent;
+  background-color: white;
+  border-radius: 50%;
   border-width: 0px;
   position: fixed;
   bottom: 50px;
@@ -90,7 +92,8 @@ nav {
   bottom: 50px;
   right: 50px;
   opacity: 0;
-  background-color: transparent;
+  background-color: white;
+  border-radius: 50%;
   transition: all 0.3s ease-in-out;
 }
 
