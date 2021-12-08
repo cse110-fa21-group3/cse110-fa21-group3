@@ -1,18 +1,33 @@
 {
   "devDependencies": {
     "@babel/core": "^7.16.0",
-    "@babel/preset-env": "^7.16.0",
-    "babel-jest": "^27.3.1",
-    "jest": "^27.3.1",
-    "jest-puppeteer": "^6.0.0",
-    "puppeteer": "^11.0.0"
+    "@babel/preset-env": "^7.16.4",
+    "babel-jest": "^27.4.2",
+    "jest": "^27.4.3",
+    "jest-puppeteer": "^6.0.2",
+    "puppeteer": "^11.0.0",
+    "standard": "^16.0.4"
   },
   "scripts": {
-    "test": "jest --passWithNoTests --coverage"
-    "build": "parcel build source/index.html"
+    "test": "jest --passWithNoTests --coverage --coverageReporters='text-summary'",
+    "test:badges": "npm run test && jest-coverage-badges"
   },
   "jest": {
     "preset": "jest-puppeteer",
-    "verbose": true
+    "verbose": true,
+    "coverageReporters": [
+      "json-summary", 
+      "text",
+      "lcov"
+    ]
+  },
+  "transform": {
+    "^.+\\.(js|jsx)$": "babel-jest"
+  },
+  "standard": {
+    "env": [
+      "jest",
+      "browser"
+    ]
   }
-} 
+}

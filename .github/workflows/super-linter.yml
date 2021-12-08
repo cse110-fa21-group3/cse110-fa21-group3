@@ -29,7 +29,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: JSDoc Action
-        uses: andstor/jsdoc-action@v1.2.0
+        uses: andstor/jsdoc-action@v1.2.1
         with:
           # Source directory to build documentation from
           source_dir: ./source
@@ -45,17 +45,25 @@ jobs:
       - name: Install Jest and Babel
         run: npm install --save-dev jest babel-jest @babel/core @babel/preset-env puppeteer jest-puppeteer
         
-      - name: Run tests
-        run: npm run test
-
-#      - name: Run Jest
-#       # You may pin to the exact commit or the version.
-#       # uses: stefanoeb/jest-action@f9bb23f509cde20ee9b494f0496d1d3323861cc4
-#        uses: stefanoeb/jest-action@1.0.4
+      - name: Run unit tests
+        run: |
+          SUMMARY=$(npm run test | tail -2 | head -1)
+          COVERAGE=$(echo "${SUMMARY}" | cut -c16-21)
+          echo "COVERAGE=${COVERAGE}" >> "$GITHUB_ENV"
           
-        
+      - name: Generate Covreage Badge
+        uses: schneegans/dynamic-badges-action@v1.1.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: 00d59204d52764d9c43a7f83d415e8a2
+          filename: coverage.json
+          label: Test Coverage
+          message: ${{ env.COVERAGE }}
+          color: green
+          namedLogo: jest
+          
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out
+          publish_dir: ./public
