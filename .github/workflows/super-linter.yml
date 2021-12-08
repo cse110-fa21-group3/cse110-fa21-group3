@@ -32,7 +32,7 @@ jobs:
         uses: andstor/jsdoc-action@v1.2.1
         with:
           # Source directory to build documentation from
-          source_dir: ./source
+          source_dir: ./
           # Output folder for the generated documentation
           output_dir: ./out
           template: minami
