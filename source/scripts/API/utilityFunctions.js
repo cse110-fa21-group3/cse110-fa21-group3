@@ -155,7 +155,7 @@ export function fetchRecipes (recipeCount, offset) {
  * @param {JSON} r - recipe json Object
  * @param {boolean} isWebScrapper
  */
-export async function createRecipeObject (r, isWebScrapper) {
+export async function createRecipeObject (r, isWebScrapper = false) {
   if (!r) {
     throw new Error('recipe is undefined')
   }
@@ -197,9 +197,9 @@ export async function createRecipeObject (r, isWebScrapper) {
  * @param {*} id before modified, the id of the recipe
  * @returns {string} randomized unique id
  */
-function generateUniqueID(id) {
+function generateUniqueID (id) {
   id = 'ucr_' + id
-  while(localStorage.getItem(id)) {
+  while (localStorage.getItem(id)) {
     id += Math.floor(Math.random() * 10)
   }
   return id
