@@ -140,7 +140,7 @@ export function fetchRecipes (recipeCount, offset) {
       .then(res => {
         // create local storage items
         res.results.forEach(r => {
-          createRecipeObject(r)
+          createRecipeObject(r, false)
         })
         resolve(recipeCount)
       })
@@ -153,13 +153,18 @@ export function fetchRecipes (recipeCount, offset) {
 /**
  * This function takes in what is fetched and from those parameters finds what we need for the recipe and sorts it into an object
  * @param {JSON} r - recipe json Object
+ * @param {boolean} isWebScrapper
  */
-export async function createRecipeObject (r) {
+export async function createRecipeObject (r, isWebScrapper) {
   if (!r) {
     throw new Error('recipe is undefined')
   }
 
-  const id = r.id
+  let id = r.id
+  if (isWebScrapper) {
+    id = generateUniqueID(id)
+  }
+
   const readyInMinutes = r.readyInMinutes
   const title = r.title
   const foodImage = r.image
@@ -188,6 +193,19 @@ export async function createRecipeObject (r) {
 }
 
 /**
+ * Generates an unique random ID
+ * @param {*} id before modified, the id of the recipe
+ * @returns {string} randomized unique id
+ */
+function generateUniqueID(id) {
+  id = 'ucr_' + id
+  while(localStorage.getItem(id)) {
+    id += Math.floor(Math.random() * 10)
+  }
+  return id
+}
+
+/**
  * Web Scrapping method for additional functionality for creating recipes
  * @param {String} url - the url inputted to scrap
  * @return {JSON} the json data of that website
@@ -198,7 +216,7 @@ export function webScrapper (url) {
     fetch(urlToExtract, options)
       .then(res => res.json())
       .then(res => {
-        resolve(createRecipeObject(res))
+        resolve(createRecipeObject(res, true))
       })
       .catch(error => {
         reject(error)

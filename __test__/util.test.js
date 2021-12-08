@@ -23,7 +23,7 @@ test('removeSummaryLinks Test', () => {
 // Done
 test('createRecipeObject Test', () => {
   global.localStorage.clear()
-  util.createRecipeObject(jsonData).then(() => {
+  util.createRecipeObject(jsonData, false).then(() => {
     expect(Object.keys(global.localStorage).length).toBe(1)
   })
 })
