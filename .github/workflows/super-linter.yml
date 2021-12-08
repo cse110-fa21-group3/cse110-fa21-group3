@@ -35,7 +35,7 @@ jobs:
           source_dir: ./source
           # Output folder for the generated documentation
           output_dir: ./out
-          # template: minami
+          template: minami
           # Recurse into subdirectories when scanning for source files
           recurse: true
           
