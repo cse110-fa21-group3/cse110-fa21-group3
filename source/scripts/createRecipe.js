@@ -112,7 +112,7 @@ createRecipe.addEventListener('click', e => {
     title: '',
     summary: '',
     ingredients: [],
-    ingredientSearch: '',
+    ingredientSearch: {},
     steps: [],
     nutrition: []
   }
@@ -120,11 +120,11 @@ createRecipe.addEventListener('click', e => {
   const formObj = new FormData(formData)
   const formKeys = Array.from(formObj.keys())
   const hash = window.location.hash
+  const title = formObj.get('title').toString().replace(/\s+/g, ' ')
 
   if (hash) {
     const currRecipe = JSON.parse(localStorage.getItem(hash.slice(1)))
     if (hash.slice(1, 4) === 'ucr') {
-      const title = formObj.get('title')
       if (title !== currRecipe.title) {
         localStorage.removeItem(hash.slice(1))
       }
@@ -132,10 +132,9 @@ createRecipe.addEventListener('click', e => {
     } else {
       formRes.id = currRecipe.id
       formRes.image = currRecipe.image
-      formRes.favorite = false
+      formRes.favorite = currRecipe.favorite
     }
   } else {
-    const title = formObj.get('title')
     formRes.id = 'ucr_' + title.replaceAll(' ', '')
     LSHandler.addFavoriteRecipe(formRes.id)
   }
@@ -155,8 +154,13 @@ createRecipe.addEventListener('click', e => {
     }
   })
 
-  formRes.ingredients.forEach(ing => {
-    formRes.ingredientSearch += ing
+  title.toLowerCase().split(' ').forEach(word => {
+    formRes.ingredientSearch[word] = 1
+  })
+  formRes.ingredients.forEach(ingredient => {
+    ingredient.split(' ').forEach(word => {
+      formRes.ingredientSearch[word] = 1
+    })
   })
 
   LSHandler.setLocalStorageItem(formRes.id, formRes)

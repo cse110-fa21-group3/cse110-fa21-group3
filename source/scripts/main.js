@@ -97,7 +97,9 @@ function getUserPrefs () {
     LSHandler.setMaxTime(maxTime)
 
     util.populateRecipes().then(() => {
-      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY)
+      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'explore-recipes')
+      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'breakfast-recipes')
+      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'desserts-recipes')
     })
   }
 }
