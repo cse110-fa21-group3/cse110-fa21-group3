@@ -30,7 +30,6 @@ document.getElementById('webscrapper-btn').addEventListener('click', e => {
  */
 function init () {
   getUserPrefs()
-  console.log(LSHandler.getRecipesByType(20, 'salad'))
 
   if (document.getElementById('refresh_btn')) {
     setUpRefreshButton()
@@ -39,8 +38,9 @@ function init () {
   // display the 5 recipes and add search btn listener only in homepage
   if (window.location.pathname === '/index.html' || window.location.pathname === '/' || window.location.pathname === '') {
     createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'explore-recipes')
-    createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'breakfast-recipes')
-    createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'desserts-recipes')
+    createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'main-recipes', 'main dish')
+    createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'side-recipes', 'side dish')
+    createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'salad-recipes', 'salad')
     const searchBtn = document.getElementById('search')
     searchBtn.addEventListener('click', e => {
       e.preventDefault()
@@ -77,11 +77,20 @@ function init () {
  *
  * @param {number} N The number of recipes to display
  * @param {string} id The id of the section to display
+ * @param {string} type The type of recipes to display (main dish, side dish, salad, soup)
 * @param {boolean} search If you're creating recipe cards from a search query
  *
  */
-export function createRecipeCards (N, id) {
-  const recipes = LSHandler.getNRandomRecipes(N)
+export function createRecipeCards (N, id, type = null) {
+  let recipes
+  console.log(type)
+  if (!type) {
+    recipes = LSHandler.getNRandomRecipes(N)
+  }else {
+    recipes = LSHandler.getRecipesByType(N, type)
+  }
+
+  console.log(recipes)
   // Get the recipe cards' section element
   const recipeCardsSection = document.getElementById(id)
 
@@ -117,8 +126,9 @@ function getUserPrefs () {
 
     util.populateRecipes().then(() => {
       createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'explore-recipes')
-      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'breakfast-recipes')
-      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'desserts-recipes')
+      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'main-recipes', 'main dish')
+      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'side-recipes', 'side dish')
+      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'salad-recipes', 'salad')
     })
   }
 }
