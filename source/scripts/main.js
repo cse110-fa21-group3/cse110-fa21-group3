@@ -23,10 +23,10 @@ document.getElementById('manual-btn').addEventListener('click', e => {
 
 document.getElementById('webscrapper-btn').addEventListener('click', async (e) => {
   console.log('webscrapper')
-  const url = prompt("Please enter an url for webscrapper")
-  if(url != null) {
-    const noSpace = url.split(" ").join("")
-    let id = await util.webScrapper(noSpace)
+  const url = prompt('Please enter an url for webscrapper')
+  if (url != null) {
+    const noSpace = url.split(' ').join('')
+    const id = await util.webScrapper(noSpace)
     window.location.href = '/recipePage.html#' + id
   }
 })
