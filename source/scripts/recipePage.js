@@ -168,13 +168,15 @@ function setUpBtns () {
   const deleteBtn = document.getElementById('delete')
   let deletedRecipes = LSHandler.getDeletedRecipes()
   deleteBtn.addEventListener('click', e => {
-    LSHandler.removeRecipe(id)
+    if (confirm("Are you sure you want to delete this recipe?")) {
+      LSHandler.removeRecipe(id)
 
-    deletedRecipes = LSHandler.getDeletedRecipes()
-    deletedRecipes.push(parseInt(id))
-    LSHandler.updateUserData('deletedRecipes', deletedRecipes)
+      deletedRecipes = LSHandler.getDeletedRecipes()
+      deletedRecipes.push(parseInt(id))
+      LSHandler.updateUserData('deletedRecipes', deletedRecipes)
 
-    window.location.href = '/index.html'
+      window.location.href = '/index.html'
+    }
   })
 
   const searchBtn = document.getElementById('search-icon')

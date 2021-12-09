@@ -172,7 +172,9 @@ createRecipe.addEventListener('click', e => {
 })
 
 cancelBtn.addEventListener('click', e => {
-  window.location.href = '/index.html'
+  if (confirm("Are you sure you want exit?\nYour changes won't be saved.")) {
+    window.location.href = '/index.html'
+  }
 })
 
 function populateRecipeForm (recipeData) {
