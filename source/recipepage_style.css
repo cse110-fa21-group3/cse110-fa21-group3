@@ -52,17 +52,24 @@ h2 {
   font-size: 6em;
   color: var(--black);
   content: "♥";
+  font-family: BlinkMacSystemFont;
   position: absolute;
   transform: translate(-50%, -50%);
+  transition: transform 0.2s;
 }
 
 #favorite::after {
   font-size: 6em;
   color: var(--red);
+  font-family: BlinkMacSystemFont;
   content: "♥";
   position: absolute;
   transform: translate(-50%, -50%) scale(0);
   transition: transform 0.2s;
+}
+
+#favorite.liked::before {
+  transform: translate(-50%, -50%) scale(0);
 }
 
 #favorite.liked::after {

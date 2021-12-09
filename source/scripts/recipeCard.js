@@ -122,8 +122,8 @@ button.liked::before {
   content: "♥";
   text-shadow: 0 0 2px #ffffff;
   position: absolute;
-  transition: 0.2s;
-  transform: translate(-50%, -50%) scale(0.8);
+  transition: transform 0.2s;
+  transform: translate(-50%, -50%) scale(0);
 }
 
 button::after {
@@ -134,8 +134,8 @@ button::after {
   content: "♥";
   position: absolute;
   opacity: 0;
-  transition: 0.2s;
-  transform: translate(-50%, -50%);
+  transition: transform 0.2s;
+  transform: translate(-50%, -50%) scale(0);
 }
 
 button.liked::after {
@@ -146,16 +146,10 @@ button.liked::after {
   color: var(--red);
   content: "♥";
   position: absolute;
-  transform: translate(-50%, -50%);
-  animation: fadeIn 0.15s linear forwards;
+  opacity: 1;
+  transition: transform 0.2s;
+  transform: translate(-50%, -50%) scale(1);
 }
-
-@keyframes fadeIn {
-  0% { opacity:0; scale(0)}
-  50% { opacity:0.5; scale(0.8)} 
-  100% { opacity:1; scale(1)} 
-}
-
 `
 
 /**

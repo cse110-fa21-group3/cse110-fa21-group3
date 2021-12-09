@@ -87,3 +87,20 @@ h2 {
     margin: 0 auto;
   }
 }
+
+#refresh_btn {
+  width: 50px;
+  height: auto;
+  padding: 0;
+  display: inline-block; 
+  border: none;
+  margin-left: 20px; 
+  font-size: 36px;
+  text-align: center;
+  background-color: transparent;
+}
+
+#refresh_btn:hover {
+  transform: rotate(360deg);
+  transition: 2s;
+}
