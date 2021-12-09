@@ -114,7 +114,8 @@ createRecipe.addEventListener('click', e => {
     ingredients: [],
     ingredientSearch: {},
     steps: [],
-    nutrition: []
+    nutrition: [],
+    dishTypes: []
   }
   const formData = document.getElementById('recipe-form')
   const formObj = new FormData(formData)
