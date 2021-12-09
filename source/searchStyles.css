@@ -28,11 +28,6 @@ hr {
   border: none;
   text-indent: 1rem;
   border-radius: 0.5rem 0 0 0.5rem;
-
-  /* border-top-left-radius: 0.5em;
-  border-bottom-left-radius: 0.5em;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0; */
 }
 
 #search-bar:focus {

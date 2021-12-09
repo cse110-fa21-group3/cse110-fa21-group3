@@ -18,6 +18,7 @@ article {
   background-color: white;
   height: 100%;
   width: 250px;
+  padding: 10px;
 }
 
 div {
