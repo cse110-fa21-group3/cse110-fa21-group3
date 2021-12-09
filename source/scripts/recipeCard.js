@@ -13,6 +13,7 @@ article {
   position: relative;
   display: flex;
   flex-direction: column;
+  min-height: 300px;
   border-radius: 8px;
   background-color: white;
   height: 100%;
