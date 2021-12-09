@@ -38,9 +38,9 @@ test('createRecipeObject Empty Test', () => {
 test('populateRecipes Test', async () => {
   global.localStorage.clear()
   return util.populateRecipes().then(() => {
-    expect(Object.keys(global.localStorage).length-1).toBe(util.DEFAULT_RECIPE_NUMBER)
+    expect(Object.keys(global.localStorage).length - 1).toBe(util.DEFAULT_RECIPE_NUMBER)
     util.populateRecipes().then(() => {
-      expect(Object.keys(global.localStorage).length-1).toBe(util.DEFAULT_RECIPE_NUMBER)
+      expect(Object.keys(global.localStorage).length - 1).toBe(util.DEFAULT_RECIPE_NUMBER)
     })
   })
 })
@@ -129,24 +129,23 @@ test('webScrapper Test', async () => {
 
 test('getRecipesByType Test', () => {
   global.localStorage.clear()
-  let obj1 = {
-    id : '123',
+  const obj1 = {
+    id: '123',
     dishTypes: ['side dish']
   }
 
-  let obj2 = {
-    id : '789',
+  const obj2 = {
+    id: '789',
     dishTypes: ['main dish']
   }
 
-  let obj3 = {
-    id : 'apple',
+  const obj3 = {
+    id: 'apple',
     dishTypes: ['main dish']
   }
   global.localStorage.setItem('123', JSON.stringify(obj1))
   global.localStorage.setItem('789', JSON.stringify(obj2))
   global.localStorage.setItem('apple', JSON.stringify(obj3))
-
 
   let result = getRecipesByType(2, 'side dish')
   expect(result.length).toBe(1)
