@@ -131,7 +131,6 @@ createRecipe.addEventListener('click', e => {
         localStorage.removeItem(hash.slice(1))
       }
       formRes.id = title.replaceAll(' ', '')
-      formRes.id = generateUniqueID(formRes.id)
     } else {
       formRes.id = currRecipe.id
       formRes.image = currRecipe.image
@@ -213,7 +212,7 @@ function populateLists (recipeData) {
   ingInputs[numIng - 1].value = recipeData.ingredients[numIng - 1]
 
   // Steps fill-in
-  const numSteps = recipeData.steps.length - 1
+  const numSteps = recipeData.steps.length
   const stepInputs = document.getElementsByClassName('step-name')
   for (let i = 0; i < numSteps - 1; i++) {
     addStep.click()
