@@ -82,14 +82,14 @@ h2 {
   justify-content: space-between;
 }
 
-.recipe-info > section {
+.recipe-info > div {
   font-size: 20px;
   color: var(--black);
   margin-left: 1.5cm;
   margin-bottom: 1.5rem;
 }
 
-.recipe-info > section > p {
+.recipe-info > div > p {
   line-height: 2.5rem;
   padding-right: 1.5rem;
 }
