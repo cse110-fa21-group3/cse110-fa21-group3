@@ -108,7 +108,7 @@ function bindRC (recipeCard, key) {
 
 function getUserPrefs () {
   if (LSHandler.getLocalStorageRecipes().length === 0) {
-    LSHandler.updateUserData('offset', 0)
+    LSHandler.updateUserData('offset', util.DEFAULT_OFFSET)
     const intols = prompt('Enter your intolerances (ingredients not to include)\n\nAvailable: dairy, gluten, shellfish, seafood, wheat, eggs, peanut, soy, grain, sesame, tree nut, sulfite')
     LSHandler.setIntolerances(intols)
 

@@ -17,6 +17,7 @@ const options = {
 
 export const DEFAULT_RECIPE_NUMBER = 10
 export const NUMBER_OF_RECIPES_TO_DISPLAY = 10
+export const DEFAULT_OFFSET = 500
 
 const DEFAULT_NUTRITIONS = [
   'Calories: unknown',
@@ -36,7 +37,7 @@ const DEFAULT_NUTRITIONS = [
 export let intolerances = []
 // max for recipes prep time
 export let maxTime = localStorageHandler.DEFAULT_MAX_TIME
-export let offset = 0
+export let offset = DEFAULT_OFFSET
 
 class RecipeObject {
   constructor (id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size) {
@@ -65,7 +66,7 @@ export function loadUserData () {
   } else {
     intolerances = []
     maxTime = localStorageHandler.DEFAULT_MAX_TIME
-    offset = 0
+    offset = DEFAULT_OFFSET
     return
   }
 
@@ -138,6 +139,7 @@ export function fetchRecipes (recipeCount, offset) {
     fetch(reqUrl, options)
       .then(res => res.json())
       .then(res => {
+        console.log(res)
         // create local storage items
         res.results.forEach(r => {
           createRecipeObject(r, false)
