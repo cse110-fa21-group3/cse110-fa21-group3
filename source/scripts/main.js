@@ -118,3 +118,11 @@ function getUserPrefs () {
     })
   }
 }
+
+document.getElementById('refresh_btn').addEventListener('click', event => {
+  let exploreContainer = document.getElementById('explore-recipes')
+  while(exploreContainer.firstChild) {
+    exploreContainer.removeChild(exploreContainer.firstChild)
+  }
+  createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'explore-recipes')
+})
