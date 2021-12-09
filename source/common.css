@@ -1,4 +1,3 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap'); */
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 :root {
@@ -8,6 +7,7 @@
   --red: #ff4747;
   --light-red: #ffdada;
   --white: #fff;
+  --transition: all 0.1s ease-out;
 }
 
 * {
@@ -15,8 +15,6 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Poppins, sans-serif;
-
-  /* font-family: 'Libre Baskerville', serif; */
 }
 
 body {
@@ -33,7 +31,7 @@ nav {
 }
 
 #web-logo {
-  border-radius: 10%;
+  border-radius: 50%;
 }
 
 /* Favorite Button */
@@ -61,6 +59,7 @@ nav {
   position: fixed;
   bottom: 0;
   right: 0;
+  transition: var(--transition);
 }
 
 #create-recipe:hover {

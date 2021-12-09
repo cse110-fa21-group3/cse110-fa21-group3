@@ -10,27 +10,34 @@
   <link href="./source/common.css" rel="stylesheet" type="text/css" />
   <script type="module" src="/source/scripts/createRecipe.js"></script>
 </head>
+
 <body>
   <div class="container">
     <header>
       <nav>
         <a href="/index.html">
-          <img id="web-logo" src="./source/image/logo3_231x231.jpg" alt="Logo" width="80" height="80"/>
+          <img id="web-logo" src="./source/image/logo3_231x231.jpg" alt="Logo"
+            width="80" height="80" />
         </a>
         <a href="/searchpage.html#favorites" id="fav-container">
-          <img src="./source/image/icons8-favorite-folder-50.png" alt="Favorite Icon"/>
+          <img src="./source/image/icons8-favorite-folder-50.png"
+            alt="Favorite Icon" />
         </a>
       </nav>
     </header>
     <main>
       <form id="recipe-form" action="#">
         <div id="img-container">
-          <label for="recipe-img">Upload Image:</label>
-          <input type="file" id="recipe-img" name="image" accept="image/png, image/jpeg, image/jpg">
+          <label>Upload Image:
+            <input type="file" id="recipe-img" name="image"
+              accept="image/png, image/jpeg, image/jpg">
+          </label>
           <img id="preview-img" class="no-preview" src="#" alt="Custom Image" />
         </div>
-        <label for="recipe-name">Name:</label>
-        <input type="text" id="recipe-name" name="title">
+        <div id="name-container">
+          <label for="recipe-name">Name:</label>
+          <textarea name="title" id="recipe-name" cols="50" rows="1"></textarea>
+        </div>
         <div id="time-container">
           <label for="recipe-time">Time:</label>
           <input type="number" id="recipe-time" name="readyInMinutes">
@@ -43,39 +50,46 @@
         </div>
         <div id="desc-container">
           <label for="recipe-desc">Description:</label>
-          <textarea name="recipeDesc" id="recipe-desc" cols="60" rows="10"></textarea>
+          <textarea name="recipeDesc" id="recipe-desc" cols="70"
+            rows="10"></textarea>
         </div>
         <fieldset id="recipe-ingredients">
           <legend>Ingredients:</legend>
           <hr>
           <fieldset class="ingredient-container">
-            <label>Ingredient: </label>
-            <textarea name="ingredients" class="ing-name" rows="2" cols="30"></textarea>
+            <label>•</label>
+            <textarea name="ingredients" class="ing-name" rows="2"
+              cols="50"></textarea>
           </fieldset>
           <button type="button" id="add-ing" class="add-btn">
-            <img src="./source/image/icons8-plus-+.svg" alt="plus icon" style="width: 30px;" />
+            <img src="./source/image/icons8-plus-+.svg" alt="plus icon"
+              style="width: 30px;" />
           </button>
         </fieldset>
         <fieldset id="recipe-steps">
           <legend>Steps:</legend>
           <hr>
           <fieldset class="steps-container">
-            <label>Step: </label>
-            <textarea name="steps" class="step-name" rows="5" cols="50"></textarea>
+            <label>•</label>
+            <textarea name="steps" class="step-name" rows="3"
+              cols="50"></textarea>
           </fieldset>
           <button type="button" id="add-step" class="add-btn">
-            <img src="./source/image/icons8-plus-+.svg" alt="plus icon" style="width: 30px;" />
+            <img src="./source/image/icons8-plus-+.svg" alt="plus icon"
+              style="width: 30px;" />
           </button>
         </fieldset>
         <fieldset id="recipe-nutrition">
           <legend>Nutrition Information:</legend>
           <hr>
           <fieldset class="nutrition-container">
-            <label>Nutrition: </label>
-            <textarea name="nutrition" class="nutr-name" rows="2" cols="30"></textarea>
+            <label>•</label>
+            <textarea name="nutrition" class="nutr-name" rows="2"
+              cols="30"></textarea>
           </fieldset>
           <button type="button" id="add-nutrition" class="add-btn">
-            <img src="./source/image/icons8-plus-+.svg" alt="plus icon" style="width: 30px;"/>
+            <img src="./source/image/icons8-plus-+.svg" alt="plus icon"
+              style="width: 30px;" />
           </button>
         </fieldset>
         <div id="btns">
@@ -86,4 +100,5 @@
     </main>
   </div>
 </body>
+
 </html>
