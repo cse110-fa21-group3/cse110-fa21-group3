@@ -127,7 +127,7 @@ export function updateOffset (offsetToAdd) {
 
 export function fetchRecipes (recipeCount, offset) {
   let reqUrl = `${API_ENDPOINT}/recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true&number=${recipeCount}&offset=${offset}&maxReadyTime=${maxTime}`
-  
+
   let intolerancesStr = ''
   if (intolerances.length > 0) {
     for (let i = 0; i > intolerances.length; i++) {
