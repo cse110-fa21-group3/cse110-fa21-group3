@@ -40,7 +40,7 @@ function init () {
         createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'main-recipes', 'main dish')
         createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'side-recipes', 'side dish')
         createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'salad-recipes', 'salad')
-      }, 500);
+      }, 500)
     })
     const searchBtn = document.getElementById('search')
     searchBtn.addEventListener('click', e => {
@@ -74,7 +74,7 @@ export function createRecipeCards (N, id, type = null) {
     loaderId = type.split(' ')[0]
   }
 
-  const loader = document.getElementById(loaderId+"-loader")
+  const loader = document.getElementById(loaderId + '-loader')
   loader.remove()
 
   // Get the recipe cards' section element

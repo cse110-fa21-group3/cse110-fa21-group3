@@ -168,7 +168,7 @@ function setUpBtns () {
   const deleteBtn = document.getElementById('delete')
   let deletedRecipes = LSHandler.getDeletedRecipes()
   deleteBtn.addEventListener('click', e => {
-    if (confirm("Are you sure you want to delete this recipe?")) {
+    if (confirm('Are you sure you want to delete this recipe?')) {
       LSHandler.removeRecipe(id)
 
       deletedRecipes = LSHandler.getDeletedRecipes()
