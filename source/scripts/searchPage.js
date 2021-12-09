@@ -35,7 +35,7 @@ window.addEventListener('DOMContentLoaded', () => {
     results = JSON.parse(results)
     queryDisplay.innerText = `${'Showing results for: ' + '"'}${results.query}"`
     if (!results || results.matchedCount === 0) {
-      //alert('No results found')
+      // alert('No results found')
       matchedCountText.innerText = '0 results found'
       return
     }

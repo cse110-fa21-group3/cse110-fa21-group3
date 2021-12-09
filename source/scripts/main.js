@@ -9,12 +9,12 @@ window.addEventListener('DOMContentLoaded', init)
 
 document.getElementById('create-recipe').addEventListener('click', e => {
   document.getElementById('create-recipe').classList.toggle('rotate-btn')
-  const manual_btn = document.getElementById('manual-btn')
-  const scrapper_btn = document.getElementById('webscrapper-btn')
-  manual_btn.classList.toggle('manual-show')
-  manual_btn.classList.toggle('manual-hide')
-  scrapper_btn.classList.toggle('scrapper-show')
-  scrapper_btn.classList.toggle('scrapper-hide')
+  const manualBtn = document.getElementById('manual-btn')
+  const scrapperBtn = document.getElementById('webscrapper-btn')
+  manualBtn.classList.toggle('manual-show')
+  manualBtn.classList.toggle('manual-hide')
+  scrapperBtn.classList.toggle('scrapper-show')
+  scrapperBtn.classList.toggle('scrapper-hide')
 })
 
 document.getElementById('manual-btn').addEventListener('click', e => {
@@ -22,9 +22,8 @@ document.getElementById('manual-btn').addEventListener('click', e => {
 })
 
 document.getElementById('webscrapper-btn').addEventListener('click', e => {
-  console.log("webscrapper")
+  console.log('webscrapper')
 })
-
 
 /**
  * Function that runs when the page loads
@@ -33,7 +32,7 @@ function init () {
   getUserPrefs()
 
   if (document.getElementById('refresh_btn')) {
-    setUpRefreshButton();
+    setUpRefreshButton()
   }
 
   // display the 5 recipes and add search btn listener only in homepage
@@ -126,10 +125,10 @@ function getUserPrefs () {
 /**
  * sets up the refresh button for the explore cointaner on homepage
  */
-function setUpRefreshButton() {
+function setUpRefreshButton () {
   document.getElementById('refresh_btn').addEventListener('click', event => {
-    let exploreContainer = document.getElementById('explore-recipes')
-    while(exploreContainer.firstChild) {
+    const exploreContainer = document.getElementById('explore-recipes')
+    while (exploreContainer.firstChild) {
       exploreContainer.removeChild(exploreContainer.firstChild)
     }
     createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'explore-recipes')

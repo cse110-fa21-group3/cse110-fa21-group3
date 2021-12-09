@@ -50,26 +50,26 @@ function init () {
  * updates values in nutrition according to servingSize
  * @param {*} servingSize
  */
-function nutritionUpdates(servingSize) {
+function nutritionUpdates (servingSize) {
   if (nutritionElementArr.length <= 0) {
     return
   }
 
-  let ratio = servingSize/defaultServing
+  const ratio = servingSize / defaultServing
 
   for (let index = 0; index < nutritionElementArr.length; index++) {
-    let element = nutritionElementArr[index]
+    const element = nutritionElementArr[index]
 
     if (ratio === 1) {
       element.innerText = defaultNutrition[index]
       continue
     }
 
-    let textArr = defaultNutrition[index].split(': ')
-    let values = textArr[1].split(' ')
-    let unit = values[1]
-    let amount = (parseFloat(values[0]) * ratio).toFixed(2)
-    element.innerText = textArr[0]+": "+amount+" "+unit
+    const textArr = defaultNutrition[index].split(': ')
+    const values = textArr[1].split(' ')
+    const unit = values[1]
+    const amount = (parseFloat(values[0]) * ratio).toFixed(2)
+    element.innerText = textArr[0] + ': ' + amount + ' ' + unit
   }
 }
 
@@ -77,21 +77,21 @@ function nutritionUpdates(servingSize) {
  * updates values in ingredients according to servingSize
  * @param {*} servingSize
  */
-function ingredientUpdates(servingSize) {
+function ingredientUpdates (servingSize) {
   if (ingredientElementArr.length <= 0) {
     return
   }
-  
-  let ratio = servingSize/defaultServing
 
-  let fractionPattern = /\d*\/\d*/
+  const ratio = servingSize / defaultServing
+
+  const fractionPattern = /\d*\/\d*/
 
   for (let i = 0; i < ingredientElementArr.length; i++) {
-    let element = ingredientElementArr[i]
-    let ingreTextArr = defaultIngredients[i].split(' ')
-    let defaultAmount = ingreTextArr[0]
+    const element = ingredientElementArr[i]
+    const ingreTextArr = defaultIngredients[i].split(' ')
+    const defaultAmount = ingreTextArr[0]
 
-    if (ratio == 1) {
+    if (ratio === 1) {
       element.innerText = defaultIngredients[i]
       continue
     }
@@ -99,25 +99,25 @@ function ingredientUpdates(servingSize) {
     if (defaultAmount.match(fractionPattern)) {
       ingreTextArr[0] = scaleFraction(defaultAmount, ratio)
       element.innerText = ingreTextArr.join(' ')
-    }else if (parseInt(defaultAmount)) {
+    } else if (parseInt(defaultAmount)) {
       ingreTextArr[0] = parseInt(defaultAmount) * ratio
       element.innerText = ingreTextArr.join(' ')
-    }else {
-      ingreTextArr.unshift(ratio + " times")
+    } else {
+      ingreTextArr.unshift(ratio + ' times')
     }
   }
 }
 
 /**
- * Scales a fraction 
+ * Scales a fraction
  * @param {*} fraction
  * @param {*} ratio
  * @returns {number} Decimal number
  */
-function scaleFraction(fraction, ratio) {
+function scaleFraction (fraction, ratio) {
   if (fraction.includes('/')) {
-    let arr = fraction.split('/')
-    return (parseInt(arr[0])/parseInt(arr[1])*ratio).toFixed(2)
+    const arr = fraction.split('/')
+    return (parseInt(arr[0]) / parseInt(arr[1]) * ratio).toFixed(2)
   }
 }
 
