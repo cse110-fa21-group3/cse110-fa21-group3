@@ -57,7 +57,7 @@ nav {
   display: block;
   width: 4rem;
   height: 4rem;
-  border-width: 0px;
+  border-width: 0;
   position: fixed;
   bottom: 50px;
   background-color: white;
@@ -73,7 +73,7 @@ nav {
   height: 4rem;
   background-color: white;
   border-radius: 50%;
-  border-width: 0px;
+  border-width: 0;
   position: fixed;
   bottom: 50px;
   right: 50px;
@@ -85,7 +85,7 @@ nav {
   display: block;
   width: 4rem;
   height: 4rem;
-  border-width: 0px;
+  border-width: 0;
   position: fixed;
   bottom: 50px;
   right: 50px;
@@ -96,22 +96,22 @@ nav {
 }
 
 .manual-show {
-  animation: fadeIn 0.3s linear forwards;
+  animation: fade-in 0.3s linear forwards;
   margin-right: 5rem;
 }
 
 .manual-hide {
-  animation: fadeOut 0.3s linear forwards;
+  animation: fade-out 0.3s linear forwards;
   margin-right: 0;
 }
 
 .scrapper-show {
-  animation: fadeIn 0.3s linear forwards;
+  animation: fade-in 0.3s linear forwards;
   margin-right: 10rem;
 }
 
 .scrapper-hide {
-  animation: fadeOut 0.3s linear forwards;
+  animation: fade-out 0.3s linear forwards;
   margin-right: 0;
 }
 
@@ -119,14 +119,14 @@ nav {
   transform: rotate(45deg);
 }
 
-@keyframes fadeIn {
-  0% { opacity:0; }
-  50% { opacity:0.5; } 
-  100% { opacity:1; } 
+@keyframes fade-in {
+  0% { opacity: 0; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
 }
 
-@keyframes fadeOut {
-  0% { opacity:0.9; }
-  50% { opacity:0.5; } 
-  100% { opacity:0; } 
+@keyframes fade-out {
+  0% { opacity: 0.9; }
+  50% { opacity: 0.5; }
+  100% { opacity: 0; }
 }

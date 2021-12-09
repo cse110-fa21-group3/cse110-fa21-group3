@@ -3,7 +3,7 @@
   flex-direction: row;
   justify-content: flex-start;
   grid-template-columns: repeat(5, 20rem);
-  margin: 0px 2rem 50px;
+  margin: 0 2rem 50px;
   min-height: min-content;
   overflow-x: auto;
   background-color: var(--light-gray);
@@ -91,9 +91,9 @@ h2 {
   width: 50px;
   height: auto;
   padding: 0;
-  display: inline-block; 
+  display: inline-block;
   border: none;
-  margin-left: 20px; 
+  margin-left: 20px;
   font-size: 36px;
   text-align: center;
   background-color: transparent;
