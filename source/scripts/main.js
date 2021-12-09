@@ -37,10 +37,6 @@ function init () {
 
   // display the 5 recipes and add search btn listener only in homepage
   if (window.location.pathname === '/index.html' || window.location.pathname === '/' || window.location.pathname === '') {
-    createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'explore-recipes')
-    createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'main-recipes', 'main dish')
-    createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'side-recipes', 'side dish')
-    createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'salad-recipes', 'salad')
     const searchBtn = document.getElementById('search')
     searchBtn.addEventListener('click', e => {
       e.preventDefault()
@@ -115,11 +111,12 @@ function bindRC (recipeCard, key) {
 
 function getUserPrefs () {
   util.populateRecipes().then(() => {
-    console.log('Hello')
-    createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'explore-recipes')
-    createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'main-recipes', 'main dish')
-    createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'side-recipes', 'side dish')
-    createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'salad-recipes', 'salad')
+    if (window.location.pathname === '/index.html' || window.location.pathname === '/' || window.location.pathname === '') {
+      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'explore-recipes')
+      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'main-recipes', 'main dish')
+      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'side-recipes', 'side dish')
+      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'salad-recipes', 'salad')
+    }
   })
 
   if (LSHandler.getLocalStorageRecipes().length === 0) {

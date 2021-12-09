@@ -38,7 +38,9 @@ function init () {
   defaultServing = data.servingSize
   eDescription.innerHTML = data.summary ? data.summary : ''
 
-  populateListElements(data)
+  populateListElements(data.ingredients, 'recipe-ingredients-list')
+  populateListElements(data.steps, 'recipe-steps-list')
+  populateListElements(data.nutrition, 'recipe-nutrition-list')
   setUpBtns()
   eServes.addEventListener('change', (event) => {
     ingredientUpdates(eServes.value)
@@ -123,30 +125,17 @@ function scaleFraction (fraction, ratio) {
 
 /**
  * creates list elements for recipe page
+ * @param {*} dataArr
+ * @param {*} listID
  */
-function populateListElements (data) {
-  const eIngredients = document.getElementById('recipe-ingredients-list') // done
-  const eSteps = document.getElementById('recipe-steps-list') // done
-  const eNutrition = document.getElementById('recipe-nutrition-list') // done
-
-  data.ingredients.forEach(ing => {
-    const ingItem = document.createElement('li')
-    ingItem.innerText = ing
-    ingredientElementArr.push(ingItem)
-    eIngredients.appendChild(ingItem)
-  })
-
-  data.steps.forEach(step => {
-    const stepItem = document.createElement('li')
-    stepItem.innerText = step
-    eSteps.appendChild(stepItem)
-  })
-
-  data.nutrition.forEach(fact => {
-    const factItem = document.createElement('li')
-    factItem.innerText = fact
-    nutritionElementArr.push(factItem)
-    eNutrition.appendChild(factItem)
+function populateListElements (dataArr, listID) {
+  const list = document.getElementById(listID)
+  dataArr.forEach(data => {
+    const item = document.createElement('li')
+    item.innerText = data
+    if (listID === 'recipe-ingredients-list') { ingredientElementArr.push(item) }
+    if (listID === 'recipe-nutrition-list') { nutritionElementArr.push(item) }
+    list.appendChild(item)
   })
 }
 

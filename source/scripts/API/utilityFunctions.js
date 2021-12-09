@@ -140,7 +140,6 @@ export function fetchRecipes (recipeCount, offset) {
     fetch(reqUrl, options)
       .then(res => res.json())
       .then(res => {
-        console.log(res)
         // create local storage items
         res.results.forEach(r => {
           createRecipeObject(r, false)
