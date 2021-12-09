@@ -111,12 +111,23 @@ function ingredientUpdates (servingSize) {
     }
 
     if (match.index === 0) {
-      let amount = parseFloat(match[0])
+      let amount = match[0].includes('/') ? evaluateFraction(match[0]) : parseFloat(match[0]).toFixed(2)
       amount = amount * ratio
       const length = match[0].length
       element.innerText = amount + ingString.substring(length)
     }
   }
+}
+
+/**
+ * evaluate Fraction number in string format
+ * @param {*} frac 
+ * @returns {number}
+ */
+function evaluateFraction(frac) {
+  let strArr = frac.split('/')
+  console.log(strArr)
+  return parseFloat(strArr[0])/parseFloat(strArr[1]).toFixed(2)
 }
 
 /**
