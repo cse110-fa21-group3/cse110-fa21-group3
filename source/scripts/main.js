@@ -32,6 +32,10 @@ document.getElementById('webscrapper-btn').addEventListener('click', e => {
 function init () {
   getUserPrefs()
 
+  if (document.getElementById('refresh_btn')) {
+    setUpRefreshButton();
+  }
+
   // display the 5 recipes and add search btn listener only in homepage
   if (window.location.pathname === '/index.html' || window.location.pathname === '/' || window.location.pathname === '') {
     createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'explore-recipes')
@@ -119,10 +123,15 @@ function getUserPrefs () {
   }
 }
 
-document.getElementById('refresh_btn').addEventListener('click', event => {
-  let exploreContainer = document.getElementById('explore-recipes')
-  while(exploreContainer.firstChild) {
-    exploreContainer.removeChild(exploreContainer.firstChild)
-  }
-  createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'explore-recipes')
-})
+/**
+ * sets up the refresh button for the explore cointaner on homepage
+ */
+function setUpRefreshButton() {
+  document.getElementById('refresh_btn').addEventListener('click', event => {
+    let exploreContainer = document.getElementById('explore-recipes')
+    while(exploreContainer.firstChild) {
+      exploreContainer.removeChild(exploreContainer.firstChild)
+    }
+    createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'explore-recipes')
+  })
+}
