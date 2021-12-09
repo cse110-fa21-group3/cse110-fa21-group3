@@ -50,18 +50,18 @@ recipeImg.addEventListener('change', (e) => {
 })
 
 addIng.addEventListener('click', e => {
-  addContainer('ingredient-container', 'Ingredient: ', 'ingredients', 'ing-name', '2', '30')
+  addContainer('ingredient-container', 'ingredients', 'ing-name', '2', '50')
 })
 
 addStep.addEventListener('click', e => {
-  addContainer('steps-container', 'Step: ', 'steps', 'step-name', '5', '50')
+  addContainer('steps-container', 'steps', 'step-name', '3', '50')
 })
 
 addNutrition.addEventListener('click', e => {
-  addContainer('nutrition-container', 'Nutrition: ', 'nutrition', 'nutr-name', '2', '30')
+  addContainer('nutrition-container', 'nutrition', 'nutr-name', '2', '30')
 })
 
-function addContainer (containerClass, labelText, textAreaName, textAreaClass, rows, cols) {
+function addContainer (containerClass, textAreaName, textAreaClass, rows, cols) {
   const elementContainer = document.querySelectorAll('.' + containerClass)
   const elementContainerLength = elementContainer.length
   const fieldSet = document.createElement('fieldset')
@@ -77,8 +77,7 @@ function addContainer (containerClass, labelText, textAreaName, textAreaClass, r
   deleteBtn.appendChild(removeIcon)
   deleteBtn.addEventListener('click', removeItem)
 
-  fieldSetLabel.innerText = labelText
-
+  fieldSetLabel.innerText = '•'
   fieldTextArea.name = textAreaName
 
   fieldTextArea.classList.add(textAreaClass)
@@ -98,6 +97,7 @@ function removeItem (e) {
   const i = e.path[0].tagName === 'IMG' ? 0 : 1
   const parentContainer = e.path[3 - i]
   const fieldSet = e.path[2 - i]
+  fieldSet.querySelector('.remove-btn').removeEventListener('click', removeItem)
   parentContainer.removeChild(fieldSet)
 }
 
