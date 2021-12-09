@@ -97,7 +97,7 @@ function removeItem (e) {
   const i = e.path[0].tagName === 'IMG' ? 0 : 1
   const parentContainer = e.path[3 - i]
   const fieldSet = e.path[2 - i]
-  fieldSet.querySelector('.remove-btn').removeEventListener('click', removeItem);
+  fieldSet.querySelector('.remove-btn').removeEventListener('click', removeItem)
   parentContainer.removeChild(fieldSet)
 }
 

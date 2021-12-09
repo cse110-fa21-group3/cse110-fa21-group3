@@ -8,12 +8,13 @@ label {
   font-weight: bold;
 }
 
-input, textarea {
-    margin: 0 0.5rem 0 0.5rem;
-    border: 1px solid var(--dark-gray);
-    padding: 0.2rem 0.2rem;
-    border-radius: 5px;
-    resize: none;
+input, 
+textarea {
+  margin: 0 0.5rem;
+  border: 1px solid var(--dark-gray);
+  padding: 0.2rem 0.2rem;
+  border-radius: 5px;
+  resize: none;
 }
 
 hr {
