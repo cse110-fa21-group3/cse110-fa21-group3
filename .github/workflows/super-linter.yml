@@ -47,7 +47,7 @@ jobs:
         
       - name: Run unit tests
         run: |
-          SUMMARY=$(npm run test:badges | tail -2 | head -1)
+          SUMMARY=$(npm run test | tail -2 | head -1)
           COVERAGE=$(echo "${SUMMARY}" | cut -c16-21)
           echo "COVERAGE=${COVERAGE}" >> "$GITHUB_ENV"
           
