@@ -121,13 +121,13 @@ function ingredientUpdates (servingSize) {
 
 /**
  * evaluate Fraction number in string format
- * @param {*} frac 
+ * @param {*} frac
  * @returns {number}
  */
-function evaluateFraction(frac) {
-  let strArr = frac.split('/')
+function evaluateFraction (frac) {
+  const strArr = frac.split('/')
   console.log(strArr)
-  return parseFloat(strArr[0])/parseFloat(strArr[1]).toFixed(2)
+  return parseFloat(strArr[0]) / parseFloat(strArr[1]).toFixed(2)
 }
 
 /**
