@@ -5,38 +5,23 @@
 import * as util from './API/utilityFunctions.js'
 import * as LSHandler from './API/localStorageHandler.js'
 
-let isButtonsExpanded = false
-
 window.addEventListener('DOMContentLoaded', init)
 
 document.getElementById('create-recipe').addEventListener('click', e => {
-  console.log('clicked')
-  const manual_btn = document.getElementById('manual_btn')
-  const scrapper_btn = document.getElementById('webscrapper_btn')
-  let create_btn = document.getElementById('create-recipe')
-  if (!isButtonsExpanded) {
-    manual_btn.classList.remove('shift-down-manual')
-    scrapper_btn.classList.remove('shift-down-webscrapper')
-    manual_btn.classList.add('shift-up-manual')
-    scrapper_btn.classList.add('shift-up-webscrapper')
-    create_btn.classList.add('highlight-btn')
-    isButtonsExpanded = true
-  }else {
-    manual_btn.classList.remove('shift-up-manual')
-    scrapper_btn.classList.remove('shift-up-webscrapper')
-    create_btn.classList.remove('highlight-btn')
-    manual_btn.classList.add('shift-down-manual')
-    scrapper_btn.classList.add('shift-down-webscrapper')
-    create_btn.classList.remove('highlight-btn')
-    isButtonsExpanded = false
-  }
+  document.getElementById('create-recipe').classList.toggle('rotate-btn')
+  const manual_btn = document.getElementById('manual-btn')
+  const scrapper_btn = document.getElementById('webscrapper-btn')
+  manual_btn.classList.toggle('manual-show')
+  manual_btn.classList.toggle('manual-hide')
+  scrapper_btn.classList.toggle('scrapper-show')
+  scrapper_btn.classList.toggle('scrapper-hide')
 })
 
-document.getElementById('manual_btn').addEventListener('click', e => {
+document.getElementById('manual-btn').addEventListener('click', e => {
   window.location.href = '/createRecipe.html'
 })
 
-document.getElementById('webscrapper_btn').addEventListener('click', e => {
+document.getElementById('webscrapper-btn').addEventListener('click', e => {
   console.log("webscrapper")
 })
 

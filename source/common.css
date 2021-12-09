@@ -69,7 +69,7 @@ nav {
   transition: all 0.3s ease-in-out;
 }
 
-#manual_btn {
+#manual-btn {
   display: block;
   width: 4rem;
   height: 4rem;
@@ -83,7 +83,7 @@ nav {
   transition: all 0.3s ease-in-out;
 }
 
-#webscrapper_btn {
+#webscrapper-btn {
   display: block;
   width: 4rem;
   height: 4rem;
@@ -97,27 +97,27 @@ nav {
   transition: all 0.3s ease-in-out;
 }
 
-.shift-up-manual {
+.manual-show {
   animation: fadeIn 0.3s linear forwards;
   margin-right: 5rem;
 }
 
-.shift-down-webscrapper {
+.manual-hide {
   animation: fadeOut 0.3s linear forwards;
   margin-right: 0;
 }
 
-.shift-down-manual {
-  animation: fadeOut 0.3s linear forwards;
-  margin-right: 0;
-}
-
-.shift-up-webscrapper {
+.scrapper-show {
   animation: fadeIn 0.3s linear forwards;
   margin-right: 10rem;
 }
 
-.highlight-btn {
+.scrapper-hide {
+  animation: fadeOut 0.3s linear forwards;
+  margin-right: 0;
+}
+
+.rotate-btn {
   transform: rotate(45deg);
 }
 
