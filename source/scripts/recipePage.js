@@ -67,6 +67,11 @@ function nutritionUpdates (servingSize) {
     }
 
     const match = nutrString.match(/[+-]?([0-9]*[.])?[0-9]+/)
+
+    if (!match) {
+      continue
+    }
+
     const length = match[0].length
     const matchIndex = match.index
     const endIndex = (matchIndex + length)
@@ -99,13 +104,17 @@ function ingredientUpdates (servingSize) {
     }
 
     const match = ingString.match(fractionPattern)
-    if (match && match.index === 0) {
+
+    if (!match) {
+      element.innerText = ratio + " " + ingString
+      continue
+    }
+
+    if (match.index === 0) {
       let amount = parseFloat(match[0])
       amount = amount * ratio
       const length = match[0].length
       element.innerText = amount + ingString.substring(length)
-    } else {
-      element.innerText = ratio + ' ' + ingString
     }
   }
 }

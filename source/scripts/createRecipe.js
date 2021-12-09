@@ -108,7 +108,7 @@ createRecipe.addEventListener('click', e => {
     image: '',
     favorite: true,
     readyInMinutes: 0,
-    servingSize: 0,
+    servingSize: 1,
     title: '',
     summary: '',
     ingredients: [],
