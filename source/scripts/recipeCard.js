@@ -203,10 +203,10 @@ class RecipeCard extends HTMLElement {
     likeBtn.addEventListener('click', event => {
       likeBtn.classList.toggle('liked')
       if (!this.json.favorite) {
-        addFavoriteRecipe(this.json.id)
+        addFavoriteRecipe(`${this.json.id}`)
         this.json.favorite = true
       } else {
-        removeFavoriteRecipe(this.json.id)
+        removeFavoriteRecipe(`${this.json.id}`)
         this.json.favorite = false
       }
       event.stopPropagation()

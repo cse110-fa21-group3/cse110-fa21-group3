@@ -5,6 +5,10 @@ hr {
   background-image: linear-gradient(to right, var(--light-gray), var(--red), var(--light-gray));
 }
 
+h1 {
+  font-size: 2em;
+}
+
 h2 {
   margin-left: 2rem;
 }
@@ -78,18 +82,20 @@ h2 {
 
 /* recipe information */
 .recipe-info {
+  margin-top: 1.5rem;
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
 }
 
-.recipe-info > div {
+.recipe-info > section {
   font-size: 20px;
   color: var(--black);
   margin-left: 1.5cm;
   margin-bottom: 1.5rem;
 }
 
-.recipe-info > div > p {
+.recipe-info > section > p {
   line-height: 2.5rem;
   padding-right: 1.5rem;
 }
@@ -101,9 +107,8 @@ h2 {
 #recipe-image {
   width: 468px;
   height: 346.5px;
-  margin-top: 3rem;
   margin-bottom: 2rem;
-  margin-right: 5rem;
+  margin-right: 2rem;
 }
 
 /* ingredient */
