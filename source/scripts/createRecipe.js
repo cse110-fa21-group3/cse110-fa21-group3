@@ -54,7 +54,7 @@ addIng.addEventListener('click', e => {
 })
 
 addStep.addEventListener('click', e => {
-  addContainer('steps-container', 'steps', 'step-name', '5', '50')
+  addContainer('steps-container', 'steps', 'step-name', '3', '50')
 })
 
 addNutrition.addEventListener('click', e => {

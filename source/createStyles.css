@@ -153,14 +153,19 @@ legend {
 }
 
 .remove-btn {
-  border: none;
+  border: 1px solid var(--light-gray);
+  border-radius: 50%;
+  padding: 3px;
   background-color: transparent;
   display: flex;
   align-items: center;
+  transition: var(--transition);
 }
 
 .remove-btn:hover {
   cursor: pointer;
+  filter: invert(1);
+  background-color: var(--white);
 }
 
 .add-btn:active,
