@@ -129,6 +129,7 @@ export function removeFavoriteRecipe (id) {
  */
 export function removeRecipe (id) {
   localStorage.removeItem(id)
+  removeFavoriteRecipe(id)
 }
 
 /**

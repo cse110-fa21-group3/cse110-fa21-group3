@@ -17,7 +17,7 @@ const options = {
 
 export const DEFAULT_RECIPE_NUMBER = 10
 export const NUMBER_OF_RECIPES_TO_DISPLAY = 10
-export const DEFAULT_OFFSET = 500
+export const DEFAULT_OFFSET = 200
 
 const DEFAULT_NUTRITIONS = [
   'Calories: unknown',
