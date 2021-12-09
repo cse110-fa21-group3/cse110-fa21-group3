@@ -19,7 +19,7 @@ export const DEFAULT_RECIPE_NUMBER = 100
 export const NUMBER_OF_RECIPES_TO_DISPLAY = 10
 export const DEFAULT_OFFSET = 200
 
-const DEFAULT_NUTRITIONS = [
+export const DEFAULT_NUTRITIONS = [
   'Calories: unknown',
   'Fat : unknown',
   'Saturated Fat: unknown',
@@ -126,11 +126,13 @@ export function updateOffset (offsetToAdd) {
  */
 
 export function fetchRecipes (recipeCount, offset) {
+  loadUserData()
+  
   let reqUrl = `${API_ENDPOINT}/recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true&number=${recipeCount}&offset=${offset}&maxReadyTime=${maxTime}`
-
+  
   let intolerancesStr = ''
   if (intolerances.length > 0) {
-    for (let i = 0; i > intolerances.length; i++) {
+    for (let i = 0; i < intolerances.length; i++) {
       intolerancesStr += `,${intolerances[i]}`
     }
     intolerancesStr = intolerancesStr.slice(1, intolerancesStr.length)
@@ -143,7 +145,7 @@ export function fetchRecipes (recipeCount, offset) {
       .then(res => {
         // create local storage items
         res.results.forEach(r => {
-          createRecipeObject(r, false)
+          createRecipeObject(r)
         })
         resolve(recipeCount)
       })
@@ -160,7 +162,7 @@ export function fetchRecipes (recipeCount, offset) {
  */
 export async function createRecipeObject (r, isWebScrapper = false) {
   if (!r) {
-    throw new Error('recipe is undefined')
+    throw new Error('Undefined Recipe Found')
   }
 
   let id = r.id

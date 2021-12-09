@@ -1,6 +1,7 @@
 // Used Babel in package.jsonto transform ES6 syntax to commonjs syntax,
 // so now `import` and/or `export` statements work on both browser and unit test
 import * as util from '../source/scripts/API/utilityFunctions'
+import { getRecipesByType } from '../source/scripts/API/localStorageHandler'
 import * as jsonData from './data.json'
 import 'regenerator-runtime'
 import './setup'
@@ -23,16 +24,24 @@ test('removeSummaryLinks Test', () => {
 // Done
 test('createRecipeObject Test', () => {
   global.localStorage.clear()
-  util.createRecipeObject(jsonData, false).then(() => {
+  util.createRecipeObject(jsonData).then(() => {
     expect(Object.keys(global.localStorage).length).toBe(1)
   })
+})
+
+// Done
+test('createRecipeObject Empty Test', () => {
+  expect(util.createRecipeObject(null)).rejects.toStrictEqual(Error('Undefined Recipe Found'))
 })
 
 // Done
 test('populateRecipes Test', async () => {
   global.localStorage.clear()
   return util.populateRecipes().then(() => {
-    expect(Object.keys(global.localStorage).length - 1).toBeGreaterThanOrEqual(util.NUMBER_OF_RECIPES_TO_DISPLAY)
+    expect(Object.keys(global.localStorage).length-1).toBe(util.DEFAULT_RECIPE_NUMBER)
+    util.populateRecipes().then(() => {
+      expect(Object.keys(global.localStorage).length-1).toBe(util.DEFAULT_RECIPE_NUMBER)
+    })
   })
 })
 
@@ -84,6 +93,14 @@ test('extractNutrition Test', () => {
   expect(result).toContain('Sugar: 1 g')
 })
 
+test('extractNutrition null Test', () => {
+  global.localStorage.clear()
+  let nutrition
+
+  const result = util.extractNutrition(nutrition)
+  expect(result).toStrictEqual(util.DEFAULT_NUTRITIONS)
+})
+
 test('extractIngredients Test', () => {
   global.localStorage.clear()
   const title = 'chicken breast'
@@ -99,9 +116,9 @@ test('extractIngredients Test', () => {
 test('updateOffset Test', () => {
   global.localStorage.clear()
   util.updateOffset(50)
-  expect(JSON.parse(global.localStorage.getItem('userData')).offset).toBe(50)
+  expect(JSON.parse(global.localStorage.getItem('userData')).offset).toBe(util.DEFAULT_OFFSET + 50)
   util.updateOffset(100)
-  expect(JSON.parse(global.localStorage.getItem('userData')).offset).toBe(150)
+  expect(JSON.parse(global.localStorage.getItem('userData')).offset).toBe(util.DEFAULT_OFFSET + 150)
 })
 
 test('webScrapper Test', async () => {
@@ -110,14 +127,30 @@ test('webScrapper Test', async () => {
   expect(Object.keys(global.localStorage).length).toBe(1)
 })
 
-// need jsdom to test IN PROGRESS
-test('router Test', () => {
-/*
-  global.window = new windowMock('https://007.com')
-  LSHandler.router.home()
-  LSHandler.router.navigate('test')
-  LSHandler.router.navigate('home')
+test('getRecipesByType Test', () => {
+  global.localStorage.clear()
+  let obj1 = {
+    id : '123',
+    dishTypes: ['side dish']
+  }
 
-  console.log(window.location.href)
-  global.window = unmockedWindow */
+  let obj2 = {
+    id : '789',
+    dishTypes: ['main dish']
+  }
+
+  let obj3 = {
+    id : 'apple',
+    dishTypes: ['main dish']
+  }
+  global.localStorage.setItem('123', JSON.stringify(obj1))
+  global.localStorage.setItem('789', JSON.stringify(obj2))
+  global.localStorage.setItem('apple', JSON.stringify(obj3))
+
+
+  let result = getRecipesByType(2, 'side dish')
+  expect(result.length).toBe(1)
+  expect(result[0].id).toBe('123')
+  result = getRecipesByType(1, 'main dish')
+  expect(result.length).toBe(1)
 })
