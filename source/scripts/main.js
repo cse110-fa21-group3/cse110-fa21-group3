@@ -23,6 +23,11 @@ document.getElementById('manual-btn').addEventListener('click', e => {
 
 document.getElementById('webscrapper-btn').addEventListener('click', e => {
   console.log('webscrapper')
+  const url = prompt("Please enter an url for webscrapper")
+  if(url != null) {
+    const noSpace = url.split(" ").join("")
+    util.webScrapper(noSpace)
+  }
 })
 
 /**
