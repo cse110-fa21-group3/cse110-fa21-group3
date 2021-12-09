@@ -13,6 +13,7 @@ input, textarea {
     border: 1px solid var(--dark-gray);
     padding: 0.2rem 0.2rem;
     border-radius: 5px;
+    resize: none;
 }
 
 hr {
@@ -36,11 +37,6 @@ legend {
 
 /* Form Styling */
 
-#recipeName, #timeContainer, #recipeIngredients, 
-#recipeSteps, #recipeNutrition, #descContainer {
-    margin-bottom: 2rem;
-    width: 15rem;
-}
 #recipe-form {
   padding: 3rem;
   max-width: 60rem;
@@ -48,12 +44,13 @@ legend {
 }
 
 #time-container,
-#serve-container {
+#serve-container,
+#name-container {
   display: flex;
   align-items: center;
 }
 
-#recipe-name,
+#name-container,
 #time-container,
 #serve-container,
 #recipe-ingredients,
@@ -62,6 +59,11 @@ legend {
 #desc-container,
 #img-container {
   margin-bottom: 1.5rem;
+}
+
+#img-container {
+  display: flex;
+  flex-direction: column;
 }
 
 #desc-container {
@@ -95,7 +97,7 @@ legend {
 }
 
 #preview-img {
-  border-radius: 5px;
+  border-radius: 8px;
   margin-top: 1rem;
   width: 468px;
   height: 319.5px;
