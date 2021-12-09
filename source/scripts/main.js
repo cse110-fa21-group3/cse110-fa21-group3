@@ -30,6 +30,7 @@ document.getElementById('webscrapper-btn').addEventListener('click', e => {
  */
 function init () {
   getUserPrefs()
+  console.log(LSHandler.getRecipesByType(20, 'salad'))
 
   if (document.getElementById('refresh_btn')) {
     setUpRefreshButton()

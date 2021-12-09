@@ -1,3 +1,5 @@
+import { addFavoriteRecipe, removeFavoriteRecipe } from "./API/localStorageHandler.js"
+
 // RECIPE TILES
 const RECIPE_CARD_STYLE = `
 * {
@@ -8,6 +10,7 @@ const RECIPE_CARD_STYLE = `
 }
 
 article {
+  position: relative;
   display: flex;
   flex-direction: column;
   border-radius: 8px;
@@ -68,19 +71,91 @@ article:hover {
   box-shadow: 12px 12px 2px 1px var(--light-red);
 }
 
-article:hover .thumb-nail{
+article:hover .thumb-nail {
   margin-top: 0.5rem;
   margin-left: 0.5rem;
 }
 
-article:hover .title{
+article:hover .title {
   margin-top: 0.5rem;
   margin-left: 0.5rem;
+}
+
+article:hover button {
+  right: 1.75rem;
+  top: 1.25rem;
 }
 
 article:hover .icon{
   margin-left: 0.5rem;
 }
+
+button {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  right: 1.5rem;
+  top: 1.5rem;
+}
+
+button::before {
+  font-family: BlinkMacSystemFont;
+  font-size: 28px;
+  font-weight: bold;
+  color: #233857;
+  background-color: transparent;
+  content: "♥";
+  text-shadow: 0 0 2px #ffffff;
+  position: absolute;
+  transition: 0.2s;
+  transform: translate(-50%, -50%);
+}
+
+button.liked::before {
+  font-family: BlinkMacSystemFont;
+  font-size: 28px;
+  font-weight: bold;
+  color: #233857;
+  background-color: transparent;
+  content: "♥";
+  text-shadow: 0 0 2px #ffffff;
+  position: absolute;
+  transition: 0.2s;
+  transform: translate(-50%, -50%) scale(0.8);
+}
+
+button::after {
+  font-family: BlinkMacSystemFont;
+  font-size: 28px;
+  font-weight: bold;
+  background-color: transparent;
+  content: "♥";
+  position: absolute;
+  opacity: 0;
+  transition: 0.2s;
+  transform: translate(-50%, -50%);
+}
+
+button.liked::after {
+  font-family: BlinkMacSystemFont;
+  font-size: 28px;
+  font-weight: bold;
+  background-color: transparent;
+  color: var(--red);
+  content: "♥";
+  position: absolute;
+  transform: translate(-50%, -50%);
+  animation: fadeIn 0.15s linear forwards;
+}
+
+@keyframes fadeIn {
+  0% { opacity:0; scale(0)}
+  50% { opacity:0.5; scale(0.8)} 
+  100% { opacity:1; scale(1)} 
+}
+
 `
 
 /**
@@ -106,6 +181,8 @@ class RecipeCard extends HTMLElement {
     const recipeTitle = document.createElement('p')
     const recipeTime = document.createElement('div')
     const clockIcon = document.createElement('img')
+    const likeBtn = document.createElement('button')
+
     recipeTitle.classList.add('title')
     recipeImage.classList.add('thumb-nail')
     clockIcon.classList.add('icon')
@@ -115,13 +192,30 @@ class RecipeCard extends HTMLElement {
     clockIcon.setAttribute('src', './source/image/iconmonstr-time-10.svg')
     recipeTitle.innerText = data.title
     recipeTime.innerText = data.readyInMinutes + ' mins'
+    if (this.json.favorite) {
+      likeBtn.classList.add('liked')
+    }
+
 
     recipeCard.appendChild(recipeImage)
+    recipeCard.appendChild(likeBtn)
     timeSection.appendChild(clockIcon)
     timeSection.appendChild(recipeTime)
     recipeCard.appendChild(timeSection)
     recipeCard.appendChild(recipeTitle)
     this.shadowRoot.append(style, recipeCard)
+
+    likeBtn.addEventListener('click', event => {
+      likeBtn.classList.toggle('liked');
+      if (!this.json.favorite) {
+        addFavoriteRecipe(this.json.id)
+        this.json.favorite = true
+      }else {
+        removeFavoriteRecipe(this.json.id)
+        this.json.favorite = false
+      }
+      event.stopPropagation();
+    })
   }
 
   get data () {
