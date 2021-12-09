@@ -99,10 +99,8 @@ h2 {
 } */
 
 #recipe-image {
-  float: right;
   width: 468px;
   height: 346.5px;
-  align-items: flex-start;
   margin-top: 3rem;
   margin-bottom: 2rem;
   margin-right: 5rem;
@@ -188,4 +186,21 @@ ul > li {
   font-size: 1rem;
   text-align: right;
   height: auto;
+}
+
+@media screen and (max-width: 1000px) {
+  .recipe-info {
+    display: block;
+  }
+
+  #recipe-image {
+    position: relative;
+    display: block;
+    width: 60%;
+    height: auto;
+    margin-top: 3rem;
+    margin-left: auto;
+    margin-bottom: 2rem;
+    margin-right: auto;
+  }
 }
