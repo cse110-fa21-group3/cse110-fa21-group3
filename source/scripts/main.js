@@ -31,12 +31,9 @@ document.getElementById('webscrapper-btn').addEventListener('click', e => {
 function init () {
   getUserPrefs()
 
-  if (document.getElementById('refresh_btn')) {
-    setUpRefreshButton()
-  }
-
   // display the 5 recipes and add search btn listener only in homepage
   if (window.location.pathname === '/index.html' || window.location.pathname === '/' || window.location.pathname === '') {
+    setUpRefreshButton()
     const searchBtn = document.getElementById('search')
     searchBtn.addEventListener('click', e => {
       e.preventDefault()
@@ -46,26 +43,6 @@ function init () {
       })
     })
   }
-
-  // let searchBtn = document.getElementById("search");
-  // searchBtn.addEventListener("click", e => {
-  //     e.preventDefault();
-  //     let searchQuery = document.getElementById("search-query").value;
-  //     util.searchLocalRecipes(searchQuery).then(arr => {
-  //         let res = [];
-  //         arr.forEach(recipe => {
-  //             res.push(recipe["id"]);
-  //         });
-  //         console.log(res);
-  //         let searchObj = {
-  //             "data": res,
-  //             "query": searchQuery,
-  //             "matchedCount": arr.length
-  //         }
-  //         localStorage.setItem("latestSearch", JSON.stringify(searchObj));
-  //         window.location.href = "/source/searchpage.html";
-  //     });
-  // });
 }
 
 /**
