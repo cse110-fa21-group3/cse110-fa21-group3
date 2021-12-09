@@ -141,11 +141,11 @@ nav {
   margin-top: 50px;
   width: 100px;
   height: 100px;
-  /*-webkit-animation: loader-spin 1s linear infinite;*/
+
+  /* -webkit-animation: loader-spin 1s linear infinite; */
   animation: loader-spin 1s linear infinite;
 }
 
-/* Safari */
 /*
 @-webkit-keyframes loader-spin {
   0% { -webkit-transform: rotate(0deg); }
