@@ -129,6 +129,7 @@ export function removeFavoriteRecipe (id) {
  */
 export function removeRecipe (id) {
   localStorage.removeItem(id)
+  removeFavoriteRecipe(id)
 }
 
 /**
@@ -317,4 +318,26 @@ export function updateUserData (key, value) {
 
   data[key] = value
   localStorage.setItem(USER_DATA, JSON.stringify(data))
+}
+
+/**
+ * retur
+ * @param {*} n - number of recipes to get
+ * @param {*} type - type of recipes to get
+ * @returns {JSON[]} array of recipes with specific type
+ */
+export function getRecipesByType (n, type) {
+  const resultArr = []
+  const allRecipes = getLocalStorageRecipes()
+  allRecipes.forEach(r => {
+    if (resultArr.length === n) {
+      return resultArr
+    }
+
+    if (r.dishTypes.includes(type)) {
+      resultArr.push(r)
+    }
+  })
+
+  return resultArr
 }

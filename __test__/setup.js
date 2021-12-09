@@ -41,12 +41,6 @@ export class LocalStorageMock {
   }
 }
 
-export class windowMock {
-  constructor (url) {
-    this.location = { href: url }
-  }
-}
-
 export function fetchMock (url) {
   if (url.toString().indexOf('extract?') !== -1) {
     return Promise.resolve({

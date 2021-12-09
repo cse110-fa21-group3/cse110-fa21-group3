@@ -15,10 +15,11 @@ const options = {
   }
 }
 
-export const DEFAULT_RECIPE_NUMBER = 10
+export const DEFAULT_RECIPE_NUMBER = 100
 export const NUMBER_OF_RECIPES_TO_DISPLAY = 10
+export const DEFAULT_OFFSET = 200
 
-const DEFAULT_NUTRITIONS = [
+export const DEFAULT_NUTRITIONS = [
   'Calories: unknown',
   'Fat : unknown',
   'Saturated Fat: unknown',
@@ -36,10 +37,10 @@ const DEFAULT_NUTRITIONS = [
 export let intolerances = []
 // max for recipes prep time
 export let maxTime = localStorageHandler.DEFAULT_MAX_TIME
-export let offset = 0
+export let offset = DEFAULT_OFFSET
 
 class RecipeObject {
-  constructor (id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size) {
+  constructor (id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size, dishTypes) {
     this.id = id || '0'
     this.title = title || 'Website Food'
     this.image = foodImage || './image/team3-logo.jpg'
@@ -51,6 +52,7 @@ class RecipeObject {
     this.favorite = favorite
     this.summary = summary
     this.servingSize = size || 'unkown'
+    this.dishTypes = dishTypes || []
   }
 }
 
@@ -65,7 +67,7 @@ export function loadUserData () {
   } else {
     intolerances = []
     maxTime = localStorageHandler.DEFAULT_MAX_TIME
-    offset = 0
+    offset = DEFAULT_OFFSET
     return
   }
 
@@ -124,11 +126,13 @@ export function updateOffset (offsetToAdd) {
  */
 
 export function fetchRecipes (recipeCount, offset) {
+  loadUserData()
+
   let reqUrl = `${API_ENDPOINT}/recipes/complexSearch?apiKey=${API_KEY}&addRecipeNutrition=true&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true&number=${recipeCount}&offset=${offset}&maxReadyTime=${maxTime}`
-  
+
   let intolerancesStr = ''
   if (intolerances.length > 0) {
-    for (let i = 0; i > intolerances.length; i++) {
+    for (let i = 0; i < intolerances.length; i++) {
       intolerancesStr += `,${intolerances[i]}`
     }
     intolerancesStr = intolerancesStr.slice(1, intolerancesStr.length)
@@ -154,18 +158,24 @@ export function fetchRecipes (recipeCount, offset) {
 /**
  * This function takes in what is fetched and from those parameters finds what we need for the recipe and sorts it into an object
  * @param {JSON} r - recipe json Object
+ * @param {boolean} isWebScrapper
  */
-export async function createRecipeObject (r) {
+export async function createRecipeObject (r, isWebScrapper = false) {
   if (!r) {
-    throw new Error('recipe is undefined')
+    throw new Error('Undefined Recipe Found')
   }
 
-  const id = r.id
+  let id = r.id
+  if (isWebScrapper) {
+    id = generateUniqueID('')
+  }
+
   const readyInMinutes = r.readyInMinutes
   const title = r.title
   const foodImage = r.image
   const size = r.servings
   const favorite = false
+  const dishTypes = r.dishTypes
   const summary = removeSummaryLinks(r.summary)
 
   // populating ingredient list
@@ -184,14 +194,28 @@ export async function createRecipeObject (r) {
 
   // Create a JSON Object to store the data
   // in the format we specified
-  const recipeObject = new RecipeObject(id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size)
-  localStorageHandler.setLocalStorageItem(r.id, recipeObject)
+  const recipeObject = new RecipeObject(id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size, dishTypes)
+  localStorageHandler.setLocalStorageItem(id, recipeObject)
+  return id
+}
+
+/**
+ * Generates an unique random ID
+ * @param {*} id before modified, the id of the recipe
+ * @returns {string} randomized unique id
+ */
+export function generateUniqueID (id) {
+  id = 'ucr_' + id
+  while (localStorage.getItem(id)) {
+    id += Math.floor(Math.random() * 10)
+  }
+  return id
 }
 
 /**
  * Web Scrapping method for additional functionality for creating recipes
  * @param {String} url - the url inputted to scrap
- * @return {JSON} the json data of that website
+ * @return {Promise} the json data of that website
  */
 export function webScrapper (url) {
   const urlToExtract = `${API_ENDPOINT}/recipes/extract?apiKey=${API_KEY}&url=${url}&analyze=true`
@@ -199,7 +223,7 @@ export function webScrapper (url) {
     fetch(urlToExtract, options)
       .then(res => res.json())
       .then(res => {
-        resolve(createRecipeObject(res))
+        resolve(createRecipeObject(res, true))
       })
       .catch(error => {
         reject(error)
