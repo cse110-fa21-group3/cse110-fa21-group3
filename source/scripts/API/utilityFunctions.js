@@ -203,7 +203,7 @@ export async function createRecipeObject (r, isWebScrapper = false) {
  * @param {*} id before modified, the id of the recipe
  * @returns {string} randomized unique id
  */
-function generateUniqueID (id) {
+export function generateUniqueID (id) {
   id = 'ucr_' + id
   while (localStorage.getItem(id)) {
     id += Math.floor(Math.random() * 10)

@@ -1,4 +1,5 @@
 import * as LSHandler from './API/localStorageHandler.js'
+import { generateUniqueID } from './API/utilityFunctions.js'
 
 const recipeImg = document.getElementById('recipe-img')
 let compressedImg // store base64 compressed image (string)
@@ -129,14 +130,16 @@ createRecipe.addEventListener('click', e => {
       if (title !== currRecipe.title) {
         localStorage.removeItem(hash.slice(1))
       }
-      formRes.id = 'ucr_' + title.replaceAll(' ', '')
+      formRes.id = title.replaceAll(' ', '')
+      formRes.id = generateUniqueID(formRes.id)
     } else {
       formRes.id = currRecipe.id
       formRes.image = currRecipe.image
       formRes.favorite = currRecipe.favorite
     }
   } else {
-    formRes.id = 'ucr_' + title.replaceAll(' ', '')
+    formRes.id = title.replaceAll(' ', '')
+    formRes.id = generateUniqueID(formRes.id)
     LSHandler.addFavoriteRecipe(formRes.id)
   }
 
@@ -165,7 +168,7 @@ createRecipe.addEventListener('click', e => {
   })
 
   LSHandler.setLocalStorageItem(formRes.id, formRes)
-  window.location.href = '/index.html'
+  window.location.href = '/recipePage.html#' + formRes.id
 })
 
 cancelBtn.addEventListener('click', e => {
