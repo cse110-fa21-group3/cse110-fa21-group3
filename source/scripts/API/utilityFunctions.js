@@ -40,7 +40,7 @@ export let maxTime = localStorageHandler.DEFAULT_MAX_TIME
 export let offset = DEFAULT_OFFSET
 
 class RecipeObject {
-  constructor (id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size) {
+  constructor (id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size, dishTypes) {
     this.id = id || '0'
     this.title = title || 'Website Food'
     this.image = foodImage || './image/team3-logo.jpg'
@@ -52,6 +52,7 @@ class RecipeObject {
     this.favorite = favorite
     this.summary = summary
     this.servingSize = size || 'unkown'
+    this.dishTypes = dishTypes || []
   }
 }
 
@@ -172,6 +173,7 @@ export async function createRecipeObject (r, isWebScrapper = false) {
   const foodImage = r.image
   const size = r.servings
   const favorite = false
+  const dishTypes = r.dishTypes
   const summary = removeSummaryLinks(r.summary)
 
   // populating ingredient list
@@ -190,7 +192,7 @@ export async function createRecipeObject (r, isWebScrapper = false) {
 
   // Create a JSON Object to store the data
   // in the format we specified
-  const recipeObject = new RecipeObject(id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size)
+  const recipeObject = new RecipeObject(id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size, dishTypes)
   localStorageHandler.setLocalStorageItem(r.id, recipeObject)
 }
 
