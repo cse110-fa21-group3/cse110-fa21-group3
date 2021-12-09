@@ -48,7 +48,7 @@ function init () {
         window.location.href = '/searchpage.html'
       })
     })
-  }else {
+  } else {
     util.populateRecipes()
   }
 }

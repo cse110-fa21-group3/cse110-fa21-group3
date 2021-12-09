@@ -60,18 +60,18 @@ function nutritionUpdates (servingSize) {
   for (let index = 0; index < nutritionElementArr.length; index++) {
     const element = nutritionElementArr[index]
 
-    let nutrString = defaultNutrition[index]
+    const nutrString = defaultNutrition[index]
     if (ratio === 1) {
       element.innerText = defaultNutrition[index]
       continue
     }
 
-    let match = nutrString.match(/[+-]?([0-9]*[.])?[0-9]+/)
-    let length = match[0].length
-    let matchIndex = match.index
-    let endIndex = (matchIndex + length) 
+    const match = nutrString.match(/[+-]?([0-9]*[.])?[0-9]+/)
+    const length = match[0].length
+    const matchIndex = match.index
+    const endIndex = (matchIndex + length)
     let amount = parseFloat(match[0])
-    
+
     amount = (amount * ratio).toFixed(2)
     element.innerText = nutrString.substring(0, matchIndex) + ': ' + amount + ' ' + nutrString.substring(endIndex)
   }
@@ -92,36 +92,21 @@ function ingredientUpdates (servingSize) {
 
   for (let i = 0; i < ingredientElementArr.length; i++) {
     const element = ingredientElementArr[i]
-    const ingreTextArr = defaultIngredients[i].split(' ')
-    //const defaultAmount = ingreTextArr[0]
-    let ingString = defaultIngredients[i]
+    const ingString = defaultIngredients[i]
     if (ratio === 1) {
       element.innerText = ingString
       continue
     }
 
-    let match = ingString.match(fractionPattern)
+    const match = ingString.match(fractionPattern)
     if (match && match.index === 0) {
       let amount = parseFloat(match[0])
       amount = amount * ratio
-      let length = match[0].length
+      const length = match[0].length
       element.innerText = amount + ingString.substring(length)
-    }else {
-      element.innerText = ratio + " " + ingString
+    } else {
+      element.innerText = ratio + ' ' + ingString
     }
-  }
-}
-
-/**
- * Scales a fraction
- * @param {*} fraction
- * @param {*} ratio
- * @returns {number} Decimal number
- */
-function scaleFraction (fraction, ratio) {
-  if (fraction.includes('/')) {
-    const arr = fraction.split('/')
-    return (parseInt(arr[0]) / parseInt(arr[1]) * ratio).toFixed(2)
   }
 }
 
