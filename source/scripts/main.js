@@ -35,10 +35,12 @@ function init () {
   if (window.location.pathname === '/index.html' || window.location.pathname === '/' || window.location.pathname === '') {
     setUpRefreshButton()
     util.populateRecipes().then(() => {
-      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'explore-recipes')
-      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'main-recipes', 'main dish')
-      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'side-recipes', 'side dish')
-      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'salad-recipes', 'salad')
+      setTimeout(() => {
+        createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'explore-recipes')
+        createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'main-recipes', 'main dish')
+        createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'side-recipes', 'side dish')
+        createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'salad-recipes', 'salad')
+      }, 500);
     })
     const searchBtn = document.getElementById('search')
     searchBtn.addEventListener('click', e => {
@@ -64,11 +66,16 @@ function init () {
  */
 export function createRecipeCards (N, id, type = null) {
   let recipes
+  let loaderId = 'explore'
   if (!type) {
     recipes = LSHandler.getNRandomRecipes(N)
   } else {
     recipes = LSHandler.getRecipesByType(N, type)
+    loaderId = type.split(' ')[0]
   }
+
+  const loader = document.getElementById(loaderId+"-loader")
+  loader.remove()
 
   // Get the recipe cards' section element
   const recipeCardsSection = document.getElementById(id)

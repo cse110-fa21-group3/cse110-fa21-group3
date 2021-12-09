@@ -130,3 +130,28 @@ nav {
   50% { opacity: 0.5; }
   100% { opacity: 0; }
 }
+
+.loader {
+  position: relative;
+  border: 12px solid var(--dark-gray);
+  border-radius: 50%;
+  border-top: 12px solid var(--black);
+  background-color: transparent;
+  margin-left: calc(50% - 40px);
+  margin-top: 50px;
+  width: 100px;
+  height: 100px;
+  -webkit-animation: loader-spin 1s linear infinite;
+  animation: loader-spin 1s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes loader-spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes loader-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
