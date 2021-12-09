@@ -175,3 +175,10 @@ ul > li {
 #delete:active {
   filter: brightness(0.3);
 }
+
+#recipe-serves {
+  width: 2.5rem;
+  font-size: 1rem;
+  text-align: right;
+  height: auto;
+}
