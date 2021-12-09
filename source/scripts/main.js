@@ -83,14 +83,12 @@ function init () {
  */
 export function createRecipeCards (N, id, type = null) {
   let recipes
-  console.log(type)
   if (!type) {
     recipes = LSHandler.getNRandomRecipes(N)
-  }else {
+  } else {
     recipes = LSHandler.getRecipesByType(N, type)
   }
 
-  console.log(recipes)
   // Get the recipe cards' section element
   const recipeCardsSection = document.getElementById(id)
 
@@ -116,6 +114,14 @@ function bindRC (recipeCard, key) {
 }
 
 function getUserPrefs () {
+  util.populateRecipes().then(() => {
+    console.log('Hello')
+    createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'explore-recipes')
+    createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'main-recipes', 'main dish')
+    createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'side-recipes', 'side dish')
+    createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'salad-recipes', 'salad')
+  })
+
   if (LSHandler.getLocalStorageRecipes().length === 0) {
     LSHandler.updateUserData('offset', util.DEFAULT_OFFSET)
     const intols = prompt('Enter your intolerances (ingredients not to include)\n\nAvailable: dairy, gluten, shellfish, seafood, wheat, eggs, peanut, soy, grain, sesame, tree nut, sulfite')
@@ -123,13 +129,6 @@ function getUserPrefs () {
 
     const maxTime = prompt("Enter the maximum amount of time you'd want to spend making a recipe (in minutes)")
     LSHandler.setMaxTime(maxTime)
-
-    util.populateRecipes().then(() => {
-      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'explore-recipes')
-      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'main-recipes', 'main dish')
-      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'side-recipes', 'side dish')
-      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'salad-recipes', 'salad')
-    })
   }
 }
 

@@ -15,7 +15,7 @@ const options = {
   }
 }
 
-export const DEFAULT_RECIPE_NUMBER = 10
+export const DEFAULT_RECIPE_NUMBER = 100
 export const NUMBER_OF_RECIPES_TO_DISPLAY = 10
 export const DEFAULT_OFFSET = 200
 
