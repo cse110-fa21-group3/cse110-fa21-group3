@@ -1,4 +1,4 @@
-import { addFavoriteRecipe, removeFavoriteRecipe } from "./API/localStorageHandler.js"
+import { addFavoriteRecipe, removeFavoriteRecipe } from './API/localStorageHandler.js'
 
 // RECIPE TILES
 const RECIPE_CARD_STYLE = `
@@ -190,7 +190,6 @@ class RecipeCard extends HTMLElement {
       likeBtn.classList.add('liked')
     }
 
-
     recipeCard.appendChild(recipeImage)
     recipeCard.appendChild(likeBtn)
     timeSection.appendChild(clockIcon)
@@ -200,15 +199,15 @@ class RecipeCard extends HTMLElement {
     this.shadowRoot.append(style, recipeCard)
 
     likeBtn.addEventListener('click', event => {
-      likeBtn.classList.toggle('liked');
+      likeBtn.classList.toggle('liked')
       if (!this.json.favorite) {
         addFavoriteRecipe(this.json.id)
         this.json.favorite = true
-      }else {
+      } else {
         removeFavoriteRecipe(this.json.id)
         this.json.favorite = false
       }
-      event.stopPropagation();
+      event.stopPropagation()
     })
   }
 
