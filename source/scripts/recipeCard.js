@@ -13,7 +13,7 @@ article {
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 300px;
+  min-height: 290px;
   border-radius: 8px;
   background-color: white;
   height: 100%;
@@ -21,6 +21,7 @@ article {
 }
 
 div {
+  margin-top:0.25rem;
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-start;
@@ -51,7 +52,7 @@ div {
 
 .title {
   display: -webkit-box;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   margin-left: 1rem;
   line-height: 1.5rem;
@@ -59,8 +60,8 @@ div {
   font-size: 1.2rem;
   overflow: hidden;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 
@@ -78,7 +79,7 @@ article:hover .thumb-nail {
 }
 
 article:hover .title {
-  margin-top: 0.5rem;
+  margin-top: 0rem;
   margin-left: 0.5rem;
 }
 
