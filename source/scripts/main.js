@@ -109,7 +109,7 @@ function getUserPrefs () {
  * sets up the refresh button for the explore cointaner on homepage
  */
 function setUpRefreshButton () {
-  document.getElementById('refresh_btn').addEventListener('click', event => {
+  document.getElementById('refresh-btn').addEventListener('click', event => {
     const exploreContainer = document.getElementById('explore-recipes')
     while (exploreContainer.firstChild) {
       exploreContainer.removeChild(exploreContainer.firstChild)

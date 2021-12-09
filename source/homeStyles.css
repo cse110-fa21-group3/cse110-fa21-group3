@@ -87,7 +87,7 @@ h2 {
   }
 }
 
-#refresh_btn {
+#refresh-btn {
   width: 50px;
   height: auto;
   padding: 0;
@@ -99,7 +99,7 @@ h2 {
   background-color: transparent;
 }
 
-#refresh_btn:hover {
+#refresh-btn:hover {
   transform: rotate(360deg);
   transition: 2s;
 }
