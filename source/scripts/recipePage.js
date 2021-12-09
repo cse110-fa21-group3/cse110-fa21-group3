@@ -105,7 +105,7 @@ function ingredientUpdates (servingSize) {
 
     const match = ingString.match(fractionPattern)
 
-    if (!match) {
+    if (!match || match.index > 0) {
       element.innerText = ratio + " " + ingString
       continue
     }
