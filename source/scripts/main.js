@@ -34,6 +34,12 @@ function init () {
   // display the 5 recipes and add search btn listener only in homepage
   if (window.location.pathname === '/index.html' || window.location.pathname === '/' || window.location.pathname === '') {
     setUpRefreshButton()
+    util.populateRecipes().then(() => {
+      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'explore-recipes')
+      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'main-recipes', 'main dish')
+      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'side-recipes', 'side dish')
+      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'salad-recipes', 'salad')
+    })
     const searchBtn = document.getElementById('search')
     searchBtn.addEventListener('click', e => {
       e.preventDefault()
@@ -42,6 +48,8 @@ function init () {
         window.location.href = '/searchpage.html'
       })
     })
+  }else {
+    util.populateRecipes()
   }
 }
 
@@ -87,15 +95,6 @@ function bindRC (recipeCard, key) {
 }
 
 function getUserPrefs () {
-  util.populateRecipes().then(() => {
-    if (window.location.pathname === '/index.html' || window.location.pathname === '/' || window.location.pathname === '') {
-      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'explore-recipes')
-      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'main-recipes', 'main dish')
-      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'side-recipes', 'side dish')
-      createRecipeCards(util.NUMBER_OF_RECIPES_TO_DISPLAY, 'salad-recipes', 'salad')
-    }
-  })
-
   if (LSHandler.getLocalStorageRecipes().length === 0) {
     LSHandler.updateUserData('offset', util.DEFAULT_OFFSET)
     const intols = prompt('Enter your intolerances (ingredients not to include)\n\nAvailable: dairy, gluten, shellfish, seafood, wheat, eggs, peanut, soy, grain, sesame, tree nut, sulfite')

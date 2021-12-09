@@ -22,9 +22,7 @@ function init () {
 
   // Preferably, we would have a function from the API utils that gets recipe data for us
   let data = localStorage.getItem(id) // get the recipe data (here it's a string)
-  if (!data) {
-    return
-  }
+  if (!data) { return }
   data = JSON.parse(data) // parse the string rep of the object to create an object
 
   // Set data values
