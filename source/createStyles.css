@@ -8,11 +8,11 @@ label {
   font-weight: bold;
 }
 
-input, 
+input,
 textarea {
   margin: 0 0.5rem;
   border: 1px solid var(--dark-gray);
-  padding: 0.2rem 0.2rem;
+  padding: 0.2rem;
   border-radius: 5px;
   resize: none;
 }
