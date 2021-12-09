@@ -167,7 +167,7 @@ export async function createRecipeObject (r, isWebScrapper = false) {
 
   let id = r.id
   if (isWebScrapper) {
-    id = generateUniqueID(id)
+    id = generateUniqueID('')
   }
 
   const readyInMinutes = r.readyInMinutes
@@ -195,7 +195,8 @@ export async function createRecipeObject (r, isWebScrapper = false) {
   // Create a JSON Object to store the data
   // in the format we specified
   const recipeObject = new RecipeObject(id, title, foodImage, readyInMinutes, ingredientSearch, ingredients, steps, nutrition, favorite, summary, size, dishTypes)
-  localStorageHandler.setLocalStorageItem(r.id, recipeObject)
+  localStorageHandler.setLocalStorageItem(id, recipeObject)
+  return id
 }
 
 /**
@@ -214,7 +215,7 @@ export function generateUniqueID (id) {
 /**
  * Web Scrapping method for additional functionality for creating recipes
  * @param {String} url - the url inputted to scrap
- * @return {JSON} the json data of that website
+ * @return {Promise} the json data of that website
  */
 export function webScrapper (url) {
   const urlToExtract = `${API_ENDPOINT}/recipes/extract?apiKey=${API_KEY}&url=${url}&analyze=true`
