@@ -60,16 +60,20 @@ function nutritionUpdates (servingSize) {
   for (let index = 0; index < nutritionElementArr.length; index++) {
     const element = nutritionElementArr[index]
 
+    let nutrString = defaultNutrition[index]
     if (ratio === 1) {
       element.innerText = defaultNutrition[index]
       continue
     }
 
-    const textArr = defaultNutrition[index].split(': ')
-    const values = textArr[1].split(' ')
-    const unit = values[1]
-    const amount = (parseFloat(values[0]) * ratio).toFixed(2)
-    element.innerText = textArr[0] + ': ' + amount + ' ' + unit
+    let match = nutrString.match(/[+-]?([0-9]*[.])?[0-9]+/)
+    let length = match[0].length
+    let matchIndex = match.index
+    let endIndex = (matchIndex + length) 
+    let amount = parseFloat(match[0])
+    
+    amount = (amount * ratio).toFixed(2)
+    element.innerText = nutrString.substring(0, matchIndex) + ': ' + amount + ' ' + nutrString.substring(endIndex)
   }
 }
 
@@ -84,26 +88,26 @@ function ingredientUpdates (servingSize) {
 
   const ratio = servingSize / defaultServing
 
-  const fractionPattern = /\d*\/\d*/
+  const fractionPattern = /([0-9]*\/)?[0-9]+/
 
   for (let i = 0; i < ingredientElementArr.length; i++) {
     const element = ingredientElementArr[i]
     const ingreTextArr = defaultIngredients[i].split(' ')
-    const defaultAmount = ingreTextArr[0]
-
+    //const defaultAmount = ingreTextArr[0]
+    let ingString = defaultIngredients[i]
     if (ratio === 1) {
-      element.innerText = defaultIngredients[i]
+      element.innerText = ingString
       continue
     }
 
-    if (defaultAmount.match(fractionPattern)) {
-      ingreTextArr[0] = scaleFraction(defaultAmount, ratio)
-      element.innerText = ingreTextArr.join(' ')
-    } else if (parseInt(defaultAmount)) {
-      ingreTextArr[0] = parseInt(defaultAmount) * ratio
-      element.innerText = ingreTextArr.join(' ')
-    } else {
-      ingreTextArr.unshift(ratio + ' times')
+    let match = ingString.match(fractionPattern)
+    if (match && match.index === 0) {
+      let amount = parseFloat(match[0])
+      amount = amount * ratio
+      let length = match[0].length
+      element.innerText = amount + ingString.substring(length)
+    }else {
+      element.innerText = ratio + " " + ingString
     }
   }
 }
