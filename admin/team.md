@@ -56,6 +56,11 @@
    * Interested in the interaction of computers and brains
    * [Personal Github](https://github.com/JennyNo007)
  * Parsia Hedayat
+   * Math-CS major
+   * From Plainfield, IL
+   * Loves Differential Geometry
+   * Recruiters hate him!
+   * [Personal Github](https://github.com/phedayat) 
  * Jared Levy
    * CS major
    * From Los Gatos
