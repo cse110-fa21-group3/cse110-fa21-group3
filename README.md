@@ -41,4 +41,4 @@
 
 
 [Meet the team!](https://github.com/cse110-fa21-group3/cse110-fa21-group3/blob/main/admin/team.md)
-[Check out our most recent deploy!](https://notimetocook.netlify.app/)
+[Check out our most recent deploy!](https://no-time-to-cook.netlify.app/)
