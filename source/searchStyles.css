@@ -16,8 +16,16 @@ hr {
   color: gray;
 }
 
-#create-recipe:hover, 
-#manual-btn:hover, 
+#create-recipe:hover {
+  box-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+
+#manual-btn:hover {
+  box-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+
 #webscrapper-btn:hover {
   box-shadow: 0 0 10px grey;
   cursor: pointer;

@@ -27,10 +27,22 @@
   cursor: pointer;
 }
 
-#create-recipe:hover, 
-#webscrapper-btn:hover, 
-#manual-btn:hover, 
 #my-favs:hover {
+  box-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+
+#create-recipe:hover {
+  box-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+
+#manual-btn:hover {
+  box-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+
+#webscrapper-btn:hover {
   box-shadow: 0 0 10px grey;
   cursor: pointer;
 }
@@ -54,7 +66,7 @@
   overflow: auto;
 }
 
-.recipe-cards:hover { 
+.recipe-cards:hover {
   cursor: pointer;
 }
 
