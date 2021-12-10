@@ -24,6 +24,7 @@ function init () {
   let data = localStorage.getItem(id) // get the recipe data (here it's a string)
   if (!data) { return }
   data = JSON.parse(data) // parse the string rep of the object to create an object
+  document.querySelector('head > title').innerText = data.title
 
   // Set data values
   eTitle.innerText = data.title
@@ -126,7 +127,6 @@ function ingredientUpdates (servingSize) {
  */
 function evaluateFraction (frac) {
   const strArr = frac.split('/')
-  console.log(strArr)
   return parseFloat(strArr[0]) / parseFloat(strArr[1]).toFixed(2)
 }
 
