@@ -51,7 +51,7 @@ jobs:
           COVERAGE=$(echo "${SUMMARY}" | cut -c16-21)
           echo "COVERAGE=${COVERAGE}" >> "$GITHUB_ENV"
           
-      - name: Generate Covreage Badge
+      - name: Generate Coverage Badge
         uses: schneegans/dynamic-badges-action@v1.1.0
         with:
           auth: ${{ secrets.GIST_SECRET }}
