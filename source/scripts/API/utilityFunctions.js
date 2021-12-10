@@ -1,8 +1,8 @@
 import * as localStorageHandler from './localStorageHandler.js'
 
 // API Key and endpoint
-const API_KEY = 6c38415312msh8fd80bab0f17271p1dcefajsn83892f0c646f
-const API_ENDPOINT = https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com
+const API_KEY = '6c38415312msh8fd80bab0f17271p1dcefajsn83892f0c646f'
+const API_ENDPOINT = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
 
 // These are typically the options we need to perform a request
 const options = {
