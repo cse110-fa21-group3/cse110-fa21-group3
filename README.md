@@ -4,6 +4,10 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/17334651f5f930bb684f/maintainability)](https://codeclimate.com/github/cse110-fa21-group3/cse110-fa21-group3/maintainability)  [![Action Status](https://github.com/cse110-fa21-group3/cse110-fa21-group3/actions/workflows/super-linter.yml/badge.svg)](https://github.com/cse110-fa21-group3/cse110-fa21-group3/actions)
 ![Code Coverage: (badge)](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/martintsangxd/00d59204d52764d9c43a7f83d415e8a2/raw/coverage.json)
 
+[Meet the team!](https://github.com/cse110-fa21-group3/cse110-fa21-group3/blob/main/admin/team.md)
+
+[Check out our most recent deploy!](https://no-time-to-cook.netlify.app/)
+
 ## Project Information
 - This is a recipe book site designed for college students to eat meals designed for them and be aware of what they are eating.
 - This recipe book also has a lot of cool features: setting intolerances and cook time, webscrapping, favoriting and CRUD functionality.
@@ -37,8 +41,3 @@
 - Assigned to specific teams (ex. HTML issues go to frontend tag)
 - Checked with CI/CD pipeline for failures
 - Encouraged team members to create issues whenever a bug is found
-
-
-
-[Meet the team!](https://github.com/cse110-fa21-group3/cse110-fa21-group3/blob/main/admin/team.md)
-[Check out our most recent deploy!](https://no-time-to-cook.netlify.app/)
