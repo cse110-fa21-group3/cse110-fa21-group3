@@ -14,10 +14,6 @@
   overflow: auto;
 }
 
-.recipe-cards:hover { 
-  cursor: pointer;
-}
-
 #update-preference {
   border-radius: 30%;
   width: 60px;
@@ -53,6 +49,10 @@
   border-radius: 1rem;
   background: transparent;
   overflow: auto;
+}
+
+.recipe-cards:hover { 
+  cursor: pointer;
 }
 
 #search-query {
