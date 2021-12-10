@@ -1,8 +1,8 @@
 import * as localStorageHandler from './localStorageHandler.js'
 
 // API Key and endpoint
-const API_KEY = process.env.API_KEY
-const API_ENDPOINT = process.env.API_ENDPOINT
+const API_KEY = env.API_KEY
+const API_ENDPOINT = env.API_ENDPOINT
 
 // These are typically the options we need to perform a request
 const options = {
