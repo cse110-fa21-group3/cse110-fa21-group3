@@ -27,6 +27,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 80px;
   padding: 0.5rem 1rem;
 }
 
@@ -37,6 +38,10 @@ nav {
   border-radius: 50%;
 }
 
+#web-logo:hover {
+  margin-top: 0px;
+}
+
 /* Favorite Button */
 #fav-container {
   background-color: var(--red);
@@ -45,7 +50,8 @@ nav {
 }
 
 #fav-container:hover {
-  filter: brightness(0.7);
+  filter: brightness(1.2);
+  margin-bottom: 5px;
 }
 
 #fav-container:active {

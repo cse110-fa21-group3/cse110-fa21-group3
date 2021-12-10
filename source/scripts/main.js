@@ -31,6 +31,12 @@ document.getElementById('webscrapper-btn').addEventListener('click', async (e) =
   }
 })
 
+document.getElementById('update-preference').addEventListener('click', (e) => {
+  console.log('update')
+  localStorage.clear()
+  window.location.reload()
+})
+
 /**
  * Function that runs when the page loads
  */

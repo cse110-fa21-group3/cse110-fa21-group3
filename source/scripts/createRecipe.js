@@ -130,7 +130,7 @@ createRecipe.addEventListener('click', e => {
       if (title !== currRecipe.title) {
         localStorage.removeItem(hash.slice(1))
       }
-      formRes.id = "ucr_" + title.replaceAll(' ', '')
+      formRes.id = 'ucr_' + title.replaceAll(' ', '')
     } else {
       formRes.id = currRecipe.id
       formRes.image = currRecipe.image
