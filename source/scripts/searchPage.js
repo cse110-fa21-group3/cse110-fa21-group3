@@ -21,6 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   if (window.location.hash === '#favorites') {
     queryDisplay.innerText = 'Favorited Recipes'
+    document.querySelector('head > title').innerText = 'Favorites'
     let favorites
     if (localStorage.getItem('userData')) {
       favorites = JSON.parse(localStorage.getItem('userData')).favorites
