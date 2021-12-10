@@ -22,7 +22,7 @@ document.getElementById('manual-btn').addEventListener('click', e => {
 })
 
 document.getElementById('webscrapper-btn').addEventListener('click', async (e) => {
-  const url = prompt('Please enter a url of a recipe and we will insert that recipe here: ')
+  const url = prompt('Link To Any Recipe You Found On Search Engines:')
   if (url != null) {
     const noSpace = url.split(' ').join('')
     const id = await util.webScrapper(noSpace)
