@@ -81,7 +81,7 @@ export function createRecipeCards (N, id, type = null) {
   }
 
   const loader = document.getElementById(loaderId + '-loader')
-  loader.remove()
+  if (loader) { loader.remove() }
 
   // Get the recipe cards' section element
   const recipeCardsSection = document.getElementById(id)
