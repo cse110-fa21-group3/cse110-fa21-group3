@@ -18,18 +18,16 @@
   <header>
     <nav>
       <a href="/index.html">
-        <img id="web-logo" src="./source/image/logo3_231x231.jpg"
+        <img id="web-logo" src="./source/image/logo3_231x231.jpg" 
           alt="Logo" width="80" height="80">
       </a>
-      <div id="search-container">
-        <input type="search" id="search-bar"
-          placeholder="What do you have in mind?" />
-        <input type="image" id="search-icon" alt="no image"
-          src="./source/image/icons-search.svg" />
-      </div>
+      <form id="search-container">
+        <input type="search" id="search-bar" placeholder="What do you have in mind?" />
+        <input type="image" id="search-icon" alt="no image" src="./source/image/icons-search.svg" />
+      </form>
       <a href="/searchpage.html#favorites" id="fav-container">
         <img src="./source/image/icons8-favorite-folder-50.png"
-          alt="Favorite Icon">
+          alt="Favorite Icon" />
       </a>
     </nav>
   </header>
@@ -40,13 +38,27 @@
       <p id="matched-count-text">#number results</p>
     </div>
     <section id="recipe-cards"></section>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
   </main>
   <footer>
     <span>
+      <button id="webscrapper-btn" class="scrapper-hide">
+        <img src="./source/image/link.svg" alt="Create Recipe">
+      </button>
+      <button id="manual-btn" class="manual-hide">
+        <img src="./source/image/text.svg" alt="Create Recipe">
+      </button>
       <button id="create-recipe">
-        <img src="./source/image/icons8-plus-+.svg" alt="Create Recipe ">
+        <img id="create-recipe-image" src="./source/image/add_button_black.svg" alt="Create Recipe">
       </button>
     </span>
   </footer>
+  <script type="module" src="source/scripts/recipeCard.js"></script>
+  <script type="module" src="source/scripts/searchPage.js"></script>
+  <script type="module" src="source/scripts/main.js"></script>
 </body>
 </html>

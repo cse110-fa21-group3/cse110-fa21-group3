@@ -264,6 +264,7 @@ test('getRecipesCount Test', () => {
   global.localStorage.setItem('userData', JSON.stringify({
     favorites: ['345']
   }))
+  global.localStorage.setItem('latestSearch', JSON.stringify({}))
   expect(LSHandler.getRecipesCount()).toBe(2)
 })
 
@@ -273,6 +274,8 @@ test('getRandom Test', async () => {
   for (let i = 0; i < 10; i++) {
     global.localStorage.setItem(`${i}`, JSON.stringify(jsonData))
   }
-  const resultArr = LSHandler.getNRandomRecipes(2)
+  let resultArr = LSHandler.getNRandomRecipes(2)
   expect(resultArr.length).toBe(2)
+  resultArr = LSHandler.getNRandomRecipes(100)
+  expect(resultArr.length).toBe(10)
 })

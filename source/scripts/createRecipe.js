@@ -1,4 +1,5 @@
 import * as LSHandler from './API/localStorageHandler.js'
+import { generateUniqueID } from './API/utilityFunctions.js'
 
 const recipeImg = document.getElementById('recipe-img')
 let compressedImg // store base64 compressed image (string)
@@ -108,23 +109,24 @@ createRecipe.addEventListener('click', e => {
     image: '',
     favorite: true,
     readyInMinutes: 0,
-    servingSize: 0,
+    servingSize: 1,
     title: '',
     summary: '',
     ingredients: [],
-    ingredientSearch: '',
+    ingredientSearch: {},
     steps: [],
-    nutrition: []
+    nutrition: [],
+    dishTypes: []
   }
   const formData = document.getElementById('recipe-form')
   const formObj = new FormData(formData)
   const formKeys = Array.from(formObj.keys())
   const hash = window.location.hash
+  const title = formObj.get('title').toString().replace(/\s+/g, ' ')
 
   if (hash) {
     const currRecipe = JSON.parse(localStorage.getItem(hash.slice(1)))
     if (hash.slice(1, 4) === 'ucr') {
-      const title = formObj.get('title')
       if (title !== currRecipe.title) {
         localStorage.removeItem(hash.slice(1))
       }
@@ -132,11 +134,11 @@ createRecipe.addEventListener('click', e => {
     } else {
       formRes.id = currRecipe.id
       formRes.image = currRecipe.image
-      formRes.favorite = false
+      formRes.favorite = currRecipe.favorite
     }
   } else {
-    const title = formObj.get('title')
-    formRes.id = 'ucr_' + title.replaceAll(' ', '')
+    formRes.id = title.replaceAll(' ', '')
+    formRes.id = generateUniqueID(formRes.id)
     LSHandler.addFavoriteRecipe(formRes.id)
   }
 
@@ -155,16 +157,23 @@ createRecipe.addEventListener('click', e => {
     }
   })
 
-  formRes.ingredients.forEach(ing => {
-    formRes.ingredientSearch += ing
+  title.toLowerCase().split(' ').forEach(word => {
+    formRes.ingredientSearch[word] = 1
+  })
+  formRes.ingredients.forEach(ingredient => {
+    ingredient.split(' ').forEach(word => {
+      formRes.ingredientSearch[word] = 1
+    })
   })
 
   LSHandler.setLocalStorageItem(formRes.id, formRes)
-  window.location.href = '/index.html'
+  window.location.href = '/recipePage.html#' + formRes.id
 })
 
 cancelBtn.addEventListener('click', e => {
-  window.location.href = '/index.html'
+  if (confirm("Are you sure you want exit?\nYour changes won't be saved.")) {
+    window.location.href = '/index.html'
+  }
 })
 
 function populateRecipeForm (recipeData) {
@@ -203,7 +212,7 @@ function populateLists (recipeData) {
   ingInputs[numIng - 1].value = recipeData.ingredients[numIng - 1]
 
   // Steps fill-in
-  const numSteps = recipeData.steps.length - 1
+  const numSteps = recipeData.steps.length
   const stepInputs = document.getElementsByClassName('step-name')
   for (let i = 0; i < numSteps - 1; i++) {
     addStep.click()
