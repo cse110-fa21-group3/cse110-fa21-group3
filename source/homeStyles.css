@@ -14,6 +14,10 @@
   overflow: auto;
 }
 
+.recipe-cards:hover { 
+  cursor: pointer;
+}
+
 #update-preference {
   border-radius: 30%;
   width: 60px;
@@ -24,6 +28,12 @@
 
 #update-preference:hover {
   margin-bottom: 5px;
+  cursor: pointer;
+}
+
+#create-recipe:hover, #webscrapper-btn:hover, #manual-btn:hover, #my-favs:hover {
+  box-shadow: 0 0 10px grey;
+  cursor: pointer;
 }
 
 .recipe-cards::-webkit-scrollbar {
@@ -114,4 +124,5 @@ h2 {
 #refresh-btn:hover {
   transform: rotate(360deg);
   transition: 2s;
+  cursor: pointer;
 }

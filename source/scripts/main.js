@@ -22,8 +22,7 @@ document.getElementById('manual-btn').addEventListener('click', e => {
 })
 
 document.getElementById('webscrapper-btn').addEventListener('click', async (e) => {
-  console.log('webscrapper')
-  const url = prompt('Please enter an url for webscrapper')
+  const url = prompt('Please enter a url of a recipe and we will insert that recipe here: ')
   if (url != null) {
     const noSpace = url.split(' ').join('')
     const id = await util.webScrapper(noSpace)
@@ -32,7 +31,6 @@ document.getElementById('webscrapper-btn').addEventListener('click', async (e) =
 })
 
 document.getElementById('update-preference').addEventListener('click', (e) => {
-  console.log('update')
   localStorage.clear()
   window.location.reload()
 })

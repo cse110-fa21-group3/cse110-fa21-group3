@@ -17,13 +17,13 @@
     <nav>
       <div style="display: flex; align-items: center; gap: 20px;">
         <a href="/index.html"><img id="web-logo" src="./source/image/logo3_231x231.jpg" alt="Logo" width="80"
-          height="80"></a>
-        <button id="update-preference">
+          height="80" title = "Home Page"></a>
+        <button id="update-preference" title = "Reset Data">
           <img src="./source/image/tag-update.svg" alt="update-preferences"/>
         </button>
       </div>
       <a href="/searchpage.html#favorites" id="fav-container"><img src="./source/image/icons8-favorite-folder-50.png"
-        alt="Favorite Icon"></a>
+        title = "My Favorites" id = "my-favs" alt="Favorite Icon"></a>
     </nav>
   </header>
   <main>
@@ -37,7 +37,7 @@
     </div>
     <br>
     <h2 style="display: inline-block;"><pre>Explore   &#128073;</pre></h2>
-    <button type="button" id="refresh-btn">↻</button>
+    <button type="button" id="refresh-btn" title = "explore other recipes">↻</button>
     <div id="explore-loader" class="loader"></div>
     <section id="explore-recipes" class="recipe-cards"></section>
     <h2><pre>Main Dish   🍱</pre></h2>
@@ -54,10 +54,10 @@
     <br>
     <footer>
       <button id="webscrapper-btn" class="scrapper-hide">
-        <img src="./source/image/link.svg" alt="Create Recipe">
+        <img src="./source/image/link.svg" title = "Insert a Recipe" alt="Create Recipe">
       </button>
       <button id="manual-btn" class="manual-hide">
-        <img src="./source/image/text.svg" alt="Create Recipe">
+        <img src="./source/image/text.svg" title = "Create a Recipe" alt="Create Recipe">
       </button>
       <button id="create-recipe">
         <img id="create-recipe-image" src="./source/image/add_button_black.svg" alt="Create Recipe">

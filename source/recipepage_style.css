@@ -80,6 +80,11 @@ h2 {
   transform: translate(-50%, -50%) scale(1);
 }
 
+#favorite { 
+  box-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+
 /* recipe information */
 .recipe-info {
   margin-top: 1.5rem;
