@@ -11,6 +11,10 @@
 
 [Check out our most recent documentation for our JavaScript Files!](https://no-time-to-cook-docs.netlify.app/)
 
+[Check out our final video!](https://www.youtube.com/watch?v=FAJv7m4iheM)
+
+[Check out our private final video!](https://youtu.be/QmaMgZ6qzAM)
+
 ## Project Information
 - This is a recipe book site designed for college students to eat meals designed for them and be aware of what they are eating.
 - This recipe book also has a lot of cool features: setting intolerances and cook time, webscrapping, favoriting and CRUD functionality.
