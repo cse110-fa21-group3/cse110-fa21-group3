@@ -26,17 +26,14 @@
 - Branch name: relavent to issue at hand (ex. Spoonacular API functions - API-branch)
 - Followed kebab case naming convention
 - Deleted branches once merged to main
-- Kept main bug free 
+- Kept main bug free
 - Had multiple reviewers for code conflicts and testing of each branch before merging
 - ![Example of Branches](https://github.com/cse110-fa21-group3/cse110-fa21-group3/blob/main/admin/misc/branches.png)
 - ![Example of Branches](https://github.com/cse110-fa21-group3/cse110-fa21-group3/blob/main/admin/misc/branches2.png)
 
-
-
-
 ## Issue Tracking
 - Used and updated project board
-- Added new issues with tags for specific issues 
+- Added new issues with tags for specific issues
 - Assigned to specific teams (ex. HTML issues go to frontend tag)
 - Checked with CI/CD pipeline for failures
 - Encouraged team members to create issues whenever a bug is found
