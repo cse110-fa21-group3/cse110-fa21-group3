@@ -161,9 +161,7 @@ export function fetchRecipes (recipeCount, offset) {
  * @param {boolean} isWebScrapper
  */
 export async function createRecipeObject (r, isWebScrapper = false) {
-  if (!r) {
-    throw new Error('Undefined Recipe Found')
-  }
+  if (!r) { throw new Error('Undefined Recipe Found') }
 
   let id = r.id
   if (isWebScrapper) {
