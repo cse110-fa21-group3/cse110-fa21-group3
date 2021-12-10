@@ -28,7 +28,9 @@
 - Deleted branches once merged to main
 - Kept main bug free 
 - Had multiple reviewers for code conflicts and testing of each branch before merging
-- [!Example of Branches]()
+- ![Example of Branches](https://github.com/cse110-fa21-group3/cse110-fa21-group3/blob/main/admin/misc/branches.png)
+- ![Example of Branches](https://github.com/cse110-fa21-group3/cse110-fa21-group3/blob/main/admin/misc/branches2.png)
+
 
 
 
