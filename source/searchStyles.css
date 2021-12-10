@@ -16,7 +16,9 @@ hr {
   color: gray;
 }
 
-#create-recipe:hover, #manual-btn:hover, #webscrapper-btn:hover {
+#create-recipe:hover, 
+#manual-btn:hover, 
+#webscrapper-btn:hover {
   box-shadow: 0 0 10px grey;
   cursor: pointer;
 }

@@ -75,7 +75,7 @@ h2 {
   transform: translate(-50%, -50%) scale(1);
 }
 
-#favorite { 
+#favorite {
   box-shadow: 0 0 10px grey;
   cursor: pointer;
   margin-top: 2rem;
