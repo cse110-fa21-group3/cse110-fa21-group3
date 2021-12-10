@@ -13,7 +13,7 @@
 
 [Check out our final video!](https://www.youtube.com/watch?v=FAJv7m4iheM)
 
-[Check out our private final video!](https://youtu.be/QmaMgZ6qzAM)
+[Check out our private final video!](https://www.youtube.com/watch?v=hJxbB2MhFrw)
 
 ## Project Information
 - This is a recipe book site designed for college students to eat meals designed for them and be aware of what they are eating.
