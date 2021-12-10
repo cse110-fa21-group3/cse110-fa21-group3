@@ -5,7 +5,7 @@
 ![Code Coverage: (badge)](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/martintsangxd/00d59204d52764d9c43a7f83d415e8a2/raw/coverage.json)
 
 ## Project Information
-- This is a recipe book website designed for college students to eat meals designed for them and be aware of what they are eating.
+- This is a recipe book site designed for college students to eat meals designed for them and be aware of what they are eating.
 - This recipe book also has a lot of cool features: setting intolerances and cook time, webscrapping, favoriting and CRUD functionality.
 
 ## How to Run
@@ -13,12 +13,12 @@
 - Enter in intolerances and preferred cook time (max time).
 - If you want to change them, press the tag button to update preferences in the home page.
 - Explore recipes on the home page or feel free to search for specific recipes.
-- If users wish to create recipes they have two choices: manually or automatically from another website.
+- If users wish to create recipes they have two choices: manually or automatically from another site.
 - Click the heart button on the top right of each recipe to favorite and save them into a dedicated favorites folder.
 - Most importantly, have fun and enjoy your meal.
 
 ## Coding Conventions
-- Followed standard javascript and Super Linter format
+- Followed standard JavaScript and Super Linter format
 - Valididated HTML and CSS
 - Kept everyone on the same page for formatting and code styling (from Code Climate)
 
