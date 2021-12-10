@@ -1,17 +1,7 @@
 import * as localStorageHandler from './localStorageHandler.js'
-
-let serverURL;
-
-fetch(".netlify/functions/api.js")
-.then(response => response.json())
-.then(json => {
-    serverURL = json.api;
-})
-
-console.log(serverURL)
+import API_KEY from './api.js'
 
 // API Key and endpoint
-const API_KEY = process.env.API_KEY
 // const API_KEY = '6c38415312msh8fd80bab0f17271p1dcefajsn83892f0c646f'
 const API_ENDPOINT = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
 
