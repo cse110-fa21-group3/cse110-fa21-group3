@@ -61,9 +61,15 @@ jobs:
           message: ${{ env.COVERAGE }}
           color: green
           namedLogo: jest
-          
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+
+      - name: 'Deploy to Netlify'
+        uses: jsmrcaga/action-netlify-deploy@v1.1.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out
+          NETLIFY_AUTH_TOKEN: MvDdPDYG9raP3grczeqqip5_d70T8h1OcdUmBjWuPlI
+          NETLIFY_DEPLOY_TO_PROD: true
+      
+      #- name: Deploy
+      #  uses: peaceiris/actions-gh-pages@v3
+      #  with:
+      #    github_token: ${{ secrets.GITHUB_TOKEN }}
+      #    publish_dir: ./out
