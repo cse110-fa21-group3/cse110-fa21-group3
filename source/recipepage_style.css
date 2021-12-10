@@ -47,11 +47,6 @@ h2 {
   padding: 1rem;
 }
 
-#favorite {
-  margin-top: 2rem;
-  margin-right: 3rem;
-}
-
 #favorite::before {
   font-size: 6em;
   color: var(--black);
@@ -78,6 +73,13 @@ h2 {
 
 #favorite.liked::after {
   transform: translate(-50%, -50%) scale(1);
+}
+
+#favorite {
+  box-shadow: 0 0 10px grey;
+  cursor: pointer;
+  margin-top: 2rem;
+  margin-right: 3rem;
 }
 
 /* recipe information */

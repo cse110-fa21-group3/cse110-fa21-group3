@@ -24,6 +24,27 @@
 
 #update-preference:hover {
   margin-bottom: 5px;
+  cursor: pointer;
+}
+
+#my-favs:hover {
+  box-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+
+#create-recipe:hover {
+  box-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+
+#manual-btn:hover {
+  box-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+
+#webscrapper-btn:hover {
+  box-shadow: 0 0 10px grey;
+  cursor: pointer;
 }
 
 .recipe-cards::-webkit-scrollbar {
@@ -43,6 +64,10 @@
   border-radius: 1rem;
   background: transparent;
   overflow: auto;
+}
+
+.recipe-cards:hover {
+  cursor: pointer;
 }
 
 #search-query {
@@ -114,4 +139,5 @@ h2 {
 #refresh-btn:hover {
   transform: rotate(360deg);
   transition: 2s;
+  cursor: pointer;
 }

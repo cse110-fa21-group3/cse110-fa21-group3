@@ -22,7 +22,6 @@ document.getElementById('manual-btn').addEventListener('click', e => {
 })
 
 document.getElementById('webscrapper-btn').addEventListener('click', async (e) => {
-  console.log('webscrapper')
   const url = prompt('Link To Any Recipe You Found On Search Engines:')
   if (url != null) {
     const noSpace = url.split(' ').join('')
@@ -32,7 +31,6 @@ document.getElementById('webscrapper-btn').addEventListener('click', async (e) =
 })
 
 document.getElementById('update-preference').addEventListener('click', (e) => {
-  console.log('update')
   localStorage.clear()
   window.location.reload()
 })
