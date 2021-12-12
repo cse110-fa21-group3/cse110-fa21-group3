@@ -2,7 +2,7 @@ import * as LSHandler from './API/localStorageHandler.js'
 import { generateUniqueID } from './API/utilityFunctions.js'
 
 const recipeImg = document.getElementById('recipe-img')
-let compressedImg // store base64 compressed image (string)
+let compressedImg // storing base64 compressed image (string)
 
 const addIng = document.getElementById('add-ing')
 const addStep = document.getElementById('add-step')
